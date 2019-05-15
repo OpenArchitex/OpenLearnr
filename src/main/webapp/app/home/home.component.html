@@ -3,13 +3,14 @@
         <span class="hipster img-fluid rounded"></span>
     </div>
     <div class="col-md-9">
-        <h1 class="display-4">Welcome, Java Hipster!</h1>
+        <h1 class="display-4"><span  *ngIf="account && isAuthenticated(); then thenBlock else elseBlock"></span></h1>
+        <ng-template #thenBlock>Welcome, {{account.login | titlecase}}!</ng-template>
+        <ng-template #elseBlock>Welcome to OnlineTutor!</ng-template>
         <p class="lead">This is your homepage</p>
 
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-success" *ngSwitchCase="true">
-                <span *ngIf="account"
-                   > You are logged in as user "{{account.login}}". </span>
+                <span *ngIf="account"> You are logged in as user "{{account.login | titlecase}}". </span>
             </div>
 
             <div class="alert alert-warning" *ngSwitchCase="false">
@@ -35,7 +36,7 @@
         </ul>
 
         <p>
-            <span>If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener">GitHub</a>!
+            <span>If you like OnlineTutor, don't forget to give us a star on</span> <a href="https://github.com/SudharakaP/OnlineTutor" target="_blank" rel="noopener">GitHub</a>!
         </p>
     </div>
 </div>

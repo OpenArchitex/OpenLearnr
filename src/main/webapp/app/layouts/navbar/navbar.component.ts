@@ -4,7 +4,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { VERSION } from 'app/app.constants';
 import { Principal, LoginModalService, LoginService } from 'app/core';
-import { ProfileService } from '../profiles/profile.service';
+import { ProfileService } from 'app/layouts';
 
 @Component({
     selector: 'jhi-navbar',
