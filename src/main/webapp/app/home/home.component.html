@@ -1,42 +1,44 @@
-<div class="row">
-    <div class="col-md-3">
-        <span class="hipster img-fluid rounded"></span>
+<div class="col-md-12 hipster jumbotron">
+    <h1 class="display-4">Welcome to OnlineTutor!</h1>
+    <p class="lead">There is only one good, knowledge, and one evil, ignorance.</p>
+
+    <p>OnlineTutor is a personalized tutoring platform especially aimed for Students and Teachers. Teachers can upload and manage their courses while students can gain valuable skills and knowledge!</p>
+
+    <div *ngIf="!isAuthenticated()">
+        <p>You don't have an account yet? Register for Free!</p>
+        <button type="button" class="btn btn-primary btn-md" (click)=login()>Sign-In</button>
+        <button type="button" class="btn btn-primary btn-md" routerLink="register">Register</button>
     </div>
-    <div class="col-md-9">
-        <h1 class="display-4"><span  *ngIf="account && isAuthenticated(); then thenBlock else elseBlock"></span></h1>
-        <ng-template #thenBlock>Welcome, {{account.login | titlecase}}!</ng-template>
-        <ng-template #elseBlock>Welcome to OnlineTutor!</ng-template>
-        <p class="lead">This is your homepage</p>
-
-        <div [ngSwitch]="isAuthenticated()">
-            <div class="alert alert-success" *ngSwitchCase="true">
-                <span *ngIf="account"> You are logged in as user "{{account.login | titlecase}}". </span>
-            </div>
-
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>If you want to </span>
-                <a class="alert-link" (click)="login()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
-            </div>
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>You don't have an account yet?</span>&nbsp;
-                <a class="alert-link" routerLink="register">Register a new account</a>
+</div>
+<div class="container">
+    <h3 class="mb-3">Why Choose Us</h3>
+    <div class="row">
+        <div class="col-md-4 col-12">
+            <div class="card">
+                <img class="card-img-top" alt="" src="../../content/images/quality_video.svg">
+                <div class="card-body">
+                    <h5 class="card-title">Quality Lecture Videos</h5>
+                    <p class="card-text">High quality lecture videos with in lecture demonstrations/lab exercises which help students see what is being taught in action.</p>
+                </div>
             </div>
         </div>
-
-        <p>
-            If you have any question on JHipster:
-        </p>
-
-        <ul>
-            <li><a href="https://www.jhipster.tech/" target="_blank" rel="noopener">JHipster homepage</a></li>
-            <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener">JHipster on Stack Overflow</a></li>
-            <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener">JHipster bug tracker</a></li>
-            <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener">JHipster public chat room</a></li>
-            <li><a href="https://twitter.com/java_hipster" target="_blank" rel="noopener">follow @java_hipster on Twitter</a></li>
-        </ul>
-
-        <p>
-            <span>If you like OnlineTutor, don't forget to give us a star on</span> <a href="https://github.com/SudharakaP/OnlineTutor" target="_blank" rel="noopener">GitHub</a>!
-        </p>
+        <div class="col-md-4 col-12">
+            <div class="card">
+                <img class="card-img-top" alt="" src="../../content/images/experienced_instructors.svg">
+                <div class="card-body">
+                    <h5 class="card-title">Experienced Instructors</h5>
+                    <p class="card-text">Experienced instructors with years of experience in teaching and preparing students for exams.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-12">
+            <div class="card">
+                <img class="card-img-top" alt="" src="../../content/images/one_to_one_help.svg">
+                <div class="card-body">
+                    <h5 class="card-title">One to One Help</h5>
+                    <p class="card-text">Discussion boards to engage with other students and instructors to help understand the lectures thoroughly.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
