@@ -1,5 +1,5 @@
 import { browser } from 'protractor';
-import { NavBarPage } from '../../page-objects/jhi-page-objects';
+import { NavBarPage } from './../../page-objects/jhi-page-objects';
 import { VideoComponentsPage, VideoUpdatePage } from './video.page-object';
 
 describe('Video e2e test', () => {
@@ -36,8 +36,8 @@ describe('Video e2e test', () => {
         expect(videoUpdatePage.getEpisodeInput()).toMatch('5');
         videoUpdatePage.setUrlInput('url');
         expect(videoUpdatePage.getUrlInput()).toMatch('url');
-        videoUpdatePage.setCourseIDInput('5');
-        expect(videoUpdatePage.getCourseIDInput()).toMatch('5');
+        videoUpdatePage.setCourseIDInput('courseID');
+        expect(videoUpdatePage.getCourseIDInput()).toMatch('courseID');
         videoUpdatePage.save();
         expect(videoUpdatePage.getSaveButton().isPresent()).toBeFalsy();
     });

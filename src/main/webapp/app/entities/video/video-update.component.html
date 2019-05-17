@@ -48,16 +48,12 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_courseID">Course ID</label>
-                    <input type="number" class="form-control" name="courseID" id="field_courseID"
+                    <input type="text" class="form-control" name="courseID" id="field_courseID"
                         [(ngModel)]="video.courseID" required/>
                     <div [hidden]="!(editForm.controls.courseID?.dirty && editForm.controls.courseID?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.courseID?.errors?.required">
                         This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.courseID?.errors?.number">
-                            This field should be a number.
                         </small>
                     </div>
                 </div>

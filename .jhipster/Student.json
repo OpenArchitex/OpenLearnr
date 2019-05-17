@@ -2,7 +2,7 @@
     "name": "Student",
     "fields": [
         {
-            "fieldName": "userId",
+            "fieldName": "userID",
             "fieldType": "Integer",
             "fieldValidateRules": [
                 "required"

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse} from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { IVideo } from 'app/shared/model/video.model';
@@ -37,7 +37,7 @@ export class VideoUpdateComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IVideo>>) {
-        result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+        result.subscribe((res: HttpResponse<IVideo>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess() {

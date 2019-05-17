@@ -21,7 +21,7 @@ public class Student implements Serializable {
 
     @NotNull
     @Field("user_id")
-    private Integer userId;
+    private Integer userID;
 
     @NotNull
     @Field("last_watched_video")
@@ -40,17 +40,17 @@ public class Student implements Serializable {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public Student userId(Integer userId) {
-        this.userId = userId;
+    public Student userID(Integer userID) {
+        this.userID = userID;
         return this;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public String getLastWatchedVideo() {
@@ -104,7 +104,7 @@ public class Student implements Serializable {
     public String toString() {
         return "Student{" +
             "id=" + getId() +
-            ", userId=" + getUserId() +
+            ", userID=" + getUserID() +
             ", lastWatchedVideo='" + getLastWatchedVideo() + "'" +
             ", lastWatchedVideoTime=" + getLastWatchedVideoTime() +
             "}";

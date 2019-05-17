@@ -24,7 +24,7 @@
         },
         {
             "fieldName": "courseID",
-            "fieldType": "Integer",
+            "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]

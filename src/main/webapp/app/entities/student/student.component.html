@@ -15,7 +15,7 @@
             <thead>
             <tr>
             <th><span>ID</span></th>
-            <th><span>User Id</span></th>
+            <th><span>User ID</span></th>
             <th><span>Last Watched Video</span></th>
             <th><span>Last Watched Video Time</span></th>
             <th></th>
@@ -24,7 +24,7 @@
             <tbody>
             <tr *ngFor="let student of students ;trackBy: trackId">
                 <td><a [routerLink]="['/student', student.id, 'view' ]">{{student.id}}</a></td>
-                <td>{{student.userId}}</td>
+                <td>{{student.userID}}</td>
                 <td>{{student.lastWatchedVideo}}</td>
                 <td>{{student.lastWatchedVideoTime}}</td>
                 <td class="text-right">

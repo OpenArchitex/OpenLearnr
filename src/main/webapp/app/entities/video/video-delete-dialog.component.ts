@@ -21,7 +21,7 @@ export class VideoDeleteDialogComponent {
     }
 
     confirmDelete(id: string) {
-        this.videoService.delete(id).subscribe(() => {
+        this.videoService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'videoListModification',
                 content: 'Deleted an video'
@@ -46,11 +46,11 @@ export class VideoDeletePopupComponent implements OnInit, OnDestroy {
                 this.ngbModalRef = this.modalService.open(VideoDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
                 this.ngbModalRef.componentInstance.video = video;
                 this.ngbModalRef.result.then(
-                    () => {
+                    result => {
                         this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
                         this.ngbModalRef = null;
                     },
-                    () => {
+                    reason => {
                         this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
                         this.ngbModalRef = null;
                     }

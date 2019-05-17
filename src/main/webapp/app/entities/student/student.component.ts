@@ -49,7 +49,7 @@ export class StudentComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInStudents() {
-        this.eventSubscriber = this.eventManager.subscribe('studentListModification', () => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('studentListModification', response => this.loadAll());
     }
 
     private onError(errorMessage: string) {

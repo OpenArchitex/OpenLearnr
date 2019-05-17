@@ -49,7 +49,7 @@ export class VideoComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInVideos() {
-        this.eventSubscriber = this.eventManager.subscribe('videoListModification', () => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('videoListModification', response => this.loadAll());
     }
 
     private onError(errorMessage: string) {

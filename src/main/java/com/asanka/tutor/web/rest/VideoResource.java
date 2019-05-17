@@ -51,7 +51,7 @@ public class VideoResource {
         }
         Video result = videoService.save(video);
         return ResponseEntity.created(new URI("/api/videos/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -62,17 +62,18 @@ public class VideoResource {
      * @return the ResponseEntity with status 200 (OK) and with body the updated video,
      * or with status 400 (Bad Request) if the video is not valid,
      * or with status 500 (Internal Server Error) if the video couldn't be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/videos")
     @Timed
-    public ResponseEntity<Video> updateVideo(@Valid @RequestBody Video video) {
+    public ResponseEntity<Video> updateVideo(@Valid @RequestBody Video video) throws URISyntaxException {
         log.debug("REST request to update Video : {}", video);
         if (video.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Video result = videoService.save(video);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, video.getId()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, video.getId().toString()))
             .body(result);
     }
 

@@ -10,16 +10,16 @@
                         [(ngModel)]="student.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_userId">User Id</label>
-                    <input type="number" class="form-control" name="userId" id="field_userId"
-                        [(ngModel)]="student.userId" required/>
-                    <div [hidden]="!(editForm.controls.userId?.dirty && editForm.controls.userId?.invalid)">
+                    <label class="form-control-label" for="field_userID">User ID</label>
+                    <input type="number" class="form-control" name="userID" id="field_userID"
+                        [(ngModel)]="student.userID" required/>
+                    <div [hidden]="!(editForm.controls.userID?.dirty && editForm.controls.userID?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.userId?.errors?.required">
+                        [hidden]="!editForm.controls.userID?.errors?.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.userId?.errors?.number">
+                            [hidden]="!editForm.controls.userID?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>

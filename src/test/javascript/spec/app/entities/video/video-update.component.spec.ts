@@ -1,7 +1,7 @@
 /* tslint:disable max-line-length */
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { OnlineTutorTestModule } from '../../../test.module';
 import { VideoUpdateComponent } from 'app/entities/video/video-update.component';

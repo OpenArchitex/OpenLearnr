@@ -21,7 +21,7 @@ export class StudentDeleteDialogComponent {
     }
 
     confirmDelete(id: string) {
-        this.studentService.delete(id).subscribe(() => {
+        this.studentService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'studentListModification',
                 content: 'Deleted an student'
@@ -46,11 +46,11 @@ export class StudentDeletePopupComponent implements OnInit, OnDestroy {
                 this.ngbModalRef = this.modalService.open(StudentDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
                 this.ngbModalRef.componentInstance.student = student;
                 this.ngbModalRef.result.then(
-                    () => {
+                    result => {
                         this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
                         this.ngbModalRef = null;
                     },
-                    () => {
+                    reason => {
                         this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
                         this.ngbModalRef = null;
                     }

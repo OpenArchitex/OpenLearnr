@@ -1,5 +1,5 @@
 import { browser } from 'protractor';
-import { NavBarPage } from '../../page-objects/jhi-page-objects';
+import { NavBarPage } from './../../page-objects/jhi-page-objects';
 import { StudentComponentsPage, StudentUpdatePage } from './student.page-object';
 
 describe('Student e2e test', () => {
@@ -30,8 +30,8 @@ describe('Student e2e test', () => {
 
     it('should create and save Students', () => {
         studentComponentsPage.clickOnCreateButton();
-        studentUpdatePage.setUserIdInput('5');
-        expect(studentUpdatePage.getUserIdInput()).toMatch('5');
+        studentUpdatePage.setUserIDInput('5');
+        expect(studentUpdatePage.getUserIDInput()).toMatch('5');
         studentUpdatePage.setLastWatchedVideoInput('lastWatchedVideo');
         expect(studentUpdatePage.getLastWatchedVideoInput()).toMatch('lastWatchedVideo');
         studentUpdatePage.setLastWatchedVideoTimeInput('5');

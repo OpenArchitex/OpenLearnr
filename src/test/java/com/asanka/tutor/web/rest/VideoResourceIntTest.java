@@ -47,8 +47,8 @@ public class VideoResourceIntTest {
     private static final String DEFAULT_URL = "AAAAAAAAAA";
     private static final String UPDATED_URL = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_COURSE_ID = 1;
-    private static final Integer UPDATED_COURSE_ID = 2;
+    private static final String DEFAULT_COURSE_ID = "AAAAAAAAAA";
+    private static final String UPDATED_COURSE_ID = "BBBBBBBBBB";
 
     @Autowired
     private VideoRepository videoRepository;
@@ -89,11 +89,12 @@ public class VideoResourceIntTest {
      * if they test an entity which requires the current entity.
      */
     public static Video createEntity() {
-        return new Video()
+        Video video = new Video()
             .name(DEFAULT_NAME)
             .episode(DEFAULT_EPISODE)
             .url(DEFAULT_URL)
             .courseID(DEFAULT_COURSE_ID);
+        return video;
     }
 
     @Before
@@ -218,10 +219,10 @@ public class VideoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(video.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].episode").value(hasItem(DEFAULT_EPISODE)))
-            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
-            .andExpect(jsonPath("$.[*].courseID").value(hasItem(DEFAULT_COURSE_ID)));
+            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL.toString())))
+            .andExpect(jsonPath("$.[*].courseID").value(hasItem(DEFAULT_COURSE_ID.toString())));
     }
     
 
@@ -235,10 +236,10 @@ public class VideoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(video.getId()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.episode").value(DEFAULT_EPISODE))
-            .andExpect(jsonPath("$.url").value(DEFAULT_URL))
-            .andExpect(jsonPath("$.courseID").value(DEFAULT_COURSE_ID));
+            .andExpect(jsonPath("$.url").value(DEFAULT_URL.toString()))
+            .andExpect(jsonPath("$.courseID").value(DEFAULT_COURSE_ID.toString()));
     }
     @Test
     public void getNonExistingVideo() throws Exception {

@@ -51,7 +51,7 @@ public class StudentResource {
         }
         Student result = studentService.save(student);
         return ResponseEntity.created(new URI("/api/students/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -62,17 +62,18 @@ public class StudentResource {
      * @return the ResponseEntity with status 200 (OK) and with body the updated student,
      * or with status 400 (Bad Request) if the student is not valid,
      * or with status 500 (Internal Server Error) if the student couldn't be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/students")
     @Timed
-    public ResponseEntity<Student> updateStudent(@Valid @RequestBody Student student) {
+    public ResponseEntity<Student> updateStudent(@Valid @RequestBody Student student) throws URISyntaxException {
         log.debug("REST request to update Student : {}", student);
         if (student.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Student result = studentService.save(student);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, student.getId()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, student.getId().toString()))
             .body(result);
     }
 

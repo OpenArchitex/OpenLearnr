@@ -33,7 +33,7 @@ public class Video implements Serializable {
 
     @NotNull
     @Field("course_id")
-    private Integer courseID;
+    private String courseID;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -83,16 +83,16 @@ public class Video implements Serializable {
         this.url = url;
     }
 
-    public Integer getCourseID() {
+    public String getCourseID() {
         return courseID;
     }
 
-    public Video courseID(Integer courseID) {
+    public Video courseID(String courseID) {
         this.courseID = courseID;
         return this;
     }
 
-    public void setCourseID(Integer courseID) {
+    public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
@@ -124,7 +124,7 @@ public class Video implements Serializable {
             ", name='" + getName() + "'" +
             ", episode=" + getEpisode() +
             ", url='" + getUrl() + "'" +
-            ", courseID=" + getCourseID() +
+            ", courseID='" + getCourseID() + "'" +
             "}";
     }
 }

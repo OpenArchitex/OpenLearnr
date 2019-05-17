@@ -8,11 +8,11 @@ entity Video {
 	name String required
     episode Integer required
     url String required
-    courseID Integer required
+    courseID String required
 }
 
 entity Student {
-	userId Integer required
+	userID Integer required
     lastWatchedVideo String required
     lastWatchedVideoTime Float required
 }
