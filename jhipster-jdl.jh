@@ -1,0 +1,21 @@
+entity Course {
+	id Integer required
+	name String required
+}
+
+entity Video {
+	id Integer required
+	name String required
+    episode Integer required
+    url String required
+    courseID Integer required
+}
+
+entity Student {
+	userId Integer required
+    lastWatchedVideo String required
+    lastWatchedVideoTime Float required
+}
+
+// Set service options to all except few
+service all with serviceImpl
