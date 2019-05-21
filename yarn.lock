@@ -28,21 +28,19 @@
     "@angular-devkit/core" "0.6.0"
     rxjs "^6.0.0"
 
-"@angular/animations@^7.2.15":
-  version "7.2.15"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.2.15.tgz#980c1f523a79d4b7cb44508f57fba06f2e0872fa"
-  integrity sha512-8oBt3HLgd2+kyJHUgsd7OzKCCss67t2sch15XNoIWlOLfxclqU+EfFE6t/vCzpT8/+lpZS6LU9ZrTnb+UBj5jg==
+"@angular/animations@^6.1.10":
+  version "6.1.10"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-6.1.10.tgz#4ab9b9a6c25e0cca781588700daa9efc33a722e4"
+  integrity sha512-dd/lq7kw3uwfHPICan8psu2nthuUpp7PvMLuNIm0XxObZ4oNs0ls6uxKEDPnEkRKoGdiJpvmsyzZZN9ACMPEAA==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/cdk@^7.3.7":
-  version "7.3.7"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-7.3.7.tgz#ce1ad53ba04beb9c8e950acc5691ea0143753764"
-  integrity sha512-xbXxhHHKGkVuW6K7pzPmvpJXIwpl0ykBnvA2g+/7Sgy5Pd35wCC+UtHD9RYczDM/mkygNxMQtagyCErwFnDtQA==
+"@angular/cdk@6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.4.7.tgz#1549b304dd412e82bd854cc55a7d5c6772ee0411"
+  integrity sha512-18x0U66fLD5kGQWZ9n3nb75xQouXlWs7kUDaTd8HTrHpT1s2QIAqlLd1KxfrYiVhsEC2jPQaoiae7VnBlcvkBg==
   dependencies:
     tslib "^1.7.1"
-  optionalDependencies:
-    parse5 "^5.0.0"
 
 "@angular/cli@6.0.0":
   version "6.0.0"
@@ -100,12 +98,14 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/material@^7.3.7":
-  version "7.3.7"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-7.3.7.tgz#dcd95e6618ba6254c5880efee1aad349cf5b9140"
-  integrity sha512-Eq+7frkeNGkLOfEtmkmJgR+AgoWajOipXZWWfCSamNfpCcPof82DwvGOpAmgGni9FuN2XFQdqP5MoaffQzIvUA==
+"@angular/material@6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-6.4.7.tgz#3c8f2d6a6a7904d97be29e06a84ffb62a8da6c16"
+  integrity sha512-SdNx7Xovi24Kw9eU6lkLhY/7f2M7L9F+/uh6XuPr4jbGgCUVVpeeVI5ztZhsZRbj1sN+/r1p5w8u62apWWl5Ww==
   dependencies:
     tslib "^1.7.1"
+  optionalDependencies:
+    parse5 "^5.0.0"
 
 "@angular/platform-browser-dynamic@6.0.0":
   version "6.0.0"
