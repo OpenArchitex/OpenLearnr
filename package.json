@@ -8,7 +8,7 @@
     "node_modules"
   ],
   "dependencies": {
-    "@angular/animations": "^6.1.10",
+    "@angular/animations": "6.0.5",
     "@angular/cdk": "6.4.7",
     "@angular/common": "6.0.0",
     "@angular/compiler": "6.0.0",
