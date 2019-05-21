@@ -18,6 +18,7 @@ import { OnlineTutorAccountModule } from './account/account.module';
 import { OnlineTutorEntityModule } from './entities/entity.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         OnlineTutorCoreModule,
         OnlineTutorHomeModule,
         OnlineTutorAccountModule,
-        OnlineTutorEntityModule
+        OnlineTutorEntityModule,
+        BrowserAnimationsModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
