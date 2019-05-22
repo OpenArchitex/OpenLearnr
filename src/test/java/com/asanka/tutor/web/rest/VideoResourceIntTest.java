@@ -44,6 +44,9 @@ public class VideoResourceIntTest {
     private static final Integer DEFAULT_EPISODE = 1;
     private static final Integer UPDATED_EPISODE = 2;
 
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
     private static final String DEFAULT_URL = "AAAAAAAAAA";
     private static final String UPDATED_URL = "BBBBBBBBBB";
 
@@ -92,6 +95,7 @@ public class VideoResourceIntTest {
         Video video = new Video()
             .name(DEFAULT_NAME)
             .episode(DEFAULT_EPISODE)
+            .description(DEFAULT_DESCRIPTION)
             .url(DEFAULT_URL)
             .courseID(DEFAULT_COURSE_ID);
         return video;
@@ -119,6 +123,7 @@ public class VideoResourceIntTest {
         Video testVideo = videoList.get(videoList.size() - 1);
         assertThat(testVideo.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testVideo.getEpisode()).isEqualTo(DEFAULT_EPISODE);
+        assertThat(testVideo.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testVideo.getUrl()).isEqualTo(DEFAULT_URL);
         assertThat(testVideo.getCourseID()).isEqualTo(DEFAULT_COURSE_ID);
     }
@@ -163,6 +168,23 @@ public class VideoResourceIntTest {
         int databaseSizeBeforeTest = videoRepository.findAll().size();
         // set the field null
         video.setEpisode(null);
+
+        // Create the Video, which fails.
+
+        restVideoMockMvc.perform(post("/api/videos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .andExpect(status().isBadRequest());
+
+        List<Video> videoList = videoRepository.findAll();
+        assertThat(videoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    public void checkDescriptionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = videoRepository.findAll().size();
+        // set the field null
+        video.setDescription(null);
 
         // Create the Video, which fails.
 
@@ -221,6 +243,7 @@ public class VideoResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(video.getId())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].episode").value(hasItem(DEFAULT_EPISODE)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL.toString())))
             .andExpect(jsonPath("$.[*].courseID").value(hasItem(DEFAULT_COURSE_ID.toString())));
     }
@@ -238,6 +261,7 @@ public class VideoResourceIntTest {
             .andExpect(jsonPath("$.id").value(video.getId()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.episode").value(DEFAULT_EPISODE))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.url").value(DEFAULT_URL.toString()))
             .andExpect(jsonPath("$.courseID").value(DEFAULT_COURSE_ID.toString()));
     }
@@ -260,6 +284,7 @@ public class VideoResourceIntTest {
         updatedVideo
             .name(UPDATED_NAME)
             .episode(UPDATED_EPISODE)
+            .description(UPDATED_DESCRIPTION)
             .url(UPDATED_URL)
             .courseID(UPDATED_COURSE_ID);
 
@@ -274,6 +299,7 @@ public class VideoResourceIntTest {
         Video testVideo = videoList.get(videoList.size() - 1);
         assertThat(testVideo.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testVideo.getEpisode()).isEqualTo(UPDATED_EPISODE);
+        assertThat(testVideo.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testVideo.getUrl()).isEqualTo(UPDATED_URL);
         assertThat(testVideo.getCourseID()).isEqualTo(UPDATED_COURSE_ID);
     }

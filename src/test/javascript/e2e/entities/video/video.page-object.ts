@@ -19,6 +19,7 @@ export class VideoUpdatePage {
     cancelButton = element(by.id('cancel-save'));
     nameInput = element(by.id('field_name'));
     episodeInput = element(by.id('field_episode'));
+    descriptionInput = element(by.id('field_description'));
     urlInput = element(by.id('field_url'));
     courseIDInput = element(by.id('field_courseID'));
 
@@ -40,6 +41,14 @@ export class VideoUpdatePage {
 
     getEpisodeInput() {
         return this.episodeInput.getAttribute('value');
+    }
+
+    setDescriptionInput(description): promise.Promise<void> {
+        return this.descriptionInput.sendKeys(description);
+    }
+
+    getDescriptionInput() {
+        return this.descriptionInput.getAttribute('value');
     }
 
     setUrlInput(url): promise.Promise<void> {

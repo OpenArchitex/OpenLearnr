@@ -34,6 +34,8 @@ describe('Video e2e test', () => {
         expect(videoUpdatePage.getNameInput()).toMatch('name');
         videoUpdatePage.setEpisodeInput('5');
         expect(videoUpdatePage.getEpisodeInput()).toMatch('5');
+        videoUpdatePage.setDescriptionInput('description');
+        expect(videoUpdatePage.getDescriptionInput()).toMatch('description');
         videoUpdatePage.setUrlInput('url');
         expect(videoUpdatePage.getUrlInput()).toMatch('url');
         videoUpdatePage.setCourseIDInput('courseID');
