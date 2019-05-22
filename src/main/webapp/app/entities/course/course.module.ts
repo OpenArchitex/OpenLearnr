@@ -12,12 +12,13 @@ import {
     courseRoute,
     coursePopupRoute
 } from './';
+import {SafePipe} from "app/entities/course/SafePipe";
 
 const ENTITY_STATES = [...courseRoute, ...coursePopupRoute];
 
 @NgModule({
     imports: [OnlineTutorSharedModule, RouterModule.forChild(ENTITY_STATES), MatSidenavModule, MatListModule, MatToolbarModule, MatButtonModule],
-    declarations: [CourseComponent, CourseDetailComponent, CourseUpdateComponent, CourseDeleteDialogComponent, CourseDeletePopupComponent],
+    declarations: [CourseComponent, CourseDetailComponent, CourseUpdateComponent, CourseDeleteDialogComponent, CourseDeletePopupComponent, SafePipe],
     entryComponents: [CourseComponent, CourseUpdateComponent, CourseDeleteDialogComponent, CourseDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

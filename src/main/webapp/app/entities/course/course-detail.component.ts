@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ICourse } from 'app/shared/model/course.model';
@@ -6,7 +6,7 @@ import { IVideo } from 'app/shared/model/video.model';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { VideoService } from 'app/entities/video';
 import { JhiAlertService } from 'ng-jhipster';
-import {DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'jhi-course-detail',

@@ -23,7 +23,7 @@
 
             <mat-drawer-content>
                 <div class="embed-responsive embed-responsive-16by9" *ngIf="clickedVideo != null">
-                    <iframe class="embed-responsive-item" [src]=getSafeURL(clickedVideo.url) allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" [src]='clickedVideo.url | safe' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </mat-drawer-content>
         </mat-drawer-container>
