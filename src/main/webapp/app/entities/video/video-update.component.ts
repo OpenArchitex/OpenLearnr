@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 
 import { IVideo } from 'app/shared/model/video.model';
 import { VideoService } from './video.service';
+import {ICourse} from 'app/shared/model/course.model';
+import {CourseService} from 'app/entities/course';
+import {JhiAlertService} from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-video-update',
@@ -12,15 +15,32 @@ import { VideoService } from './video.service';
 })
 export class VideoUpdateComponent implements OnInit {
     private _video: IVideo;
+    private courses: ICourse[];
     isSaving: boolean;
 
-    constructor(private videoService: VideoService, private activatedRoute: ActivatedRoute) {}
+    constructor(
+        private videoService: VideoService,
+        private activatedRoute: ActivatedRoute,
+        private courseService: CourseService,
+        private jhiAlertService: JhiAlertService
+    ) {
+    }
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ video }) => {
             this.video = video;
         });
+        this.loadAllCourses();
+    }
+
+    loadAllCourses() {
+        this.courseService.query().subscribe(
+            (res: HttpResponse<ICourse[]>) => {
+                this.courses = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -37,7 +57,7 @@ export class VideoUpdateComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IVideo>>) {
-        result.subscribe((res: HttpResponse<IVideo>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
     }
 
     private onSaveSuccess() {
@@ -54,5 +74,9 @@ export class VideoUpdateComponent implements OnInit {
 
     set video(video: IVideo) {
         this._video = video;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 }
