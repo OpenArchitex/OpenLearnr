@@ -16,6 +16,7 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Name</span></th>
+            <th><span>Description</span></th>
             <th><span>Episode</span></th>
             <th><span>Url</span></th>
             <th><span>Course ID</span></th>
@@ -26,6 +27,7 @@
             <tr *ngFor="let video of videos ;trackBy: trackId">
                 <td><a [routerLink]="['/video', video.id, 'view' ]">{{video.id}}</a></td>
                 <td>{{video.name}}</td>
+                <td>{{video.description}}</td>
                 <td>{{video.episode}}</td>
                 <td>{{video.url}}</td>
                 <td>{{video.courseID}}</td>
