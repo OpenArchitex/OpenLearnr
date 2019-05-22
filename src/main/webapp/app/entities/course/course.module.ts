@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {MatButtonModule, MatListModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
-
+import {SafePipe} from 'app/entities/course/SafePipe';
 import { OnlineTutorSharedModule } from 'app/shared';
 import {
     CourseComponent,
@@ -12,7 +12,6 @@ import {
     courseRoute,
     coursePopupRoute
 } from './';
-import {SafePipe} from "app/entities/course/SafePipe";
 
 const ENTITY_STATES = [...courseRoute, ...coursePopupRoute];
 
