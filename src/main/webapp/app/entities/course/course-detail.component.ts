@@ -6,7 +6,6 @@ import { IVideo } from 'app/shared/model/video.model';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { VideoService } from 'app/entities/video';
 import { JhiAlertService } from 'ng-jhipster';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'jhi-course-detail',
@@ -21,20 +20,19 @@ export class CourseDetailComponent implements OnInit {
     constructor(
         private activatedRoute: ActivatedRoute,
         private videoService: VideoService,
-        private jhiAlertService: JhiAlertService,
-        private _sanitizer: DomSanitizer) {}
+        private jhiAlertService: JhiAlertService) {}
 
     ngOnInit() {
-        this.loadAllVideos();
         this.activatedRoute.data.subscribe(({ course }) => {
             this.course = course;
+            this.loadAllVideos(course);
         });
     }
 
-    loadAllVideos() {
+    loadAllVideos(course: ICourse) {
         this.videoService.query().subscribe(
             (res: HttpResponse<IVideo[]>) => {
-                this.videos = res.body;
+                this.videos = res.body.filter(video => video.courseID === course.id);
                 this.clickedVideo = this.videos[0];
             },
             (res: HttpErrorResponse) => this.onError(res.message)
