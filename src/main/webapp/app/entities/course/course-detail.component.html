@@ -1,27 +1,31 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="course">
-            <h2><span>Course</span> {{course.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span>Name</span></dt>
-                <dd>
-                    <span>{{course.name}}</span>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+<div>
+    <mat-toolbar>
+        <span>{{course.name}}</span>
+        <span class="middle-content"></span>
+        <span>
+            <button mat-raised-button color="primary" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="['/video/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                    <span >
+                        Create New Video
+                    </span>
             </button>
+        </span>
+    </mat-toolbar>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="mat-body">
+        <mat-drawer-container autosize>
+            <mat-drawer mode="side" opened>
+                <mat-nav-list>
+                    <a mat-list-item (click)="clickedVideo = video" *ngFor="let video of videos">{{video.name}}</a>
+                </mat-nav-list>
+            </mat-drawer>
 
-            <button type="button"
-                    [routerLink]="['/course', course.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
-            </button>
-        </div>
+            <mat-drawer-content>
+                <div class="embed-responsive embed-responsive-16by9" *ngIf="clickedVideo != null">
+                    <iframe class="embed-responsive-item" [src]=getSafeURL(clickedVideo.url) allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </mat-drawer-content>
+        </mat-drawer-container>
     </div>
 </div>

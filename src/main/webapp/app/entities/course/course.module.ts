@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import {MatButtonModule, MatListModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
 
 import { OnlineTutorSharedModule } from 'app/shared';
 import {
@@ -15,7 +16,7 @@ import {
 const ENTITY_STATES = [...courseRoute, ...coursePopupRoute];
 
 @NgModule({
-    imports: [OnlineTutorSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [OnlineTutorSharedModule, RouterModule.forChild(ENTITY_STATES), MatSidenavModule, MatListModule, MatToolbarModule, MatButtonModule],
     declarations: [CourseComponent, CourseDetailComponent, CourseUpdateComponent, CourseDeleteDialogComponent, CourseDeletePopupComponent],
     entryComponents: [CourseComponent, CourseUpdateComponent, CourseDeleteDialogComponent, CourseDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
