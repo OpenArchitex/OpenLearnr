@@ -48,8 +48,4 @@ export class CourseDetailComponent implements OnInit {
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
-
-    getSafeURL(videoURL: string) {
-        return this._sanitizer.bypassSecurityTrustResourceUrl(videoURL);
-    }
 }
