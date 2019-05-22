@@ -28,6 +28,10 @@ public class Video implements Serializable {
     private Integer episode;
 
     @NotNull
+    @Field("description")
+    private String description;
+
+    @NotNull
     @Field("url")
     private String url;
 
@@ -68,6 +72,19 @@ public class Video implements Serializable {
 
     public void setEpisode(Integer episode) {
         this.episode = episode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Video description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getUrl() {
@@ -123,6 +140,7 @@ public class Video implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", episode=" + getEpisode() +
+            ", description='" + getDescription() + "'" +
             ", url='" + getUrl() + "'" +
             ", courseID='" + getCourseID() + "'" +
             "}";
