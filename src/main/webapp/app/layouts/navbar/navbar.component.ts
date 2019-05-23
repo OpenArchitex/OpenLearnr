@@ -47,6 +47,7 @@ export class NavbarComponent implements OnInit {
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
         this.registerAuthenticationSuccess();
+        this.registerChangeInCourses();
     }
 
     collapseNavbar() {
@@ -90,5 +91,9 @@ export class NavbarComponent implements OnInit {
 
     registerAuthenticationSuccess() {
         this.eventSubscriber = this.eventManager.subscribe('authenticationSuccess', () => this.loadAll());
+    }
+
+    registerChangeInCourses() {
+        this.eventSubscriber = this.eventManager.subscribe('courseListModification', () => this.loadAll());
     }
 }

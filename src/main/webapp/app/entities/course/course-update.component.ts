@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { ICourse } from 'app/shared/model/course.model';
 import { CourseService } from './course.service';
+import {JhiEventManager} from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-course-update',
@@ -14,7 +15,7 @@ export class CourseUpdateComponent implements OnInit {
     private _course: ICourse;
     isSaving: boolean;
 
-    constructor(private courseService: CourseService, private activatedRoute: ActivatedRoute) {}
+    constructor(private courseService: CourseService, private activatedRoute: ActivatedRoute, private eventManager: JhiEventManager) {}
 
     ngOnInit() {
         this.isSaving = false;
@@ -43,6 +44,14 @@ export class CourseUpdateComponent implements OnInit {
     private onSaveSuccess() {
         this.isSaving = false;
         this.previousState();
+        this.broadcastChange();
+    }
+
+    private broadcastChange() {
+        this.eventManager.broadcast({
+            name: 'courseListModification',
+            content: 'Created a course'
+        });
     }
 
     private onSaveError() {
