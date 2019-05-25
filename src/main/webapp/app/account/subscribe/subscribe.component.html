@@ -1,0 +1,48 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title><h2>Subscription</h2></mat-card-title>
+        <mat-card-subtitle>Your help makes a difference!</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="form-row d-block">
+            Subscribe and get access to more videos lectures. Currently we have a monthly subscription model where you
+            get access to all course videos for 100 CDN.
+        </div>
+        <div class="form-row d-block">
+            <mat-form-field>
+                <input [(ngModel)]="extraData.address_line1" class="addressBar" matInput placeholder="Address">
+            </mat-form-field>
+        </div>
+        <div class="form-row d-block">
+            <mat-form-field>
+                <input [(ngModel)]="extraData.address_city" matInput placeholder="City">
+            </mat-form-field>
+            <mat-form-field>
+                <input [(ngModel)]="extraData.address_state" matInput placeholder="State">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input [(ngModel)]="extraData.address_zip" matInput placeholder="Zip">
+            </mat-form-field>
+        </div>
+        <div class="form-row d-block stripe-row">
+            <stripe-card [options]='getStyles()' #stripeCard (catch)="onStripeError($event)"
+                         (invalidChange)="onStripeInvalid($event)" (tokenChange)="setStripeToken($event)"
+                         (sourceChange)="setStripeSource($event)">
+            </stripe-card>
+        </div>
+        <div class="form-row d-block">
+            <button class="submitButton" mat-raised-button color="primary"
+                    (click)=stripeCard.createToken(extraData)>
+                Submit
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+
+
+
+
+
+

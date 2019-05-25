@@ -1,5 +1,8 @@
 package com.asanka.tutor.config;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
 import org.springframework.context.annotation.Bean;
@@ -34,4 +37,8 @@ public class JacksonConfiguration {
         return new ConstraintViolationProblemModule();
     }
 
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper().enable(MapperFeature.PROPAGATE_TRANSIENT_MARKER);
+    }
 }

@@ -34,6 +34,7 @@
     "reflect-metadata": "0.1.12",
     "rxjs": "6.1.0",
     "rxjs-compat": "6.1.0",
+    "stripe-angular": "^0.4.1",
     "swagger-ui": "2.2.10",
     "tslib": "1.9.0",
     "zone.js": "0.8.26"
