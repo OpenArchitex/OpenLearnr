@@ -39,8 +39,8 @@ export class SubscribeComponent implements OnInit {
     // }
 
     chargeCard(token: string) {
-        const headers = new HttpHeaders({ token: token, amount: '100' });
-        this.http.post(SERVER_API_URL + 'api/payment', {}, { headers: headers }).subscribe(resp => {
+        const headers = new HttpHeaders({ token, amount: '100' });
+        this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(resp => {
             console.log(resp);
         });
     }
