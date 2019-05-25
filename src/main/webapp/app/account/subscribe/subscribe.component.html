@@ -25,18 +25,26 @@
                 <input [(ngModel)]="extraData.address_zip" matInput placeholder="Zip">
             </mat-form-field>
         </div>
-        <div class="form-row d-block stripe-row">
-            <stripe-card [options]='getStyles()' #stripeCard (catch)="onStripeError($event)"
-                         (invalidChange)="onStripeInvalid($event)" (tokenChange)="setStripeToken($event)"
-                         (sourceChange)="setStripeSource($event)">
-            </stripe-card>
-        </div>
-        <div class="form-row d-block">
-            <button class="submitButton" mat-raised-button color="primary"
-                    (click)=stripeCard.createToken(extraData)>
-                Submit
-            </button>
-        </div>
+        <span [hidden]="!stripeLoaded">
+            <div class="form-row d-block stripe-row">
+                <stripe-card [options]='getStyles()' #stripeCard (catch)="onStripeError($event)"
+                             (invalidChange)="onStripeInvalid($event)" (tokenChange)="setStripeToken($event)"
+                             (sourceChange)="setStripeSource($event)">
+                </stripe-card>
+            </div>
+            <div class="form-row d-block">
+                <button [hidden]="executingPayment" class="submitButton" mat-raised-button color="primary"
+                        (click)=stripeCard.createToken(extraData)>
+                    Submit
+                </button>
+                <div *ngIf="stripeError != null" class="alert alert-danger" role="alert">
+                    {{stripeError}}
+                </div>
+                <div *ngIf="stripeSuccess != null" class="alert alert-primary" role="alert">
+                    {{stripeSuccess}}
+                </div>
+            </div>
+        </span>
     </mat-card-content>
 </mat-card>
 

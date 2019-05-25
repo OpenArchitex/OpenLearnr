@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { SERVER_API_URL } from 'app/app.constants';
 import { StripeScriptTag, StripeSource, StripeToken } from 'stripe-angular';
 
@@ -10,6 +10,11 @@ import { StripeScriptTag, StripeSource, StripeToken } from 'stripe-angular';
 })
 export class SubscribeComponent implements OnInit {
     private publishableKey = 'pk_test_OuesRgExP1r5SdQx8UBHTX9F00psUFNr6O';
+
+    private executingPayment: boolean;
+    private stripeLoaded: boolean;
+    private stripeError: string;
+    private stripeSuccess: string;
 
     extraData = {
         address_city: null,
@@ -31,22 +36,32 @@ export class SubscribeComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.stripeScriptTag.setPublishableKey(this.publishableKey).catch(error => console.error(error));
+        this.stripeLoaded = false;
+        this.stripeScriptTag
+            .setPublishableKey(this.publishableKey)
+            .then(() => (this.stripeLoaded = true))
+            .catch(error => {
+                console.error(error);
+            });
     }
-
-    // paymentExecution() {
-    //     this.stripeCard.createToken(this.parseExtraDetails()).then(result => this.chargeCard(result.id));
-    // }
 
     chargeCard(token: string) {
         const headers = new HttpHeaders({ token, amount: '100' });
-        this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(resp => {
-            console.log(resp);
-        });
+        this.executingPayment = true;
+        this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(
+            () => {
+                this.stripeSuccess = 'Payment Successful';
+                this.executingPayment = false;
+            },
+            (err: HttpErrorResponse) => {
+                this.stripeError = err.error.detail;
+                this.executingPayment = false;
+            }
+        );
     }
 
     onStripeInvalid(error: Error) {
-        console.log('Validation Error', error);
+        console.log(error);
     }
 
     setStripeToken(token: StripeToken) {
