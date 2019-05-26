@@ -50,11 +50,13 @@ export class SubscribeComponent implements OnInit {
         this.executingPayment = true;
         this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(
             () => {
-                this.stripeSuccess = 'Payment Successful';
+                this.stripeSuccess = 'Payment Successful!';
+                this.stripeError = null;
                 this.executingPayment = false;
             },
             (err: HttpErrorResponse) => {
                 this.stripeError = err.error.detail;
+                this.stripeSuccess = null;
                 this.executingPayment = false;
             }
         );
