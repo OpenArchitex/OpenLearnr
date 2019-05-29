@@ -9,6 +9,22 @@
             get access to all course videos for 100 CDN.
         </div>
         <div class="form-row d-block">
+            <div class="row">
+                <mat-form-field class="col-md-4">
+                    <mat-label>Course to Purchase</mat-label>
+                    <mat-select #courseSelect (selectionChange)=loadAllChaptersForCourse(courseSelect.value)>
+                        <mat-option *ngFor="let course of courses" [value]="course.id" required>{{course.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                    <mat-label>Chapters to Purchase</mat-label>
+                    <mat-select multiple>
+                        <mat-option *ngFor="let chapter of chapters" [value]="chapter.id" required>{{chapter.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-row d-block">
             <mat-form-field>
                 <input [(ngModel)]="extraData.address_line1" class="addressBar" matInput placeholder="Address">
             </mat-form-field>
