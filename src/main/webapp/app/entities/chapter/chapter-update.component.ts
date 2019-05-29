@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 
 import { IChapter } from 'app/shared/model/chapter.model';
 import { ChapterService } from './chapter.service';
+import { ICourse } from 'app/shared/model/course.model';
+import { CourseService } from 'app/entities/course';
+import { JhiAlertService } from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-chapter-update',
@@ -12,15 +15,31 @@ import { ChapterService } from './chapter.service';
 })
 export class ChapterUpdateComponent implements OnInit {
     private _chapter: IChapter;
+    private _courses: ICourse[];
     isSaving: boolean;
 
-    constructor(private chapterService: ChapterService, private activatedRoute: ActivatedRoute) {}
+    constructor(
+        private chapterService: ChapterService,
+        private courseService: CourseService,
+        private activatedRoute: ActivatedRoute,
+        private jhiAlertService: JhiAlertService
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ chapter }) => {
             this.chapter = chapter;
         });
+        this.loadAllCourses();
+    }
+
+    loadAllCourses() {
+        this.courseService.query().subscribe(
+            (res: HttpResponse<ICourse[]>) => {
+                this.courses = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -54,5 +73,17 @@ export class ChapterUpdateComponent implements OnInit {
 
     set chapter(chapter: IChapter) {
         this._chapter = chapter;
+    }
+
+    get courses(): ICourse[] {
+        return this._courses;
+    }
+
+    set courses(value: ICourse[]) {
+        this._courses = value;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 }

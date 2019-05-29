@@ -46,18 +46,25 @@
                         </small>
                     </div>
                 </div>
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" for="field_courseID">Course ID</label>-->
+<!--                    <input type="text" class="form-control" name="courseID" id="field_courseID"-->
+<!--                        [(ngModel)]="chapter.courseID" required/>-->
+<!--                    <div [hidden]="!(editForm.controls.courseID?.dirty && editForm.controls.courseID?.invalid)">-->
+<!--                        <small class="form-text text-danger"-->
+<!--                        [hidden]="!editForm.controls.courseID?.errors?.required">-->
+<!--                        This field is required.-->
+<!--                        </small>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="form-group">
-                    <label class="form-control-label" for="field_courseID">Course ID</label>
-                    <input type="text" class="form-control" name="courseID" id="field_courseID"
-                        [(ngModel)]="chapter.courseID" required/>
-                    <div [hidden]="!(editForm.controls.courseID?.dirty && editForm.controls.courseID?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.courseID?.errors?.required">
-                        This field is required.
-                        </small>
-                    </div>
+                    <label class="form-control-label" for="field_courseID">Course</label>
+                    <select class="form-control" id="field_courseID" name="courseID" [(ngModel)]="chapter.courseID" required>
+                        <option *ngFor="let course of courses" [value]=course.id>
+                            {{course.name}}
+                        </option>
+                    </select>
                 </div>
-
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
