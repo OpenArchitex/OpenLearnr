@@ -1,5 +1,6 @@
 package com.asanka.tutor.service;
 
+import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.domain.Video;
 
 import java.util.List;
@@ -25,6 +26,12 @@ public interface VideoService {
      */
     List<Video> findAll();
 
+    /**
+     * Get all the videos for the chapter.
+     *
+     * @return the list of entities
+     */
+    List<Video> findAllVideosForChapter(String chapterID);
 
     /**
      * Get the "id" video.

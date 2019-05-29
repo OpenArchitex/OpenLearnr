@@ -5,9 +5,11 @@ import { Observable } from 'rxjs';
 
 import { IVideo } from 'app/shared/model/video.model';
 import { VideoService } from './video.service';
-import {ICourse} from 'app/shared/model/course.model';
-import {CourseService} from 'app/entities/course';
-import {JhiAlertService} from 'ng-jhipster';
+import { ICourse } from 'app/shared/model/course.model';
+import { CourseService } from 'app/entities/course';
+import { JhiAlertService } from 'ng-jhipster';
+import { IChapter } from 'app/shared/model/chapter.model';
+import { ChapterService } from 'app/entities/chapter';
 
 @Component({
     selector: 'jhi-video-update',
@@ -16,15 +18,16 @@ import {JhiAlertService} from 'ng-jhipster';
 export class VideoUpdateComponent implements OnInit {
     private _video: IVideo;
     private courses: ICourse[];
+    private chapters: IChapter[];
     isSaving: boolean;
 
     constructor(
         private videoService: VideoService,
         private activatedRoute: ActivatedRoute,
         private courseService: CourseService,
+        private chapterService: ChapterService,
         private jhiAlertService: JhiAlertService
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
@@ -32,6 +35,7 @@ export class VideoUpdateComponent implements OnInit {
             this.video = video;
         });
         this.loadAllCourses();
+        this.loadAllChaptersForCourse(this.video.courseID);
     }
 
     loadAllCourses() {
@@ -43,12 +47,24 @@ export class VideoUpdateComponent implements OnInit {
         );
     }
 
+    loadAllChaptersForCourse(courseID: string) {
+        this.chapterService.getChaptersForCourse(courseID).subscribe(
+            (res: HttpResponse<IChapter[]>) => {
+                this.chapters = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
     previousState() {
         window.history.back();
     }
 
     save() {
         this.isSaving = true;
+        if (this.video.isSample == null) {
+            this.video.isSample = false;
+        }
         if (this.video.id !== undefined) {
             this.subscribeToSaveResponse(this.videoService.update(this.video));
         } else {

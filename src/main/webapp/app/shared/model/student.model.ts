@@ -1,10 +1,11 @@
+import { Moment } from 'moment';
+
 export interface IStudent {
     id?: string;
-    userID?: number;
-    lastWatchedVideo?: string;
-    lastWatchedVideoTime?: number;
+    lastWatchedVideoID?: number;
+    lastWatchedVideoTime?: Moment;
 }
 
 export class Student implements IStudent {
-    constructor(public id?: string, public userID?: number, public lastWatchedVideo?: string, public lastWatchedVideoTime?: number) {}
+    constructor(public id?: string, public lastWatchedVideoID?: number, public lastWatchedVideoTime?: Moment) {}
 }

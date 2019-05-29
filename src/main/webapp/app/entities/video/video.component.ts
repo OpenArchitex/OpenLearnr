@@ -6,7 +6,6 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { IVideo } from 'app/shared/model/video.model';
 import { Principal } from 'app/core';
 import { VideoService } from './video.service';
-import {DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'jhi-video',
@@ -21,8 +20,7 @@ export class VideoComponent implements OnInit, OnDestroy {
         private videoService: VideoService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal,
-        private _sanitizer: DomSanitizer
+        private principal: Principal
     ) {}
 
     loadAll() {
@@ -52,10 +50,6 @@ export class VideoComponent implements OnInit, OnDestroy {
 
     registerChangeInVideos() {
         this.eventSubscriber = this.eventManager.subscribe('videoListModification', () => this.loadAll());
-    }
-
-    getSafeURL(videoURL: string) {
-        return this._sanitizer.bypassSecurityTrustResourceUrl(videoURL);
     }
 
     private onError(errorMessage: string) {

@@ -59,11 +59,24 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_courseID">Course</label>
-                    <select class="form-control" id="field_courseID" name="courseID" [(ngModel)]="video.courseID" required>
+                    <select #courseSelect class="form-control" id="field_courseID" name="courseID" [(ngModel)]="video.courseID" (change)="loadAllChaptersForCourse(courseSelect.value)" required>
                         <option *ngFor="let course of courses" [value]=course.id>
                             {{course.name}}
                         </option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_chapterID">Chapter</label>
+                    <select class="form-control" id="field_chapterID" name="chapterID" [(ngModel)]="video.chapterID" required>
+                        <option *ngFor="let chapter of chapters" [value]=chapter.id>
+                            {{chapter.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-check">
+                     <input type="checkbox" class="form-check-input" name="isSample" id="field_isSample"
+                           [(ngModel)]="video.isSample" />
+                    <label class="form-check-label" for="field_isSample">Is Sample</label>
                 </div>
             </div>
             <div>

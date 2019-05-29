@@ -1,5 +1,5 @@
-import { browser } from 'protractor';
-import { NavBarPage } from './../../page-objects/jhi-page-objects';
+import { browser, protractor } from 'protractor';
+import { NavBarPage } from '../../page-objects/jhi-page-objects';
 import { StudentComponentsPage, StudentUpdatePage } from './student.page-object';
 
 describe('Student e2e test', () => {
@@ -30,12 +30,10 @@ describe('Student e2e test', () => {
 
     it('should create and save Students', () => {
         studentComponentsPage.clickOnCreateButton();
-        studentUpdatePage.setUserIDInput('5');
-        expect(studentUpdatePage.getUserIDInput()).toMatch('5');
-        studentUpdatePage.setLastWatchedVideoInput('lastWatchedVideo');
-        expect(studentUpdatePage.getLastWatchedVideoInput()).toMatch('lastWatchedVideo');
-        studentUpdatePage.setLastWatchedVideoTimeInput('5');
-        expect(studentUpdatePage.getLastWatchedVideoTimeInput()).toMatch('5');
+        studentUpdatePage.setLastWatchedVideoIDInput('5');
+        expect(studentUpdatePage.getLastWatchedVideoIDInput()).toMatch('5');
+        studentUpdatePage.setLastWatchedVideoTimeInput('01/01/2001' + protractor.Key.TAB + '02:30AM');
+        expect(studentUpdatePage.getLastWatchedVideoTimeInput()).toContain('2001-01-01T02:30');
         studentUpdatePage.save();
         expect(studentUpdatePage.getSaveButton().isPresent()).toBeFalsy();
     });

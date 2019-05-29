@@ -20,6 +20,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -38,14 +40,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = OnlineTutorApp.class)
 public class StudentResourceIntTest {
 
-    private static final Integer DEFAULT_USER_ID = 1;
-    private static final Integer UPDATED_USER_ID = 2;
+    private static final Integer DEFAULT_LAST_WATCHED_VIDEO_ID = 1;
+    private static final Integer UPDATED_LAST_WATCHED_VIDEO_ID = 2;
 
-    private static final String DEFAULT_LAST_WATCHED_VIDEO = "AAAAAAAAAA";
-    private static final String UPDATED_LAST_WATCHED_VIDEO = "BBBBBBBBBB";
-
-    private static final Float DEFAULT_LAST_WATCHED_VIDEO_TIME = 1F;
-    private static final Float UPDATED_LAST_WATCHED_VIDEO_TIME = 2F;
+    private static final Instant DEFAULT_LAST_WATCHED_VIDEO_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_LAST_WATCHED_VIDEO_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private StudentRepository studentRepository;
@@ -86,11 +85,9 @@ public class StudentResourceIntTest {
      * if they test an entity which requires the current entity.
      */
     public static Student createEntity() {
-        Student student = new Student()
-            .userID(DEFAULT_USER_ID)
-            .lastWatchedVideo(DEFAULT_LAST_WATCHED_VIDEO)
+        return new Student()
+            .lastWatchedVideoID(DEFAULT_LAST_WATCHED_VIDEO_ID)
             .lastWatchedVideoTime(DEFAULT_LAST_WATCHED_VIDEO_TIME);
-        return student;
     }
 
     @Before
@@ -113,8 +110,7 @@ public class StudentResourceIntTest {
         List<Student> studentList = studentRepository.findAll();
         assertThat(studentList).hasSize(databaseSizeBeforeCreate + 1);
         Student testStudent = studentList.get(studentList.size() - 1);
-        assertThat(testStudent.getUserID()).isEqualTo(DEFAULT_USER_ID);
-        assertThat(testStudent.getLastWatchedVideo()).isEqualTo(DEFAULT_LAST_WATCHED_VIDEO);
+        assertThat(testStudent.getLastWatchedVideoID()).isEqualTo(DEFAULT_LAST_WATCHED_VIDEO_ID);
         assertThat(testStudent.getLastWatchedVideoTime()).isEqualTo(DEFAULT_LAST_WATCHED_VIDEO_TIME);
     }
 
@@ -137,27 +133,10 @@ public class StudentResourceIntTest {
     }
 
     @Test
-    public void checkUserIDIsRequired() throws Exception {
+    public void checkLastWatchedVideoIDIsRequired() throws Exception {
         int databaseSizeBeforeTest = studentRepository.findAll().size();
         // set the field null
-        student.setUserID(null);
-
-        // Create the Student, which fails.
-
-        restStudentMockMvc.perform(post("/api/students")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(student)))
-            .andExpect(status().isBadRequest());
-
-        List<Student> studentList = studentRepository.findAll();
-        assertThat(studentList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    public void checkLastWatchedVideoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = studentRepository.findAll().size();
-        // set the field null
-        student.setLastWatchedVideo(null);
+        student.setLastWatchedVideoID(null);
 
         // Create the Student, which fails.
 
@@ -197,9 +176,8 @@ public class StudentResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(student.getId())))
-            .andExpect(jsonPath("$.[*].userID").value(hasItem(DEFAULT_USER_ID)))
-            .andExpect(jsonPath("$.[*].lastWatchedVideo").value(hasItem(DEFAULT_LAST_WATCHED_VIDEO.toString())))
-            .andExpect(jsonPath("$.[*].lastWatchedVideoTime").value(hasItem(DEFAULT_LAST_WATCHED_VIDEO_TIME.doubleValue())));
+            .andExpect(jsonPath("$.[*].lastWatchedVideoID").value(hasItem(DEFAULT_LAST_WATCHED_VIDEO_ID)))
+            .andExpect(jsonPath("$.[*].lastWatchedVideoTime").value(hasItem(DEFAULT_LAST_WATCHED_VIDEO_TIME.toString())));
     }
     
 
@@ -213,9 +191,8 @@ public class StudentResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(student.getId()))
-            .andExpect(jsonPath("$.userID").value(DEFAULT_USER_ID))
-            .andExpect(jsonPath("$.lastWatchedVideo").value(DEFAULT_LAST_WATCHED_VIDEO.toString()))
-            .andExpect(jsonPath("$.lastWatchedVideoTime").value(DEFAULT_LAST_WATCHED_VIDEO_TIME.doubleValue()));
+            .andExpect(jsonPath("$.lastWatchedVideoID").value(DEFAULT_LAST_WATCHED_VIDEO_ID))
+            .andExpect(jsonPath("$.lastWatchedVideoTime").value(DEFAULT_LAST_WATCHED_VIDEO_TIME.toString()));
     }
     @Test
     public void getNonExistingStudent() throws Exception {
@@ -234,8 +211,7 @@ public class StudentResourceIntTest {
         // Update the student
         Student updatedStudent = studentRepository.findById(student.getId()).get();
         updatedStudent
-            .userID(UPDATED_USER_ID)
-            .lastWatchedVideo(UPDATED_LAST_WATCHED_VIDEO)
+            .lastWatchedVideoID(UPDATED_LAST_WATCHED_VIDEO_ID)
             .lastWatchedVideoTime(UPDATED_LAST_WATCHED_VIDEO_TIME);
 
         restStudentMockMvc.perform(put("/api/students")
@@ -247,8 +223,7 @@ public class StudentResourceIntTest {
         List<Student> studentList = studentRepository.findAll();
         assertThat(studentList).hasSize(databaseSizeBeforeUpdate);
         Student testStudent = studentList.get(studentList.size() - 1);
-        assertThat(testStudent.getUserID()).isEqualTo(UPDATED_USER_ID);
-        assertThat(testStudent.getLastWatchedVideo()).isEqualTo(UPDATED_LAST_WATCHED_VIDEO);
+        assertThat(testStudent.getLastWatchedVideoID()).isEqualTo(UPDATED_LAST_WATCHED_VIDEO_ID);
         assertThat(testStudent.getLastWatchedVideoTime()).isEqualTo(UPDATED_LAST_WATCHED_VIDEO_TIME);
     }
 

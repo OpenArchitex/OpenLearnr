@@ -15,8 +15,7 @@
             <thead>
             <tr>
             <th><span>ID</span></th>
-            <th><span>User ID</span></th>
-            <th><span>Last Watched Video</span></th>
+            <th><span>Last Watched Video ID</span></th>
             <th><span>Last Watched Video Time</span></th>
             <th></th>
             </tr>
@@ -24,9 +23,8 @@
             <tbody>
             <tr *ngFor="let student of students ;trackBy: trackId">
                 <td><a [routerLink]="['/student', student.id, 'view' ]">{{student.id}}</a></td>
-                <td>{{student.userID}}</td>
-                <td>{{student.lastWatchedVideo}}</td>
-                <td>{{student.lastWatchedVideoTime}}</td>
+                <td>{{student.lastWatchedVideoID}}</td>
+                <td>{{student.lastWatchedVideoTime | date:'medium'}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

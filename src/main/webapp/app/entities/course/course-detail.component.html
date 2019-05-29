@@ -5,7 +5,7 @@
         <span>
             <button mat-raised-button color="primary" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="['/video/new']">
                 <fa-icon [icon]="'plus'"></fa-icon>
-                <span >
+                <span>
                     Create New Video
                 </span>
             </button>
@@ -16,9 +16,14 @@
     <div class="mat-body">
         <mat-drawer-container autosize>
             <mat-drawer mode="side" opened>
-                <mat-nav-list>
-                    <a mat-list-item (click)="clickedVideo = video" *ngFor="let video of videos">{{video.name}}</a>
-                </mat-nav-list>
+                <mat-expansion-panel *ngFor="let navItem of navItems">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="chapterNames">{{navItem.chapterName}}</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-list>
+                        <a mat-list-item (click)="clickedVideo = video" *ngFor="let video of navItem.videos"><button mat-button>{{video.name}}</button></a>
+                    </mat-list>
+                </mat-expansion-panel>
             </mat-drawer>
 
             <mat-drawer-content>

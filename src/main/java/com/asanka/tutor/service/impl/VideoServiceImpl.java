@@ -47,6 +47,16 @@ public class VideoServiceImpl implements VideoService {
         return videoRepository.findAll();
     }
 
+    /**
+     * Get all the videos for the chapter.
+     *
+     * @return the list of entities
+     */
+    @Override
+    public List<Video> findAllVideosForChapter(String chapterID) {
+        log.debug("Request to get all Vidoes for the chapterID" + chapterID);
+        return videoRepository.findVideosByChapterID(chapterID);
+    }
 
     /**
      * Get one video by id.

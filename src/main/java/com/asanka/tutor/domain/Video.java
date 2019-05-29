@@ -39,6 +39,14 @@ public class Video implements Serializable {
     @Field("course_id")
     private String courseID;
 
+    @NotNull
+    @Field("chapter_id")
+    private String chapterID;
+
+    @NotNull
+    @Field("is_sample")
+    private Boolean isSample;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -112,6 +120,32 @@ public class Video implements Serializable {
     public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
+
+    public String getChapterID() {
+        return chapterID;
+    }
+
+    public Video chapterID(String chapterID) {
+        this.chapterID = chapterID;
+        return this;
+    }
+
+    public void setChapterID(String chapterID) {
+        this.chapterID = chapterID;
+    }
+
+    public Boolean isIsSample() {
+        return isSample;
+    }
+
+    public Video isSample(Boolean isSample) {
+        this.isSample = isSample;
+        return this;
+    }
+
+    public void setIsSample(Boolean isSample) {
+        this.isSample = isSample;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -143,6 +177,8 @@ public class Video implements Serializable {
             ", description='" + getDescription() + "'" +
             ", url='" + getUrl() + "'" +
             ", courseID='" + getCourseID() + "'" +
+            ", chapterID='" + getChapterID() + "'" +
+            ", isSample='" + isIsSample() + "'" +
             "}";
     }
 }

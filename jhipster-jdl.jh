@@ -3,6 +3,14 @@ entity Course {
 	name String required
 }
 
+entity Chapter {
+	id Integer required
+    name String required
+    chapterNumber Integer required
+    description String required
+    courseID String required
+}
+
 entity Video {
 	id Integer required
 	name String required
@@ -10,12 +18,14 @@ entity Video {
     description String required
     url String required
     courseID String required
+    chapterID String required
+    isSample Boolean required
 }
 
 entity Student {
-	userID Integer required
-    lastWatchedVideo String required
-    lastWatchedVideoTime Float required
+	id Integer required
+    lastWatchedVideoID Integer required
+    lastWatchedVideoTime Instant required
 }
 
 // Set service options to all except few

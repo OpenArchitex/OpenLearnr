@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -20,16 +21,12 @@ public class Student implements Serializable {
     private String id;
 
     @NotNull
-    @Field("user_id")
-    private Integer userID;
-
-    @NotNull
-    @Field("last_watched_video")
-    private String lastWatchedVideo;
+    @Field("last_watched_video_id")
+    private Integer lastWatchedVideoID;
 
     @NotNull
     @Field("last_watched_video_time")
-    private Float lastWatchedVideoTime;
+    private Instant lastWatchedVideoTime;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -40,42 +37,29 @@ public class Student implements Serializable {
         this.id = id;
     }
 
-    public Integer getUserID() {
-        return userID;
+    public Integer getLastWatchedVideoID() {
+        return lastWatchedVideoID;
     }
 
-    public Student userID(Integer userID) {
-        this.userID = userID;
+    public Student lastWatchedVideoID(Integer lastWatchedVideoID) {
+        this.lastWatchedVideoID = lastWatchedVideoID;
         return this;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setLastWatchedVideoID(Integer lastWatchedVideoID) {
+        this.lastWatchedVideoID = lastWatchedVideoID;
     }
 
-    public String getLastWatchedVideo() {
-        return lastWatchedVideo;
-    }
-
-    public Student lastWatchedVideo(String lastWatchedVideo) {
-        this.lastWatchedVideo = lastWatchedVideo;
-        return this;
-    }
-
-    public void setLastWatchedVideo(String lastWatchedVideo) {
-        this.lastWatchedVideo = lastWatchedVideo;
-    }
-
-    public Float getLastWatchedVideoTime() {
+    public Instant getLastWatchedVideoTime() {
         return lastWatchedVideoTime;
     }
 
-    public Student lastWatchedVideoTime(Float lastWatchedVideoTime) {
+    public Student lastWatchedVideoTime(Instant lastWatchedVideoTime) {
         this.lastWatchedVideoTime = lastWatchedVideoTime;
         return this;
     }
 
-    public void setLastWatchedVideoTime(Float lastWatchedVideoTime) {
+    public void setLastWatchedVideoTime(Instant lastWatchedVideoTime) {
         this.lastWatchedVideoTime = lastWatchedVideoTime;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
@@ -104,9 +88,8 @@ public class Student implements Serializable {
     public String toString() {
         return "Student{" +
             "id=" + getId() +
-            ", userID=" + getUserID() +
-            ", lastWatchedVideo='" + getLastWatchedVideo() + "'" +
-            ", lastWatchedVideoTime=" + getLastWatchedVideoTime() +
+            ", lastWatchedVideoID=" + getLastWatchedVideoID() +
+            ", lastWatchedVideoTime='" + getLastWatchedVideoTime() + "'" +
             "}";
     }
 }

@@ -22,6 +22,8 @@ export class VideoUpdatePage {
     descriptionInput = element(by.id('field_description'));
     urlInput = element(by.id('field_url'));
     courseIDInput = element(by.id('field_courseID'));
+    chapterIDInput = element(by.id('field_chapterID'));
+    isSampleInput = element(by.id('field_isSample'));
 
     getPageTitle() {
         return this.pageTitle.getText();
@@ -67,6 +69,17 @@ export class VideoUpdatePage {
         return this.courseIDInput.getAttribute('value');
     }
 
+    setChapterIDInput(chapterID): promise.Promise<void> {
+        return this.chapterIDInput.sendKeys(chapterID);
+    }
+
+    getChapterIDInput() {
+        return this.chapterIDInput.getAttribute('value');
+    }
+
+    getIsSampleInput() {
+        return this.isSampleInput;
+    }
     save(): promise.Promise<void> {
         return this.saveButton.click();
     }

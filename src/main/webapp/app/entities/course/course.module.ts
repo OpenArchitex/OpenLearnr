@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {MatButtonModule, MatListModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
-import {SafePipe} from 'app/entities/course/SafePipe';
+import { MatButtonModule, MatExpansionModule, MatListModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
+import { SafePipe } from 'app/entities/course/SafePipe';
 import { OnlineTutorSharedModule } from 'app/shared';
 import {
     CourseComponent,
@@ -16,8 +16,23 @@ import {
 const ENTITY_STATES = [...courseRoute, ...coursePopupRoute];
 
 @NgModule({
-    imports: [OnlineTutorSharedModule, RouterModule.forChild(ENTITY_STATES), MatSidenavModule, MatListModule, MatToolbarModule, MatButtonModule],
-    declarations: [CourseComponent, CourseDetailComponent, CourseUpdateComponent, CourseDeleteDialogComponent, CourseDeletePopupComponent, SafePipe],
+    imports: [
+        OnlineTutorSharedModule,
+        RouterModule.forChild(ENTITY_STATES),
+        MatSidenavModule,
+        MatListModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatExpansionModule
+    ],
+    declarations: [
+        CourseComponent,
+        CourseDetailComponent,
+        CourseUpdateComponent,
+        CourseDeleteDialogComponent,
+        CourseDeletePopupComponent,
+        SafePipe
+    ],
     entryComponents: [CourseComponent, CourseUpdateComponent, CourseDeleteDialogComponent, CourseDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

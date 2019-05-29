@@ -51,8 +51,25 @@ public class VideoResource {
         }
         Video result = videoService.save(video);
         return ResponseEntity.created(new URI("/api/videos/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
+    }
+
+    /**
+     * POST  /videosForChapter : Return all Videos for a Chapter.
+     *
+     * @param chapterID the chapterID of the chapter
+     * @return the ResponseEntity with status 200 (OK) and the list of videos for the chapter in body
+     * @throws BadRequestAlertException if the chapterID parameter is null
+     */
+    @PostMapping("/chapters/videosForChapter")
+    @Timed
+    public List<Video> getVideosForChapter(@Valid @RequestBody String chapterID) {
+        log.debug("REST request to get all Chapters for a Course");
+        if (chapterID == null) {
+            throw new BadRequestAlertException("The chapterID parameter cannot be null", ENTITY_NAME, "chapterIDNull");
+        }
+        return videoService.findAllVideosForChapter(chapterID);
     }
 
     /**
@@ -62,18 +79,17 @@ public class VideoResource {
      * @return the ResponseEntity with status 200 (OK) and with body the updated video,
      * or with status 400 (Bad Request) if the video is not valid,
      * or with status 500 (Internal Server Error) if the video couldn't be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/videos")
     @Timed
-    public ResponseEntity<Video> updateVideo(@Valid @RequestBody Video video) throws URISyntaxException {
+    public ResponseEntity<Video> updateVideo(@Valid @RequestBody Video video) {
         log.debug("REST request to update Video : {}", video);
         if (video.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Video result = videoService.save(video);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, video.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, video.getId()))
             .body(result);
     }
 

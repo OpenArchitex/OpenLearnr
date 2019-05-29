@@ -2,22 +2,15 @@
     "name": "Student",
     "fields": [
         {
-            "fieldName": "userID",
+            "fieldName": "lastWatchedVideoID",
             "fieldType": "Integer",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "lastWatchedVideo",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "lastWatchedVideoTime",
-            "fieldType": "Float",
+            "fieldType": "Instant",
             "fieldValidateRules": [
                 "required"
             ]

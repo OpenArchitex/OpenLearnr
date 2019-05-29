@@ -35,6 +35,20 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "chapterID",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "isSample",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "relationships": [],

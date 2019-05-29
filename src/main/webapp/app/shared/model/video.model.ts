@@ -5,6 +5,8 @@ export interface IVideo {
     description?: string;
     url?: string;
     courseID?: string;
+    chapterID?: string;
+    isSample?: boolean;
 }
 
 export class Video implements IVideo {
@@ -14,6 +16,10 @@ export class Video implements IVideo {
         public episode?: number,
         public description?: string,
         public url?: string,
-        public courseID?: string
-    ) {}
+        public courseID?: string,
+        public chapterID?: string,
+        public isSample?: boolean
+    ) {
+        this.isSample = false;
+    }
 }

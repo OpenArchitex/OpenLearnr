@@ -16,10 +16,12 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Name</span></th>
-            <th><span>Description</span></th>
             <th><span>Episode</span></th>
+            <th><span>Description</span></th>
             <th><span>Url</span></th>
             <th><span>Course ID</span></th>
+            <th><span>Chapter ID</span></th>
+            <th><span>Is Sample</span></th>
             <th></th>
             </tr>
             </thead>
@@ -27,10 +29,12 @@
             <tr *ngFor="let video of videos ;trackBy: trackId">
                 <td><a [routerLink]="['/video', video.id, 'view' ]">{{video.id}}</a></td>
                 <td>{{video.name}}</td>
-                <td>{{video.description}}</td>
                 <td>{{video.episode}}</td>
+                <td>{{video.description}}</td>
                 <td>{{video.url}}</td>
                 <td>{{video.courseID}}</td>
+                <td>{{video.chapterID}}</td>
+                <td>{{video.isSample}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

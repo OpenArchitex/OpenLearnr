@@ -17,28 +17,19 @@ export class StudentUpdatePage {
     pageTitle = element(by.id('jhi-student-heading'));
     saveButton = element(by.id('save-entity'));
     cancelButton = element(by.id('cancel-save'));
-    userIDInput = element(by.id('field_userID'));
-    lastWatchedVideoInput = element(by.id('field_lastWatchedVideo'));
+    lastWatchedVideoIDInput = element(by.id('field_lastWatchedVideoID'));
     lastWatchedVideoTimeInput = element(by.id('field_lastWatchedVideoTime'));
 
     getPageTitle() {
         return this.pageTitle.getText();
     }
 
-    setUserIDInput(userID): promise.Promise<void> {
-        return this.userIDInput.sendKeys(userID);
+    setLastWatchedVideoIDInput(lastWatchedVideoID): promise.Promise<void> {
+        return this.lastWatchedVideoIDInput.sendKeys(lastWatchedVideoID);
     }
 
-    getUserIDInput() {
-        return this.userIDInput.getAttribute('value');
-    }
-
-    setLastWatchedVideoInput(lastWatchedVideo): promise.Promise<void> {
-        return this.lastWatchedVideoInput.sendKeys(lastWatchedVideo);
-    }
-
-    getLastWatchedVideoInput() {
-        return this.lastWatchedVideoInput.getAttribute('value');
+    getLastWatchedVideoIDInput() {
+        return this.lastWatchedVideoIDInput.getAttribute('value');
     }
 
     setLastWatchedVideoTimeInput(lastWatchedVideoTime): promise.Promise<void> {

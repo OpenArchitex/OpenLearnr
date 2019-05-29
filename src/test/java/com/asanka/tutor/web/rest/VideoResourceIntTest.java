@@ -53,6 +53,12 @@ public class VideoResourceIntTest {
     private static final String DEFAULT_COURSE_ID = "AAAAAAAAAA";
     private static final String UPDATED_COURSE_ID = "BBBBBBBBBB";
 
+    private static final String DEFAULT_CHAPTER_ID = "AAAAAAAAAA";
+    private static final String UPDATED_CHAPTER_ID = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_IS_SAMPLE = false;
+    private static final Boolean UPDATED_IS_SAMPLE = true;
+
     @Autowired
     private VideoRepository videoRepository;
 
@@ -92,13 +98,14 @@ public class VideoResourceIntTest {
      * if they test an entity which requires the current entity.
      */
     public static Video createEntity() {
-        Video video = new Video()
+        return new Video()
             .name(DEFAULT_NAME)
             .episode(DEFAULT_EPISODE)
             .description(DEFAULT_DESCRIPTION)
             .url(DEFAULT_URL)
-            .courseID(DEFAULT_COURSE_ID);
-        return video;
+            .courseID(DEFAULT_COURSE_ID)
+            .chapterID(DEFAULT_CHAPTER_ID)
+            .isSample(DEFAULT_IS_SAMPLE);
     }
 
     @Before
@@ -126,6 +133,8 @@ public class VideoResourceIntTest {
         assertThat(testVideo.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testVideo.getUrl()).isEqualTo(DEFAULT_URL);
         assertThat(testVideo.getCourseID()).isEqualTo(DEFAULT_COURSE_ID);
+        assertThat(testVideo.getChapterID()).isEqualTo(DEFAULT_CHAPTER_ID);
+        assertThat(testVideo.isIsSample()).isEqualTo(DEFAULT_IS_SAMPLE);
     }
 
     @Test
@@ -232,6 +241,40 @@ public class VideoResourceIntTest {
     }
 
     @Test
+    public void checkChapterIDIsRequired() throws Exception {
+        int databaseSizeBeforeTest = videoRepository.findAll().size();
+        // set the field null
+        video.setChapterID(null);
+
+        // Create the Video, which fails.
+
+        restVideoMockMvc.perform(post("/api/videos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .andExpect(status().isBadRequest());
+
+        List<Video> videoList = videoRepository.findAll();
+        assertThat(videoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    public void checkIsSampleIsRequired() throws Exception {
+        int databaseSizeBeforeTest = videoRepository.findAll().size();
+        // set the field null
+        video.setIsSample(null);
+
+        // Create the Video, which fails.
+
+        restVideoMockMvc.perform(post("/api/videos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .andExpect(status().isBadRequest());
+
+        List<Video> videoList = videoRepository.findAll();
+        assertThat(videoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void getAllVideos() throws Exception {
         // Initialize the database
         videoRepository.save(video);
@@ -241,11 +284,13 @@ public class VideoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(video.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].episode").value(hasItem(DEFAULT_EPISODE)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL.toString())))
-            .andExpect(jsonPath("$.[*].courseID").value(hasItem(DEFAULT_COURSE_ID.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
+            .andExpect(jsonPath("$.[*].courseID").value(hasItem(DEFAULT_COURSE_ID)))
+            .andExpect(jsonPath("$.[*].chapterID").value(hasItem(DEFAULT_CHAPTER_ID)))
+            .andExpect(jsonPath("$.[*].isSample").value(hasItem(DEFAULT_IS_SAMPLE)));
     }
     
 
@@ -259,11 +304,13 @@ public class VideoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(video.getId()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.episode").value(DEFAULT_EPISODE))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.url").value(DEFAULT_URL.toString()))
-            .andExpect(jsonPath("$.courseID").value(DEFAULT_COURSE_ID.toString()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.url").value(DEFAULT_URL))
+            .andExpect(jsonPath("$.courseID").value(DEFAULT_COURSE_ID))
+            .andExpect(jsonPath("$.chapterID").value(DEFAULT_CHAPTER_ID))
+            .andExpect(jsonPath("$.isSample").value(DEFAULT_IS_SAMPLE));
     }
     @Test
     public void getNonExistingVideo() throws Exception {
@@ -286,7 +333,9 @@ public class VideoResourceIntTest {
             .episode(UPDATED_EPISODE)
             .description(UPDATED_DESCRIPTION)
             .url(UPDATED_URL)
-            .courseID(UPDATED_COURSE_ID);
+            .courseID(UPDATED_COURSE_ID)
+            .chapterID(UPDATED_CHAPTER_ID)
+            .isSample(UPDATED_IS_SAMPLE);
 
         restVideoMockMvc.perform(put("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -302,6 +351,8 @@ public class VideoResourceIntTest {
         assertThat(testVideo.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testVideo.getUrl()).isEqualTo(UPDATED_URL);
         assertThat(testVideo.getCourseID()).isEqualTo(UPDATED_COURSE_ID);
+        assertThat(testVideo.getChapterID()).isEqualTo(UPDATED_CHAPTER_ID);
+        assertThat(testVideo.isIsSample()).isEqualTo(UPDATED_IS_SAMPLE);
     }
 
     @Test
