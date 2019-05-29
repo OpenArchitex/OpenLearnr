@@ -22,9 +22,8 @@ interface NavItem {
 export class CourseDetailComponent implements OnInit {
     course: ICourse;
     chapters: IChapter[];
-    videos: IVideo[];
     clickedVideo: IVideo;
-    navItems: NavItem[] = [];
+    navItems: NavItem[];
 
     static previousState() {
         window.history.back();
@@ -40,6 +39,8 @@ export class CourseDetailComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ course }) => {
             this.course = course;
+            this.navItems = [];
+            this.clickedVideo = null;
             this.loadAllChaptersForCourse(course);
         });
     }
@@ -70,8 +71,8 @@ export class CourseDetailComponent implements OnInit {
     loadAllVideosForChapter(chapter: IChapter) {
         this.chapterService.getVideosForChapter(chapter.id).subscribe(
             (res: HttpResponse<IVideo[]>) => {
-                this.clickedVideo = res.body[0];
                 this.navItems.push({ chapterName: chapter.name, videos: res.body });
+                this.clickedVideo = this.navItems[0].videos[0];
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
