@@ -35,7 +35,9 @@ export class VideoUpdateComponent implements OnInit {
             this.video = video;
         });
         this.loadAllCourses();
-        this.loadAllChaptersForCourse(this.video.courseID);
+        if (this.video.courseID != null) {
+            this.loadAllChaptersForCourse(this.video.courseID);
+        }
     }
 
     loadAllCourses() {
