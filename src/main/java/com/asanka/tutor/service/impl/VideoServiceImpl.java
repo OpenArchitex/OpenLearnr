@@ -1,5 +1,6 @@
 package com.asanka.tutor.service.impl;
 
+import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.service.VideoService;
 import com.asanka.tutor.domain.Video;
 import com.asanka.tutor.repository.VideoRepository;
@@ -48,14 +49,14 @@ public class VideoServiceImpl implements VideoService {
     }
 
     /**
-     * Get all the videos for the chapter.
+     * Get all the videos for a collection of chapters.
      *
      * @return the list of entities
      */
     @Override
-    public List<Video> findAllVideosForChapter(String chapterID) {
-        log.debug("Request to get all Vidoes for the chapterID" + chapterID);
-        return videoRepository.findVideosByChapterID(chapterID);
+    public List<Video> findAllVideosForChapters(String[] chapterIDs) {
+        log.debug("Request to get all Videos for the chapters");
+        return videoRepository.findVideosByChapterIDIn(chapterIDs);
     }
 
     /**

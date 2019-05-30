@@ -57,27 +57,24 @@ export class CourseDetailComponent implements OnInit {
     }
 
     private constructNavItemsArray() {
+        const chapterIDs: string[] = [];
         for (const chapter of this.chapters) {
-            this.loadAllVideosForChapter(chapter);
+            chapterIDs.push(chapter.id);
         }
-    }
-
-    loadAllVideosForChapter(chapter: IChapter) {
-        this.chapterService.getVideosForChapter(chapter.id).subscribe(
+        this.chapterService.getVideosForChapters(chapterIDs).subscribe(
             (res: HttpResponse<IVideo[]>) => {
-                this.navItems.push({ chapterName: chapter.name, chapterNumber: chapter.chapterNumber, videos: res.body });
+                for (const chapter of this.chapters) {
+                    this.navItems.push({
+                        chapterName: chapter.name,
+                        chapterNumber: chapter.chapterNumber,
+                        videos: res.body
+                    });
+                }
+                this.navItems.sort((a, b) => a.chapterNumber - b.chapterNumber);
                 this.clickedVideo = this.navItems[0].videos[0];
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.navItems.sort((a, b) => {
-            if (a.chapterNumber < b.chapterNumber) {
-                return -1;
-            } else if (a.chapterNumber > b.chapterNumber) {
-                return 1;
-            }
-            return 0;
-        });
     }
 
     private onError(errorMessage: string) {

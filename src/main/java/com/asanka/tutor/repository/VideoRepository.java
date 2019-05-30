@@ -9,8 +9,7 @@ import java.util.List;
 /**
  * Spring Data MongoDB repository for the Video entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface VideoRepository extends MongoRepository<Video, String> {
-    List<Video> findVideosByChapterID(String chapterID);
+    List<Video> findVideosByChapterIDIn(String[] chapterID);
 }

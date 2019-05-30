@@ -27,11 +27,11 @@ public interface VideoService {
     List<Video> findAll();
 
     /**
-     * Get all the videos for the chapter.
+     * Get all the videos for a collection of chapters.
      *
      * @return the list of entities
      */
-    List<Video> findAllVideosForChapter(String chapterID);
+    List<Video> findAllVideosForChapters(String[] chapterIDs);
 
     /**
      * Get the "id" video.

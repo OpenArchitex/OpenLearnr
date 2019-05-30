@@ -1,5 +1,6 @@
 package com.asanka.tutor.web.rest;
 
+import com.asanka.tutor.domain.Chapter;
 import com.codahale.metrics.annotation.Timed;
 import com.asanka.tutor.domain.Video;
 import com.asanka.tutor.service.VideoService;
@@ -56,20 +57,20 @@ public class VideoResource {
     }
 
     /**
-     * POST  /videosForChapter : Return all Videos for a Chapter.
+     * POST  /videosForChapter : Return all Videos for a collection of Chapters.
      *
-     * @param chapterID the chapterID of the chapter
+     * @param chapterIDs the chapterID of the chapter
      * @return the ResponseEntity with status 200 (OK) and the list of videos for the chapter in body
      * @throws BadRequestAlertException if the chapterID parameter is null
      */
-    @PostMapping("/chapters/videosForChapter")
+    @PostMapping("/chapters/videosForChapters")
     @Timed
-    public List<Video> getVideosForChapter(@Valid @RequestBody String chapterID) {
-        log.debug("REST request to get all Chapters for a Course");
-        if (chapterID == null) {
-            throw new BadRequestAlertException("The chapterID parameter cannot be null", ENTITY_NAME, "chapterIDNull");
+    public List<Video> getVideosForChapters(@Valid @RequestBody String[] chapterIDs) {
+        log.debug("REST request to get all Videos for a collection of Chapters");
+        if (chapterIDs == null) {
+            throw new BadRequestAlertException("The chapterIDs parameter cannot be null", ENTITY_NAME, "chapterIDsNull");
         }
-        return videoService.findAllVideosForChapter(chapterID);
+        return videoService.findAllVideosForChapters(chapterIDs);
     }
 
     /**

@@ -41,7 +41,7 @@ export class ChapterService {
         return this.http.post<IChapter[]>(this.resourceUrl + '/chaptersForCourse', courseID, { observe: 'response' });
     }
 
-    getVideosForChapter(chapterID: string): Observable<EntityArrayResponseType> {
-        return this.http.post<IVideo[]>(this.resourceUrl + '/videosForChapter', chapterID, { observe: 'response' });
+    getVideosForChapters(chapterIDs: string[]): Observable<EntityArrayResponseType> {
+        return this.http.post<IVideo[]>(this.resourceUrl + '/videosForChapters', chapterIDs, { observe: 'response' });
     }
 }
