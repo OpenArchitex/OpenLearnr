@@ -13,7 +13,7 @@
             <div class="row">
                 <mat-form-field class="col-md-4">
                     <mat-label>Course to Purchase</mat-label>
-                    <mat-select #courseSelect (selectionChange)=loadAllChaptersForCourse(courseSelect.value)>
+                    <mat-select #courseSelect (selectionChange)="loadAllChaptersForCourse(courseSelect.value); selectedChapters.value = undefined">
                         <mat-option *ngFor="let course of courses" [value]="course.id" required>{{course.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -52,7 +52,7 @@
             <div class="form-row d-block">
                 <button [hidden]="executingPayment" class="submitButton" mat-raised-button color="primary"
                         (click)=stripeCard.createToken(extraData)>
-                    Pay <ng-container *ngIf="totalCost != 0">{{totalCost}} USD</ng-container>
+                    Pay <ng-container *ngIf="totalCost != 0 && courseSelect.value != null && selectedChapters.value != null">{{totalCost}} USD</ng-container>
                 </button>
                 <div *ngIf="stripeError != null" class="alert alert-danger" role="alert">
                     {{stripeError}}
