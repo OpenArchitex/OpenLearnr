@@ -67,7 +67,7 @@ export class CourseDetailComponent implements OnInit {
                     this.navItems.push({
                         chapterName: chapter.name,
                         chapterNumber: chapter.chapterNumber,
-                        videos: res.body
+                        videos: res.body.filter(video => video.chapterID === chapter.id)
                     });
                 }
                 this.navItems.sort((a, b) => a.chapterNumber - b.chapterNumber);
