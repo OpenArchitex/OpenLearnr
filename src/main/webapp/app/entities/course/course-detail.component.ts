@@ -11,6 +11,7 @@ import { CourseService } from 'app/entities/course/course.service';
 
 interface NavItem {
     chapterName: string;
+    chapterNumber: number;
     videos?: IVideo[];
 }
 
@@ -48,14 +49,7 @@ export class CourseDetailComponent implements OnInit {
     loadAllChaptersForCourse(course: ICourse) {
         this.chapterService.getChaptersForCourse(course.id).subscribe(
             (res: HttpResponse<IChapter[]>) => {
-                this.chapters = res.body.sort((a, b) => {
-                    if (a.chapterNumber < b.chapterNumber) {
-                        return -1;
-                    } else if (a.chapterNumber > b.chapterNumber) {
-                        return 1;
-                    }
-                    return 0;
-                });
+                this.chapters = res.body;
                 this.constructNavItemsArray();
             },
             (res: HttpErrorResponse) => this.onError(res.message)
@@ -71,11 +65,19 @@ export class CourseDetailComponent implements OnInit {
     loadAllVideosForChapter(chapter: IChapter) {
         this.chapterService.getVideosForChapter(chapter.id).subscribe(
             (res: HttpResponse<IVideo[]>) => {
-                this.navItems.push({ chapterName: chapter.name, videos: res.body });
+                this.navItems.push({ chapterName: chapter.name, chapterNumber: chapter.chapterNumber, videos: res.body });
                 this.clickedVideo = this.navItems[0].videos[0];
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.navItems.sort((a, b) => {
+            if (a.chapterNumber < b.chapterNumber) {
+                return -1;
+            } else if (a.chapterNumber > b.chapterNumber) {
+                return 1;
+            }
+            return 0;
+        });
     }
 
     private onError(errorMessage: string) {
