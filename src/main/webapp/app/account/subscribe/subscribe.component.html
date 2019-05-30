@@ -5,8 +5,9 @@
     </mat-card-header>
     <mat-card-content>
         <div class="form-row d-block">
-            Subscribe and get access to more videos lectures. Currently we have a monthly subscription model where you
-            get access to all course videos for 100 CDN.
+            As much as we would like to give our courses for free, in order to sustain our website and to cover our costs we have to charge some subscription fee.
+            Each course video takes hours of time to plan and produce in addition to server costs, bandwidth, maintenance and development. Therefore we have a simple subscription
+            modal; each chapter costs <b>10 USD</b>.
         </div>
         <div class="form-row d-block">
             <div class="row">
@@ -18,7 +19,7 @@
                 </mat-form-field>
                 <mat-form-field class="col-md-4">
                     <mat-label>Chapters to Purchase</mat-label>
-                    <mat-select multiple>
+                    <mat-select #selectedChapters (selectionChange)="updateTotalCost(selectedChapters.value)" multiple>
                         <mat-option *ngFor="let chapter of chapters" [value]="chapter.id" required>{{chapter.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -51,7 +52,7 @@
             <div class="form-row d-block">
                 <button [hidden]="executingPayment" class="submitButton" mat-raised-button color="primary"
                         (click)=stripeCard.createToken(extraData)>
-                    Submit
+                    Pay <ng-container *ngIf="totalCost != 0">{{totalCost}} USD</ng-container>
                 </button>
                 <div *ngIf="stripeError != null" class="alert alert-danger" role="alert">
                     {{stripeError}}
@@ -63,10 +64,3 @@
         </span>
     </mat-card-content>
 </mat-card>
-
-
-
-
-
-
-

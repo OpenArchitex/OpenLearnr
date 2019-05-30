@@ -22,6 +22,7 @@ export class SubscribeComponent implements OnInit {
     private stripeSuccess: string;
     private chapters: IChapter[];
     private courses: ICourse[];
+    private totalCost: number;
 
     extraData = {
         address_city: null,
@@ -112,5 +113,9 @@ export class SubscribeComponent implements OnInit {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    updateTotalCost(value: string[]) {
+        this.totalCost = 10 * value.length;
     }
 }
