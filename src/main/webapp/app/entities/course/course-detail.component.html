@@ -18,7 +18,7 @@
             <mat-drawer mode="side" opened>
                 <mat-expansion-panel *ngFor="let navItem of navItems">
                     <mat-expansion-panel-header>
-                        <mat-panel-title class="chapterNames">{{navItem.chapterName}}</mat-panel-title>
+                        <mat-panel-title class="chapterNames">{{navItem.chapterNumber}}: {{navItem.chapterName}}</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-list>
                         <a mat-list-item (click)="clickedVideo = video" *ngFor="let video of navItem.videos"><button mat-button>{{video.name}}</button></a>
