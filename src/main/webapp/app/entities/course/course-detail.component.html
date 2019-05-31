@@ -1,6 +1,6 @@
 <div>
     <mat-toolbar>
-        <span>{{course.name}}</span>
+        <span><button mat-icon-button (click)="drawer.toggle()"><fa-icon [icon]="'bars'"></fa-icon></button><span class="toolbar-button-text">{{course.name}}</span></span>
         <span class="middle-content"></span>
         <span>
             <button mat-raised-button color="primary" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="['/video/new']">
@@ -15,7 +15,7 @@
     <br/>
     <div class="mat-body">
         <mat-drawer-container autosize>
-            <mat-drawer mode="side" opened>
+            <mat-drawer #drawer mode="side" opened>
                 <mat-expansion-panel *ngFor="let navItem of navItems">
                     <mat-expansion-panel-header>
                         <mat-panel-title class="chapterNames">{{navItem.chapterNumber}}: {{navItem.chapterName}}</mat-panel-title>
