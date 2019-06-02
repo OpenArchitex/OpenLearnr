@@ -2,6 +2,7 @@ package com.asanka.tutor.security;
 
 import com.stripe.Stripe;
 import com.stripe.model.Charge;
+import com.stripe.net.ApiResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,6 @@ public class StripeClient {
         chargeParams.put("amount", (int)(amount * 100));
         chargeParams.put("currency", "USD");
         chargeParams.put("source", token);
-        return Charge.create(chargeParams);
+        return ApiResource.GSON.fromJson(Charge.create(chargeParams).getLastResponse().body(), Charge.class);
     }
 }
