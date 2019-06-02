@@ -59,7 +59,7 @@ public class VideoResource {
     /**
      * POST  /videosForChapter : Return all Videos for a collection of Chapters.
      *
-     * @param chapterIDs the chapterID of the chapter
+     * @param chapterIDs the chapterIDs of the chapters
      * @return the ResponseEntity with status 200 (OK) and the list of videos for the chapter in body
      * @throws BadRequestAlertException if the chapterID parameter is null
      */
