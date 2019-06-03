@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { MatButtonModule, MatChipsModule, MatExpansionModule, MatListModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
 import { SafePipe } from 'app/entities/course/SafePipe';
 import { OnlineTutorSharedModule } from 'app/shared';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     CourseComponent,
     CourseDetailComponent,
@@ -24,7 +25,8 @@ const ENTITY_STATES = [...courseRoute, ...coursePopupRoute];
         MatToolbarModule,
         MatButtonModule,
         MatExpansionModule,
-        MatChipsModule
+        MatChipsModule,
+        FlexLayoutModule
     ],
     declarations: [
         CourseComponent,
