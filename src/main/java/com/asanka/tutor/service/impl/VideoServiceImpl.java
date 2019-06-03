@@ -1,8 +1,10 @@
 package com.asanka.tutor.service.impl;
 
+import com.asanka.tutor.domain.Authority;
 import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.UserRepository;
+import com.asanka.tutor.security.AuthoritiesConstants;
 import com.asanka.tutor.security.UserNotActivatedException;
 import com.asanka.tutor.security.UserNotLoggedInException;
 import com.asanka.tutor.service.UserService;
@@ -77,10 +79,14 @@ public class VideoServiceImpl implements VideoService {
             log.error("User is not logged in!!");
             throw new UserNotLoggedInException("User is not logged in!");
         }
-        Set<String> chapters = user.get().getChapters();
-        for (Video video: videos) {
-            if (!chapters.contains(video.getChapterID()) && !video.isIsSample())
-                video.setUrl(null);
+        Authority authority = new Authority();
+        authority.setName(AuthoritiesConstants.ADMIN);
+        if (!user.get().getAuthorities().contains(authority)) {
+            Set<String> chapters = user.get().getChapters();
+            for (Video video : videos) {
+                if (!chapters.contains(video.getChapterID()) && !video.isIsSample())
+                    video.setUrl(null);
+            }
         }
         return videos;
     }
