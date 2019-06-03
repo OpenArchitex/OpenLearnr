@@ -75,7 +75,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Instant resetDate = null;
 
     @Field("chapters")
-    private List<String> chapters;
+    private Set<String> chapters;
 
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
@@ -185,9 +185,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.authorities = authorities;
     }
 
-    public List<String> getChapters() { return chapters; }
+    public Set<String> getChapters() { return chapters; }
 
-    public void setChapters(List<String> chapters) {
+    public void setChapters(Set<String> chapters) {
         this.chapters = chapters;
     }
 

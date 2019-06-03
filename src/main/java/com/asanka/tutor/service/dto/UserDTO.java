@@ -55,7 +55,7 @@ public class UserDTO {
 
     private Set<String> authorities;
 
-    private List<String> chapters;
+    private Set<String> chapters;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -184,9 +184,9 @@ public class UserDTO {
         this.authorities = authorities;
     }
 
-    public List<String> getChapters() { return chapters; }
+    public Set<String> getChapters() { return chapters; }
 
-    public void setChapters(List<String> chapters) { this.chapters = chapters; }
+    public void setChapters(Set<String> chapters) { this.chapters = chapters; }
 
     @Override
     public String toString() {

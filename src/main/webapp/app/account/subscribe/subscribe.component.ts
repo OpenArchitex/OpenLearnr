@@ -91,30 +91,19 @@ export class SubscribeComponent implements OnInit {
         if (this.courseID == null || this.chapterIDs == null) {
             this.stripeError = 'Please select the Course and Chapters to purchase.';
         }
-        this.userService.find(this.account.login).subscribe(
-            (response: HttpResponse<IUser>) => {
-                const userID: string = response.body.id;
-                const headers = new HttpHeaders({
-                    token,
-                    amount: this.totalCost.toString(),
-                    userID,
-                    chapters: '[' + this.chapterIDs + ']'
-                });
-                this.executingPayment = true;
-                this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(
-                    () => {
-                        this.stripeSuccess = 'Payment Successful!';
-                        this.stripeError = null;
-                        this.executingPayment = false;
-                    },
-                    (err: HttpErrorResponse) => {
-                        this.stripeError = err.error.detail;
-                        this.stripeSuccess = null;
-                        this.executingPayment = false;
-                    }
-                );
+        const headers = new HttpHeaders({ token, amount: this.totalCost.toString(), chapters: '[' + this.chapterIDs + ']' });
+        this.executingPayment = true;
+        this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(
+            () => {
+                this.stripeSuccess = 'Payment Successful!';
+                this.stripeError = null;
+                this.executingPayment = false;
             },
-            (res: HttpErrorResponse) => this.onError(res.message)
+            (err: HttpErrorResponse) => {
+                this.stripeError = err.error.detail;
+                this.stripeSuccess = null;
+                this.executingPayment = false;
+            }
         );
     }
 

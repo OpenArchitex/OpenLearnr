@@ -1,17 +1,26 @@
 package com.asanka.tutor.service.impl;
 
 import com.asanka.tutor.domain.Chapter;
+import com.asanka.tutor.domain.User;
+import com.asanka.tutor.repository.UserRepository;
+import com.asanka.tutor.security.UserNotActivatedException;
+import com.asanka.tutor.security.UserNotLoggedInException;
+import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.VideoService;
 import com.asanka.tutor.domain.Video;
 import com.asanka.tutor.repository.VideoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 /**
  * Service Implementation for managing Video.
  */
@@ -22,8 +31,14 @@ public class VideoServiceImpl implements VideoService {
 
     private final VideoRepository videoRepository;
 
-    public VideoServiceImpl(VideoRepository videoRepository) {
+    private final UserRepository userRepository;
+
+    private final UserService userService;
+
+    public VideoServiceImpl(VideoRepository videoRepository, UserRepository userRepository, UserService userService) {
         this.videoRepository = videoRepository;
+        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     /**
@@ -56,7 +71,18 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public List<Video> findAllVideosForChapters(String[] chapterIDs) {
         log.debug("Request to get all Videos for the chapters");
-        return videoRepository.findVideosByChapterIDIn(chapterIDs);
+        List<Video> videos = videoRepository.findVideosByChapterIDIn(chapterIDs);
+        Optional<User> user = userService.getUserWithAuthorities();
+        if (!user.isPresent()) {
+            log.error("User is not logged in!!");
+            throw new UserNotLoggedInException("User is not logged in!");
+        }
+        Set<String> chapters = user.get().getChapters();
+        for (Video video: videos) {
+            if (!chapters.contains(video.getChapterID()) && !video.isIsSample())
+                video.setUrl(null);
+        }
+        return videos;
     }
 
     /**

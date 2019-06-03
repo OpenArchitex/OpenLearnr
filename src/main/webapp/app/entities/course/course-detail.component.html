@@ -21,14 +21,14 @@
                         <mat-panel-title class="chapterNames">{{navItem.chapterNumber}}: {{navItem.chapterName}}</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-list>
-                        <a mat-list-item (click)="clickedVideo = video" *ngFor="let video of navItem.videos"><button mat-button>{{video.name}}</button></a>
+                        <a mat-list-item (click)="clickedVideo = video" *ngFor="let video of navItem.videos"><button mat-button>{{video.name}}</button><span class="badge badge-info" *ngIf='video.url === null'>Subscribe</span></a>
                     </mat-list>
                 </mat-expansion-panel>
             </mat-drawer>
 
             <mat-drawer-content>
                 <div class="embed-responsive embed-responsive-16by9" *ngIf="clickedVideo != null">
-                    <iframe class="embed-responsive-item" [src]='clickedVideo.url + "?modestbranding=1" | safe' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe *ngIf="clickedVideo.url != null" class="embed-responsive-item" [src]='clickedVideo.url + "?modestbranding=1" | safe' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </mat-drawer-content>
         </mat-drawer-container>

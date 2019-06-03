@@ -1,9 +1,13 @@
 package com.asanka.tutor.web.rest;
 
+import com.asanka.tutor.domain.User;
 import com.asanka.tutor.security.StripeClient;
+import com.asanka.tutor.security.UserNotLoggedInException;
 import com.asanka.tutor.service.UserService;
 import com.codahale.metrics.annotation.Timed;
 import com.stripe.model.Charge;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -21,6 +26,8 @@ public class PaymentController {
     private StripeClient stripeClient;
 
     private final UserService userService;
+
+    private final Logger log = LoggerFactory.getLogger(PaymentController.class);
 
     @Autowired
     PaymentController(StripeClient stripeClient, UserService userService) {
@@ -33,14 +40,18 @@ public class PaymentController {
     public Charge chargeCard(HttpServletRequest request) throws Exception {
         String token = request.getHeader("token");
         double amount = Double.parseDouble(request.getHeader("amount"));
-        String userID = request.getHeader("userID");
         JSONArray chapterIDs = new JSONArray(request.getHeader("chapters"));
         List<String> chapters = new ArrayList<>();
         int length = chapterIDs.length();
         for (int i = 0; i < length; i++){
             chapters.add(chapterIDs.get(i).toString());
         }
-        userService.updateUserSubscriptions(userID, chapters);
+        Optional<User> user = userService.getUserWithAuthorities();
+        if (!user.isPresent()) {
+            log.error("User is not logged in!");
+            throw new UserNotLoggedInException("User not logged in!");
+        }
+        userService.updateUserSubscriptions(userService.getUserWithAuthorities().get().getId(), chapters);
         return this.stripeClient.chargeCreditCard(token, amount);
     }
 }
