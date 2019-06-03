@@ -1,0 +1,62 @@
+<div>
+    <h2 id="page-heading">
+        <span>Comments</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-comment" [routerLink]="['/comment/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Comment
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="comments">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>User ID</span></th>
+            <th><span>Video ID</span></th>
+            <th><span>Comment Body</span></th>
+            <th><span>Likes Count</span></th>
+            <th><span>Dislikes Count</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let comment of comments ;trackBy: trackId">
+                <td><a [routerLink]="['/comment', comment.id, 'view' ]">{{comment.id}}</a></td>
+                <td>{{comment.userID}}</td>
+                <td>{{comment.videoID}}</td>
+                <td>{{comment.commentBody}}</td>
+                <td>{{comment.likesCount}}</td>
+                <td>{{comment.dislikesCount}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/comment', comment.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/comment', comment.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'comment/'+ comment.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

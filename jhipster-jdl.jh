@@ -22,5 +22,13 @@ entity Video {
     isSample Boolean required
 }
 
+entity Comment {
+	userID String required
+	videoID String required
+	commentBody String required
+	likesCount Integer
+	dislikesCount Integer
+}
+
 // Set service options to all except few
 service all with serviceImpl
