@@ -13,14 +13,14 @@
             <div class="row">
                 <mat-form-field class="col-md-4">
                     <mat-label>Course to Purchase</mat-label>
-                    <mat-select #courseSelect (selectionChange)="loadAllChaptersForCourse(courseSelect.value); selectedChapters.value = undefined">
-                        <mat-option *ngFor="let course of courses" [value]="course.id" required>{{course.name}}</mat-option>
+                    <mat-select #courseSelect (selectionChange)="loadAllChaptersForCourse(courseSelect.value); selectedChapters.value = undefined" required>
+                        <mat-option *ngFor="let course of courses" [value]="course.id">{{course.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-md-4">
                     <mat-label>Chapters to Purchase</mat-label>
-                    <mat-select #selectedChapters (selectionChange)="updateTotalCost(selectedChapters.value)" multiple>
-                        <mat-option *ngFor="let chapter of chapters" [value]="chapter.id" required>{{chapter.name}}</mat-option>
+                    <mat-select #selectedChapters [(ngModel)]="chapterIDs" (selectionChange)="updateTotalCost(selectedChapters.value)" multiple required>
+                        <mat-option *ngFor="let chapter of chapters" [value]="chapter.id">{{chapter.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

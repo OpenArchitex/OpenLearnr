@@ -13,10 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.time.Instant;
 
 /**
@@ -76,6 +73,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Field("reset_date")
     private Instant resetDate = null;
+
+    @Field("chapters")
+    private List<String> chapters;
 
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
@@ -183,6 +183,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public List<String> getChapters() { return chapters; }
+
+    public void setChapters(List<String> chapters) {
+        this.chapters = chapters;
     }
 
     @Override

@@ -204,6 +204,27 @@ public class UserService {
             .map(UserDTO::new);
     }
 
+    /**
+     * Update course/chapter subscriptions for a user.
+     *
+     * @param userID user to update
+     * @return updated user
+     */
+    public Optional<UserDTO> updateUserSubscriptions(String userID, List<String> chapters) {
+        return Optional.of(userRepository
+            .findById(userID))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .map(user -> {
+                user.getChapters().addAll(chapters);
+                userRepository.save(user);
+                this.clearUserCaches(user);
+                log.debug("Changed Subscription for User: {}", user);
+                return user;
+            })
+            .map(UserDTO::new);
+    }
+
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
             userRepository.delete(user);

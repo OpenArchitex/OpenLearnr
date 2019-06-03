@@ -7,6 +7,7 @@ import { ChapterService } from 'app/entities/chapter';
 import { ICourse } from 'app/shared/model/course.model';
 import { CourseService } from 'app/entities/course';
 import { JhiAlertService } from 'ng-jhipster';
+import { Account, IUser, Principal, UserService } from 'app/core';
 
 @Component({
     selector: 'jhi-subscribe',
@@ -23,6 +24,8 @@ export class SubscribeComponent implements OnInit {
     private chapters: IChapter[];
     private courses: ICourse[];
     private totalCost: number;
+    private chapterIDs: string[];
+    private account: Account;
 
     extraData = {
         address_city: null,
@@ -32,11 +35,13 @@ export class SubscribeComponent implements OnInit {
     };
 
     constructor(
+        private principal: Principal,
         private http: HttpClient,
         private stripeScriptTag: StripeScriptTag,
         private chapterService: ChapterService,
         private courseService: CourseService,
-        private jhiAlertService: JhiAlertService
+        private jhiAlertService: JhiAlertService,
+        private userService: UserService
     ) {}
 
     ngOnInit(): void {
@@ -47,6 +52,9 @@ export class SubscribeComponent implements OnInit {
             .catch(error => {
                 console.error(error);
             });
+        this.principal.identity().then(account => {
+            this.account = account;
+        });
         this.loadAllCourses();
     }
 
@@ -79,19 +87,30 @@ export class SubscribeComponent implements OnInit {
     }
 
     chargeCard(token: string) {
-        const headers = new HttpHeaders({ token, amount: this.totalCost.toString() });
-        this.executingPayment = true;
-        this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(
-            () => {
-                this.stripeSuccess = 'Payment Successful!';
-                this.stripeError = null;
-                this.executingPayment = false;
+        this.userService.find(this.account.login).subscribe(
+            (response: HttpResponse<IUser>) => {
+                const userID: string = response.body.id;
+                const headers = new HttpHeaders({
+                    token,
+                    amount: this.totalCost.toString(),
+                    userID,
+                    chapters: '[' + this.chapterIDs + ']'
+                });
+                this.executingPayment = true;
+                this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(
+                    () => {
+                        this.stripeSuccess = 'Payment Successful!';
+                        this.stripeError = null;
+                        this.executingPayment = false;
+                    },
+                    (err: HttpErrorResponse) => {
+                        this.stripeError = err.error.detail;
+                        this.stripeSuccess = null;
+                        this.executingPayment = false;
+                    }
+                );
             },
-            (err: HttpErrorResponse) => {
-                this.stripeError = err.error.detail;
-                this.stripeSuccess = null;
-                this.executingPayment = false;
-            }
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
 

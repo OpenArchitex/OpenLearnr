@@ -3,6 +3,7 @@ package com.asanka.tutor.service.dto;
 import com.asanka.tutor.config.Constants;
 
 import com.asanka.tutor.domain.Authority;
+import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.domain.User;
 
 import javax.validation.constraints.Email;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 
 import javax.validation.constraints.*;
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -53,6 +55,8 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private List<String> chapters;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -73,6 +77,7 @@ public class UserDTO {
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
+        this.chapters = user.getChapters();
     }
 
     public String getId() {
@@ -179,6 +184,10 @@ public class UserDTO {
         this.authorities = authorities;
     }
 
+    public List<String> getChapters() { return chapters; }
+
+    public void setChapters(List<String> chapters) { this.chapters = chapters; }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -194,6 +203,7 @@ public class UserDTO {
             ", lastModifiedBy='" + lastModifiedBy + '\'' +
             ", lastModifiedDate=" + lastModifiedDate +
             ", authorities=" + authorities +
+            ", chapters=" + chapters +
             "}";
     }
 }
