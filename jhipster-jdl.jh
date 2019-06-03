@@ -23,7 +23,6 @@ entity Video {
 }
 
 entity Comment {
-	userID String required
 	videoID String required
 	commentBody String required
 	likesCount Integer
