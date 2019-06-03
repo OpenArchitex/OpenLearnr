@@ -1,6 +1,5 @@
 package com.asanka.tutor.service;
 
-import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.domain.Video;
 
 import java.util.List;

@@ -1,24 +1,18 @@
 package com.asanka.tutor.service.impl;
 
 import com.asanka.tutor.domain.Authority;
-import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.domain.User;
+import com.asanka.tutor.domain.Video;
 import com.asanka.tutor.repository.UserRepository;
+import com.asanka.tutor.repository.VideoRepository;
 import com.asanka.tutor.security.AuthoritiesConstants;
-import com.asanka.tutor.security.UserNotActivatedException;
 import com.asanka.tutor.security.UserNotLoggedInException;
 import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.VideoService;
-import com.asanka.tutor.domain.Video;
-import com.asanka.tutor.repository.VideoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -51,7 +45,8 @@ public class VideoServiceImpl implements VideoService {
      */
     @Override
     public Video save(Video video) {
-        log.debug("Request to save Video : {}", video);        return videoRepository.save(video);
+        log.debug("Request to save Video : {}", video);
+        return videoRepository.save(video);
     }
 
     /**

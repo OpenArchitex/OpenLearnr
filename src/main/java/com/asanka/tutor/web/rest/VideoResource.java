@@ -1,11 +1,10 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.domain.Chapter;
-import com.codahale.metrics.annotation.Timed;
 import com.asanka.tutor.domain.Video;
 import com.asanka.tutor.service.VideoService;
 import com.asanka.tutor.web.rest.errors.BadRequestAlertException;
 import com.asanka.tutor.web.rest.util.HeaderUtil;
+import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
