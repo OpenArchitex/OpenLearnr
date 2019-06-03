@@ -25,6 +25,7 @@ export class SubscribeComponent implements OnInit {
     private courses: ICourse[];
     private totalCost: number;
     private chapterIDs: string[];
+    private courseID: string;
     private account: Account;
 
     extraData = {
@@ -87,6 +88,9 @@ export class SubscribeComponent implements OnInit {
     }
 
     chargeCard(token: string) {
+        if (this.courseID == null || this.chapterIDs == null) {
+            this.stripeError = 'Please select the Course and Chapters to purchase.';
+        }
         this.userService.find(this.account.login).subscribe(
             (response: HttpResponse<IUser>) => {
                 const userID: string = response.body.id;
