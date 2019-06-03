@@ -22,11 +22,5 @@ entity Video {
     isSample Boolean required
 }
 
-entity Student {
-	id Integer required
-    lastWatchedVideoID Integer required
-    lastWatchedVideoTime Instant required
-}
-
 // Set service options to all except few
 service all with serviceImpl
