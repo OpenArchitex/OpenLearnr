@@ -97,7 +97,6 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
                 }
                 this.navItems.sort((a, b) => a.chapterNumber - b.chapterNumber);
                 this.clickedVideo = this.navItems[0].videos[0];
-                this.comment.videoID = this.clickedVideo.id;
             },
             (res: HttpErrorResponse) => this.onError(res.message),
             () => this.getCommentsForVideo(this.clickedVideo)
@@ -131,6 +130,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
 
     private saveComment(form: NgForm) {
         this.isSaving = true;
+        this.comment.videoID = this.clickedVideo.id;
         this.commentsService.create(this.comment).subscribe(
             () => {
                 this.isSaving = false;
