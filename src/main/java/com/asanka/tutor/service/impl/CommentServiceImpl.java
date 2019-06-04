@@ -1,19 +1,19 @@
 package com.asanka.tutor.service.impl;
 
-import com.asanka.tutor.domain.User;
-import com.asanka.tutor.security.UserNotLoggedInException;
 import com.asanka.tutor.service.CommentService;
 import com.asanka.tutor.domain.Comment;
 import com.asanka.tutor.repository.CommentRepository;
-import com.asanka.tutor.service.UserService;
+import com.asanka.tutor.service.dto.CommentDTO;
+import com.asanka.tutor.service.mapper.CommentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 /**
  * Service Implementation for managing Comment.
  */
@@ -24,28 +24,25 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
 
-    private final UserService userService;
+    private final CommentMapper commentMapper;
 
-    public CommentServiceImpl(CommentRepository commentRepository, UserService userService) {
+    public CommentServiceImpl(CommentRepository commentRepository, CommentMapper commentMapper) {
         this.commentRepository = commentRepository;
-        this.userService = userService;
+        this.commentMapper = commentMapper;
     }
 
     /**
      * Save a comment.
      *
-     * @param comment the entity to save
+     * @param commentDTO the entity to save
      * @return the persisted entity
      */
     @Override
-    public Comment save(Comment comment) {
-        log.debug("Request to save Comment : {}", comment);
-        Optional<User> user = userService.getUserWithAuthorities();
-        if (!user.isPresent()) {
-            throw new UserNotLoggedInException("User is currently not logged in");
-        }
-        comment.setCreatedBy(user.get().getLogin());
-        return commentRepository.save(comment);
+    public CommentDTO save(CommentDTO commentDTO) {
+        log.debug("Request to save Comment : {}", commentDTO);
+        Comment comment = commentMapper.toEntity(commentDTO);
+        comment = commentRepository.save(comment);
+        return commentMapper.toDto(comment);
     }
 
     /**
@@ -54,9 +51,11 @@ public class CommentServiceImpl implements CommentService {
      * @return the list of entities
      */
     @Override
-    public List<Comment> findAll() {
+    public List<CommentDTO> findAll() {
         log.debug("Request to get all Comments");
-        return commentRepository.findAll();
+        return commentRepository.findAll().stream()
+            .map(commentMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
 
@@ -67,9 +66,10 @@ public class CommentServiceImpl implements CommentService {
      * @return the entity
      */
     @Override
-    public Optional<Comment> findOne(String id) {
+    public Optional<CommentDTO> findOne(String id) {
         log.debug("Request to get Comment : {}", id);
-        return commentRepository.findById(id);
+        return commentRepository.findById(id)
+            .map(commentMapper::toDto);
     }
 
     /**
@@ -79,9 +79,9 @@ public class CommentServiceImpl implements CommentService {
      * @return the comments for the video
      */
     @Override
-    public List<Comment> findComments(String videoID) {
+    public List<CommentDTO> findComments(String videoID) {
         log.debug("Request to get comments for Video : {}", videoID);
-        return commentRepository.findAllByVideoID(videoID);
+        return commentRepository.findAllByVideoID(videoID).stream().map(commentMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**

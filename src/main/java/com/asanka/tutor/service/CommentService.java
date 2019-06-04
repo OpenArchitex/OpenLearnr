@@ -1,6 +1,7 @@
 package com.asanka.tutor.service;
 
 import com.asanka.tutor.domain.Comment;
+import com.asanka.tutor.service.dto.CommentDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,17 +14,17 @@ public interface CommentService {
     /**
      * Save a comment.
      *
-     * @param comment the entity to save
+     * @param commentDTO the entity to save
      * @return the persisted entity
      */
-    Comment save(Comment comment);
+    CommentDTO save(CommentDTO commentDTO);
 
     /**
      * Get all the comments.
      *
      * @return the list of entities
      */
-    List<Comment> findAll();
+    List<CommentDTO> findAll();
 
 
     /**
@@ -32,7 +33,7 @@ public interface CommentService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Comment> findOne(String id);
+    Optional<CommentDTO> findOne(String id);
 
     /**
      * Get the comments for "id" video.
@@ -40,7 +41,7 @@ public interface CommentService {
      * @param videoID the id of the entity
      * @return the comments for the video
      */
-    List<Comment> findComments(String videoID);
+    List<CommentDTO> findComments(String videoID);
 
     /**
      * Delete the "id" comment.

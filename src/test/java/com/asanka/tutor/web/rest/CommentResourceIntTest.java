@@ -5,6 +5,8 @@ import com.asanka.tutor.OnlineTutorApp;
 import com.asanka.tutor.domain.Comment;
 import com.asanka.tutor.repository.CommentRepository;
 import com.asanka.tutor.service.CommentService;
+import com.asanka.tutor.service.dto.CommentDTO;
+import com.asanka.tutor.service.mapper.CommentMapper;
 import com.asanka.tutor.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -53,6 +55,9 @@ public class CommentResourceIntTest {
     @Autowired
     private CommentRepository commentRepository;
 
+
+    @Autowired
+    private CommentMapper commentMapper;
     
 
     @Autowired
@@ -107,9 +112,10 @@ public class CommentResourceIntTest {
         int databaseSizeBeforeCreate = commentRepository.findAll().size();
 
         // Create the Comment
+        CommentDTO commentDTO = commentMapper.toDto(comment);
         restCommentMockMvc.perform(post("/api/comments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(comment)))
+            .content(TestUtil.convertObjectToJsonBytes(commentDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Comment in the database
@@ -128,11 +134,12 @@ public class CommentResourceIntTest {
 
         // Create the Comment with an existing ID
         comment.setId("existing_id");
+        CommentDTO commentDTO = commentMapper.toDto(comment);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCommentMockMvc.perform(post("/api/comments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(comment)))
+            .content(TestUtil.convertObjectToJsonBytes(commentDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Comment in the database
@@ -147,10 +154,11 @@ public class CommentResourceIntTest {
         comment.setVideoID(null);
 
         // Create the Comment, which fails.
+        CommentDTO commentDTO = commentMapper.toDto(comment);
 
         restCommentMockMvc.perform(post("/api/comments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(comment)))
+            .content(TestUtil.convertObjectToJsonBytes(commentDTO)))
             .andExpect(status().isBadRequest());
 
         List<Comment> commentList = commentRepository.findAll();
@@ -164,10 +172,11 @@ public class CommentResourceIntTest {
         comment.setCommentBody(null);
 
         // Create the Comment, which fails.
+        CommentDTO commentDTO = commentMapper.toDto(comment);
 
         restCommentMockMvc.perform(post("/api/comments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(comment)))
+            .content(TestUtil.convertObjectToJsonBytes(commentDTO)))
             .andExpect(status().isBadRequest());
 
         List<Comment> commentList = commentRepository.findAll();
@@ -184,8 +193,8 @@ public class CommentResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(comment.getId())))
-            .andExpect(jsonPath("$.[*].videoID").value(hasItem(DEFAULT_VIDEO_ID)))
-            .andExpect(jsonPath("$.[*].commentBody").value(hasItem(DEFAULT_COMMENT_BODY)))
+            .andExpect(jsonPath("$.[*].videoID").value(hasItem(DEFAULT_VIDEO_ID.toString())))
+            .andExpect(jsonPath("$.[*].commentBody").value(hasItem(DEFAULT_COMMENT_BODY.toString())))
             .andExpect(jsonPath("$.[*].likesCount").value(hasItem(DEFAULT_LIKES_COUNT)))
             .andExpect(jsonPath("$.[*].dislikesCount").value(hasItem(DEFAULT_DISLIKES_COUNT)));
     }
@@ -216,7 +225,7 @@ public class CommentResourceIntTest {
     @Test
     public void updateComment() throws Exception {
         // Initialize the database
-        commentService.save(comment);
+        commentRepository.save(comment);
 
         int databaseSizeBeforeUpdate = commentRepository.findAll().size();
 
@@ -227,10 +236,11 @@ public class CommentResourceIntTest {
             .commentBody(UPDATED_COMMENT_BODY)
             .likesCount(UPDATED_LIKES_COUNT)
             .dislikesCount(UPDATED_DISLIKES_COUNT);
+        CommentDTO commentDTO = commentMapper.toDto(updatedComment);
 
         restCommentMockMvc.perform(put("/api/comments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedComment)))
+            .content(TestUtil.convertObjectToJsonBytes(commentDTO)))
             .andExpect(status().isOk());
 
         // Validate the Comment in the database
@@ -248,11 +258,12 @@ public class CommentResourceIntTest {
         int databaseSizeBeforeUpdate = commentRepository.findAll().size();
 
         // Create the Comment
+        CommentDTO commentDTO = commentMapper.toDto(comment);
 
         // If the entity doesn't have an ID, it will be created instead of just being updated
         restCommentMockMvc.perform(put("/api/comments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(comment)))
+            .content(TestUtil.convertObjectToJsonBytes(commentDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Comment in the database
@@ -263,7 +274,7 @@ public class CommentResourceIntTest {
     @Test
     public void deleteComment() throws Exception {
         // Initialize the database
-        commentService.save(comment);
+        commentRepository.save(comment);
 
         int databaseSizeBeforeDelete = commentRepository.findAll().size();
 
@@ -289,5 +300,20 @@ public class CommentResourceIntTest {
         assertThat(comment1).isNotEqualTo(comment2);
         comment1.setId(null);
         assertThat(comment1).isNotEqualTo(comment2);
+    }
+
+    @Test
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(CommentDTO.class);
+        CommentDTO commentDTO1 = new CommentDTO();
+        commentDTO1.setId("id1");
+        CommentDTO commentDTO2 = new CommentDTO();
+        assertThat(commentDTO1).isNotEqualTo(commentDTO2);
+        commentDTO2.setId(commentDTO1.getId());
+        assertThat(commentDTO1).isEqualTo(commentDTO2);
+        commentDTO2.setId("id2");
+        assertThat(commentDTO1).isNotEqualTo(commentDTO2);
+        commentDTO1.setId(null);
+        assertThat(commentDTO1).isNotEqualTo(commentDTO2);
     }
 }

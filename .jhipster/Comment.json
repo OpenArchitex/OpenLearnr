@@ -27,7 +27,7 @@
     "relationships": [],
     "changelogDate": "20190603195354",
     "entityTableName": "comment",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

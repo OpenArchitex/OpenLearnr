@@ -29,5 +29,8 @@ entity Comment {
 	dislikesCount Integer
 }
 
+// Generate DTOs
+dto * with mapstruct except Course, Chapter, Video
 // Set service options to all except few
 service all with serviceImpl
+
