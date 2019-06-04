@@ -112,4 +112,12 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     private incrementLikesCount(comment: IComment) {
         comment.likesCount++;
     }
+
+    private profilePicURL(name?: string): string {
+        if (name) {
+            return `https://api.adorable.io/avatars/285/${name}.png`;
+        } else {
+            return `https://api.adorable.io/avatars/285/suds.png`;
+        }
+    }
 }

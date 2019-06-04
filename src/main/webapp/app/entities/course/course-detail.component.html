@@ -43,7 +43,7 @@
                     <fieldset>
                         <div class="row">
                             <div class="col-sm-3 col-lg-2 hidden-xs">
-                                <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                <img class="img-fluid" [src]="profilePicURL()" alt="Profile Picture">
                             </div>
                             <div class="form-group col-xs-12 col-sm-9 col-lg-10">
                                 <textarea class="form-control" id="message" placeholder="Your message" required=""></textarea>
@@ -55,7 +55,7 @@
                 <h3>{{comments.length}} Comments</h3>
                 <!-- COMMENT - START -->
                 <div *ngFor="let comment of comments" class="media">
-                    <!--<a class="float-md-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>-->
+                    <a class="float-md-left" href="#"><img class="img-fluid" [src]="profilePicURL(comment.createdBy)" alt="Profile Picture"></a>
                     <div class="media-body">
                         <h4 class="media-heading">{{comment.createdBy}}</h4>
                         <p>{{comment.commentBody}}</p>
