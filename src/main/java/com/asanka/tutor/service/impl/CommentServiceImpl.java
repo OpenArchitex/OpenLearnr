@@ -1,8 +1,11 @@
 package com.asanka.tutor.service.impl;
 
+import com.asanka.tutor.domain.User;
+import com.asanka.tutor.security.UserNotLoggedInException;
 import com.asanka.tutor.service.CommentService;
 import com.asanka.tutor.domain.Comment;
 import com.asanka.tutor.repository.CommentRepository;
+import com.asanka.tutor.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +24,11 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
 
-    public CommentServiceImpl(CommentRepository commentRepository) {
+    private final UserService userService;
+
+    public CommentServiceImpl(CommentRepository commentRepository, UserService userService) {
         this.commentRepository = commentRepository;
+        this.userService = userService;
     }
 
     /**
@@ -33,7 +39,13 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public Comment save(Comment comment) {
-        log.debug("Request to save Comment : {}", comment);        return commentRepository.save(comment);
+        log.debug("Request to save Comment : {}", comment);
+        Optional<User> user = userService.getUserWithAuthorities();
+        if (!user.isPresent()) {
+            throw new UserNotLoggedInException("User is currently not logged in");
+        }
+        comment.setCreatedBy(user.get().getLogin());
+        return commentRepository.save(comment);
     }
 
     /**
@@ -58,6 +70,18 @@ public class CommentServiceImpl implements CommentService {
     public Optional<Comment> findOne(String id) {
         log.debug("Request to get Comment : {}", id);
         return commentRepository.findById(id);
+    }
+
+    /**
+     * Get comments for video by videoID.
+     *
+     * @param videoID the videoID of the entity
+     * @return the comments for the video
+     */
+    @Override
+    public List<Comment> findComments(String videoID) {
+        log.debug("Request to get comments for Video : {}", videoID);
+        return commentRepository.findAllByVideoID(videoID);
     }
 
     /**

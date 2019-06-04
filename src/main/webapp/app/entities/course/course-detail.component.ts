@@ -9,6 +9,8 @@ import { IChapter } from 'app/shared/model/chapter.model';
 import { ChapterService } from 'app/entities/chapter';
 import { CourseService } from 'app/entities/course/course.service';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { IComment } from 'app/shared/model/comment.model';
+import { CommentService } from 'app/entities/comment';
 
 interface NavItem {
     chapterName: string;
@@ -25,6 +27,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     course: ICourse;
     chapters: IChapter[];
     clickedVideo: IVideo;
+    comments: IComment[];
     navItems: NavItem[];
     mobileQuery: MediaQueryList;
     _mobileQueryListener: () => void;
@@ -37,6 +40,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute,
         private chapterService: ChapterService,
         private courseService: CourseService,
+        private commentsService: CommentService,
         private jhiAlertService: JhiAlertService,
         private changeDetectorRef: ChangeDetectorRef,
         private media: MediaMatcher
@@ -50,6 +54,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         this.activatedRoute.data.subscribe(({ course }) => {
             this.course = course;
             this.navItems = [];
+            this.comments = [];
             this.clickedVideo = null;
             this.loadAllChaptersForCourse(course);
         });
@@ -86,11 +91,25 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
                 this.navItems.sort((a, b) => a.chapterNumber - b.chapterNumber);
                 this.clickedVideo = this.navItems[0].videos[0];
             },
+            (res: HttpErrorResponse) => this.onError(res.message),
+            () => this.getCommentsForVideo(this.clickedVideo)
+        );
+    }
+
+    private getCommentsForVideo(clickedVideo: IVideo) {
+        this.commentsService.getCommentsForVideo(clickedVideo.id).subscribe(
+            (res: HttpResponse<IComment[]>) => {
+                this.comments = res.body;
+            },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    private incrementLikesCount(comment: IComment) {
+        comment.likesCount++;
     }
 }

@@ -35,4 +35,8 @@ export class CommentService {
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
+
+    getCommentsForVideo(videoID: string) {
+        return this.http.get<IComment[]>(`${this.resourceUrl}/commentsForVideo/${videoID}`, { observe: 'response' });
+    }
 }

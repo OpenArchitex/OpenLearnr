@@ -4,6 +4,10 @@ export interface IComment {
     commentBody?: string;
     likesCount?: number;
     dislikesCount?: number;
+    createdBy?: string;
+    createdDate?: Date;
+    lastModifiedBy?: string;
+    lastModifiedDate?: Date;
 }
 
 export class Comment implements IComment {
@@ -12,6 +16,10 @@ export class Comment implements IComment {
         public videoID?: string,
         public commentBody?: string,
         public likesCount?: number,
-        public dislikesCount?: number
+        public dislikesCount?: number,
+        public createdBy?: string,
+        public createdDate?: Date,
+        public lastModifiedBy?: string,
+        public lastModifiedDate?: Date
     ) {}
 }

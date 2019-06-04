@@ -35,6 +35,14 @@ public interface CommentService {
     Optional<Comment> findOne(String id);
 
     /**
+     * Get the comments for "id" video.
+     *
+     * @param videoID the id of the entity
+     * @return the comments for the video
+     */
+    List<Comment> findComments(String videoID);
+
+    /**
      * Delete the "id" comment.
      *
      * @param id the id of the entity

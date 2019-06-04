@@ -12,7 +12,7 @@ import java.util.Objects;
  * A Comment.
  */
 @Document(collection = "comment")
-public class Comment implements Serializable {
+public class Comment extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

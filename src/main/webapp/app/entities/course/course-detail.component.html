@@ -21,7 +21,7 @@
                         <mat-panel-title class="chapterNames">{{navItem.chapterNumber}}: {{navItem.chapterName}}</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-list>
-                        <a mat-list-item (click)="clickedVideo = video; mobileQuery.matches ? drawer.toggle(): null" *ngFor="let video of navItem.videos"><button mat-button>{{video.name}}</button><span class="badge badge-info" *ngIf='video.url === null'>Subscribe</span></a>
+                        <a mat-list-item (click)="clickedVideo = video; mobileQuery.matches ? drawer.toggle(): null; this.getCommentsForVideo(this.clickedVideo)" *ngFor="let video of navItem.videos"><button mat-button>{{video.name}}</button><span class="badge badge-info" *ngIf='video.url === null'>Subscribe</span></a>
                     </mat-list>
                 </mat-expansion-panel>
             </mat-drawer>
@@ -33,3 +33,43 @@
         </mat-drawer-container>
     </div>
 </div>
+<section class="content-item" id="comments">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-8">
+                <form>
+                    <h3 class="float-md-left">New Comment</h3>
+                    <button type="submit" class="btn btn-normal float-md-right">Submit</button>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-sm-3 col-lg-2 hidden-xs">
+                                <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                <textarea class="form-control" id="message" placeholder="Your message" required=""></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <h3>{{comments.length}} Comments</h3>
+                <!-- COMMENT - START -->
+                <div *ngFor="let comment of comments" class="media">
+                    <!--<a class="float-md-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>-->
+                    <div class="media-body">
+                        <h4 class="media-heading">{{comment.createdBy}}</h4>
+                        <p>{{comment.commentBody}}</p>
+                        <ul class="list-unstyled list-inline media-detail float-md-left">
+                            <li class="list-inline-item"><fa-icon [icon]="'calendar'" ></fa-icon> {{comment.createdDate | date:'dd/MM/yy HH:mm'}}</li>
+                            <!--<li class="list-inline-item"><fa-icon [icon]="'thumbs-up'" ></fa-icon> {{comment.likesCount}}</li>-->
+                        </ul>
+                        <ul class="list-unstyled list-inline media-detail float-md-right">
+                            <!--<li class="list-inline-item"><a (click)=incrementLikesCount(comment)>Like</a></li>-->
+                            <!--<li class="list-inline-item"><a >Reply</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

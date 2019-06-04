@@ -1,11 +1,12 @@
 package com.asanka.tutor.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
-import javax.validation.constraints.*;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -46,6 +47,9 @@ public class Video implements Serializable {
     @NotNull
     @Field("is_sample")
     private Boolean isSample;
+
+    @Field("comments")
+    private List<Comment> commentList;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -146,6 +150,15 @@ public class Video implements Serializable {
     public void setIsSample(Boolean isSample) {
         this.isSample = isSample;
     }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
