@@ -54,7 +54,7 @@
                 <h3>{{comments.length}} Comments</h3>
                 <!-- COMMENT - START -->
                 <div *ngFor="let comment of comments" class="media">
-                    <a class="float-md-left" href="#"><img class="img-fluid" [src]="profilePicURL(comment.createdBy)" alt="Profile Picture"></a>
+                    <img class="img-fluid" [src]="profilePicURL(comment.createdBy)" alt="Profile Picture">
                     <div class="media-body">
                         <h4 class="media-heading">{{comment.createdBy}}</h4>
                         <p>{{comment.commentBody}}</p>

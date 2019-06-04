@@ -78,9 +78,16 @@ public class VideoServiceImpl implements VideoService {
         authority.setName(AuthoritiesConstants.ADMIN);
         if (!user.get().getAuthorities().contains(authority)) {
             Set<String> chapters = user.get().getChapters();
-            for (Video video : videos) {
-                if (!chapters.contains(video.getChapterID()) && !video.isIsSample())
-                    video.setUrl(null);
+            if (chapters == null) {
+                for (Video video: videos) {
+                    if (!video.isIsSample())
+                        video.setUrl(null);
+                }
+            } else {
+                for (Video video : videos) {
+                    if (!chapters.contains(video.getChapterID()) && !video.isIsSample())
+                        video.setUrl(null);
+                }
             }
         }
         return videos;
