@@ -81,7 +81,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDTO> findComments(String videoID) {
         log.debug("Request to get comments for Video : {}", videoID);
-        return commentRepository.findAllByVideoID(videoID).stream().map(commentMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return commentRepository.findAllByVideoIDAndIsApprovedTrue(videoID).stream().map(commentMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
