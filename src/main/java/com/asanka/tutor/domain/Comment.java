@@ -33,6 +33,10 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
     @Field("dislikes_count")
     private Integer dislikesCount;
 
+    @NotNull
+    @Field("is_approved")
+    private Boolean isApproved;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -93,6 +97,19 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
     public void setDislikesCount(Integer dislikesCount) {
         this.dislikesCount = dislikesCount;
     }
+
+    public Boolean isIsApproved() {
+        return isApproved;
+    }
+
+    public Comment isApproved(Boolean isApproved) {
+        this.isApproved = isApproved;
+        return this;
+    }
+
+    public void setIsApproved(Boolean isApproved) {
+        this.isApproved = isApproved;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -123,6 +140,7 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
             ", commentBody='" + getCommentBody() + "'" +
             ", likesCount=" + getLikesCount() +
             ", dislikesCount=" + getDislikesCount() +
+            ", isApproved='" + isIsApproved() + "'" +
             "}";
     }
 }

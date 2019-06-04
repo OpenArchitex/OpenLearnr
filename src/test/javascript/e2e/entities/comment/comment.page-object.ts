@@ -21,6 +21,7 @@ export class CommentUpdatePage {
     commentBodyInput = element(by.id('field_commentBody'));
     likesCountInput = element(by.id('field_likesCount'));
     dislikesCountInput = element(by.id('field_dislikesCount'));
+    isApprovedInput = element(by.id('field_isApproved'));
 
     getPageTitle() {
         return this.pageTitle.getText();
@@ -58,6 +59,9 @@ export class CommentUpdatePage {
         return this.dislikesCountInput.getAttribute('value');
     }
 
+    getIsApprovedInput() {
+        return this.isApprovedInput;
+    }
     save(): promise.Promise<void> {
         return this.saveButton.click();
     }

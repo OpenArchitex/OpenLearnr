@@ -27,6 +27,7 @@ entity Comment {
 	commentBody String required
 	likesCount Integer
 	dislikesCount Integer
+	isApproved Boolean required
 }
 
 // Generate DTOs

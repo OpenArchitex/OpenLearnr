@@ -33,6 +33,9 @@ public class CommentDTO implements Serializable {
 
     private Instant lastModifiedDate;
 
+    @NotNull
+    private Boolean isApproved;
+
     public String getId() {
         return id;
     }
@@ -105,6 +108,14 @@ public class CommentDTO implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    private Boolean isIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(Boolean isApproved) {
+        this.isApproved = isApproved;
+    }
+
     public CommentDTO () {
         // Empty constructor needed for Jackson.
     }
@@ -150,6 +161,7 @@ public class CommentDTO implements Serializable {
             ", commentBody='" + getCommentBody() + "'" +
             ", likesCount=" + getLikesCount() +
             ", dislikesCount=" + getDislikesCount() +
+            ", isApproved='" + isIsApproved() + "'" +
             "}";
     }
 }

@@ -38,6 +38,18 @@ describe('Comment e2e test', () => {
         expect(commentUpdatePage.getLikesCountInput()).toMatch('5');
         commentUpdatePage.setDislikesCountInput('5');
         expect(commentUpdatePage.getDislikesCountInput()).toMatch('5');
+        commentUpdatePage
+            .getIsApprovedInput()
+            .isSelected()
+            .then(selected => {
+                if (selected) {
+                    commentUpdatePage.getIsApprovedInput().click();
+                    expect(commentUpdatePage.getIsApprovedInput().isSelected()).toBeFalsy();
+                } else {
+                    commentUpdatePage.getIsApprovedInput().click();
+                    expect(commentUpdatePage.getIsApprovedInput().isSelected()).toBeTruthy();
+                }
+            });
         commentUpdatePage.save();
         expect(commentUpdatePage.getSaveButton().isPresent()).toBeFalsy();
     });

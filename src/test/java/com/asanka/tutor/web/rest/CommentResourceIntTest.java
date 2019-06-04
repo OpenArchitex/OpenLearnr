@@ -52,6 +52,9 @@ public class CommentResourceIntTest {
     private static final Integer DEFAULT_DISLIKES_COUNT = 1;
     private static final Integer UPDATED_DISLIKES_COUNT = 2;
 
+    private static final Boolean DEFAULT_IS_APPROVED = false;
+    private static final Boolean UPDATED_IS_APPROVED = true;
+
     @Autowired
     private CommentRepository commentRepository;
 
@@ -98,7 +101,8 @@ public class CommentResourceIntTest {
             .videoID(DEFAULT_VIDEO_ID)
             .commentBody(DEFAULT_COMMENT_BODY)
             .likesCount(DEFAULT_LIKES_COUNT)
-            .dislikesCount(DEFAULT_DISLIKES_COUNT);
+            .dislikesCount(DEFAULT_DISLIKES_COUNT)
+            .isApproved(DEFAULT_IS_APPROVED);
     }
 
     @Before
@@ -126,6 +130,7 @@ public class CommentResourceIntTest {
         assertThat(testComment.getCommentBody()).isEqualTo(DEFAULT_COMMENT_BODY);
         assertThat(testComment.getLikesCount()).isEqualTo(DEFAULT_LIKES_COUNT);
         assertThat(testComment.getDislikesCount()).isEqualTo(DEFAULT_DISLIKES_COUNT);
+        assertThat(testComment.isIsApproved()).isEqualTo(DEFAULT_IS_APPROVED);
     }
 
     @Test
@@ -184,6 +189,24 @@ public class CommentResourceIntTest {
     }
 
     @Test
+    public void checkIsApprovedIsRequired() throws Exception {
+        int databaseSizeBeforeTest = commentRepository.findAll().size();
+        // set the field null
+        comment.setIsApproved(null);
+
+        // Create the Comment, which fails.
+        CommentDTO commentDTO = commentMapper.toDto(comment);
+
+        restCommentMockMvc.perform(post("/api/comments")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(commentDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Comment> commentList = commentRepository.findAll();
+        assertThat(commentList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void getAllComments() throws Exception {
         // Initialize the database
         commentRepository.save(comment);
@@ -193,10 +216,11 @@ public class CommentResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(comment.getId())))
-            .andExpect(jsonPath("$.[*].videoID").value(hasItem(DEFAULT_VIDEO_ID.toString())))
-            .andExpect(jsonPath("$.[*].commentBody").value(hasItem(DEFAULT_COMMENT_BODY.toString())))
+            .andExpect(jsonPath("$.[*].videoID").value(hasItem(DEFAULT_VIDEO_ID)))
+            .andExpect(jsonPath("$.[*].commentBody").value(hasItem(DEFAULT_COMMENT_BODY)))
             .andExpect(jsonPath("$.[*].likesCount").value(hasItem(DEFAULT_LIKES_COUNT)))
-            .andExpect(jsonPath("$.[*].dislikesCount").value(hasItem(DEFAULT_DISLIKES_COUNT)));
+            .andExpect(jsonPath("$.[*].dislikesCount").value(hasItem(DEFAULT_DISLIKES_COUNT)))
+            .andExpect(jsonPath("$.[*].isApproved").value(hasItem(DEFAULT_IS_APPROVED)));
     }
     
 
@@ -213,7 +237,8 @@ public class CommentResourceIntTest {
             .andExpect(jsonPath("$.videoID").value(DEFAULT_VIDEO_ID))
             .andExpect(jsonPath("$.commentBody").value(DEFAULT_COMMENT_BODY))
             .andExpect(jsonPath("$.likesCount").value(DEFAULT_LIKES_COUNT))
-            .andExpect(jsonPath("$.dislikesCount").value(DEFAULT_DISLIKES_COUNT));
+            .andExpect(jsonPath("$.dislikesCount").value(DEFAULT_DISLIKES_COUNT))
+            .andExpect(jsonPath("$.isApproved").value(DEFAULT_IS_APPROVED));
     }
     @Test
     public void getNonExistingComment() throws Exception {
@@ -235,7 +260,8 @@ public class CommentResourceIntTest {
             .videoID(UPDATED_VIDEO_ID)
             .commentBody(UPDATED_COMMENT_BODY)
             .likesCount(UPDATED_LIKES_COUNT)
-            .dislikesCount(UPDATED_DISLIKES_COUNT);
+            .dislikesCount(UPDATED_DISLIKES_COUNT)
+            .isApproved(UPDATED_IS_APPROVED);
         CommentDTO commentDTO = commentMapper.toDto(updatedComment);
 
         restCommentMockMvc.perform(put("/api/comments")
@@ -251,6 +277,7 @@ public class CommentResourceIntTest {
         assertThat(testComment.getCommentBody()).isEqualTo(UPDATED_COMMENT_BODY);
         assertThat(testComment.getLikesCount()).isEqualTo(UPDATED_LIKES_COUNT);
         assertThat(testComment.getDislikesCount()).isEqualTo(UPDATED_DISLIKES_COUNT);
+        assertThat(testComment.isIsApproved()).isEqualTo(UPDATED_IS_APPROVED);
     }
 
     @Test

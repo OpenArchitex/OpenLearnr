@@ -41,6 +41,17 @@
                     <input type="number" class="form-control" name="dislikesCount" id="field_dislikesCount"
                         [(ngModel)]="comment.dislikesCount" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_isApproved">Is Approved</label>
+                    <input type="checkbox" class="form-control" name="isApproved" id="field_isApproved"
+                        [(ngModel)]="comment.isApproved" />
+                    <div [hidden]="!(editForm.controls.isApproved?.dirty && editForm.controls.isApproved?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.isApproved?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
 
             </div>
             <div>

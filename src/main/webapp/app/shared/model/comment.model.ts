@@ -4,6 +4,7 @@ export interface IComment {
     commentBody?: string;
     likesCount?: number;
     dislikesCount?: number;
+    isApproved?: boolean;
     createdBy?: string;
     createdDate?: Date;
     lastModifiedBy?: string;
@@ -17,9 +18,12 @@ export class Comment implements IComment {
         public commentBody?: string,
         public likesCount?: number,
         public dislikesCount?: number,
+        public isApproved?: boolean,
         public createdBy?: string,
         public createdDate?: Date,
         public lastModifiedBy?: string,
         public lastModifiedDate?: Date
-    ) {}
+    ) {
+        this.isApproved = false;
+    }
 }
