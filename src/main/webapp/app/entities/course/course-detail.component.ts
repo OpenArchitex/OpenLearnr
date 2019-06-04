@@ -11,6 +11,8 @@ import { CourseService } from 'app/entities/course/course.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { IComment } from 'app/shared/model/comment.model';
 import { CommentService } from 'app/entities/comment';
+import { MatSnackBar } from '@angular/material';
+import { NgForm } from '@angular/forms';
 
 interface NavItem {
     chapterName: string;
@@ -31,6 +33,8 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     navItems: NavItem[];
     mobileQuery: MediaQueryList;
     _mobileQueryListener: () => void;
+    comment: IComment;
+    isSaving: boolean;
 
     static previousState() {
         window.history.back();
@@ -43,6 +47,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         private commentsService: CommentService,
         private jhiAlertService: JhiAlertService,
         private changeDetectorRef: ChangeDetectorRef,
+        private _snackBar: MatSnackBar,
         private media: MediaMatcher
     ) {
         this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -55,7 +60,9 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
             this.course = course;
             this.navItems = [];
             this.comments = [];
+            this.comment = { isApproved: false };
             this.clickedVideo = null;
+            this.isSaving = false;
             this.loadAllChaptersForCourse(course);
         });
     }
@@ -90,6 +97,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
                 }
                 this.navItems.sort((a, b) => a.chapterNumber - b.chapterNumber);
                 this.clickedVideo = this.navItems[0].videos[0];
+                this.comment.videoID = this.clickedVideo.id;
             },
             (res: HttpErrorResponse) => this.onError(res.message),
             () => this.getCommentsForVideo(this.clickedVideo)
@@ -117,7 +125,25 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         if (name) {
             return `https://api.adorable.io/avatars/285/${name}.png`;
         } else {
-            return `https://api.adorable.io/avatars/285/suds.png`;
+            return `https://api.adorable.io/avatars/285/PythonSinhala.png`;
         }
+    }
+
+    private saveComment(form: NgForm) {
+        this.isSaving = true;
+        this.commentsService.create(this.comment).subscribe(
+            () => {
+                this.isSaving = false;
+                this._snackBar.open('Thanks for your comment. We will review and publish it soon!', null, {
+                    duration: 5000,
+                    panelClass: ['login-snack-bar']
+                });
+                form.reset();
+            },
+            (res: HttpErrorResponse) => {
+                this.onError(res.message);
+                this.isSaving = false;
+            }
+        );
     }
 }

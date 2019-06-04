@@ -29,6 +29,9 @@ export class CommentUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        if (this.comment.isApproved == null) {
+            this.comment.isApproved = false;
+        }
         if (this.comment.id !== undefined) {
             this.subscribeToSaveResponse(this.commentService.update(this.comment));
         } else {

@@ -21,6 +21,9 @@ public class CommentDTO implements Serializable {
     @NotNull
     private String commentBody;
 
+    @NotNull
+    private Boolean isApproved;
+
     private Integer likesCount;
 
     private Integer dislikesCount;
@@ -32,9 +35,6 @@ public class CommentDTO implements Serializable {
     private String lastModifiedBy;
 
     private Instant lastModifiedDate;
-
-    @NotNull
-    private Boolean isApproved;
 
     public String getId() {
         return id;
@@ -108,7 +108,7 @@ public class CommentDTO implements Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    private Boolean isIsApproved() {
+    public Boolean isIsApproved() {
         return isApproved;
     }
 
@@ -126,6 +126,7 @@ public class CommentDTO implements Serializable {
         this.commentBody = comment.getCommentBody();
         this.likesCount = comment.getLikesCount();
         this.dislikesCount = comment.getDislikesCount();
+        this.isApproved = comment.isIsApproved();
         this.createdBy = comment.getCreatedBy();
         this.createdDate = comment.getCreatedDate();
         this.lastModifiedBy = comment.getLastModifiedBy();
