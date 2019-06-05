@@ -3,13 +3,11 @@ Main page styles
 ========================================================================== */
 
 .hipster {
-    //display: inline-block;
-    //width: 347px;
-    //height: 497px;
-    background: url('../../content/images/hipster.svg') no-repeat center top;
+    background: url('../../content/images/jumbotron.jpg') no-repeat center top;
+    background-size: cover;
     text-align: center;
-    background-color: #e4e5e6;
-    //background-size: contain;
+    margin-top: 62px;
+    margin-bottom: auto;
 }
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
@@ -20,12 +18,33 @@ Main page styles
     only screen and (min-resolution: 192dpi),
     only screen and (min-resolution: 2dppx) {
     .hipster {
-        background: url('../../content/images/hipster.svg') no-repeat center top;
-        background-size: contain;
+        background: url('../../content/images/jumbotron.jpg') no-repeat center top;
+        background-size: cover;
     }
 }
 
 .login-snack-bar {
     background-color: #ffffff;
     color: #000000;
+}
+
+.register {
+    margin-top: 15%;
+}
+
+.jh-card {
+    height: 430px;
+}
+
+section {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+#mission {
+    background-color: white;
+}
+
+#ourTeam {
+    background-color: white;
 }

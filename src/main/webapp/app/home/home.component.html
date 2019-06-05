@@ -1,44 +1,119 @@
-<div class="col-md-12 hipster jumbotron">
-    <h1 class="display-4">Welcome to PythonSinhala!</h1>
-    <p class="lead">There is only one good, knowledge, and one evil, ignorance.</p>
-
-    <p>OnlineTutor is a personalized tutoring platform especially aimed for Students and Teachers. Teachers can upload and manage their courses while students can gain valuable skills and knowledge!</p>
-
-    <div *ngIf="!isAuthenticated()">
-        <p>You don't have an account yet? Register for Free!</p>
-        <button type="button" class="btn btn-primary btn-md" (click)=login()>Sign-In</button>
-        <button type="button" class="btn btn-primary btn-md" routerLink="register">Register</button>
-    </div>
-</div>
-<div class="container">
-    <h3 class="mb-3">Why Choose Us</h3>
-    <div class="row">
-        <div class="col-md-4 col-12">
-            <div class="card">
-                <img class="card-img-top" alt="" src="../../content/images/quality_video.svg">
-                <div class="card-body">
-                    <h5 class="card-title">Quality Lecture Videos</h5>
-                    <p class="card-text">High quality lecture videos with in lecture demonstrations/lab exercises which help students see what is being taught in action.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-12">
-            <div class="card">
-                <img class="card-img-top" alt="" src="../../content/images/experienced_instructors.svg">
-                <div class="card-body">
-                    <h5 class="card-title">Experienced Instructors</h5>
-                    <p class="card-text">Experienced instructors with years of experience in teaching and preparing students for exams.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-12">
-            <div class="card">
-                <img class="card-img-top" alt="" src="../../content/images/one_to_one_help.svg">
-                <div class="card-body">
-                    <h5 class="card-title">One to One Help</h5>
-                    <p class="card-text">Discussion boards to engage with other students and instructors to help understand the lectures thoroughly.</p>
-                </div>
-            </div>
+<div class="hipster jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-2">Welcome to PythonSinhala!</h1>
+        <blockquote class="blockquote text-center">
+            <p class="mb-0">There is only one good, knowledge, and one evil, ignorance.</p>
+            <footer class="blockquote-footer">Socrates in <cite title="Source Title">Diogenes Laertius' Lives of Eminent Philosophers</cite></footer>
+        </blockquote>
+        <div class="register" *ngIf="!isAuthenticated()">
+            <p>You don't have an account yet? Register for Free!</p>
+            <button type="button" class="btn btn-primary btn-md" (click)=login()>Sign-In</button>
+            <button type="button" class="btn btn-primary btn-md" routerLink="register">Register</button>
         </div>
     </div>
 </div>
+<section id="mission">
+    <div class="container">
+        <ul>
+            <li class="row align-items-center justify-content-around">
+                <div class="col-md-6 col-12">
+                    <h1 class="display-5">Accessible without Bounds...</h1>
+                    <p>We want to make education accessible to everyone; and commit to make our courses accessible to
+                        everyone in all parts of Sri-Lanka now and always.</p>
+                </div>
+                <div class="col-md-6">
+                    <img class="img-fluid" src="../../content/images/book_for_education.svg" alt="Affordable">
+                </div>
+            </li>
+            <li class="row align-items-center justify-content-around">
+                <div class="col-md-6 col-12">
+                    <img class="img-fluid" src="../../content/images/non-profit.svg" alt="Non-Profit">
+                </div>
+                <div class="col-md-6">
+                    <h1 class="display-5">Not For Profit...</h1>
+                    <p>We are fully non-profit and only sell our courses for the minimum amount of money needed to cover
+                        bandwidth and operational costs.</p>
+                </div>
+            </li>
+            <li class="row align-items-center justify-content-around">
+                <div class="col-md-6 col-12">
+                    <h1 class="display-5">Think Big, Strive for More...</h1>
+                    <p>We aspire to cover all subjects related to the standardized examination curriculum in Sri-Lanka
+                        and strive to make partnerships more tutors and educational institutions that
+                        share our goal.</p>
+                </div>
+                <div class="col-md-6">
+                    <img class="img-fluid" src="../../content/images/deal_handshakes.svg" alt="Expand">
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+<section id="commitment">
+    <div class="container">
+        <h1 class="mb-3 display-4">Our Commitment</h1>
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <div class="card jh-card">
+                    <img class="card-img-top" alt="" src="../../content/images/quality_video.svg">
+                    <div class="card-body">
+                        <h5 class="card-title">Quality Lecture Videos</h5>
+                        <p class="card-text">High quality lecture videos with in lecture demonstrations/lab exercises
+                            which help students see what is being taught in action.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="card jh-card">
+                    <img class="card-img-top" alt="" src="../../content/images/experienced_instructors.svg">
+                    <div class="card-body">
+                        <h5 class="card-title">Experienced Instructors</h5>
+                        <p class="card-text">Experienced instructors with years of experience in teaching and preparing
+                            students for exams.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="card jh-card">
+                    <img class="card-img-top" alt="" src="../../content/images/one_to_one_help.svg">
+                    <div class="card-body">
+                        <h5 class="card-title">No Clutter; No Advertisements</h5>
+                        <p class="card-text">We don't believe in making profit through advertisements and all our videos
+                            and website components are ad free!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="ourTeam">
+    <div class="container">
+        <h1 class="mb-3 display-4">Meet Our Team</h1>
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <img
+                    src="https://avatars.dicebear.com/v2/avataaars/PythonSinhala.svg?options[style][]=circle&options[mouth][]=smile"
+                    class="img-responsive" alt="Avatar">
+            </div>
+            <div class="col-md-8 align-self-center">
+                <p>Asanka is the creator of PythonSinhala. With over 5 years of tutoring for Advanced Level (A/L) Exams in
+                    Sri Lanka, he understands the diverse set of problems our students face;
+                    finding good tutors; the time consuming daily commutes to a variety of tutoring classes and finding
+                    quality learning material. He started a YouTube channel, PythonSinhala and
+                    contributed over 300 lecture videos for the Information and Communication Technology stream in A/L.
+                    Asanka is proficient in Python, JavaScript, PHP, MySQL gaining over 5 years experience
+                    in the tech field both in Sri Lanka and Canada. He has done multiple professional certifications including MCSE, MCSA and Red Had Enterprise Linux Administration.
+                    Asanka holds an honors degree in Applied Sciences
+                    from the University of Peradeniya, Sri Lanka and a M.Sc in Computer Science at the University of
+                    Peradeniya.
+                </p>
+                <p>
+                    Asanka, has a passion for education, a breadth of well rounded knowledge, and a desire to make the
+                    world a better place. He started PythonSinhala as a non-profit and
+                    aspires to improve and help uplift the education landscape of Sri Lanka.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
