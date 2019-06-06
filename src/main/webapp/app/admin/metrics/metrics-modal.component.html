@@ -1,4 +1,6 @@
 <!-- Modal used to display the threads dump -->
+<div class="container-fluid">
+    <div class="card jh-card">
 <div class="modal-header">
     <h4 class="modal-title">Threads dump</h4>
     <button type="button" class="close" (click)="activeModal.dismiss('closed')">&times;</button>
@@ -16,8 +18,8 @@
         <h6>
             <span class="badge" [ngClass]="getBadgeClass(entry.value.threadState)">{{entry.value.threadState}}</span>&nbsp;{{entry.value.threadName}} (ID {{entry.value.threadId}})
             <a (click)="entry.show = !entry.show" href="javascript:void(0);">
-               <span [hidden]="entry.show">Show StackTrace</span>
-               <span [hidden]="!entry.show">Hide StackTrace</span>
+                <span [hidden]="entry.show">Show StackTrace</span>
+                <span [hidden]="!entry.show">Hide StackTrace</span>
             </a>
         </h6>
         <div class="card" [hidden]="!entry.show">
@@ -30,22 +32,23 @@
         </div>
         <table class="table table-sm table-responsive">
             <thead>
-                <tr>
-                    <th>Blocked Time</th>
-                    <th>Blocked Count</th>
-                    <th>Waited Time</th>
-                    <th>Waited Count</th>
-                    <th>Lock Name</th>
-                </tr>
+            <tr>
+                <th>Blocked Time</th>
+                <th>Blocked Count</th>
+                <th>Waited Time</th>
+                <th>Waited Count</th>
+                <th>Lock Name</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{{entry.value.blockedTime}}</td>
-                    <td>{{entry.value.blockedCount}}</td>
-                    <td>{{entry.value.waitedTime}}</td>
-                    <td>{{entry.value.waitedCount}}</td>
-                    <td class="thread-dump-modal-lock" title="{{entry.value.lockName}}"><code>{{entry.value.lockName}}</code></td>
-                </tr>
+            <tr>
+                <td>{{entry.value.blockedTime}}</td>
+                <td>{{entry.value.blockedCount}}</td>
+                <td>{{entry.value.waitedTime}}</td>
+                <td>{{entry.value.waitedCount}}</td>
+                <td class="thread-dump-modal-lock" title="{{entry.value.lockName}}">
+                    <code>{{entry.value.lockName}}</code></td>
+            </tr>
             </tbody>
         </table>
 
@@ -53,4 +56,6 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary float-left" data-dismiss="modal" (click)="activeModal.dismiss('closed')">Done</button>
+</div>
+    </div>
 </div>

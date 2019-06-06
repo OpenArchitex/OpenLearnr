@@ -1,3 +1,5 @@
+<div class="container-fluid">
+    <div class="card jh-card">
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
@@ -7,39 +9,39 @@
                 <div class="form-group" [hidden]="!comment.id">
                     <label for="id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="comment.id" readonly />
+                           [(ngModel)]="comment.id" readonly/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_videoID">Video ID</label>
                     <input type="text" class="form-control" name="videoID" id="field_videoID"
-                        [(ngModel)]="comment.videoID" required/>
+                           [(ngModel)]="comment.videoID" required/>
                     <div [hidden]="!(editForm.controls.videoID?.dirty && editForm.controls.videoID?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.videoID?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.videoID?.errors?.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_commentBody">Comment Body</label>
                     <input type="text" class="form-control" name="commentBody" id="field_commentBody"
-                        [(ngModel)]="comment.commentBody" required/>
+                           [(ngModel)]="comment.commentBody" required/>
                     <div [hidden]="!(editForm.controls.commentBody?.dirty && editForm.controls.commentBody?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.commentBody?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.commentBody?.errors?.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_likesCount">Likes Count</label>
                     <input type="number" class="form-control" name="likesCount" id="field_likesCount"
-                        [(ngModel)]="comment.likesCount" />
+                           [(ngModel)]="comment.likesCount"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_dislikesCount">Dislikes Count</label>
                     <input type="number" class="form-control" name="dislikesCount" id="field_dislikesCount"
-                        [(ngModel)]="comment.dislikesCount" />
+                           [(ngModel)]="comment.dislikesCount"/>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" name="isApproved" id="field_isApproved"
@@ -48,7 +50,7 @@
                 </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
@@ -56,5 +58,7 @@
                 </button>
             </div>
         </form>
+    </div>
+</div>
     </div>
 </div>

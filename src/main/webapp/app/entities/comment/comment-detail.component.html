@@ -1,4 +1,6 @@
-<div class="row justify-content-center">
+<div class="container-fluid">
+    <div class="card jh-card">
+        <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="comment">
             <h2><span>Comment</span> {{comment.id}}</h2>
@@ -39,5 +41,7 @@
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>
         </div>
+    </div>
+</div>
     </div>
 </div>

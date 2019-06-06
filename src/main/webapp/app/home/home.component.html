@@ -1,9 +1,10 @@
 <div class="hipster jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-2">Welcome to !</h1>
+        <h1 class="display-2">Welcome to PythonSinhala!</h1>
         <blockquote class="blockquote text-center">
             <p class="mb-0">There is only one good, knowledge, and one evil, ignorance.</p>
-            <footer class="blockquote-footer">Socrates in <cite title="Source Title">Diogenes Laertius' Lives of Eminent Philosophers</cite></footer>
+            <footer class="blockquote-footer">Socrates in <cite title="Source Title">Diogenes Laertius' Lives of Eminent
+                Philosophers</cite></footer>
         </blockquote>
         <div class="register" *ngIf="!isAuthenticated()">
             <p>You don't have an account yet? Register for Free!</p>
@@ -99,13 +100,15 @@
                     class="img-responsive" alt="Avatar">
             </div>
             <div class="col-md-8 align-self-center">
-                <p>Asanka is the creator of PythonSinhala. With over 5 years of tutoring for Advanced Level (A/L) Exams in
+                <p>Asanka is the creator of PythonSinhala. With over 5 years of tutoring for Advanced Level (A/L) Exams
+                    in
                     Sri Lanka, he understands the diverse set of problems our students face;
                     finding good tutors; the time consuming daily commutes to a variety of tutoring classes and finding
                     quality learning material. He started a YouTube channel, PythonSinhala and
                     contributed over 300 lecture videos for the Information and Communication Technology stream in A/L.
                     Asanka is proficient in Python, JavaScript, PHP, MySQL gaining over 5 years experience
-                    in the tech field both in Sri Lanka and Canada. He has done multiple professional certifications including MCSE, MCSA and Red Had Enterprise Linux Administration.
+                    in the tech field both in Sri Lanka and Canada. He has done multiple professional certifications
+                    including MCSE, MCSA and Red Had Enterprise Linux Administration.
                     Asanka holds an honors degree in Applied Sciences
                     from the University of Peradeniya, Sri Lanka and a M.Sc in Computer Science at the University of
                     Peradeniya.
@@ -117,6 +120,43 @@
                 </p>
             </div>
         </div>
+    </div>
+</section>
+<section id="contact">
+    <div class="container contact-form">
+        <div class="contact-image">
+            <img src="../../content/images/send_message.svg" alt="rocket_contact"/>
+        </div>
+        <form method="post">
+            <h3>Drop Us a Message</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" name="txtName" class="form-control" placeholder="Your Name *"
+                               value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="txtEmail" class="form-control" placeholder="Your Email *"
+                               value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="txtPhone" class="form-control"
+                               placeholder="Your Phone Number *" value=""/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <textarea name="txtMsg" class="form-control" placeholder="Your Message *"
+                                  style="width: 100%; height: 150px;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button mat-raised-button color="warn" type="submit" name="btnSubmit" value="">Send Message</button>
+                </div>
+            </div>
+        </form>
     </div>
 </section>
 

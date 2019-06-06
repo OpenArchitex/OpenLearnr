@@ -1,3 +1,5 @@
+<div class="container-fluid">
+    <div class="card jh-card">
 <div *ngIf="audits">
     <h2>Audits</h2>
 
@@ -48,5 +50,7 @@
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
+    </div>
+</div>
     </div>
 </div>
