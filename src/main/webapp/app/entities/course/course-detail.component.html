@@ -1,17 +1,8 @@
 <div class="card jh-card">
     <div>
         <mat-toolbar>
-            <span><button mat-icon-button (click)="drawer.toggle()"><fa-icon [icon]="'bars'"></fa-icon></button><span
-                class="toolbar-button-text">{{course.name}}</span></span>
-            <span class="middle-content"></span>
-            <span>
-            <button mat-raised-button color="primary" *jhiHasAnyAuthority="'ROLE_ADMIN'" [routerLink]="['/video/new']">
-                <fa-icon [icon]="'plus'"></fa-icon>
-                <span>
-                    Create New Video
-                </span>
-            </button>
-        </span>
+            <button mat-icon-button (click)="drawer.toggle()"><fa-icon [icon]="'bars'"></fa-icon></button><span
+                class="toolbar-button-text">{{course.name}}</span>
         </mat-toolbar>
         <br/>
         <div class="mat-body">
