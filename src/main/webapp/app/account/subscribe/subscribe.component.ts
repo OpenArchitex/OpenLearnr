@@ -41,8 +41,7 @@ export class SubscribeComponent implements OnInit {
         private stripeScriptTag: StripeScriptTag,
         private chapterService: ChapterService,
         private courseService: CourseService,
-        private jhiAlertService: JhiAlertService,
-        private userService: UserService
+        private jhiAlertService: JhiAlertService
     ) {}
 
     ngOnInit(): void {
