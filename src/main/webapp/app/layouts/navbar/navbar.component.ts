@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { VERSION } from 'app/app.constants';
 import { Principal, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
-import {ICourse} from 'app/shared/model/course.model';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {CourseService} from 'app/entities/course';
-import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
-import {Subscription} from 'rxjs';
+import { ICourse } from 'app/shared/model/course.model';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { CourseService } from 'app/entities/course';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'jhi-navbar',
@@ -23,7 +22,6 @@ export class NavbarComponent implements OnInit {
     languages: any[];
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
-    version: string;
     eventSubscriber: Subscription;
 
     constructor(
@@ -36,7 +34,6 @@ export class NavbarComponent implements OnInit {
         private router: Router,
         private eventManager: JhiEventManager
     ) {
-        this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
     }
 
