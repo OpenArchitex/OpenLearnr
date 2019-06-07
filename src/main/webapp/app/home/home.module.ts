@@ -6,6 +6,7 @@ import { HOME_ROUTE, HomeComponent } from './';
 import { MatButtonModule, MatInputModule, MatSnackBarModule } from '@angular/material';
 import { EmailComponent } from './email/email.component';
 import { EMAIL_ROUTE } from 'app/home/email/email.route';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
@@ -13,7 +14,8 @@ import { EMAIL_ROUTE } from 'app/home/email/email.route';
         RouterModule.forChild([HOME_ROUTE, EMAIL_ROUTE]),
         MatSnackBarModule,
         MatButtonModule,
-        MatInputModule
+        MatInputModule,
+        ReactiveFormsModule
     ],
     declarations: [HomeComponent, EmailComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

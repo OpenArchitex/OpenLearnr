@@ -3,33 +3,58 @@
         <div class="contact-image">
             <img src="../../../content/images/send_message.svg" alt="rocket_contact"/>
         </div>
-        <form method="post">
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" method="post">
             <h3>Drop Us a Message</h3>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <input type="text" name="txtName" class="form-control" placeholder="Your Name *"
-                               value=""/>
+                        <input class="form-control" formControlName="contactName" type="text" name="contactName"
+                               class="form-control"
+                               placeholder="Your Name *"
+                               value="" required/>
+                        <div *ngIf="contactName.invalid && (contactName.dirty || contactName.touched)"
+                             class="alert alert-danger" role="alert">
+                            <div *ngIf="contactName.errors.required">
+                                Name is required.
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="txtEmail" class="form-control" placeholder="Your Email *"
-                               value=""/>
+                        <input formControlName="contactEmail" type="email" name="contactEmail" class="form-control"
+                               placeholder="Your Email *"
+                               value="" required/>
+                        <div *ngIf="contactEmail.invalid && (contactEmail.dirty || contactEmail.touched)"
+                             class="alert alert-danger">
+                            <div *ngIf="contactEmail.errors.required">
+                                Email is required.
+                            </div>
+                            <div *ngIf="contactEmail.errors.email">
+                                Please enter a valid email address.
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="txtPhone" class="form-control"
-                               placeholder="Your Phone Number *" value=""/>
+                        <input formControlName="contactPhone" type="tel" name="contactPhone" class="form-control"
+                               placeholder="Your Phone Number " value=""/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <textarea name="txtMsg" class="form-control" placeholder="Your Message *"
-                                  style="width: 100%; height: 150px;"></textarea>
+                        <textarea formControlName="contactMsg" name="contactMsg" class="form-control"
+                                  placeholder="Your Message *"
+                                  style="width: 100%; height: 100px;" required></textarea>
+                        <div *ngIf="contactMsg.invalid && (contactMsg.dirty || contactMsg.touched)"
+                             class="alert alert-danger">
+                            <div *ngIf="contactMsg.errors.required">
+                                Message is required.
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-12">
-                    <button mat-raised-button color="warn" type="submit" name="btnSubmit" value="">Send Message</button>
+                    <button [disabled]="!contactForm.valid" mat-raised-button color="primary" type="submit"
+                            name="btnSubmit" value="">Send Message
+                    </button>
                 </div>
             </div>
         </form>
