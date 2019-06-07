@@ -38,53 +38,55 @@
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                     </div>
+                    <section class="content-item" id="comments">
+                        <div class="container">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-sm-8">
+                                    <form (ngSubmit)="saveComment(editForm)" #editForm="ngForm">
+                                        <h3 class="float-md-left">New Comment</h3>
+                                        <button type="submit" class="btn btn-primary float-md-right"
+                                                [disabled]="editForm.form.invalid || isSaving">Submit
+                                        </button>
+                                        <fieldset>
+                                            <div class="row">
+                                                <div class="col-sm-3 col-lg-2 d-none d-sm-block">
+                                                    <img class="img-fluid" [src]="profilePicURL()"
+                                                         alt="Profile Picture">
+                                                </div>
+                                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                    <textarea name="comment_body" [(ngModel)]="comment.commentBody" class="form-control"
+                                              id="message" placeholder="Your message" required></textarea>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+
+                                    <h3>{{comments.length}} Comments</h3>
+                                    <!-- COMMENT - START -->
+                                    <div *ngFor="let comment of comments" class="media">
+                                        <img class="img-fluid" [src]="profilePicURL(comment.createdBy)"
+                                             alt="Profile Picture">
+                                        <div class="media-body">
+                                            <h4 class="media-heading">{{comment.createdBy}}</h4>
+                                            <p>{{comment.commentBody}}</p>
+                                            <ul class="list-unstyled list-inline media-detail float-md-left">
+                                                <li class="list-inline-item">
+                                                    <fa-icon [icon]="'calendar'"></fa-icon>
+                                                    {{comment.createdDate | date:'dd/MM/yy HH:mm'}}</li>
+                                                <!--<li class="list-inline-item"><fa-icon [icon]="'thumbs-up'" ></fa-icon> {{comment.likesCount}}</li>-->
+                                            </ul>
+                                            <ul class="list-unstyled list-inline media-detail float-md-right">
+                                                <!--<li class="list-inline-item"><a (click)=incrementLikesCount(comment)>Like</a></li>-->
+                                                <!--<li class="list-inline-item"><a >Reply</a></li>-->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </mat-drawer-content>
             </mat-drawer-container>
         </div>
     </div>
-    <section class="content-item" id="comments">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-sm-8">
-                    <form (ngSubmit)="saveComment(editForm)" #editForm="ngForm">
-                        <h3 class="float-md-left">New Comment</h3>
-                        <button type="submit" class="btn btn-primary float-md-right"
-                                [disabled]="editForm.form.invalid || isSaving">Submit
-                        </button>
-                        <fieldset>
-                            <div class="row">
-                                <div class="col-sm-3 col-lg-2 d-none d-sm-block">
-                                    <img class="img-fluid" [src]="profilePicURL()" alt="Profile Picture">
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                                    <textarea name="comment_body" [(ngModel)]="comment.commentBody" class="form-control"
-                                              id="message" placeholder="Your message" required></textarea>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
-
-                    <h3>{{comments.length}} Comments</h3>
-                    <!-- COMMENT - START -->
-                    <div *ngFor="let comment of comments" class="media">
-                        <img class="img-fluid" [src]="profilePicURL(comment.createdBy)" alt="Profile Picture">
-                        <div class="media-body">
-                            <h4 class="media-heading">{{comment.createdBy}}</h4>
-                            <p>{{comment.commentBody}}</p>
-                            <ul class="list-unstyled list-inline media-detail float-md-left">
-                                <li class="list-inline-item">
-                                    <fa-icon [icon]="'calendar'"></fa-icon>
-                                    {{comment.createdDate | date:'dd/MM/yy HH:mm'}}</li>
-                                <!--<li class="list-inline-item"><fa-icon [icon]="'thumbs-up'" ></fa-icon> {{comment.likesCount}}</li>-->
-                            </ul>
-                            <ul class="list-unstyled list-inline media-detail float-md-right">
-                                <!--<li class="list-inline-item"><a (click)=incrementLikesCount(comment)>Like</a></li>-->
-                                <!--<li class="list-inline-item"><a >Reply</a></li>-->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
