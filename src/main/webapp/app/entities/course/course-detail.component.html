@@ -16,7 +16,7 @@
     <br/>
     <div class="mat-body">
         <mat-drawer-container autosize>
-            <mat-drawer #drawer [mode]="'side'" opened="true">
+            <mat-drawer #drawer [mode]="mobileQuery.matches ? 'over' : 'side'" opened="true">
                 <mat-expansion-panel *ngFor="let navItem of navItems">
                     <mat-expansion-panel-header>
                         <mat-panel-title class="chapterNames">{{navItem.chapterNumber}}: {{navItem.chapterName}}</mat-panel-title>
