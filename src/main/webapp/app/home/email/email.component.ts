@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
+import { JhiAlertService } from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-email',
@@ -32,10 +36,39 @@ export class EmailComponent implements OnInit {
     }
 
     onSubmit() {
-        console.warn(this.contactForm.value);
+        this.sendRequest().subscribe(
+            () => {
+                this._snackBar.open('Thanks for writing to us! We will get back to you soon!', null, {
+                    duration: 5000,
+                    panelClass: ['contact-form-snack-bar']
+                });
+                this.contactForm.reset();
+            },
+            err => {
+                this.onError(err.message);
+            }
+        );
     }
 
-    constructor(private fb: FormBuilder) {}
+    sendRequest(): Observable<any> {
+        return this.http.post<any>('https://usebasin.com/f/b5ed73d03aa5', this.contactForm.value, {
+            headers: new HttpHeaders({
+                Accept: 'application/json'
+            }),
+            observe: 'response'
+        });
+    }
+
+    constructor(
+        private fb: FormBuilder,
+        private http: HttpClient,
+        private _snackBar: MatSnackBar,
+        private jhiAlertService: JhiAlertService
+    ) {}
 
     ngOnInit() {}
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
 }
