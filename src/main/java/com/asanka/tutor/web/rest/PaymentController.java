@@ -1,18 +1,19 @@
 package com.asanka.tutor.web.rest;
 
+import com.asanka.tutor.domain.Course;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.security.StripeClient;
 import com.asanka.tutor.security.UserNotLoggedInException;
 import com.asanka.tutor.service.UserService;
 import com.codahale.metrics.annotation.Timed;
 import com.stripe.model.Charge;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -53,5 +54,18 @@ public class PaymentController {
         }
         userService.updateUserSubscriptions(userService.getUserWithAuthorities().get().getId(), chapters);
         return this.stripeClient.chargeCreditCard(token, amount);
+    }
+
+    /**
+     * GET  /publickey : get Stripe public key.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the Stripe public key.
+     */
+    @GetMapping("/payment")
+    @Timed
+    public ResponseEntity<String> getStripePublicKey() {
+        log.debug("REST request to get Stripe public key");
+        Optional<String> publicKey = Optional.of(stripeClient.getStripePublicKey());
+        return ResponseUtil.wrapOrNotFound(publicKey);
     }
 }

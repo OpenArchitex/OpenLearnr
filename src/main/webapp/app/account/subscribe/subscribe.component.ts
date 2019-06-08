@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { PUBLIC_STRIPE_KEY, SERVER_API_URL } from 'app/app.constants';
+import { SERVER_API_URL } from 'app/app.constants';
 import { StripeScriptTag, StripeSource, StripeToken } from 'stripe-angular';
 import { IChapter } from 'app/shared/model/chapter.model';
 import { ChapterService } from 'app/entities/chapter';
 import { ICourse } from 'app/shared/model/course.model';
 import { CourseService } from 'app/entities/course';
 import { JhiAlertService } from 'ng-jhipster';
-import { Account, IUser, Principal, UserService } from 'app/core';
+import { Principal } from 'app/core';
+import { SubscribeService } from 'app/account/subscribe/subscribe.service';
 
 @Component({
     selector: 'jhi-subscribe',
@@ -15,8 +16,7 @@ import { Account, IUser, Principal, UserService } from 'app/core';
     styleUrls: ['subscribe.scss']
 })
 export class SubscribeComponent implements OnInit {
-    private publishableKey = PUBLIC_STRIPE_KEY;
-
+    private publishableKey: string;
     private executingPayment: boolean;
     private stripeLoaded: boolean;
     private stripeError: string;
@@ -26,9 +26,8 @@ export class SubscribeComponent implements OnInit {
     private totalCost: number;
     private chapterIDs: string[];
     private courseID: string;
-    private account: Account;
 
-    extraData = {
+    private extraData: any = {
         address_city: null,
         address_line1: null,
         address_state: null,
@@ -41,21 +40,27 @@ export class SubscribeComponent implements OnInit {
         private stripeScriptTag: StripeScriptTag,
         private chapterService: ChapterService,
         private courseService: CourseService,
+        private subscribeService: SubscribeService,
         private jhiAlertService: JhiAlertService
     ) {}
 
     ngOnInit(): void {
         this.stripeLoaded = false;
-        this.stripeScriptTag
-            .setPublishableKey(this.publishableKey)
-            .then(() => (this.stripeLoaded = true))
-            .catch(error => {
-                console.error(error);
-            });
-        this.principal.identity().then(account => {
-            this.account = account;
-        });
-        this.loadAllCourses();
+        this.subscribeService.find().subscribe(
+            (res: string) => {
+                this.publishableKey = res;
+                this.stripeScriptTag
+                    .setPublishableKey(this.publishableKey)
+                    .then(() => {
+                        this.stripeLoaded = true;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                this.loadAllCourses();
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     loadAllCourses() {
@@ -63,7 +68,9 @@ export class SubscribeComponent implements OnInit {
             (res: HttpResponse<ICourse[]>) => {
                 this.courses = res.body;
             },
-            (res: HttpErrorResponse) => this.onError(res.message)
+            (res: HttpErrorResponse) => {
+                this.onError(res.message);
+            }
         );
     }
 
