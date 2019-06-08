@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { SERVER_API_URL } from 'app/app.constants';
+import { PUBLIC_STRIPE_KEY, SERVER_API_URL } from 'app/app.constants';
 import { StripeScriptTag, StripeSource, StripeToken } from 'stripe-angular';
 import { IChapter } from 'app/shared/model/chapter.model';
 import { ChapterService } from 'app/entities/chapter';
@@ -15,7 +15,7 @@ import { Account, IUser, Principal, UserService } from 'app/core';
     styleUrls: ['subscribe.scss']
 })
 export class SubscribeComponent implements OnInit {
-    private publishableKey = 'pk_test_OuesRgExP1r5SdQx8UBHTX9F00psUFNr6O';
+    private publishableKey = PUBLIC_STRIPE_KEY;
 
     private executingPayment: boolean;
     private stripeLoaded: boolean;
