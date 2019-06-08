@@ -107,7 +107,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/account/reset-password/finish").hasAuthority(AuthoritiesConstants.USER)
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/management/info").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/management/info").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/v2/api-docs/**").permitAll()
             .antMatchers("/swagger-resources/configuration/ui").permitAll()
