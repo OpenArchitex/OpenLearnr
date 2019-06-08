@@ -31,7 +31,6 @@ Navbar
     .jh-navbar-toggler {
         color: #ccc;
         font-size: 1.5em;
-        padding: 10px;
         &:hover {
             color: #fff;
         }
@@ -55,19 +54,20 @@ Navbar
     vertical-align: middle;
 }
 
+.toggle_icon {
+    vertical-align: middle;
+}
+
 /* ==========================================================================
 Logo styles
 ========================================================================== */
 .navbar-brand {
-    &.logo {
-        padding: 5px 15px;
-        .logo-img {
-            height: 45px;
-            width: 70px;
-            display: inline-block;
-            vertical-align: middle;
-            background: url('../../../content/images/logo-jhipster.svg') no-repeat center center;
-            background-size: contain;
-        }
+    .logo-img {
+        height: 30px;
+        width: 30px;
+        display: inline-block;
+        vertical-align: middle;
+        background: url('../../../content/images/logo-jhipster.svg') no-repeat center center;
+        background-size: contain;
     }
 }
