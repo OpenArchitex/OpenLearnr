@@ -29,7 +29,7 @@ export const commentRoute: Routes = [
         path: 'comment',
         component: CommentComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Comments'
         },
         canActivate: [UserRouteAccessService]
@@ -41,7 +41,7 @@ export const commentRoute: Routes = [
             comment: CommentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Comments'
         },
         canActivate: [UserRouteAccessService]
@@ -65,7 +65,7 @@ export const commentRoute: Routes = [
             comment: CommentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Comments'
         },
         canActivate: [UserRouteAccessService]
@@ -80,7 +80,7 @@ export const commentPopupRoute: Routes = [
             comment: CommentResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Comments'
         },
         canActivate: [UserRouteAccessService],

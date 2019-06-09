@@ -29,7 +29,7 @@ export const courseRoute: Routes = [
         path: 'course',
         component: CourseComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Courses'
         },
         canActivate: [UserRouteAccessService]
@@ -41,7 +41,7 @@ export const courseRoute: Routes = [
             course: CourseResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Courses'
         },
         canActivate: [UserRouteAccessService]
@@ -53,7 +53,7 @@ export const courseRoute: Routes = [
             course: CourseResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Courses'
         },
         canActivate: [UserRouteAccessService]
@@ -65,7 +65,7 @@ export const courseRoute: Routes = [
             course: CourseResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Courses'
         },
         canActivate: [UserRouteAccessService]
@@ -80,7 +80,7 @@ export const coursePopupRoute: Routes = [
             course: CourseResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Courses'
         },
         canActivate: [UserRouteAccessService],

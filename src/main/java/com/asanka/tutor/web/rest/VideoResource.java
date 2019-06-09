@@ -1,6 +1,7 @@
 package com.asanka.tutor.web.rest;
 
 import com.asanka.tutor.domain.Video;
+import com.asanka.tutor.security.AuthoritiesConstants;
 import com.asanka.tutor.service.VideoService;
 import com.asanka.tutor.web.rest.errors.BadRequestAlertException;
 import com.asanka.tutor.web.rest.util.HeaderUtil;
@@ -9,6 +10,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -43,6 +45,7 @@ public class VideoResource {
      */
     @PostMapping("/videos")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Video> createVideo(@Valid @RequestBody Video video) throws URISyntaxException {
         log.debug("REST request to save Video : {}", video);
         if (video.getId() != null) {
@@ -81,6 +84,7 @@ public class VideoResource {
      */
     @PutMapping("/videos")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Video> updateVideo(@Valid @RequestBody Video video) {
         log.debug("REST request to update Video : {}", video);
         if (video.getId() == null) {
@@ -99,6 +103,7 @@ public class VideoResource {
      */
     @GetMapping("/videos")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public List<Video> getAllVideos() {
         log.debug("REST request to get all Videos");
         return videoService.findAll();
@@ -112,6 +117,7 @@ public class VideoResource {
      */
     @GetMapping("/videos/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Video> getVideo(@PathVariable String id) {
         log.debug("REST request to get Video : {}", id);
         Optional<Video> video = videoService.findOne(id);
@@ -126,6 +132,7 @@ public class VideoResource {
      */
     @DeleteMapping("/videos/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteVideo(@PathVariable String id) {
         log.debug("REST request to delete Video : {}", id);
         videoService.delete(id);

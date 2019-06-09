@@ -1,5 +1,6 @@
 package com.asanka.tutor.web.rest;
 
+import com.asanka.tutor.security.AuthoritiesConstants;
 import com.asanka.tutor.service.CommentService;
 import com.asanka.tutor.service.dto.CommentDTO;
 import com.asanka.tutor.web.rest.errors.BadRequestAlertException;
@@ -9,6 +10,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -43,6 +45,7 @@ public class CommentResource {
      */
     @PostMapping("/comments")
     @Timed
+    @Secured(AuthoritiesConstants.USER)
     public ResponseEntity<CommentDTO> createComment(@Valid @RequestBody CommentDTO commentDTO) throws URISyntaxException {
         log.debug("REST request to save Comment : {}", commentDTO);
         if (commentDTO.getId() != null) {
@@ -64,6 +67,7 @@ public class CommentResource {
      */
     @PutMapping("/comments")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<CommentDTO> updateComment(@Valid @RequestBody CommentDTO commentDTO) {
         log.debug("REST request to update Comment : {}", commentDTO);
         if (commentDTO.getId() == null) {
@@ -122,6 +126,7 @@ public class CommentResource {
      */
     @DeleteMapping("/comments/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteComment(@PathVariable String id) {
         log.debug("REST request to delete Comment : {}", id);
         commentService.delete(id);

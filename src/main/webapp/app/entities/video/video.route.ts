@@ -29,7 +29,7 @@ export const videoRoute: Routes = [
         path: 'video',
         component: VideoComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Videos'
         },
         canActivate: [UserRouteAccessService]
@@ -41,7 +41,7 @@ export const videoRoute: Routes = [
             video: VideoResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Videos'
         },
         canActivate: [UserRouteAccessService]
@@ -53,7 +53,7 @@ export const videoRoute: Routes = [
             video: VideoResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Videos'
         },
         canActivate: [UserRouteAccessService]
@@ -65,7 +65,7 @@ export const videoRoute: Routes = [
             video: VideoResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Videos'
         },
         canActivate: [UserRouteAccessService]
@@ -80,7 +80,7 @@ export const videoPopupRoute: Routes = [
             video: VideoResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Videos'
         },
         canActivate: [UserRouteAccessService],

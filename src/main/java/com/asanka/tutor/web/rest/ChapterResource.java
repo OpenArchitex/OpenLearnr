@@ -1,6 +1,7 @@
 package com.asanka.tutor.web.rest;
 
 import com.asanka.tutor.domain.Video;
+import com.asanka.tutor.security.AuthoritiesConstants;
 import com.codahale.metrics.annotation.Timed;
 import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.service.ChapterService;
@@ -10,6 +11,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -45,6 +47,7 @@ public class ChapterResource {
      */
     @PostMapping("/chapters")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Chapter> createChapter(@Valid @RequestBody Chapter chapter) throws URISyntaxException {
         log.debug("REST request to save Chapter : {}", chapter);
         if (chapter.getId() != null) {
@@ -83,6 +86,7 @@ public class ChapterResource {
      */
     @PutMapping("/chapters")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Chapter> updateChapter(@Valid @RequestBody Chapter chapter) {
         log.debug("REST request to update Chapter : {}", chapter);
         if (chapter.getId() == null) {
@@ -128,6 +132,7 @@ public class ChapterResource {
      */
     @DeleteMapping("/chapters/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteChapter(@PathVariable String id) {
         log.debug("REST request to delete Chapter : {}", id);
         chapterService.delete(id);

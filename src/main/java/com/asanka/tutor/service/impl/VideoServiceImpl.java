@@ -70,13 +70,14 @@ public class VideoServiceImpl implements VideoService {
         log.debug("Request to get all Videos for the chapters");
         List<Video> videos = videoRepository.findVideosByChapterIDIn(chapterIDs);
         Optional<User> user = userService.getUserWithAuthorities();
+        Authority adminAuthority = new Authority();
+        adminAuthority.setName(AuthoritiesConstants.ADMIN);
         if (!user.isPresent()) {
-            log.error("User is not logged in!!");
-            throw new UserNotLoggedInException("User is not logged in!");
-        }
-        Authority authority = new Authority();
-        authority.setName(AuthoritiesConstants.ADMIN);
-        if (!user.get().getAuthorities().contains(authority)) {
+            for (Video video: videos) {
+                if (!video.isIsSample())
+                    video.setUrl(null);
+            }
+        } else if (!user.get().getAuthorities().contains(adminAuthority)) {
             Set<String> chapters = user.get().getChapters();
             if (chapters == null) {
                 for (Video video: videos) {

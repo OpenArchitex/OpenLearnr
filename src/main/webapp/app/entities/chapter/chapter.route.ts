@@ -29,7 +29,7 @@ export const chapterRoute: Routes = [
         path: 'chapter',
         component: ChapterComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Chapters'
         },
         canActivate: [UserRouteAccessService]
@@ -41,7 +41,7 @@ export const chapterRoute: Routes = [
             chapter: ChapterResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Chapters'
         },
         canActivate: [UserRouteAccessService]
@@ -53,7 +53,7 @@ export const chapterRoute: Routes = [
             chapter: ChapterResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Chapters'
         },
         canActivate: [UserRouteAccessService]
@@ -65,7 +65,7 @@ export const chapterRoute: Routes = [
             chapter: ChapterResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Chapters'
         },
         canActivate: [UserRouteAccessService]
@@ -80,7 +80,7 @@ export const chapterPopupRoute: Routes = [
             chapter: ChapterResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Chapters'
         },
         canActivate: [UserRouteAccessService],

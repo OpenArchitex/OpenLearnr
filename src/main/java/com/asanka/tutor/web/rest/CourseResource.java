@@ -1,5 +1,6 @@
 package com.asanka.tutor.web.rest;
 
+import com.asanka.tutor.security.AuthoritiesConstants;
 import com.codahale.metrics.annotation.Timed;
 import com.asanka.tutor.domain.Course;
 import com.asanka.tutor.service.CourseService;
@@ -9,6 +10,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -44,6 +46,7 @@ public class CourseResource {
      */
     @PostMapping("/courses")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Course> createCourse(@Valid @RequestBody Course course) throws URISyntaxException {
         log.debug("REST request to save Course : {}", course);
         if (course.getId() != null) {
@@ -65,6 +68,7 @@ public class CourseResource {
      */
     @PutMapping("/courses")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Course> updateCourse(@Valid @RequestBody Course course) {
         log.debug("REST request to update Course : {}", course);
         if (course.getId() == null) {
@@ -110,6 +114,7 @@ public class CourseResource {
      */
     @DeleteMapping("/courses/{id}")
     @Timed
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteCourse(@PathVariable String id) {
         log.debug("REST request to delete Course : {}", id);
         courseService.delete(id);

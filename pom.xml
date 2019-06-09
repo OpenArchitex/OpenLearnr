@@ -954,12 +954,6 @@
                 <spring.profiles.active>prod${profile.swagger}${profile.no-liquibase},prod-gae</spring.profiles.active>
             </properties>
         </profile>
-        <profile>
-            <id>dev-gae</id>
-            <properties>
-                <spring.profiles.active>dev${profile.swagger}${profile.no-liquibase},dev-gae</spring.profiles.active>
-            </properties>
-        </profile>
         <!-- jhipster-needle-maven-add-profile -->
     </profiles>
 </project>
