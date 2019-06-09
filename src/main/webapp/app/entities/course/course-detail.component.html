@@ -18,7 +18,7 @@
                                (click)="clickedVideo = video; mobileQuery.matches ? drawer.toggle(): null; this.getCommentsForVideo(this.clickedVideo)"
                                *ngFor="let video of navItem.videos">
                                 <button mat-button>{{video.name}}</button>
-                                <span class="badge badge-info" *ngIf='video.url === null'>Paid</span></a>
+                                <span class="badge badge-warning" *ngIf='video.url === null'>Paid</span></a>
                         </mat-list>
                     </mat-expansion-panel>
                 </mat-drawer>
@@ -33,7 +33,7 @@
                         <div class="container">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-sm-8">
-                                    <form (ngSubmit)="saveComment(editForm)" #editForm="ngForm">
+                                    <form (ngSubmit)="saveComment(editForm)" #editForm="ngForm" *ngIf="isAuthenticated()">
                                         <h3 class="float-md-left">New Comment</h3>
                                         <button type="submit" class="btn btn-primary float-md-right"
                                                 [disabled]="editForm.form.invalid || isSaving">Submit

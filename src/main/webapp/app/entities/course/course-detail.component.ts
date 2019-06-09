@@ -13,6 +13,7 @@ import { IComment } from 'app/shared/model/comment.model';
 import { CommentService } from 'app/entities/comment';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
+import { Principal } from 'app/core';
 
 interface NavItem {
     chapterName: string;
@@ -48,7 +49,8 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         private jhiAlertService: JhiAlertService,
         private changeDetectorRef: ChangeDetectorRef,
         private _snackBar: MatSnackBar,
-        private media: MediaMatcher
+        private media: MediaMatcher,
+        private principal: Principal
     ) {
         this.mobileQuery = media.matchMedia('(max-width: 600px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -145,5 +147,9 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
                 this.isSaving = false;
             }
         );
+    }
+
+    private isAuthenticated() {
+        return this.principal.isAuthenticated();
     }
 }
