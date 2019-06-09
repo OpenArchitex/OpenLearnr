@@ -18,7 +18,7 @@
                                (click)="clickedVideo = video; mobileQuery.matches ? drawer.toggle(): null; this.getCommentsForVideo(this.clickedVideo)"
                                *ngFor="let video of navItem.videos">
                                 <button mat-button>{{video.name}}</button>
-                                <span class="badge badge-info" *ngIf='video.url === null'>Subscribe</span></a>
+                                <span class="badge badge-info" *ngIf='video.url === null'>Paid</span></a>
                         </mat-list>
                     </mat-expansion-panel>
                 </mat-drawer>
