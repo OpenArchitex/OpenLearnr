@@ -54,27 +54,34 @@
                     </mat-form-field>
                 </div>
                 <span [hidden]="!stripeLoaded">
-            <div class="form-row d-block stripe-row">
-                <stripe-card [options]='getStyles()' #stripeCard (catch)="onStripeError($event)"
-                             (invalidChange)="onStripeInvalid($event)" (tokenChange)="setStripeToken($event)"
-                             (sourceChange)="setStripeSource($event)">
-                </stripe-card>
-            </div>
-            <div class="form-row d-block">
-                <button [hidden]="executingPayment" class="submitButton" mat-raised-button color="primary"
-                        (click)=stripeCard.createToken(extraData)>
-                    Pay <ng-container
-                    *ngIf="totalCost != 0 && courseSelect.value != null && selectedChapters.value != null">{{totalCost}}
-                    USD</ng-container>
-                </button>
-                <div *ngIf="stripeError != null" class="alert alert-danger" role="alert">
-                    {{stripeError}}
+                    <div class="form-row d-block stripe-row">
+                        <stripe-card [options]='getStyles()' #stripeCard (catch)="onStripeError($event)"
+                                     (invalidChange)="onStripeInvalid($event)" (tokenChange)="setStripeToken($event)"
+                                     (sourceChange)="setStripeSource($event)">
+                        </stripe-card>
+                    </div>
+                    <div class="form-row d-block">
+                        <button [hidden]="executingPayment" class="submitButton" mat-raised-button color="primary"
+                                (click)=stripeCard.createToken(extraData)>
+                            Pay <ng-container
+                            *ngIf="totalCost != 0 && courseSelect.value != null && selectedChapters.value != null">{{totalCost}}
+                            USD</ng-container>
+                        </button>
+                        <div *ngIf="stripeError != null" class="alert alert-danger" role="alert">
+                            {{stripeError}}
+                        </div>
+                        <div *ngIf="stripeSuccess != null" class="alert alert-primary" role="alert">
+                            {{stripeSuccess}}
+                        </div>
+                    </div>
+                </span>
+                <div class="form-row d-block">
+                    <p>If you are unable to pay using a credit/visa card we support an alternative method via a Google Form. However we encourage you to use the credit card method
+                        since you will get access to the videos instantly whereas the Google Form needs to be manually processed and will take upto 10 hours.</p>
+                    <a class="manual_payment" target="_blank" rel="noopener noreferrer" mat-raised-button href="https://docs.google.com/forms/d/1G7dZt1fTVL8GHbVHFWYYvL8Yx2lbW0PSRl4xn1Qyedg/edit">
+                        Google Form Payment
+                    </a>
                 </div>
-                <div *ngIf="stripeSuccess != null" class="alert alert-primary" role="alert">
-                    {{stripeSuccess}}
-                </div>
-            </div>
-        </span>
             </mat-card-content>
         </mat-card>
     </div>
