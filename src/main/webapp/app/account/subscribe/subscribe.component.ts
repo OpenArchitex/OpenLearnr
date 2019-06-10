@@ -97,7 +97,7 @@ export class SubscribeComponent implements OnInit {
         if (this.courseID == null || this.chapterIDs == null) {
             this.stripeError = 'Please select the Course and Chapters to purchase.';
         }
-        const headers = new HttpHeaders({ token, amount: this.totalCost.toString(), chapters: '[' + this.chapterIDs + ']' });
+        const headers = new HttpHeaders({ token, chapters: '[' + this.chapterIDs + ']' });
         this.executingPayment = true;
         this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(
             () => {

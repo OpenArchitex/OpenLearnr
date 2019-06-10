@@ -1,6 +1,5 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.domain.Course;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.security.StripeClient;
 import com.asanka.tutor.security.UserNotLoggedInException;
@@ -13,7 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -40,7 +42,6 @@ public class PaymentController {
     @Timed
     public Charge chargeCard(HttpServletRequest request) throws Exception {
         String token = request.getHeader("token");
-        double amount = Double.parseDouble(request.getHeader("amount"));
         JSONArray chapterIDs = new JSONArray(request.getHeader("chapters"));
         List<String> chapters = new ArrayList<>();
         int length = chapterIDs.length();
@@ -53,7 +54,7 @@ public class PaymentController {
             throw new UserNotLoggedInException("User not logged in!");
         }
         userService.updateUserSubscriptions(userService.getUserWithAuthorities().get().getId(), chapters);
-        return this.stripeClient.chargeCreditCard(token, amount);
+        return this.stripeClient.chargeCreditCard(token, stripeClient.getStripeUnitPrice() * length);
     }
 
     /**

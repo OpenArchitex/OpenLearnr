@@ -31,4 +31,8 @@ public class StripeClient {
     public String getStripePublicKey() {
         return stripe.getPublic_key();
     }
+
+    public int getStripeUnitPrice() {
+        return stripe.getUnitPrice();
+    }
 }
