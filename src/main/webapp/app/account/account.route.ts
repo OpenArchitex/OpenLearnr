@@ -17,7 +17,7 @@ const ACCOUNT_ROUTES = [
     passwordResetInitRoute,
     registerRoute,
     settingsRoute,
-    subscribeRoute
+    ...subscribeRoute
 ];
 
 export const accountState: Routes = [

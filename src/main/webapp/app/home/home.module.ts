@@ -11,7 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     imports: [
         OnlineTutorSharedModule,
-        RouterModule.forChild([HOME_ROUTE, EMAIL_ROUTE]),
+        RouterModule.forChild([HOME_ROUTE, ...EMAIL_ROUTE]),
         MatSnackBarModule,
         MatButtonModule,
         MatInputModule,

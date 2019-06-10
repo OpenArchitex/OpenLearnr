@@ -23,11 +23,17 @@
                     </mat-expansion-panel>
                 </mat-drawer>
                 <mat-drawer-content>
-                    <div class="embed-responsive embed-responsive-16by9" *ngIf="clickedVideo != null">
-                        <iframe *ngIf="clickedVideo.url != null" class="embed-responsive-item"
+                    <div class="embed-responsive embed-responsive-16by9" *ngIf="clickedVideo != null && clickedVideo.url != null">
+                        <iframe class="embed-responsive-item"
                                 [src]='clickedVideo.url + "?modestbranding=1" | safe'
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
+                    </div>
+                    <div  class="alert alert-success" role="alert" *ngIf="clickedVideo.url == null">
+                        <h4 class="alert-heading">Thanks for Interest!</h4>
+                        <p>Unfortunately we cannot give every course for free since we have to keep up with the maintenance of the site. Therefore we charge a small fee for some Videos/Chapters.
+                            Please <a routerLink="subscribe">subscribe</a> in order to gain access to this video. If you have any questions or problems subscribing please <a routerLink="email">let us know</a>.
+                        </p>
                     </div>
                     <section class="content-item" id="comments">
                         <div class="container">
