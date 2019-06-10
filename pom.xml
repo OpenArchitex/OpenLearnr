@@ -520,15 +520,6 @@
                     <contextDirectory>${project.build.directory}</contextDirectory>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>appengine-maven-plugin</artifactId>
-                <version>1.3.2</version>
-<configuration>
-                    <deploy.project></deploy.project>
-                    <deploy.version>1</deploy.version>
-                </configuration>
-            </plugin>
             <!-- jhipster-needle-maven-add-plugin -->
         </plugins>
         <pluginManagement>
@@ -947,12 +938,6 @@
                     <version>${mapstruct.version}</version>
                 </dependency>
             </dependencies>
-        </profile>
-        <profile>
-            <id>prod-gae</id>
-            <properties>
-                <spring.profiles.active>prod${profile.swagger}${profile.no-liquibase},prod-gae</spring.profiles.active>
-            </properties>
         </profile>
         <!-- jhipster-needle-maven-add-profile -->
     </profiles>
