@@ -15,7 +15,7 @@
         </tr>
         </thead>
 
-        <tr *ngFor="let logger of (loggers | pureFilter:filter:'name' | orderBy:orderProp:reverse)">
+        <tr *ngFor="let logger of loggers">
             <td><small>{{logger.name | slice:0:140}}</small></td>
             <td>
                 <button (click)="changeLevel(logger.name, 'TRACE')" [ngClass]="(logger.level=='TRACE') ? 'btn-primary' : 'btn-light'" class="btn btn-sm">TRACE</button>
