@@ -1,8 +1,8 @@
+import { of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { Observable } from 'rxjs';
 import { Course } from 'app/shared/model/course.model';
 import { CourseService } from './course.service';
 import { CourseComponent } from './course.component';
@@ -10,6 +10,7 @@ import { CourseDetailComponent } from './course-detail.component';
 import { CourseUpdateComponent } from './course-update.component';
 import { CourseDeletePopupComponent } from './course-delete-dialog.component';
 import { ICourse } from 'app/shared/model/course.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class CourseResolve implements Resolve<ICourse> {
@@ -18,9 +19,9 @@ export class CourseResolve implements Resolve<ICourse> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).map((course: HttpResponse<Course>) => course.body);
+            return this.service.find(id).pipe(map((course: HttpResponse<Course>) => course.body));
         }
-        return Observable.of(new Course());
+        return observableOf(new Course());
     }
 }
 

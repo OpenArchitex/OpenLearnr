@@ -30,7 +30,7 @@ module.exports = (options) => ({
                     minifyJS:false,
                     minifyCSS:false
                 },
-                exclude: ['./src/main/webapp/index.html']
+                exclude: ['/src/main/webapp/index.html/']
             },
             {
                 test: /\.(jpe?g|png|gif|svg|woff2?|ttf|eot)$/i,
@@ -59,9 +59,8 @@ module.exports = (options) => ({
             }
         }),
         new CopyWebpackPlugin([
-            { from: './node_modules/swagger-ui/dist/css', to: 'swagger-ui/dist/css' },
-            { from: './node_modules/swagger-ui/dist/lib', to: 'swagger-ui/dist/lib' },
-            { from: './node_modules/swagger-ui/dist/swagger-ui.min.js', to: 'swagger-ui/dist/swagger-ui.min.js' },
+            { from: './node_modules/swagger-ui/dist/swagger-ui.css', to: 'swagger-ui/dist/swagger-ui.css' },
+            { from: './node_modules/swagger-ui/dist/swagger-ui.js', to: 'swagger-ui/dist/swagger-ui.js' },
             { from: './src/main/webapp/swagger-ui/', to: 'swagger-ui' },
             { from: './src/main/webapp/content/', to: 'content' },
             { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },

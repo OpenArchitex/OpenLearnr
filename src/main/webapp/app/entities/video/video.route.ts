@@ -1,8 +1,8 @@
+import { of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { UserRouteAccessService } from 'app/core';
-import { Observable } from 'rxjs';
 import { Video } from 'app/shared/model/video.model';
 import { VideoService } from './video.service';
 import { VideoComponent } from './video.component';
@@ -10,6 +10,7 @@ import { VideoDetailComponent } from './video-detail.component';
 import { VideoUpdateComponent } from './video-update.component';
 import { VideoDeletePopupComponent } from './video-delete-dialog.component';
 import { IVideo } from 'app/shared/model/video.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class VideoResolve implements Resolve<IVideo> {
@@ -18,9 +19,9 @@ export class VideoResolve implements Resolve<IVideo> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const id = route.params['id'] ? route.params['id'] : null;
         if (id) {
-            return this.service.find(id).map((video: HttpResponse<Video>) => video.body);
+            return this.service.find(id).pipe(map((video: HttpResponse<Video>) => video.body));
         }
-        return Observable.of(new Video());
+        return observableOf(new Video());
     }
 }
 
