@@ -14,7 +14,7 @@
     <div class="mt-2">&nbsp;</div>
     Filter
     <input type="text" [(ngModel)]="threadDumpFilter" class="form-control">
-    <div class="pad" *ngFor="let entry of threadDump | pureFilter:threadDumpFilter:'lockName' | keys">
+    <div class="pad" *ngFor="let entry of threadDump">
         <h6>
             <span class="badge" [ngClass]="getBadgeClass(entry.value.threadState)">{{entry.value.threadState}}</span>&nbsp;{{entry.value.threadName}} (ID {{entry.value.threadId}})
             <a (click)="entry.show = !entry.show" href="javascript:void(0);">
@@ -24,7 +24,7 @@
         </h6>
         <div class="card" [hidden]="!entry.show">
             <div class="card-body">
-                <div *ngFor="let st of entry.value.stackTrace | keys" class="break">
+                <div *ngFor="let st of entry.value.stackTrace" class="break">
                     <samp>{{st.value.className}}.{{st.value.methodName}}(<code>{{st.value.fileName}}:{{st.value.lineNumber}}</code>)</samp>
                     <span class="mt-1"></span>
                 </div>
