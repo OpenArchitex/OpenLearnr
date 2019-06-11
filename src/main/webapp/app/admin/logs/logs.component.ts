@@ -9,12 +9,10 @@ import { LogsService } from './logs.service';
 })
 export class LogsComponent implements OnInit {
     loggers: Log[];
-    filter: string;
     orderProp: string;
     reverse: boolean;
 
     constructor(private logsService: LogsService) {
-        this.filter = '';
         this.orderProp = 'name';
         this.reverse = false;
     }
