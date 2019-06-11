@@ -45,16 +45,17 @@ public class PaymentController {
         JSONArray chapterIDs = new JSONArray(request.getHeader("chapters"));
         List<String> chapters = new ArrayList<>();
         int length = chapterIDs.length();
-        for (int i = 0; i < length; i++){
-            chapters.add(chapterIDs.get(i).toString());
-        }
         Optional<User> user = userService.getUserWithAuthorities();
         if (!user.isPresent()) {
             log.error("User is not logged in!");
             throw new UserNotLoggedInException("User not logged in!");
         }
-        userService.updateUserSubscriptions(userService.getUserWithAuthorities().get().getId(), chapters);
-        return this.stripeClient.chargeCreditCard(token, stripeClient.getStripeUnitPrice() * length);
+        Charge charge = this.stripeClient.chargeCreditCard(token, stripeClient.getStripeUnitPrice() * length);
+        for (int i = 0; i < length; i++){
+            chapters.add(chapterIDs.get(i).toString());
+        }
+        userService.updateUserSubscriptions(user.get().getId(), chapters);
+        return charge;
     }
 
     /**
