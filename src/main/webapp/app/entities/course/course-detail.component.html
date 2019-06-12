@@ -29,7 +29,7 @@
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                     </div>
-                    <div  class="alert alert-warning" role="alert" *ngIf="clickedVideo.url == null">
+                    <div  class="alert alert-warning" role="alert" *ngIf="clickedVideo != null && clickedVideo.url == null">
                         <h4 class="alert-heading">Thanks for Your Interest!</h4>
                         <p>Unfortunately we cannot give every course for free since we have to keep up with the maintenance of the site. Therefore we charge a small fee for some Videos/Chapters.
                             Please <a routerLink="subscribe">subscribe</a> in order to gain access to this video. If you have any questions or problems subscribing please <a routerLink="email">let us know</a>.

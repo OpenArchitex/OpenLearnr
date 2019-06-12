@@ -38,7 +38,7 @@
     "reflect-metadata": "0.1.13",
     "rxjs": "6.5.2",
     "stripe-angular": "^0.4.1",
-    "swagger-ui": "3.22.3",
+    "swagger-ui": "2.2.10",
     "tslib": "1.10.0",
     "zone.js": "^0.9.1"
   },
