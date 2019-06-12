@@ -1,6 +1,6 @@
 module.exports = {
     preset: 'jest-preset-angular',
-    setupTestFrameworkScriptFile: '<rootDir>/src/test/javascript/jest.ts',
+    setupFilesAfterEnv: ['<rootDir>/src/test/javascript/jest.ts'],
     coverageDirectory: '<rootDir>/target/test-results/',
     globals: {
         'ts-jest': {
@@ -16,6 +16,6 @@ module.exports = {
     ],
     testResultsProcessor: 'jest-sonar-reporter',
     transformIgnorePatterns: ['node_modules/(?!@angular/common/locales)'],
-    testMatch: ['<rootDir>/src/test/javascript/spec/**/+(*.)+(spec.ts)'],
+    testMatch: ['**/*/src/test/javascript/spec/**/+(*.)+(spec.ts)'],
     rootDir: '../../../'
 };

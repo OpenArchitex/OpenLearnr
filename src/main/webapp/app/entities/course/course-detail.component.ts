@@ -105,7 +105,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         );
     }
 
-    private getCommentsForVideo(clickedVideo: IVideo) {
+    public getCommentsForVideo(clickedVideo: IVideo) {
         this.commentsService.getCommentsForVideo(clickedVideo.id).subscribe(
             (res: HttpResponse<IComment[]>) => {
                 this.comments = res.body;
@@ -122,7 +122,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         comment.likesCount++;
     }
 
-    private profilePicURL(name?: string): string {
+    public profilePicURL(name?: string): string {
         if (name) {
             return `https://avatars.dicebear.com/v2/avataaars/${name}.svg?options[style][]=circle&options[mouth][]=smile`;
         } else {
@@ -130,7 +130,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         }
     }
 
-    private saveComment(form: NgForm) {
+    public saveComment(form: NgForm) {
         this.isSaving = true;
         this.comment.videoID = this.clickedVideo.id;
         this.commentsService.create(this.comment).subscribe(
@@ -149,7 +149,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
         );
     }
 
-    private isAuthenticated() {
+    public isAuthenticated() {
         return this.principal.isAuthenticated();
     }
 }

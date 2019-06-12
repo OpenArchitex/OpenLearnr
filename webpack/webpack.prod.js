@@ -80,7 +80,6 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                     // sourceMap: true, // Enable source maps. Please note that this will slow down the build
                     compress: {
                         dead_code: true,
-                        warnings: false,
                         properties: true,
                         drop_debugger: true,
                         conditionals: true,
@@ -96,7 +95,8 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
                         comments: false,
                         beautify: false,
                         indent_level: 2
-                    }
+                    },
+                    warnings: false
                 }
             })
         ]

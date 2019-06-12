@@ -17,8 +17,9 @@ import { ChapterService } from 'app/entities/chapter';
 })
 export class VideoUpdateComponent implements OnInit {
     private _video: IVideo;
-    private courses: ICourse[];
-    private chapters: IChapter[];
+
+    courses: ICourse[];
+    chapters: IChapter[];
     isSaving: boolean;
 
     constructor(

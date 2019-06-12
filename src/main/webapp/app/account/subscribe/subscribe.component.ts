@@ -17,17 +17,17 @@ import { SubscribeService } from 'app/account/subscribe/subscribe.service';
 })
 export class SubscribeComponent implements OnInit {
     private publishableKey: string;
-    private executingPayment: boolean;
-    private stripeLoaded: boolean;
-    private stripeError: string;
-    private stripeSuccess: string;
-    private chapters: IChapter[];
-    private courses: ICourse[];
-    private totalCost: number;
-    private chapterIDs: string[];
-    private courseID: string;
+    executingPayment: boolean;
+    stripeLoaded: boolean;
+    stripeError: string;
+    stripeSuccess: string;
+    chapters: IChapter[];
+    courses: ICourse[];
+    totalCost: number;
+    chapterIDs: string[];
+    courseID: string;
 
-    private extraData: any = {
+    extraData: any = {
         address_city: null,
         address_line1: null,
         address_state: null,
