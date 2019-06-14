@@ -16,8 +16,8 @@ public final class HeaderUtil {
 
     public static HttpHeaders createAlert(String message, String param) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-onlineTutorApp-alert", message);
-        headers.add("X-onlineTutorApp-params", param);
+        headers.add("X-pythonSinhalaApp-alert", message);
+        headers.add("X-pythonSinhalaApp-params", param);
         return headers;
     }
 
@@ -36,8 +36,8 @@ public final class HeaderUtil {
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
         log.error("Entity processing failed, {}", defaultMessage);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-onlineTutorApp-error", defaultMessage);
-        headers.add("X-onlineTutorApp-params", entityName);
+        headers.add("X-pythonSinhalaApp-error", defaultMessage);
+        headers.add("X-pythonSinhalaApp-params", entityName);
         return headers;
     }
 }

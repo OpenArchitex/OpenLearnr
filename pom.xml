@@ -516,7 +516,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repository>onlinetutor</repository>
+                    <repository>pythonsinhala</repository>
                     <contextDirectory>${project.build.directory}</contextDirectory>
                 </configuration>
             </plugin>
