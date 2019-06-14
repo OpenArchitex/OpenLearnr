@@ -53,7 +53,7 @@
                         <input [(ngModel)]="extraData.address_zip" matInput placeholder="Zip">
                     </mat-form-field>
                 </div>
-                <span [hidden]="!stripeLoaded">
+                <span *ngIf="stripeLoaded">
                     <div class="form-row d-block stripe-row">
                         <stripe-card [options]='getStyles()' #stripeCard (catch)="onStripeError($event)"
                                      (invalidChange)="onStripeInvalid($event)" (tokenChange)="setStripeToken($event)"
