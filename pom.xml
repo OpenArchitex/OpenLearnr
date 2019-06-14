@@ -525,8 +525,12 @@
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>2.0.0</version>
                 <configuration>
-                    <deploy.projectId>pythonsinhala</deploy.projectId>
-                    <deploy.version>1</deploy.version>
+                    <deploy.projectId>GCLOUD_CONFIG</deploy.projectId>
+                    <deploy.version>rc-1-alpha5</deploy.version>
+                    <environment>
+                        <name>spring.profiles.active</name>
+                        <value>prod${profile.swagger}${profile.no-liquibase}</value>
+                    </environment>
                 </configuration>
             </plugin>
             <!-- jhipster-needle-maven-add-plugin -->
@@ -947,12 +951,6 @@
                     <version>${mapstruct.version}</version>
                 </dependency>
             </dependencies>
-        </profile>
-        <profile>
-            <id>prod-gae</id>
-            <properties>
-                <spring.profiles.active>prod${profile.swagger}${profile.no-liquibase},prod-gae</spring.profiles.active>
-            </properties>
         </profile>
         <!-- jhipster-needle-maven-add-profile -->
     </profiles>
