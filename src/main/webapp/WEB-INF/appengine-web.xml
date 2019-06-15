@@ -2,7 +2,7 @@
     <threadsafe>true</threadsafe>
     <runtime>java8</runtime>
     <automatic-scaling>
-        <min-instances>0</min-instances>
+        <min-instances>1</min-instances>
         <max-instances>3</max-instances>
     </automatic-scaling>
     <instance-class>F1</instance-class>
@@ -11,4 +11,7 @@
         <priority-specifier filename="cache-api-1.1.0.jar"/>
         <priority-specifier filename="javax.mail-1.6.1.jar"/>
     </class-loader-config>
+    <system-properties>
+        <property name="javax.el.ExpressionFactory" value="com.sun.el.ExpressionFactoryImpl" />
+    </system-properties>
 </appengine-web-app>
