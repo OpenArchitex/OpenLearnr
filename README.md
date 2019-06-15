@@ -1,4 +1,4 @@
-# PytonSinhala
+# OnlineTutor
 This application was generated using JHipster 5.0.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.0.1](https://www.jhipster.tech/documentation-archive/v5.0.1).
 
 ## Development
@@ -88,7 +88,7 @@ will generate few files:
 
 ## Building for production
 
-To optimize the PythonSinhala application for production, run:
+To optimize the OnlineTutor application for production, run:
 
     ./mvnw -Pprod clean package
 

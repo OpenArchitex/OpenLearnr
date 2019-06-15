@@ -1,7 +1,7 @@
 version: '2'
 services:
-    pythonsinhala-app:
-        image: pythonsinhala
+    onlinetutor-app:
+        image: onlinetutor
         environment:
             # - _JAVA_OPTIONS=-Xmx512m -Xms256m
             - SPRING_PROFILES_ACTIVE=prod,swagger
@@ -13,4 +13,4 @@ services:
     onlinetutor-mongodb:
         extends:
             file: mongodb.yml
-            service: pythonsinhala-mongodb
+            service: onlinetutor-mongodb

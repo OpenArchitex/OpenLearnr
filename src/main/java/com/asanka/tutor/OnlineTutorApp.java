@@ -19,18 +19,18 @@ import java.util.Collection;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ApplicationProperties.class})
-public class PythonSinhalaApp {
+public class OnlineTutorApp {
 
-    private static final Logger log = LoggerFactory.getLogger(PythonSinhalaApp.class);
+    private static final Logger log = LoggerFactory.getLogger(OnlineTutorApp.class);
 
     private final Environment env;
 
-    public PythonSinhalaApp(Environment env) {
+    public OnlineTutorApp(Environment env) {
         this.env = env;
     }
 
     /**
-     * Initializes PythonSinhala.
+     * Initializes OnlineTutor.
      * <p>
      * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
      * <p>
@@ -55,7 +55,7 @@ public class PythonSinhalaApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(PythonSinhalaApp.class);
+        SpringApplication app = new SpringApplication(OnlineTutorApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         String protocol = "http";

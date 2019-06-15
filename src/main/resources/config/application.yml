@@ -34,7 +34,7 @@ management:
 
 spring:
     application:
-        name: PythonSinhala
+        name: OnlineTutor
     profiles:
         # The commented value for `active` can be replaced with valid Spring profiles to load.
         # Otherwise, it will be filled in by maven when building the WAR file
@@ -79,18 +79,18 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: PythonSinhala@localhost
+        from: OnlineTutor@localhost
     swagger:
         default-include-pattern: /api/.*
-        title: PythonSinhala API
-        description: PythonSinhala API documentation
+        title: OnlineTutor API
+        description: OnlineTutor API documentation
         version: 0.0.1
         terms-of-service-url:
         contact-name:
         contact-url:
         contact-email:
-        license: MIT
-        license-url: https://opensource.org/licenses/MIT
+        license:
+        license-url:
 
 # ===================================================================
 # Application specific properties
