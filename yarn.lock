@@ -9612,10 +9612,9 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
-stripe-angular@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/stripe-angular/-/stripe-angular-0.4.1.tgz#db695a76c2e27fdeba4745ebe968ddfc371cfe55"
-  integrity sha512-TCo4Ed98BZ7uerxrrbIoOHGRX1ZIwqIP68WJGBvNaN0IUkXiqYcsfI9IBC7SsIXxyO+9XPr4nKoxYATat7Hwrw==
+"stripe-angular@https://github.com/SudharakaP/stripe-angular.git":
+  version "0.4.2"
+  resolved "https://github.com/SudharakaP/stripe-angular.git#433329d566b7e7453967cb0fc12e83e4d008e91a"
 
 style-loader@0.23.1:
   version "0.23.1"
