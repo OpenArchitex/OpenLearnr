@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Online Course Management Web Application",
   "private": true,
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "cacheDirectories": [
     "node_modules"
   ],
