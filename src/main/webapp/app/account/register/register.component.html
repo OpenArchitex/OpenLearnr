@@ -113,7 +113,10 @@
                     </div>
                 </div>
 
-                <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary">Register</button>
+                <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-primary">
+                    <span *ngIf="!registerComplete && clickedRegister" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    {{!registerComplete && clickedRegister ? "Loading..." : "Register"}}
+                </button>
             </form>
             <p></p>
         </div>

@@ -28,7 +28,10 @@
                         <span>Remember me</span>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button type="submit" class="btn btn-primary">
+                    <span *ngIf="!authenticationComplete && clickedSignIn" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    {{!authenticationComplete && clickedSignIn ? "Loading..." : "Sign In"}}
+                </button>
             </form>
             <p></p>
             <div class="alert alert-warning">

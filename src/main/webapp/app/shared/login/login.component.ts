@@ -16,6 +16,8 @@ export class JhiLoginModalComponent implements AfterViewInit {
     rememberMe: boolean;
     username: string;
     credentials: any;
+    authenticationComplete: boolean;
+    clickedSignIn: boolean;
 
     constructor(
         private eventManager: JhiEventManager,
@@ -43,6 +45,8 @@ export class JhiLoginModalComponent implements AfterViewInit {
     }
 
     login() {
+        this.clickedSignIn = true;
+        this.authenticationComplete = false;
         this.loginService
             .login({
                 username: this.username,
@@ -50,6 +54,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
                 rememberMe: this.rememberMe
             })
             .then(() => {
+                this.clickedSignIn = false;
                 this.authenticationError = false;
                 this.activeModal.dismiss('login success');
                 if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {
@@ -71,6 +76,10 @@ export class JhiLoginModalComponent implements AfterViewInit {
             })
             .catch(() => {
                 this.authenticationError = true;
+            })
+            .finally(() => {
+                this.authenticationComplete = true;
+                this.clickedSignIn = false;
             });
     }
 

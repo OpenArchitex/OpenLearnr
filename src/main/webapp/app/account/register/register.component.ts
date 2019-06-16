@@ -19,6 +19,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     registerAccount: any;
     success: boolean;
     modalRef: NgbModalRef;
+    registerComplete: boolean;
+    clickedRegister: boolean;
 
     constructor(
         private loginModalService: LoginModalService,
@@ -45,11 +47,17 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             this.errorUserExists = null;
             this.errorEmailExists = null;
             this.registerAccount.langKey = 'en';
+            this.registerComplete = false;
+            this.clickedRegister = true;
             this.registerService.save(this.registerAccount).subscribe(
                 () => {
                     this.success = true;
                 },
-                response => this.processError(response)
+                response => this.processError(response),
+                () => {
+                    this.registerComplete = true;
+                    this.clickedRegister = false;
+                }
             );
         }
     }
