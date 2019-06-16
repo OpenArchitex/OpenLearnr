@@ -17,7 +17,7 @@
                             <a mat-list-item
                                (click)="clickedVideo = video; mobileQuery.matches ? drawer.toggle(): null; this.getCommentsForVideo(this.clickedVideo)"
                                *ngFor="let video of navItem.videos">
-                                <button mat-button>{{video.name}}</button>
+                                <button mat-button matTooltip="{{video.name.length > 40 ? video.name: null}}">{{(video.name.length > 40) ? (video.name | slice:0:37) + " ..." : video.name}}</button>
                                 <span class="badge badge-warning" *ngIf='video.url === null'>Paid</span></a>
                         </mat-list>
                     </mat-expansion-panel>
