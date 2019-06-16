@@ -94,7 +94,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
                     this.navItems.push({
                         chapterName: chapter.name,
                         chapterNumber: chapter.chapterNumber,
-                        videos: res.body.filter(video => video.chapterID === chapter.id)
+                        videos: res.body.filter(video => video.chapterID === chapter.id).sort((a, b) => a.episode - b.episode)
                     });
                 }
                 this.navItems.sort((a, b) => a.chapterNumber - b.chapterNumber);
