@@ -10,7 +10,10 @@
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="chapters">
+    <div class="alert alert-warning" *ngIf="chapters?.length === 0">
+        <span>No chapters found</span>
+    </div>
+    <div class="table-responsive" *ngIf="chapters?.length > 0">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -30,7 +33,7 @@
                 <td>{{chapter.description}}</td>
                 <td>{{chapter.courseID}}</td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/chapter', chapter.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -44,7 +47,7 @@
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'chapter/'+ chapter.id + '/delete'} }]"
+                                [routerLink]="['/', 'chapter', { outlets: { popup: chapter.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

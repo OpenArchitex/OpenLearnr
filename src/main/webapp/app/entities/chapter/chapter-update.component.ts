@@ -1,58 +1,81 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-
-import { IChapter } from 'app/shared/model/chapter.model';
+import { IChapter, Chapter } from 'app/shared/model/chapter.model';
 import { ChapterService } from './chapter.service';
 
 @Component({
-    selector: 'jhi-chapter-update',
-    templateUrl: './chapter-update.component.html'
+  selector: 'jhi-chapter-update',
+  templateUrl: './chapter-update.component.html'
 })
 export class ChapterUpdateComponent implements OnInit {
-    private _chapter: IChapter;
-    isSaving: boolean;
+  isSaving: boolean;
 
-    constructor(private chapterService: ChapterService, private activatedRoute: ActivatedRoute) {}
+  editForm = this.fb.group({
+    id: [],
+    name: [null, [Validators.required]],
+    chapterNumber: [null, [Validators.required]],
+    description: [null, [Validators.required]],
+    courseID: [null, [Validators.required]]
+  });
 
-    ngOnInit() {
-        this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ chapter }) => {
-            this.chapter = chapter;
-        });
-    }
+  constructor(protected chapterService: ChapterService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
-    previousState() {
-        window.history.back();
-    }
+  ngOnInit() {
+    this.isSaving = false;
+    this.activatedRoute.data.subscribe(({ chapter }) => {
+      this.updateForm(chapter);
+    });
+  }
 
-    save() {
-        this.isSaving = true;
-        if (this.chapter.id !== undefined) {
-            this.subscribeToSaveResponse(this.chapterService.update(this.chapter));
-        } else {
-            this.subscribeToSaveResponse(this.chapterService.create(this.chapter));
-        }
-    }
+  updateForm(chapter: IChapter) {
+    this.editForm.patchValue({
+      id: chapter.id,
+      name: chapter.name,
+      chapterNumber: chapter.chapterNumber,
+      description: chapter.description,
+      courseID: chapter.courseID
+    });
+  }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<IChapter>>) {
-        result.subscribe((res: HttpResponse<IChapter>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
-    }
+  previousState() {
+    window.history.back();
+  }
 
-    private onSaveSuccess() {
-        this.isSaving = false;
-        this.previousState();
+  save() {
+    this.isSaving = true;
+    const chapter = this.createFromForm();
+    if (chapter.id !== undefined) {
+      this.subscribeToSaveResponse(this.chapterService.update(chapter));
+    } else {
+      this.subscribeToSaveResponse(this.chapterService.create(chapter));
     }
+  }
 
-    private onSaveError() {
-        this.isSaving = false;
-    }
-    get chapter() {
-        return this._chapter;
-    }
+  private createFromForm(): IChapter {
+    const entity = {
+      ...new Chapter(),
+      id: this.editForm.get(['id']).value,
+      name: this.editForm.get(['name']).value,
+      chapterNumber: this.editForm.get(['chapterNumber']).value,
+      description: this.editForm.get(['description']).value,
+      courseID: this.editForm.get(['courseID']).value
+    };
+    return entity;
+  }
 
-    set chapter(chapter: IChapter) {
-        this._chapter = chapter;
-    }
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IChapter>>) {
+    result.subscribe((res: HttpResponse<IChapter>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+  }
+
+  protected onSaveSuccess() {
+    this.isSaving = false;
+    this.previousState();
+  }
+
+  protected onSaveError() {
+    this.isSaving = false;
+  }
 }

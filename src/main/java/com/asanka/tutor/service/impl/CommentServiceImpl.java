@@ -14,8 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 /**
- * Service Implementation for managing Comment.
+ * Service Implementation for managing {@link Comment}.
  */
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -34,8 +35,8 @@ public class CommentServiceImpl implements CommentService {
     /**
      * Save a comment.
      *
-     * @param commentDTO the entity to save
-     * @return the persisted entity
+     * @param commentDTO the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public CommentDTO save(CommentDTO commentDTO) {
@@ -48,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
     /**
      * Get all the comments.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     @Override
     public List<CommentDTO> findAll() {
@@ -62,8 +63,8 @@ public class CommentServiceImpl implements CommentService {
     /**
      * Get one comment by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     public Optional<CommentDTO> findOne(String id) {
@@ -75,7 +76,7 @@ public class CommentServiceImpl implements CommentService {
     /**
      * Delete the comment by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(String id) {

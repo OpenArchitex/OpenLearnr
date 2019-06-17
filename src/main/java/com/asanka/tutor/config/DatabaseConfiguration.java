@@ -61,5 +61,4 @@ public class DatabaseConfiguration {
         mongobee.setChangeLogsScanPackage("com.asanka.tutor.config.dbmigrations");
         mongobee.setEnabled(true);
         return mongobee;
-    }
-}
+    }}

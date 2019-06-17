@@ -6,22 +6,22 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing Comment.
+ * Service Interface for managing {@link com.asanka.tutor.domain.Comment}.
  */
 public interface CommentService {
 
     /**
      * Save a comment.
      *
-     * @param commentDTO the entity to save
-     * @return the persisted entity
+     * @param commentDTO the entity to save.
+     * @return the persisted entity.
      */
     CommentDTO save(CommentDTO commentDTO);
 
     /**
      * Get all the comments.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     List<CommentDTO> findAll();
 
@@ -29,15 +29,15 @@ public interface CommentService {
     /**
      * Get the "id" comment.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     Optional<CommentDTO> findOne(String id);
 
     /**
      * Delete the "id" comment.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     void delete(String id);
 }

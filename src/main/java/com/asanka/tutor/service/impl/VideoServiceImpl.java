@@ -8,11 +8,11 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 import java.util.Optional;
+
 /**
- * Service Implementation for managing Video.
+ * Service Implementation for managing {@link Video}.
  */
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -28,18 +28,19 @@ public class VideoServiceImpl implements VideoService {
     /**
      * Save a video.
      *
-     * @param video the entity to save
-     * @return the persisted entity
+     * @param video the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public Video save(Video video) {
-        log.debug("Request to save Video : {}", video);        return videoRepository.save(video);
+        log.debug("Request to save Video : {}", video);
+        return videoRepository.save(video);
     }
 
     /**
      * Get all the videos.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     @Override
     public List<Video> findAll() {
@@ -51,8 +52,8 @@ public class VideoServiceImpl implements VideoService {
     /**
      * Get one video by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     public Optional<Video> findOne(String id) {
@@ -63,7 +64,7 @@ public class VideoServiceImpl implements VideoService {
     /**
      * Delete the video by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(String id) {

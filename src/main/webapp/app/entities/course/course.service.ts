@@ -11,28 +11,28 @@ type EntityArrayResponseType = HttpResponse<ICourse[]>;
 
 @Injectable({ providedIn: 'root' })
 export class CourseService {
-    private resourceUrl = SERVER_API_URL + 'api/courses';
+  public resourceUrl = SERVER_API_URL + 'api/courses';
 
-    constructor(private http: HttpClient) {}
+  constructor(protected http: HttpClient) {}
 
-    create(course: ICourse): Observable<EntityResponseType> {
-        return this.http.post<ICourse>(this.resourceUrl, course, { observe: 'response' });
-    }
+  create(course: ICourse): Observable<EntityResponseType> {
+    return this.http.post<ICourse>(this.resourceUrl, course, { observe: 'response' });
+  }
 
-    update(course: ICourse): Observable<EntityResponseType> {
-        return this.http.put<ICourse>(this.resourceUrl, course, { observe: 'response' });
-    }
+  update(course: ICourse): Observable<EntityResponseType> {
+    return this.http.put<ICourse>(this.resourceUrl, course, { observe: 'response' });
+  }
 
-    find(id: string): Observable<EntityResponseType> {
-        return this.http.get<ICourse>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+  find(id: string): Observable<EntityResponseType> {
+    return this.http.get<ICourse>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
-        const options = createRequestOption(req);
-        return this.http.get<ICourse[]>(this.resourceUrl, { params: options, observe: 'response' });
-    }
+  query(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ICourse[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
 
-    delete(id: string): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+  delete(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 }

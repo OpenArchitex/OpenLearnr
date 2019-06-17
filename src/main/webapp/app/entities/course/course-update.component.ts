@@ -1,58 +1,72 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-
-import { ICourse } from 'app/shared/model/course.model';
+import { ICourse, Course } from 'app/shared/model/course.model';
 import { CourseService } from './course.service';
 
 @Component({
-    selector: 'jhi-course-update',
-    templateUrl: './course-update.component.html'
+  selector: 'jhi-course-update',
+  templateUrl: './course-update.component.html'
 })
 export class CourseUpdateComponent implements OnInit {
-    private _course: ICourse;
-    isSaving: boolean;
+  isSaving: boolean;
 
-    constructor(private courseService: CourseService, private activatedRoute: ActivatedRoute) {}
+  editForm = this.fb.group({
+    id: [],
+    name: [null, [Validators.required]]
+  });
 
-    ngOnInit() {
-        this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ course }) => {
-            this.course = course;
-        });
-    }
+  constructor(protected courseService: CourseService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
-    previousState() {
-        window.history.back();
-    }
+  ngOnInit() {
+    this.isSaving = false;
+    this.activatedRoute.data.subscribe(({ course }) => {
+      this.updateForm(course);
+    });
+  }
 
-    save() {
-        this.isSaving = true;
-        if (this.course.id !== undefined) {
-            this.subscribeToSaveResponse(this.courseService.update(this.course));
-        } else {
-            this.subscribeToSaveResponse(this.courseService.create(this.course));
-        }
-    }
+  updateForm(course: ICourse) {
+    this.editForm.patchValue({
+      id: course.id,
+      name: course.name
+    });
+  }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<ICourse>>) {
-        result.subscribe((res: HttpResponse<ICourse>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
-    }
+  previousState() {
+    window.history.back();
+  }
 
-    private onSaveSuccess() {
-        this.isSaving = false;
-        this.previousState();
+  save() {
+    this.isSaving = true;
+    const course = this.createFromForm();
+    if (course.id !== undefined) {
+      this.subscribeToSaveResponse(this.courseService.update(course));
+    } else {
+      this.subscribeToSaveResponse(this.courseService.create(course));
     }
+  }
 
-    private onSaveError() {
-        this.isSaving = false;
-    }
-    get course() {
-        return this._course;
-    }
+  private createFromForm(): ICourse {
+    const entity = {
+      ...new Course(),
+      id: this.editForm.get(['id']).value,
+      name: this.editForm.get(['name']).value
+    };
+    return entity;
+  }
 
-    set course(course: ICourse) {
-        this._course = course;
-    }
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<ICourse>>) {
+    result.subscribe((res: HttpResponse<ICourse>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+  }
+
+  protected onSaveSuccess() {
+    this.isSaving = false;
+    this.previousState();
+  }
+
+  protected onSaveError() {
+    this.isSaving = false;
+  }
 }

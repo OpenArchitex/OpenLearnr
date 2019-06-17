@@ -1,12 +1,10 @@
 package com.asanka.tutor.domain;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A Chapter.
@@ -102,19 +100,15 @@ public class Chapter implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Chapter)) {
             return false;
         }
-        Chapter chapter = (Chapter) o;
-        if (chapter.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), chapter.getId());
+        return id != null && id.equals(((Chapter) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

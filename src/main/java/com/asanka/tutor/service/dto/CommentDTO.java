@@ -1,11 +1,10 @@
 package com.asanka.tutor.service.dto;
-
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO for the Comment entity.
+ * A DTO for the {@link com.asanka.tutor.domain.Comment} entity.
  */
 public class CommentDTO implements Serializable {
 
@@ -23,6 +22,7 @@ public class CommentDTO implements Serializable {
 
     @NotNull
     private Boolean isApproved;
+
 
     public String getId() {
         return id;

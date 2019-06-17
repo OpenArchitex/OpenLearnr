@@ -1,13 +1,14 @@
 package com.asanka.tutor.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
 import com.asanka.tutor.domain.Video;
 import com.asanka.tutor.service.VideoService;
 import com.asanka.tutor.web.rest.errors.BadRequestAlertException;
-import com.asanka.tutor.web.rest.util.HeaderUtil;
+
+import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * REST controller for managing Video.
+ * REST controller for managing {@link com.asanka.tutor.domain.Video}.
  */
 @RestController
 @RequestMapping("/api")
@@ -29,6 +30,9 @@ public class VideoResource {
 
     private static final String ENTITY_NAME = "video";
 
+    @Value("${jhipster.clientApp.name}")
+    private String applicationName;
+
     private final VideoService videoService;
 
     public VideoResource(VideoService videoService) {
@@ -36,14 +40,13 @@ public class VideoResource {
     }
 
     /**
-     * POST  /videos : Create a new video.
+     * {@code POST  /videos} : Create a new video.
      *
-     * @param video the video to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new video, or with status 400 (Bad Request) if the video has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param video the video to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new video, or with status {@code 400 (Bad Request)} if the video has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/videos")
-    @Timed
     public ResponseEntity<Video> createVideo(@Valid @RequestBody Video video) throws URISyntaxException {
         log.debug("REST request to save Video : {}", video);
         if (video.getId() != null) {
@@ -51,21 +54,20 @@ public class VideoResource {
         }
         Video result = videoService.save(video);
         return ResponseEntity.created(new URI("/api/videos/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /videos : Updates an existing video.
+     * {@code PUT  /videos} : Updates an existing video.
      *
-     * @param video the video to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated video,
-     * or with status 400 (Bad Request) if the video is not valid,
-     * or with status 500 (Internal Server Error) if the video couldn't be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param video the video to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated video,
+     * or with status {@code 400 (Bad Request)} if the video is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the video couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/videos")
-    @Timed
     public ResponseEntity<Video> updateVideo(@Valid @RequestBody Video video) throws URISyntaxException {
         log.debug("REST request to update Video : {}", video);
         if (video.getId() == null) {
@@ -73,30 +75,28 @@ public class VideoResource {
         }
         Video result = videoService.save(video);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, video.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, video.getId().toString()))
             .body(result);
     }
 
     /**
-     * GET  /videos : get all the videos.
+     * {@code GET  /videos} : get all the videos.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of videos in body
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of videos in body.
      */
     @GetMapping("/videos")
-    @Timed
     public List<Video> getAllVideos() {
         log.debug("REST request to get all Videos");
         return videoService.findAll();
     }
 
     /**
-     * GET  /videos/:id : get the "id" video.
+     * {@code GET  /videos/:id} : get the "id" video.
      *
-     * @param id the id of the video to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the video, or with status 404 (Not Found)
+     * @param id the id of the video to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the video, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/videos/{id}")
-    @Timed
     public ResponseEntity<Video> getVideo(@PathVariable String id) {
         log.debug("REST request to get Video : {}", id);
         Optional<Video> video = videoService.findOne(id);
@@ -104,16 +104,15 @@ public class VideoResource {
     }
 
     /**
-     * DELETE  /videos/:id : delete the "id" video.
+     * {@code DELETE  /videos/:id} : delete the "id" video.
      *
-     * @param id the id of the video to delete
-     * @return the ResponseEntity with status 200 (OK)
+     * @param id the id of the video to delete.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/videos/{id}")
-    @Timed
     public ResponseEntity<Void> deleteVideo(@PathVariable String id) {
         log.debug("REST request to delete Video : {}", id);
         videoService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 }

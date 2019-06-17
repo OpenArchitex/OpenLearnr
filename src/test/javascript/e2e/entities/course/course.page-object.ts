@@ -1,45 +1,67 @@
-import { element, by, promise, ElementFinder } from 'protractor';
+import { browser, ExpectedConditions, element, by, ElementFinder } from 'protractor';
 
 export class CourseComponentsPage {
-    createButton = element(by.id('jh-create-entity'));
-    title = element.all(by.css('jhi-course div h2#page-heading span')).first();
+  createButton = element(by.id('jh-create-entity'));
+  deleteButtons = element.all(by.css('jhi-course div table .btn-danger'));
+  title = element.all(by.css('jhi-course div h2#page-heading span')).first();
 
-    clickOnCreateButton(): promise.Promise<void> {
-        return this.createButton.click();
-    }
+  async clickOnCreateButton(timeout?: number) {
+    await this.createButton.click();
+  }
 
-    getTitle(): any {
-        return this.title.getText();
-    }
+  async clickOnLastDeleteButton(timeout?: number) {
+    await this.deleteButtons.last().click();
+  }
+
+  async countDeleteButtons() {
+    return this.deleteButtons.count();
+  }
+
+  async getTitle() {
+    return this.title.getText();
+  }
 }
 
 export class CourseUpdatePage {
-    pageTitle = element(by.id('jhi-course-heading'));
-    saveButton = element(by.id('save-entity'));
-    cancelButton = element(by.id('cancel-save'));
-    nameInput = element(by.id('field_name'));
+  pageTitle = element(by.id('jhi-course-heading'));
+  saveButton = element(by.id('save-entity'));
+  cancelButton = element(by.id('cancel-save'));
+  nameInput = element(by.id('field_name'));
 
-    getPageTitle() {
-        return this.pageTitle.getText();
-    }
+  async getPageTitle() {
+    return this.pageTitle.getText();
+  }
 
-    setNameInput(name): promise.Promise<void> {
-        return this.nameInput.sendKeys(name);
-    }
+  async setNameInput(name) {
+    await this.nameInput.sendKeys(name);
+  }
 
-    getNameInput() {
-        return this.nameInput.getAttribute('value');
-    }
+  async getNameInput() {
+    return await this.nameInput.getAttribute('value');
+  }
 
-    save(): promise.Promise<void> {
-        return this.saveButton.click();
-    }
+  async save(timeout?: number) {
+    await this.saveButton.click();
+  }
 
-    cancel(): promise.Promise<void> {
-        return this.cancelButton.click();
-    }
+  async cancel(timeout?: number) {
+    await this.cancelButton.click();
+  }
 
-    getSaveButton(): ElementFinder {
-        return this.saveButton;
-    }
+  getSaveButton(): ElementFinder {
+    return this.saveButton;
+  }
+}
+
+export class CourseDeleteDialog {
+  private dialogTitle = element(by.id('jhi-delete-course-heading'));
+  private confirmButton = element(by.id('jhi-confirm-delete-course'));
+
+  async getDialogTitle() {
+    return this.dialogTitle.getText();
+  }
+
+  async clickOnConfirmButton(timeout?: number) {
+    await this.confirmButton.click();
+  }
 }

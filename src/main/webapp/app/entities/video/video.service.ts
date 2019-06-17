@@ -11,28 +11,28 @@ type EntityArrayResponseType = HttpResponse<IVideo[]>;
 
 @Injectable({ providedIn: 'root' })
 export class VideoService {
-    private resourceUrl = SERVER_API_URL + 'api/videos';
+  public resourceUrl = SERVER_API_URL + 'api/videos';
 
-    constructor(private http: HttpClient) {}
+  constructor(protected http: HttpClient) {}
 
-    create(video: IVideo): Observable<EntityResponseType> {
-        return this.http.post<IVideo>(this.resourceUrl, video, { observe: 'response' });
-    }
+  create(video: IVideo): Observable<EntityResponseType> {
+    return this.http.post<IVideo>(this.resourceUrl, video, { observe: 'response' });
+  }
 
-    update(video: IVideo): Observable<EntityResponseType> {
-        return this.http.put<IVideo>(this.resourceUrl, video, { observe: 'response' });
-    }
+  update(video: IVideo): Observable<EntityResponseType> {
+    return this.http.put<IVideo>(this.resourceUrl, video, { observe: 'response' });
+  }
 
-    find(id: string): Observable<EntityResponseType> {
-        return this.http.get<IVideo>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+  find(id: string): Observable<EntityResponseType> {
+    return this.http.get<IVideo>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
-        const options = createRequestOption(req);
-        return this.http.get<IVideo[]>(this.resourceUrl, { params: options, observe: 'response' });
-    }
+  query(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IVideo[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
 
-    delete(id: string): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+  delete(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 }

@@ -9,43 +9,43 @@ import { VideoService } from 'app/entities/video/video.service';
 import { Video } from 'app/shared/model/video.model';
 
 describe('Component Tests', () => {
-    describe('Video Management Component', () => {
-        let comp: VideoComponent;
-        let fixture: ComponentFixture<VideoComponent>;
-        let service: VideoService;
+  describe('Video Management Component', () => {
+    let comp: VideoComponent;
+    let fixture: ComponentFixture<VideoComponent>;
+    let service: VideoService;
 
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [OnlineTutorTestModule],
-                declarations: [VideoComponent],
-                providers: []
-            })
-                .overrideTemplate(VideoComponent, '')
-                .compileComponents();
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [OnlineTutorTestModule],
+        declarations: [VideoComponent],
+        providers: []
+      })
+        .overrideTemplate(VideoComponent, '')
+        .compileComponents();
 
-            fixture = TestBed.createComponent(VideoComponent);
-            comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(VideoService);
-        });
-
-        it('Should call load all on init', () => {
-            // GIVEN
-            const headers = new HttpHeaders().append('link', 'link;link');
-            spyOn(service, 'query').and.returnValue(
-                of(
-                    new HttpResponse({
-                        body: [new Video('123')],
-                        headers
-                    })
-                )
-            );
-
-            // WHEN
-            comp.ngOnInit();
-
-            // THEN
-            expect(service.query).toHaveBeenCalled();
-            expect(comp.videos[0]).toEqual(jasmine.objectContaining({ id: '123' }));
-        });
+      fixture = TestBed.createComponent(VideoComponent);
+      comp = fixture.componentInstance;
+      service = fixture.debugElement.injector.get(VideoService);
     });
+
+    it('Should call load all on init', () => {
+      // GIVEN
+      const headers = new HttpHeaders().append('link', 'link;link');
+      spyOn(service, 'query').and.returnValue(
+        of(
+          new HttpResponse({
+            body: [new Video('123')],
+            headers
+          })
+        )
+      );
+
+      // WHEN
+      comp.ngOnInit();
+
+      // THEN
+      expect(service.query).toHaveBeenCalled();
+      expect(comp.videos[0]).toEqual(jasmine.objectContaining({ id: '123' }));
+    });
+  });
 });

@@ -1,94 +1,116 @@
-import { element, by, promise, ElementFinder } from 'protractor';
+import { browser, ExpectedConditions, element, by, ElementFinder } from 'protractor';
 
 export class VideoComponentsPage {
-    createButton = element(by.id('jh-create-entity'));
-    title = element.all(by.css('jhi-video div h2#page-heading span')).first();
+  createButton = element(by.id('jh-create-entity'));
+  deleteButtons = element.all(by.css('jhi-video div table .btn-danger'));
+  title = element.all(by.css('jhi-video div h2#page-heading span')).first();
 
-    clickOnCreateButton(): promise.Promise<void> {
-        return this.createButton.click();
-    }
+  async clickOnCreateButton(timeout?: number) {
+    await this.createButton.click();
+  }
 
-    getTitle(): any {
-        return this.title.getText();
-    }
+  async clickOnLastDeleteButton(timeout?: number) {
+    await this.deleteButtons.last().click();
+  }
+
+  async countDeleteButtons() {
+    return this.deleteButtons.count();
+  }
+
+  async getTitle() {
+    return this.title.getText();
+  }
 }
 
 export class VideoUpdatePage {
-    pageTitle = element(by.id('jhi-video-heading'));
-    saveButton = element(by.id('save-entity'));
-    cancelButton = element(by.id('cancel-save'));
-    nameInput = element(by.id('field_name'));
-    episodeInput = element(by.id('field_episode'));
-    descriptionInput = element(by.id('field_description'));
-    urlInput = element(by.id('field_url'));
-    courseIDInput = element(by.id('field_courseID'));
-    chapterIDInput = element(by.id('field_chapterID'));
-    isSampleInput = element(by.id('field_isSample'));
+  pageTitle = element(by.id('jhi-video-heading'));
+  saveButton = element(by.id('save-entity'));
+  cancelButton = element(by.id('cancel-save'));
+  nameInput = element(by.id('field_name'));
+  episodeInput = element(by.id('field_episode'));
+  descriptionInput = element(by.id('field_description'));
+  urlInput = element(by.id('field_url'));
+  courseIDInput = element(by.id('field_courseID'));
+  chapterIDInput = element(by.id('field_chapterID'));
+  isSampleInput = element(by.id('field_isSample'));
 
-    getPageTitle() {
-        return this.pageTitle.getText();
-    }
+  async getPageTitle() {
+    return this.pageTitle.getText();
+  }
 
-    setNameInput(name): promise.Promise<void> {
-        return this.nameInput.sendKeys(name);
-    }
+  async setNameInput(name) {
+    await this.nameInput.sendKeys(name);
+  }
 
-    getNameInput() {
-        return this.nameInput.getAttribute('value');
-    }
+  async getNameInput() {
+    return await this.nameInput.getAttribute('value');
+  }
 
-    setEpisodeInput(episode): promise.Promise<void> {
-        return this.episodeInput.sendKeys(episode);
-    }
+  async setEpisodeInput(episode) {
+    await this.episodeInput.sendKeys(episode);
+  }
 
-    getEpisodeInput() {
-        return this.episodeInput.getAttribute('value');
-    }
+  async getEpisodeInput() {
+    return await this.episodeInput.getAttribute('value');
+  }
 
-    setDescriptionInput(description): promise.Promise<void> {
-        return this.descriptionInput.sendKeys(description);
-    }
+  async setDescriptionInput(description) {
+    await this.descriptionInput.sendKeys(description);
+  }
 
-    getDescriptionInput() {
-        return this.descriptionInput.getAttribute('value');
-    }
+  async getDescriptionInput() {
+    return await this.descriptionInput.getAttribute('value');
+  }
 
-    setUrlInput(url): promise.Promise<void> {
-        return this.urlInput.sendKeys(url);
-    }
+  async setUrlInput(url) {
+    await this.urlInput.sendKeys(url);
+  }
 
-    getUrlInput() {
-        return this.urlInput.getAttribute('value');
-    }
+  async getUrlInput() {
+    return await this.urlInput.getAttribute('value');
+  }
 
-    setCourseIDInput(courseID): promise.Promise<void> {
-        return this.courseIDInput.sendKeys(courseID);
-    }
+  async setCourseIDInput(courseID) {
+    await this.courseIDInput.sendKeys(courseID);
+  }
 
-    getCourseIDInput() {
-        return this.courseIDInput.getAttribute('value');
-    }
+  async getCourseIDInput() {
+    return await this.courseIDInput.getAttribute('value');
+  }
 
-    setChapterIDInput(chapterID): promise.Promise<void> {
-        return this.chapterIDInput.sendKeys(chapterID);
-    }
+  async setChapterIDInput(chapterID) {
+    await this.chapterIDInput.sendKeys(chapterID);
+  }
 
-    getChapterIDInput() {
-        return this.chapterIDInput.getAttribute('value');
-    }
+  async getChapterIDInput() {
+    return await this.chapterIDInput.getAttribute('value');
+  }
 
-    getIsSampleInput() {
-        return this.isSampleInput;
-    }
-    save(): promise.Promise<void> {
-        return this.saveButton.click();
-    }
+  getIsSampleInput(timeout?: number) {
+    return this.isSampleInput;
+  }
+  async save(timeout?: number) {
+    await this.saveButton.click();
+  }
 
-    cancel(): promise.Promise<void> {
-        return this.cancelButton.click();
-    }
+  async cancel(timeout?: number) {
+    await this.cancelButton.click();
+  }
 
-    getSaveButton(): ElementFinder {
-        return this.saveButton;
-    }
+  getSaveButton(): ElementFinder {
+    return this.saveButton;
+  }
+}
+
+export class VideoDeleteDialog {
+  private dialogTitle = element(by.id('jhi-delete-video-heading'));
+  private confirmButton = element(by.id('jhi-confirm-delete-video'));
+
+  async getDialogTitle() {
+    return this.dialogTitle.getText();
+  }
+
+  async clickOnConfirmButton(timeout?: number) {
+    await this.confirmButton.click();
+  }
 }

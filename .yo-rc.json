@@ -3,7 +3,7 @@
     "promptValues": {
       "packageName": "com.asanka.tutor"
     },
-    "jhipsterVersion": "5.0.1",
+    "jhipsterVersion": "6.1.0",
     "applicationType": "monolith",
     "baseName": "OnlineTutor",
     "packageName": "com.asanka.tutor",
@@ -29,6 +29,10 @@
       "protractor"
     ],
     "jhiPrefix": "jhi",
-    "enableTranslation": false
+    "enableTranslation": false,
+    "clientTheme": "none",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": []
   }
 }

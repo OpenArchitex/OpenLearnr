@@ -1,21 +1,21 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-chapter-heading">Create or edit a Chapter</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!chapter.id">
+                <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="chapter.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
-                        [(ngModel)]="chapter.name" required/>
-                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name').invalid && (editForm.get('name').dirty || editForm.get('name').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.required">
+                               *ngIf="editForm.get('name').errors.required">
                         This field is required.
                         </small>
                     </div>
@@ -23,14 +23,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_chapterNumber">Chapter Number</label>
                     <input type="number" class="form-control" name="chapterNumber" id="field_chapterNumber"
-                        [(ngModel)]="chapter.chapterNumber" required/>
-                    <div [hidden]="!(editForm.controls.chapterNumber?.dirty && editForm.controls.chapterNumber?.invalid)">
+                           formControlName="chapterNumber"/>
+                    <div *ngIf="editForm.get('chapterNumber').invalid && (editForm.get('chapterNumber').dirty || editForm.get('chapterNumber').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.chapterNumber?.errors?.required">
+                               *ngIf="editForm.get('chapterNumber').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.chapterNumber?.errors?.number">
+                            [hidden]="!editForm.get('chapterNumber')?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -38,10 +38,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="chapter.description" required/>
-                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                           formControlName="description"/>
+                    <div *ngIf="editForm.get('description').invalid && (editForm.get('description').dirty || editForm.get('description').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.description?.errors?.required">
+                               *ngIf="editForm.get('description').errors.required">
                         This field is required.
                         </small>
                     </div>
@@ -49,10 +49,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_courseID">Course ID</label>
                     <input type="text" class="form-control" name="courseID" id="field_courseID"
-                        [(ngModel)]="chapter.courseID" required/>
-                    <div [hidden]="!(editForm.controls.courseID?.dirty && editForm.controls.courseID?.invalid)">
+                           formControlName="courseID"/>
+                    <div *ngIf="editForm.get('courseID').invalid && (editForm.get('courseID').dirty || editForm.get('courseID').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.courseID?.errors?.required">
+                               *ngIf="editForm.get('courseID').errors.required">
                         This field is required.
                         </small>
                     </div>
@@ -63,7 +63,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>

@@ -13,35 +13,40 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-
 spring:
-    application:
-        name: OnlineTutor
-    cache:
-        type: simple
-    data:
-        mongodb:
-            host: localhost
-            port: 0
-            database: OnlineTutor
-    mail:
-        host: localhost
-    messages:
-        basename: i18n/messages
-    mvc:
-        favicon:
-            enabled: false
-    thymeleaf:
-        mode: HTML
-        
+  application:
+    name: OnlineTutor
+  data:
+    mongodb:
+      host: localhost
+      port: 0
+      database: OnlineTutor
+  mail:
+    host: localhost
+  main:
+    allow-bean-definition-overriding: true
+  messages:
+    basename: i18n/messages
+  mvc:
+    favicon:
+      enabled: false
+  task:
+    execution:
+      thread-name-prefix: online-tutor-task-
+      pool:
+        core-size: 1
+        max-size: 50
+        queue-capacity: 10000
+    scheduling:
+      thread-name-prefix: online-tutor-scheduling-
+      pool:
+        size: 1
+  thymeleaf:
+    mode: HTML
 
 server:
-    port: 10344
-    address: localhost
-
-info:
-    project:
-        version: #project.version#
+  port: 10344
+  address: localhost
 
 # ===================================================================
 # JHipster specific properties
@@ -50,31 +55,31 @@ info:
 # ===================================================================
 
 jhipster:
-    async:
-        core-pool-size: 1
-        max-pool-size: 50
-        queue-capacity: 10000
+  clientApp:
+    name: 'onlineTutorApp'
+  logging:
+    # To test json console appender
+    use-json-format: true # By default, logs are in Json format
     # To test logstash appender
-    logging:
-        logstash:
-            enabled: true
-            host: localhost
-            port: 5000
-            queue-size: 512
-    mail:
-        from: test@localhost
-        base-url: http://127.0.0.1:8080
-    security:
-        authentication:
-            jwt:
-                secret: 416b80086bf8b59ab084da3633c37deb6e03326d
-                # Token is valid 24 hours
-                token-validity-in-seconds: 86400
-    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
-        jmx.enabled: true
-        logs: # Reports Dropwizard metrics in the logs
-            enabled: true
-            report-frequency: 60 # in seconds
+    logstash:
+      enabled: true
+      host: localhost
+      port: 5000
+      queue-size: 512
+  mail:
+    from: test@localhost
+    base-url: http://127.0.0.1:8080
+  security:
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
+        base64-secret: 416b80086bf8b59ab084da3633c37deb6e03326d
+        # Token is valid 24 hours
+        token-validity-in-seconds: 86400
+  metrics:
+    logs: # Reports metrics in the logs
+      enabled: true
+      report-frequency: 60 # in seconds
 
 # ===================================================================
 # Application specific properties
