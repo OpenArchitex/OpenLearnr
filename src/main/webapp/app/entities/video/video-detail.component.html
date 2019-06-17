@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="video">
+            <h2><span>Video</span> {{video.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{video.name}}</span>
+                </dd>
+                <dt><span>Episode</span></dt>
+                <dd>
+                    <span>{{video.episode}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{video.description}}</span>
+                </dd>
+                <dt><span>Url</span></dt>
+                <dd>
+                    <span>{{video.url}}</span>
+                </dd>
+                <dt><span>Course ID</span></dt>
+                <dd>
+                    <span>{{video.courseID}}</span>
+                </dd>
+                <dt><span>Chapter ID</span></dt>
+                <dd>
+                    <span>{{video.chapterID}}</span>
+                </dd>
+                <dt><span>Is Sample</span></dt>
+                <dd>
+                    <span>{{video.isSample}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/video', video.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

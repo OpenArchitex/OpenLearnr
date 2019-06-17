@@ -1,0 +1,44 @@
+{
+    "name": "Comment",
+    "fields": [
+        {
+            "fieldName": "videoID",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "commentBody",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "likesCount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "dislikesCount",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "isApproved",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190603195354",
+    "entityTableName": "comment",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
