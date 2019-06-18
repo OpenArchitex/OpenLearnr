@@ -1,7 +1,10 @@
 <div class="card jh-card">
     <div>
         <mat-toolbar>
-            <button mat-icon-button (click)="drawer.toggle()"><fa-icon [icon]="'bars'"></fa-icon></button><span
+            <button mat-icon-button (click)="drawer.toggle()">
+                <fa-icon [icon]="'bars'"></fa-icon>
+            </button>
+            <span
                 class="toolbar-button-text">{{course.name}}</span>
         </mat-toolbar>
         <br/>
@@ -17,38 +20,51 @@
                             <a mat-list-item
                                (click)="clickedVideo = video; mobileQuery.matches ? drawer.toggle(): null; this.getCommentsForVideo(this.clickedVideo)"
                                *ngFor="let video of navItem.videos">
-                                <button mat-button matTooltip="{{video.name.length > 40 ? video.name: null}}">{{(video.name.length > 40) ? (video.name | slice:0:37) + " ..." : video.name}}</button>
+                                <button mat-button
+                                        matTooltip="{{video.name.length > 40 ? video.name: null}}">{{(video.name.length > 40) ? (video.name | slice:0:37) + " ..." : video.name}}</button>
                                 <span class="badge badge-warning" *ngIf='video.url === null'>Paid</span></a>
                         </mat-list>
                     </mat-expansion-panel>
                 </mat-drawer>
                 <mat-drawer-content>
-                    <div class="embed-responsive embed-responsive-16by9" *ngIf="clickedVideo != null && clickedVideo.url != null">
+                    <div class="embed-responsive embed-responsive-16by9"
+                         *ngIf="clickedVideo != null && clickedVideo.url != null">
                         <iframe class="embed-responsive-item"
                                 [src]='clickedVideo.url + "?modestbranding=1" | safe'
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen></iframe>
                     </div>
-                    <div  class="alert alert-warning" role="alert" *ngIf="clickedVideo != null && clickedVideo.url == null">
+                    <div class="alert alert-warning" role="alert"
+                         *ngIf="clickedVideo != null && clickedVideo.url == null">
                         <h4 class="alert-heading">Thanks for Your Interest!</h4>
-                        <p>Unfortunately we cannot give every course for free since we have to keep up with the maintenance of the site. Therefore we charge a small fee for some Videos/Chapters.
-                            Please <a routerLink="subscribe">subscribe</a> in order to gain access to this video. If you have any questions or problems subscribing please <a routerLink="email">let us know</a>.
+                        <p>Unfortunately we cannot give every course for free since we have to keep up with the
+                            maintenance of the site. Therefore we charge a small fee for some Videos/Chapters.
+                            Please <a routerLink="subscribe">subscribe</a> in order to gain access to this video. If you
+                            have any questions or problems subscribing please <a routerLink="email">let us know</a>.
                         </p>
                     </div>
-                    <section  class="content-item" id="disclaimer">
+                    <section class="content-item" id="disclaimer">
                         <div class="container">
-                            <p><small>You may download content/videos from our website only for your personal, non-commercial use, unless you obtain
-                                PythonSinhala's written permission to otherwise use the content. You also agree that you will create, access, and/or use
-                                only one user account, and you will not share with any third party access to or access information for your account.
-                                Using our Services does not give you ownership of any intellectual property rights in our Services or the content you
-                                access.</small></p>
+                            <p>
+                                <small>You may download content/videos from our website only for your personal,
+                                    non-commercial use, unless you obtain
+                                    PythonSinhala's written permission to otherwise use the content. You also agree that
+                                    you will create, access, and/or use
+                                    only one user account, and you will not share with any third party access to or
+                                    access information for your account.
+                                    Using our Services does not give you ownership of any intellectual property rights
+                                    in our Services or the content you
+                                    access.
+                                </small>
+                            </p>
                         </div>
                     </section>
-                    <section class="content-item" id="comments" *ngIf="comments.length != 0">
+                    <section class="content-item" id="comments">
                         <div class="container">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-sm-8">
-                                    <form (ngSubmit)="saveComment(editForm)" #editForm="ngForm" *ngIf="isAuthenticated()">
+                                    <form (ngSubmit)="saveComment(editForm)" #editForm="ngForm"
+                                          *ngIf="isAuthenticated()">
                                         <h3 class="float-md-left">New Comment</h3>
                                         <button type="submit" class="btn btn-primary float-md-right"
                                                 [disabled]="editForm.form.invalid || isSaving">Submit
@@ -66,25 +82,26 @@
                                             </div>
                                         </fieldset>
                                     </form>
-
-                                    <h3>{{comments.length}} Comments</h3>
-                                    <!-- COMMENT - START -->
-                                    <div *ngFor="let comment of comments" class="media">
-                                        <img class="img-fluid" [src]="profilePicURL(comment.createdBy)"
-                                             alt="Profile Picture">
-                                        <div class="media-body">
-                                            <h4 class="media-heading">{{comment.createdBy}}</h4>
-                                            <p>{{comment.commentBody}}</p>
-                                            <ul class="list-unstyled list-inline media-detail float-md-left">
-                                                <li class="list-inline-item">
-                                                    <fa-icon [icon]="'calendar'"></fa-icon>
-                                                    {{comment.createdDate | date:'dd/MM/yy HH:mm'}}</li>
-                                                <!--<li class="list-inline-item"><fa-icon [icon]="'thumbs-up'" ></fa-icon> {{comment.likesCount}}</li>-->
-                                            </ul>
-                                            <ul class="list-unstyled list-inline media-detail float-md-right">
-                                                <!--<li class="list-inline-item"><a (click)=incrementLikesCount(comment)>Like</a></li>-->
-                                                <!--<li class="list-inline-item"><a >Reply</a></li>-->
-                                            </ul>
+                                    <div *ngIf="comments.length != 0">
+                                        <h3>{{comments.length}} Comments</h3>
+                                        <!-- COMMENT - START -->
+                                        <div *ngFor="let comment of comments" class="media">
+                                            <img class="img-fluid" [src]="profilePicURL(comment.createdBy)"
+                                                 alt="Profile Picture">
+                                            <div class="media-body">
+                                                <h4 class="media-heading">{{comment.createdBy}}</h4>
+                                                <p>{{comment.commentBody}}</p>
+                                                <ul class="list-unstyled list-inline media-detail float-md-left">
+                                                    <li class="list-inline-item">
+                                                        <fa-icon [icon]="'calendar'"></fa-icon>
+                                                        {{comment.createdDate | date:'dd/MM/yy HH:mm'}}</li>
+                                                    <!--<li class="list-inline-item"><fa-icon [icon]="'thumbs-up'" ></fa-icon> {{comment.likesCount}}</li>-->
+                                                </ul>
+                                                <ul class="list-unstyled list-inline media-detail float-md-right">
+                                                    <!--<li class="list-inline-item"><a (click)=incrementLikesCount(comment)>Like</a></li>-->
+                                                    <!--<li class="list-inline-item"><a >Reply</a></li>-->
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
