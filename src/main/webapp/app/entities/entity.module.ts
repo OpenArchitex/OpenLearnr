@@ -1,23 +1,31 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
-import { OnlineTutorCourseModule } from './course/course.module';
-import { OnlineTutorVideoModule } from './video/video.module';
-import { OnlineTutorChapterModule } from './chapter/chapter.module';
-import { OnlineTutorCommentModule } from './comment/comment.module';
-/* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-    // prettier-ignore
-    imports: [
-        OnlineTutorCourseModule,
-        OnlineTutorVideoModule,
-        OnlineTutorChapterModule,
-        OnlineTutorCommentModule,
-        /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
-    ],
-    declarations: [],
-    entryComponents: [],
-    providers: [],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [
+    RouterModule.forChild([
+      {
+        path: 'course',
+        loadChildren: './course/course.module#OnlineTutorCourseModule'
+      },
+      {
+        path: 'video',
+        loadChildren: './video/video.module#OnlineTutorVideoModule'
+      },
+      {
+        path: 'chapter',
+        loadChildren: './chapter/chapter.module#OnlineTutorChapterModule'
+      },
+      {
+        path: 'comment',
+        loadChildren: './comment/comment.module#OnlineTutorCommentModule'
+      }
+      /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
+    ])
+  ],
+  declarations: [],
+  entryComponents: [],
+  providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OnlineTutorEntityModule {}

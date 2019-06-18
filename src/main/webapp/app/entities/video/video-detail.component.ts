@@ -4,21 +4,21 @@ import { ActivatedRoute } from '@angular/router';
 import { IVideo } from 'app/shared/model/video.model';
 
 @Component({
-    selector: 'jhi-video-detail',
-    templateUrl: './video-detail.component.html'
+  selector: 'jhi-video-detail',
+  templateUrl: './video-detail.component.html'
 })
 export class VideoDetailComponent implements OnInit {
-    video: IVideo;
+  video: IVideo;
 
-    constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(protected activatedRoute: ActivatedRoute) {}
 
-    ngOnInit() {
-        this.activatedRoute.data.subscribe(({ video }) => {
-            this.video = video;
-        });
-    }
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(({ video }) => {
+      this.video = video;
+    });
+  }
 
-    previousState() {
-        window.history.back();
-    }
+  previousState() {
+    window.history.back();
+  }
 }

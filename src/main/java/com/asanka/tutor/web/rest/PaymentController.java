@@ -4,7 +4,6 @@ import com.asanka.tutor.domain.User;
 import com.asanka.tutor.security.StripeClient;
 import com.asanka.tutor.security.UserNotLoggedInException;
 import com.asanka.tutor.service.UserService;
-import com.codahale.metrics.annotation.Timed;
 import com.stripe.model.Charge;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -39,7 +38,6 @@ public class PaymentController {
     }
 
     @PostMapping("/payment")
-    @Timed
     public Charge chargeCard(HttpServletRequest request) throws Exception {
         String token = request.getHeader("token");
         JSONArray chapterIDs = new JSONArray(request.getHeader("chapters"));
@@ -64,7 +62,6 @@ public class PaymentController {
      * @return the ResponseEntity with status 200 (OK) and with body the Stripe public key.
      */
     @GetMapping("/payment")
-    @Timed
     public ResponseEntity<String> getStripePublicKey() {
         log.debug("REST request to get Stripe public key");
         Optional<String> publicKey = Optional.of(stripeClient.getStripePublicKey());

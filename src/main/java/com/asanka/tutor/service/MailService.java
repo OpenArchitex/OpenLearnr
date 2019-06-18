@@ -21,7 +21,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 /**
  * Service for sending emails.
  * <p>
- * We use the @Async annotation to send emails asynchronously.
+ * We use the {@link Async} annotation to send emails asynchronously.
  */
 @Service
 public class MailService {
@@ -82,7 +82,6 @@ public class MailService {
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
-
     }
 
     @Async

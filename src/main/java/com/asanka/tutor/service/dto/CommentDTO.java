@@ -1,15 +1,14 @@
 package com.asanka.tutor.service.dto;
 
 import com.asanka.tutor.domain.Comment;
-import com.asanka.tutor.domain.User;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
 /**
- * A DTO for the Comment entity.
+ * A DTO for the {@link com.asanka.tutor.domain.Comment} entity.
  */
 public class CommentDTO implements Serializable {
 

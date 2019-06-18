@@ -2,22 +2,22 @@
     <div class="card jh-card">
         <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-video-heading">Create or edit a Video</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!video.id">
+                <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="video.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
-                        [(ngModel)]="video.name" required/>
-                    <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name').invalid && (editForm.get('name').dirty || editForm.get('name').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.required">
+                               *ngIf="editForm.get('name').errors.required">
                         This field is required.
                         </small>
                     </div>
@@ -25,14 +25,14 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_episode">Episode</label>
                     <input type="number" class="form-control" name="episode" id="field_episode"
-                        [(ngModel)]="video.episode" required/>
-                    <div [hidden]="!(editForm.controls.episode?.dirty && editForm.controls.episode?.invalid)">
+                           formControlName="episode"/>
+                    <div *ngIf="editForm.get('episode').invalid && (editForm.get('episode').dirty || editForm.get('episode').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.episode?.errors?.required">
+                               *ngIf="editForm.get('episode').errors.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.episode?.errors?.number">
+                            [hidden]="!editForm.get('episode')?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -40,10 +40,10 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="video.description" required/>
-                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                           formControlName="description"/>
+                    <div *ngIf="editForm.get('description').invalid && (editForm.get('description').dirty || editForm.get('description').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.description?.errors?.required">
+                               *ngIf="editForm.get('description').errors.required">
                         This field is required.
                         </small>
                     </div>
@@ -51,17 +51,17 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_url">Url</label>
                     <input type="text" class="form-control" name="url" id="field_url"
-                        [(ngModel)]="video.url" required/>
-                    <div [hidden]="!(editForm.controls.url?.dirty && editForm.controls.url?.invalid)">
+                           formControlName="url"/>
+                    <div *ngIf="editForm.get('url').invalid && (editForm.get('url').dirty || editForm.get('url').touched)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.url?.errors?.required">
+                               *ngIf="editForm.get('url').errors.required">
                         This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_courseID">Course</label>
-                    <select #courseSelect class="form-control" id="field_courseID" name="courseID" [(ngModel)]="video.courseID" (change)="loadAllChaptersForCourse(courseSelect.value)" required>
+                    <select #courseSelect class="form-control" id="field_courseID" name="courseID" formControlName="courseID" (change)="loadAllChaptersForCourse(courseSelect.value)" required>
                         <option *ngFor="let course of courses" [value]=course.id>
                             {{course.name}}
                         </option>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_chapterID">Chapter</label>
-                    <select class="form-control" id="field_chapterID" name="chapterID" [(ngModel)]="video.chapterID" required>
+                    <select class="form-control" id="field_chapterID" name="chapterID" formControlName="chapterID" required>
                         <option *ngFor="let chapter of chapters" [value]=chapter.id>
                             {{chapter.name}}
                         </option>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-check">
                      <input type="checkbox" class="form-check-input" name="isSample" id="field_isSample"
-                           [(ngModel)]="video.isSample" />
+                            formControlName="isSample" />
                     <label class="form-check-label" for="field_isSample">Is Sample</label>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>

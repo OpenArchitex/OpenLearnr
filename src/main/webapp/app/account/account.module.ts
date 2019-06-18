@@ -7,37 +7,37 @@ import { FormsModule } from '@angular/forms';
 import { Module as StripeModule } from 'stripe-angular';
 
 import {
-    PasswordStrengthBarComponent,
-    RegisterComponent,
-    ActivateComponent,
-    PasswordComponent,
-    PasswordResetInitComponent,
-    PasswordResetFinishComponent,
-    SettingsComponent,
-    accountState
+  PasswordStrengthBarComponent,
+  RegisterComponent,
+  ActivateComponent,
+  PasswordComponent,
+  PasswordResetInitComponent,
+  PasswordResetFinishComponent,
+  SettingsComponent,
+  accountState
 } from './';
 
 @NgModule({
-    imports: [
-        OnlineTutorSharedModule,
-        RouterModule.forChild(accountState),
-        MatButtonModule,
-        MatInputModule,
-        MatCardModule,
-        FormsModule,
-        MatSelectModule,
-        StripeModule.forRoot()
-    ],
-    declarations: [
-        ActivateComponent,
-        RegisterComponent,
-        PasswordComponent,
-        PasswordStrengthBarComponent,
-        PasswordResetInitComponent,
-        PasswordResetFinishComponent,
-        SettingsComponent,
-        SubscribeComponent
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [
+    OnlineTutorSharedModule,
+    RouterModule.forChild(accountState),
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    FormsModule,
+    MatSelectModule,
+    StripeModule.forRoot()
+  ],
+  declarations: [
+    ActivateComponent,
+    RegisterComponent,
+    PasswordComponent,
+    PasswordStrengthBarComponent,
+    PasswordResetInitComponent,
+    PasswordResetFinishComponent,
+    SettingsComponent,
+    SubscribeComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OnlineTutorAccountModule {}

@@ -8,11 +8,11 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 import java.util.Optional;
+
 /**
- * Service Implementation for managing Course.
+ * Service Implementation for managing {@link Course}.
  */
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -28,18 +28,19 @@ public class CourseServiceImpl implements CourseService {
     /**
      * Save a course.
      *
-     * @param course the entity to save
-     * @return the persisted entity
+     * @param course the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public Course save(Course course) {
-        log.debug("Request to save Course : {}", course);        return courseRepository.save(course);
+        log.debug("Request to save Course : {}", course);
+        return courseRepository.save(course);
     }
 
     /**
      * Get all the courses.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     @Override
     public List<Course> findAll() {
@@ -51,8 +52,8 @@ public class CourseServiceImpl implements CourseService {
     /**
      * Get one course by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     public Optional<Course> findOne(String id) {
@@ -63,7 +64,7 @@ public class CourseServiceImpl implements CourseService {
     /**
      * Delete the course by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(String id) {

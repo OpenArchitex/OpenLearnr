@@ -11,32 +11,32 @@ type EntityArrayResponseType = HttpResponse<IComment[]>;
 
 @Injectable({ providedIn: 'root' })
 export class CommentService {
-    private resourceUrl = SERVER_API_URL + 'api/comments';
+  public resourceUrl = SERVER_API_URL + 'api/comments';
 
-    constructor(private http: HttpClient) {}
+  constructor(protected http: HttpClient) {}
 
-    create(comment: IComment): Observable<EntityResponseType> {
-        return this.http.post<IComment>(this.resourceUrl, comment, { observe: 'response' });
-    }
+  create(comment: IComment): Observable<EntityResponseType> {
+    return this.http.post<IComment>(this.resourceUrl, comment, { observe: 'response' });
+  }
 
-    update(comment: IComment): Observable<EntityResponseType> {
-        return this.http.put<IComment>(this.resourceUrl, comment, { observe: 'response' });
-    }
+  update(comment: IComment): Observable<EntityResponseType> {
+    return this.http.put<IComment>(this.resourceUrl, comment, { observe: 'response' });
+  }
 
-    find(id: string): Observable<EntityResponseType> {
-        return this.http.get<IComment>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+  find(id: string): Observable<EntityResponseType> {
+    return this.http.get<IComment>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
-        const options = createRequestOption(req);
-        return this.http.get<IComment[]>(this.resourceUrl, { params: options, observe: 'response' });
-    }
+  query(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IComment[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
 
-    delete(id: string): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+  delete(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 
-    getCommentsForVideo(videoID: string) {
-        return this.http.get<IComment[]>(`${this.resourceUrl}/commentsForVideo/${videoID}`, { observe: 'response' });
-    }
+  getCommentsForVideo(videoID: string) {
+    return this.http.get<IComment[]>(`${this.resourceUrl}/commentsForVideo/${videoID}`, { observe: 'response' });
+  }
 }

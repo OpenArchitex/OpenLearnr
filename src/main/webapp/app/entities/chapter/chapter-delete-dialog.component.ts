@@ -8,58 +8,58 @@ import { IChapter } from 'app/shared/model/chapter.model';
 import { ChapterService } from './chapter.service';
 
 @Component({
-    selector: 'jhi-chapter-delete-dialog',
-    templateUrl: './chapter-delete-dialog.component.html'
+  selector: 'jhi-chapter-delete-dialog',
+  templateUrl: './chapter-delete-dialog.component.html'
 })
 export class ChapterDeleteDialogComponent {
-    chapter: IChapter;
+  chapter: IChapter;
 
-    constructor(private chapterService: ChapterService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
+  constructor(protected chapterService: ChapterService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
 
-    clear() {
-        this.activeModal.dismiss('cancel');
-    }
+  clear() {
+    this.activeModal.dismiss('cancel');
+  }
 
-    confirmDelete(id: string) {
-        this.chapterService.delete(id).subscribe(() => {
-            this.eventManager.broadcast({
-                name: 'chapterListModification',
-                content: 'Deleted an chapter'
-            });
-            this.activeModal.dismiss(true);
-        });
-    }
+  confirmDelete(id: string) {
+    this.chapterService.delete(id).subscribe(() => {
+      this.eventManager.broadcast({
+        name: 'chapterListModification',
+        content: 'Deleted an chapter'
+      });
+      this.activeModal.dismiss(true);
+    });
+  }
 }
 
 @Component({
-    selector: 'jhi-chapter-delete-popup',
-    template: ''
+  selector: 'jhi-chapter-delete-popup',
+  template: ''
 })
 export class ChapterDeletePopupComponent implements OnInit, OnDestroy {
-    private ngbModalRef: NgbModalRef;
+  protected ngbModalRef: NgbModalRef;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: NgbModal) {}
+  constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
 
-    ngOnInit() {
-        this.activatedRoute.data.subscribe(({ chapter }) => {
-            setTimeout(() => {
-                this.ngbModalRef = this.modalService.open(ChapterDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
-                this.ngbModalRef.componentInstance.chapter = chapter;
-                this.ngbModalRef.result.then(
-                    () => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
-                        this.ngbModalRef = null;
-                    },
-                    () => {
-                        this.router.navigate([{ outlets: { popup: null } }], { replaceUrl: true, queryParamsHandling: 'merge' });
-                        this.ngbModalRef = null;
-                    }
-                );
-            }, 0);
-        });
-    }
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(({ chapter }) => {
+      setTimeout(() => {
+        this.ngbModalRef = this.modalService.open(ChapterDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+        this.ngbModalRef.componentInstance.chapter = chapter;
+        this.ngbModalRef.result.then(
+          () => {
+            this.router.navigate(['/chapter', { outlets: { popup: null } }]);
+            this.ngbModalRef = null;
+          },
+          () => {
+            this.router.navigate(['/chapter', { outlets: { popup: null } }]);
+            this.ngbModalRef = null;
+          }
+        );
+      }, 0);
+    });
+  }
 
-    ngOnDestroy() {
-        this.ngbModalRef = null;
-    }
+  ngOnDestroy() {
+    this.ngbModalRef = null;
+  }
 }

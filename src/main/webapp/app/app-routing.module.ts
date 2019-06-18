@@ -6,18 +6,18 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot(
-            [
-                ...LAYOUT_ROUTES,
-                {
-                    path: 'admin',
-                    loadChildren: './admin/admin.module#OnlineTutorAdminModule'
-                }
-            ],
-            { useHash: true, enableTracing: DEBUG_INFO_ENABLED }
-        )
-    ],
-    exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(
+      [
+        {
+          path: 'admin',
+          loadChildren: './admin/admin.module#OnlineTutorAdminModule'
+        },
+        ...LAYOUT_ROUTES
+      ],
+      { enableTracing: DEBUG_INFO_ENABLED }
+    )
+  ],
+  exports: [RouterModule]
 })
 export class OnlineTutorAppRoutingModule {}

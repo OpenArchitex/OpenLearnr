@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A Video.
@@ -166,19 +165,15 @@ public class Video implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Video)) {
             return false;
         }
-        Video video = (Video) o;
-        if (video.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), video.getId());
+        return id != null && id.equals(((Video) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

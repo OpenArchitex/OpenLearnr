@@ -1,76 +1,98 @@
-import { element, by, promise, ElementFinder } from 'protractor';
+import { element, by, ElementFinder } from 'protractor';
 
 export class CommentComponentsPage {
-    createButton = element(by.id('jh-create-entity'));
-    title = element.all(by.css('jhi-comment div h2#page-heading span')).first();
+  createButton = element(by.id('jh-create-entity'));
+  deleteButtons = element.all(by.css('jhi-comment div table .btn-danger'));
+  title = element.all(by.css('jhi-comment div h2#page-heading span')).first();
 
-    clickOnCreateButton(): promise.Promise<void> {
-        return this.createButton.click();
-    }
+  async clickOnCreateButton(timeout?: number) {
+    await this.createButton.click();
+  }
 
-    getTitle(): any {
-        return this.title.getText();
-    }
+  async clickOnLastDeleteButton(timeout?: number) {
+    await this.deleteButtons.last().click();
+  }
+
+  async countDeleteButtons() {
+    return this.deleteButtons.count();
+  }
+
+  async getTitle() {
+    return this.title.getText();
+  }
 }
 
 export class CommentUpdatePage {
-    pageTitle = element(by.id('jhi-comment-heading'));
-    saveButton = element(by.id('save-entity'));
-    cancelButton = element(by.id('cancel-save'));
-    videoIDInput = element(by.id('field_videoID'));
-    commentBodyInput = element(by.id('field_commentBody'));
-    likesCountInput = element(by.id('field_likesCount'));
-    dislikesCountInput = element(by.id('field_dislikesCount'));
-    isApprovedInput = element(by.id('field_isApproved'));
+  pageTitle = element(by.id('jhi-comment-heading'));
+  saveButton = element(by.id('save-entity'));
+  cancelButton = element(by.id('cancel-save'));
+  videoIDInput = element(by.id('field_videoID'));
+  commentBodyInput = element(by.id('field_commentBody'));
+  likesCountInput = element(by.id('field_likesCount'));
+  dislikesCountInput = element(by.id('field_dislikesCount'));
+  isApprovedInput = element(by.id('field_isApproved'));
 
-    getPageTitle() {
-        return this.pageTitle.getText();
-    }
+  async getPageTitle() {
+    return this.pageTitle.getText();
+  }
 
-    setVideoIDInput(videoID): promise.Promise<void> {
-        return this.videoIDInput.sendKeys(videoID);
-    }
+  async setVideoIDInput(videoID) {
+    await this.videoIDInput.sendKeys(videoID);
+  }
 
-    getVideoIDInput() {
-        return this.videoIDInput.getAttribute('value');
-    }
+  async getVideoIDInput() {
+    return await this.videoIDInput.getAttribute('value');
+  }
 
-    setCommentBodyInput(commentBody): promise.Promise<void> {
-        return this.commentBodyInput.sendKeys(commentBody);
-    }
+  async setCommentBodyInput(commentBody) {
+    await this.commentBodyInput.sendKeys(commentBody);
+  }
 
-    getCommentBodyInput() {
-        return this.commentBodyInput.getAttribute('value');
-    }
+  async getCommentBodyInput() {
+    return await this.commentBodyInput.getAttribute('value');
+  }
 
-    setLikesCountInput(likesCount): promise.Promise<void> {
-        return this.likesCountInput.sendKeys(likesCount);
-    }
+  async setLikesCountInput(likesCount) {
+    await this.likesCountInput.sendKeys(likesCount);
+  }
 
-    getLikesCountInput() {
-        return this.likesCountInput.getAttribute('value');
-    }
+  async getLikesCountInput() {
+    return await this.likesCountInput.getAttribute('value');
+  }
 
-    setDislikesCountInput(dislikesCount): promise.Promise<void> {
-        return this.dislikesCountInput.sendKeys(dislikesCount);
-    }
+  async setDislikesCountInput(dislikesCount) {
+    await this.dislikesCountInput.sendKeys(dislikesCount);
+  }
 
-    getDislikesCountInput() {
-        return this.dislikesCountInput.getAttribute('value');
-    }
+  async getDislikesCountInput() {
+    return await this.dislikesCountInput.getAttribute('value');
+  }
 
-    getIsApprovedInput() {
-        return this.isApprovedInput;
-    }
-    save(): promise.Promise<void> {
-        return this.saveButton.click();
-    }
+  getIsApprovedInput(timeout?: number) {
+    return this.isApprovedInput;
+  }
+  async save(timeout?: number) {
+    await this.saveButton.click();
+  }
 
-    cancel(): promise.Promise<void> {
-        return this.cancelButton.click();
-    }
+  async cancel(timeout?: number) {
+    await this.cancelButton.click();
+  }
 
-    getSaveButton(): ElementFinder {
-        return this.saveButton;
-    }
+  getSaveButton(): ElementFinder {
+    return this.saveButton;
+  }
+}
+
+export class CommentDeleteDialog {
+  private dialogTitle = element(by.id('jhi-delete-comment-heading'));
+  private confirmButton = element(by.id('jhi-confirm-delete-comment'));
+
+  async getDialogTitle() {
+    return this.dialogTitle.getText();
+  }
+
+  async clickOnConfirmButton(timeout?: number) {
+    await this.confirmButton.click();
+  }
 }

@@ -1,16 +1,17 @@
 version: '2'
 services:
-    onlinetutor-app:
-        image: onlinetutor
-        environment:
-            # - _JAVA_OPTIONS=-Xmx512m -Xms256m
-            - SPRING_PROFILES_ACTIVE=prod,swagger
-            - SPRING_DATA_MONGODB_URI=mongodb://onlinetutor-mongodb:27017
-            - SPRING_DATA_MONGODB_DATABASE=OnlineTutor
-            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
-        ports:
-            - 8080:8080
-    onlinetutor-mongodb:
-        extends:
-            file: mongodb.yml
-            service: onlinetutor-mongodb
+  onlinetutor-app:
+    image: onlinetutor
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATA_MONGODB_URI=mongodb://onlinetutor-mongodb:27017
+      - SPRING_DATA_MONGODB_DATABASE=OnlineTutor
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    ports:
+      - 8080:8080
+  onlinetutor-mongodb:
+    extends:
+      file: mongodb.yml
+      service: onlinetutor-mongodb

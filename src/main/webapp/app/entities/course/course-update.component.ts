@@ -1,67 +1,86 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-import { ICourse } from 'app/shared/model/course.model';
+import { ICourse, Course } from 'app/shared/model/course.model';
 import { CourseService } from './course.service';
-import {JhiEventManager} from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 @Component({
-    selector: 'jhi-course-update',
-    templateUrl: './course-update.component.html'
+  selector: 'jhi-course-update',
+  templateUrl: './course-update.component.html'
 })
 export class CourseUpdateComponent implements OnInit {
-    private _course: ICourse;
-    isSaving: boolean;
+  isSaving: boolean;
 
-    constructor(private courseService: CourseService, private activatedRoute: ActivatedRoute, private eventManager: JhiEventManager) {}
+  editForm = this.fb.group({
+    id: [],
+    name: [null, [Validators.required]]
+  });
 
-    ngOnInit() {
-        this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ course }) => {
-            this.course = course;
-        });
-    }
+  constructor(
+    protected courseService: CourseService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder,
+    private eventManager: JhiEventManager
+  ) {}
 
-    previousState() {
-        window.history.back();
-    }
+  ngOnInit() {
+    this.isSaving = false;
+    this.activatedRoute.data.subscribe(({ course }) => {
+      this.updateForm(course);
+    });
+  }
 
-    save() {
-        this.isSaving = true;
-        if (this.course.id !== undefined) {
-            this.subscribeToSaveResponse(this.courseService.update(this.course));
-        } else {
-            this.subscribeToSaveResponse(this.courseService.create(this.course));
-        }
-    }
+  updateForm(course: ICourse) {
+    this.editForm.patchValue({
+      id: course.id,
+      name: course.name
+    });
+  }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<ICourse>>) {
-        result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
-    }
+  previousState() {
+    window.history.back();
+  }
 
-    private onSaveSuccess() {
-        this.isSaving = false;
-        this.previousState();
-        this.broadcastChange();
+  save() {
+    this.isSaving = true;
+    const course = this.createFromForm();
+    if (course.id !== undefined) {
+      this.subscribeToSaveResponse(this.courseService.update(course));
+    } else {
+      this.subscribeToSaveResponse(this.courseService.create(course));
     }
+  }
 
-    private broadcastChange() {
-        this.eventManager.broadcast({
-            name: 'courseListModification',
-            content: 'Created a course'
-        });
-    }
+  private createFromForm(): ICourse {
+    const entity = {
+      ...new Course(),
+      id: this.editForm.get(['id']).value,
+      name: this.editForm.get(['name']).value
+    };
+    return entity;
+  }
 
-    private onSaveError() {
-        this.isSaving = false;
-    }
-    get course() {
-        return this._course;
-    }
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<ICourse>>) {
+    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+  }
 
-    set course(course: ICourse) {
-        this._course = course;
-    }
+  protected onSaveSuccess() {
+    this.isSaving = false;
+    this.previousState();
+    this.broadcastChange();
+  }
+
+  private broadcastChange() {
+    this.eventManager.broadcast({
+      name: 'courseListModification',
+      content: 'Created a course'
+    });
+  }
+
+  protected onSaveError() {
+    this.isSaving = false;
+  }
 }

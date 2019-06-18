@@ -11,7 +11,10 @@
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="videos">
+    <div class="alert alert-warning" *ngIf="videos?.length === 0">
+        <span>No videos found</span>
+    </div>
+    <div class="table-responsive" *ngIf="videos?.length > 0">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -37,7 +40,7 @@
                 <td>{{video.chapterID}}</td>
                 <td>{{video.isSample}}</td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/video', video.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -51,7 +54,7 @@
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'video/'+ video.id + '/delete'} }]"
+                                [routerLink]="['/', 'video', { outlets: { popup: video.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">

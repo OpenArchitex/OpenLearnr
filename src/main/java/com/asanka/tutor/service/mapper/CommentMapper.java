@@ -1,19 +1,20 @@
 package com.asanka.tutor.service.mapper;
 
-import com.asanka.tutor.domain.*;
+import com.asanka.tutor.domain.Comment;
 import com.asanka.tutor.service.dto.CommentDTO;
-
-import org.mapstruct.*;
-
-import java.util.List;
+import org.mapstruct.Mapper;
 
 /**
- * Mapper for the entity Comment and its DTO CommentDTO.
+ * Mapper for the entity {@link Comment} and its DTO {@link CommentDTO}.
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface CommentMapper extends EntityMapper<CommentDTO, Comment> {
-    @Override
-    default CommentDTO toDto(Comment entity) {
-        return new CommentDTO(entity);
+    default Comment fromId(String id) {
+        if (id == null) {
+            return null;
+        }
+        Comment comment = new Comment();
+        comment.setId(id);
+        return comment;
     }
 }

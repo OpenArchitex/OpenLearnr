@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { Principal, LoginModalService, LoginService } from 'app/core';
-import { ProfileService } from '../profiles/profile.service';
+import { AccountService, LoginModalService, LoginService } from 'app/core';
+import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { ICourse } from 'app/shared/model/course.model';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { CourseService } from 'app/entities/course';
@@ -11,86 +11,86 @@ import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'jhi-navbar',
-    templateUrl: './navbar.component.html',
-    styleUrls: ['navbar.scss']
+  selector: 'jhi-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['navbar.scss']
 })
 export class NavbarComponent implements OnInit {
-    courses: ICourse[];
-    inProduction: boolean;
-    isNavbarCollapsed: boolean;
-    languages: any[];
-    swaggerEnabled: boolean;
-    modalRef: NgbModalRef;
-    eventSubscriber: Subscription;
+  courses: ICourse[];
+  inProduction: boolean;
+  isNavbarCollapsed: boolean;
+  languages: any[];
+  swaggerEnabled: boolean;
+  modalRef: NgbModalRef;
+  eventSubscriber: Subscription;
 
-    constructor(
-        private courseService: CourseService,
-        private jhiAlertService: JhiAlertService,
-        private loginService: LoginService,
-        private principal: Principal,
-        private loginModalService: LoginModalService,
-        private profileService: ProfileService,
-        private router: Router,
-        private eventManager: JhiEventManager
-    ) {
-        this.isNavbarCollapsed = true;
-    }
+  constructor(
+    private courseService: CourseService,
+    private jhiAlertService: JhiAlertService,
+    private loginService: LoginService,
+    private accountService: AccountService,
+    private loginModalService: LoginModalService,
+    private profileService: ProfileService,
+    private router: Router,
+    private eventManager: JhiEventManager
+  ) {
+    this.isNavbarCollapsed = true;
+  }
 
-    ngOnInit() {
-        this.loadAll();
-        this.profileService.getProfileInfo().then(profileInfo => {
-            this.inProduction = profileInfo.inProduction;
-            this.swaggerEnabled = profileInfo.swaggerEnabled;
-        });
-        this.registerAuthenticationSuccess();
-        this.registerChangeInCourses();
-    }
+  ngOnInit() {
+    this.loadAll();
+    this.profileService.getProfileInfo().then(profileInfo => {
+      this.inProduction = profileInfo.inProduction;
+      this.swaggerEnabled = profileInfo.swaggerEnabled;
+    });
+    this.registerAuthenticationSuccess();
+    this.registerChangeInCourses();
+  }
 
-    collapseNavbar() {
-        this.isNavbarCollapsed = true;
-    }
+  collapseNavbar() {
+    this.isNavbarCollapsed = true;
+  }
 
-    isAuthenticated() {
-        return this.principal.isAuthenticated();
-    }
+  isAuthenticated() {
+    return this.accountService.isAuthenticated();
+  }
 
-    login() {
-        this.modalRef = this.loginModalService.open();
-    }
+  login() {
+    this.modalRef = this.loginModalService.open();
+  }
 
-    logout() {
-        this.collapseNavbar();
-        this.loginService.logout();
-        this.router.navigate(['']);
-    }
+  logout() {
+    this.collapseNavbar();
+    this.loginService.logout();
+    this.router.navigate(['']);
+  }
 
-    toggleNavbar() {
-        this.isNavbarCollapsed = !this.isNavbarCollapsed;
-    }
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
 
-    getImageUrl() {
-        return this.isAuthenticated() ? this.principal.getImageUrl() : null;
-    }
+  getImageUrl() {
+    return this.isAuthenticated() ? this.accountService.getImageUrl() : null;
+  }
 
-    loadAll() {
-        this.courseService.query().subscribe(
-            (res: HttpResponse<ICourse[]>) => {
-                this.courses = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
+  loadAll() {
+    this.courseService.query().subscribe(
+      (res: HttpResponse<ICourse[]>) => {
+        this.courses = res.body;
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
 
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
+  private onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
+  }
 
-    registerAuthenticationSuccess() {
-        this.eventSubscriber = this.eventManager.subscribe('authenticationSuccess', () => this.loadAll());
-    }
+  registerAuthenticationSuccess() {
+    this.eventSubscriber = this.eventManager.subscribe('authenticationSuccess', () => this.loadAll());
+  }
 
-    registerChangeInCourses() {
-        this.eventSubscriber = this.eventManager.subscribe('courseListModification', () => this.loadAll());
-    }
+  registerChangeInCourses() {
+    this.eventSubscriber = this.eventManager.subscribe('courseListModification', () => this.loadAll());
+  }
 }

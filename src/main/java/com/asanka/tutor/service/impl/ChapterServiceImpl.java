@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 import java.util.Optional;
+
 /**
- * Service Implementation for managing Chapter.
+ * Service Implementation for managing {@link Chapter}.
  */
 @Service
 public class ChapterServiceImpl implements ChapterService {
@@ -29,18 +29,19 @@ public class ChapterServiceImpl implements ChapterService {
     /**
      * Save a chapter.
      *
-     * @param chapter the entity to save
-     * @return the persisted entity
+     * @param chapter the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public Chapter save(Chapter chapter) {
-        log.debug("Request to save Chapter : {}", chapter);        return chapterRepository.save(chapter);
+        log.debug("Request to save Chapter : {}", chapter);
+        return chapterRepository.save(chapter);
     }
 
     /**
      * Get all the chapters.
      *
-     * @return the list of entities
+     * @return the list of entities.
      */
     @Override
     public List<Chapter> findAllChaptersForCourse() {
@@ -62,8 +63,8 @@ public class ChapterServiceImpl implements ChapterService {
     /**
      * Get one chapter by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     public Optional<Chapter> findOne(String id) {
@@ -74,7 +75,7 @@ public class ChapterServiceImpl implements ChapterService {
     /**
      * Delete the chapter by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(String id) {

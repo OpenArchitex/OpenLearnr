@@ -7,133 +7,131 @@ import { ChapterService } from 'app/entities/chapter';
 import { ICourse } from 'app/shared/model/course.model';
 import { CourseService } from 'app/entities/course';
 import { JhiAlertService } from 'ng-jhipster';
-import { Principal } from 'app/core';
 import { SubscribeService } from 'app/account/subscribe/subscribe.service';
 
 @Component({
-    selector: 'jhi-subscribe',
-    templateUrl: './subscribe.component.html',
-    styleUrls: ['subscribe.scss']
+  selector: 'jhi-subscribe',
+  templateUrl: './subscribe.component.html',
+  styleUrls: ['subscribe.scss']
 })
 export class SubscribeComponent implements OnInit {
-    private publishableKey: string;
-    executingPayment: boolean;
-    stripeLoaded: boolean;
-    stripeError: string;
-    stripeSuccess: string;
-    chapters: IChapter[];
-    courses: ICourse[];
-    totalCost: number;
-    chapterIDs: string[];
-    courseID: string;
+  private publishableKey: string;
+  executingPayment: boolean;
+  stripeLoaded: boolean;
+  stripeError: string;
+  stripeSuccess: string;
+  chapters: IChapter[];
+  courses: ICourse[];
+  totalCost: number;
+  chapterIDs: string[];
+  courseID: string;
 
-    extraData: any = {
-        address_city: null,
-        address_line1: null,
-        address_state: null,
-        address_zip: null
-    };
+  extraData: any = {
+    address_city: null,
+    address_line1: null,
+    address_state: null,
+    address_zip: null
+  };
 
-    constructor(
-        private principal: Principal,
-        private http: HttpClient,
-        private stripeScriptTag: StripeScriptTag,
-        private chapterService: ChapterService,
-        private courseService: CourseService,
-        private subscribeService: SubscribeService,
-        private jhiAlertService: JhiAlertService
-    ) {}
+  constructor(
+    private http: HttpClient,
+    private stripeScriptTag: StripeScriptTag,
+    private chapterService: ChapterService,
+    private courseService: CourseService,
+    private subscribeService: SubscribeService,
+    private jhiAlertService: JhiAlertService
+  ) {}
 
-    ngOnInit(): void {
-        this.stripeLoaded = false;
-        this.subscribeService.find().subscribe(
-            (res: string) => {
-                this.publishableKey = res;
-                this.stripeScriptTag
-                    .setPublishableKey(this.publishableKey)
-                    .then(() => {
-                        this.stripeLoaded = true;
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-                this.loadAllCourses();
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
+  ngOnInit(): void {
+    this.stripeLoaded = false;
+    this.subscribeService.find().subscribe(
+      (res: string) => {
+        this.publishableKey = res;
+        this.stripeScriptTag
+          .setPublishableKey(this.publishableKey)
+          .then(() => {
+            this.stripeLoaded = true;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        this.loadAllCourses();
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
 
-    loadAllCourses() {
-        this.courseService.query().subscribe(
-            (res: HttpResponse<ICourse[]>) => {
-                this.courses = res.body;
-            },
-            (res: HttpErrorResponse) => {
-                this.onError(res.message);
-            }
-        );
-    }
+  loadAllCourses() {
+    this.courseService.query().subscribe(
+      (res: HttpResponse<ICourse[]>) => {
+        this.courses = res.body;
+      },
+      (res: HttpErrorResponse) => {
+        this.onError(res.message);
+      }
+    );
+  }
 
-    loadAllChaptersForCourse(courseID: string) {
-        this.chapterService.getChaptersForCourse(courseID).subscribe(
-            (res: HttpResponse<IChapter[]>) => {
-                this.chapters = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
+  loadAllChaptersForCourse(courseID: string) {
+    this.chapterService.getChaptersForCourse(courseID).subscribe(
+      (res: HttpResponse<IChapter[]>) => {
+        this.chapters = res.body;
+      },
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
+  }
 
-    getStyles(): any {
-        return {
-            style: {
-                base: {
-                    fontSize: '16px'
-                }
-            }
-        };
-    }
-
-    chargeCard(token: string) {
-        if (this.courseID == null || this.chapterIDs == null) {
-            this.stripeError = 'Please select the Course and Chapters to purchase.';
+  getStyles(): any {
+    return {
+      style: {
+        base: {
+          fontSize: '16px'
         }
-        const headers = new HttpHeaders({ token, chapters: '[' + this.chapterIDs + ']' });
-        this.executingPayment = true;
-        this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(
-            () => {
-                this.stripeSuccess = 'Payment Successful!';
-                this.stripeError = null;
-                this.executingPayment = false;
-            },
-            (err: HttpErrorResponse) => {
-                this.stripeError = err.error.detail;
-                this.stripeSuccess = null;
-                this.executingPayment = false;
-            }
-        );
-    }
+      }
+    };
+  }
 
-    onStripeInvalid(error: Error) {
-        console.log(error);
+  chargeCard(token: string) {
+    if (this.courseID == null || this.chapterIDs == null) {
+      this.stripeError = 'Please select the Course and Chapters to purchase.';
     }
+    const headers = new HttpHeaders({ token, chapters: '[' + this.chapterIDs + ']' });
+    this.executingPayment = true;
+    this.http.post(SERVER_API_URL + 'api/payment', {}, { headers }).subscribe(
+      () => {
+        this.stripeSuccess = 'Payment Successful!';
+        this.stripeError = null;
+        this.executingPayment = false;
+      },
+      (err: HttpErrorResponse) => {
+        this.stripeError = err.error.detail;
+        this.stripeSuccess = null;
+        this.executingPayment = false;
+      }
+    );
+  }
 
-    setStripeToken(token: StripeToken) {
-        this.chargeCard(token.id);
-    }
+  onStripeInvalid(error: Error) {
+    console.log(error);
+  }
 
-    setStripeSource(source: StripeSource) {
-        console.log('Stripe source', source);
-    }
+  setStripeToken(token: StripeToken) {
+    this.chargeCard(token.id);
+  }
 
-    onStripeError(error: Error) {
-        console.error('Stripe error', error);
-    }
+  setStripeSource(source: StripeSource) {
+    console.log('Stripe source', source);
+  }
 
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
+  onStripeError(error: Error) {
+    console.error('Stripe error', error);
+  }
 
-    updateTotalCost(value: string[]) {
-        this.totalCost = 10 * value.length;
-    }
+  private onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  updateTotalCost(value: string[]) {
+    this.totalCost = 10 * value.length;
+  }
 }

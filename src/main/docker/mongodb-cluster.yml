@@ -1,16 +1,16 @@
 version: '2'
 services:
-    onlinetutor-mongodb:
-        image: mongo:3.6.3
-        ports:
-            - "27017:27017"
-        command: mongos --configdb onlinetutor-mongodb-config
-    onlinetutor-mongodb-node:
-        build:
-            context: .
-            dockerfile: mongodb/MongoDB.Dockerfile
-        command: mongod --replSet rs1 --noprealloc --smallfiles
-    onlinetutor-mongodb-config:
-        image: mongo:3.6.3
-        container_name: onlinetutor-mongodb-config
-        command: mongod --noprealloc --smallfiles --configsvr --dbpath /data/db
+  onlinetutor-mongodb:
+    image: mongo:4.0.10
+    ports:
+      - '27017:27017'
+    command: mongos --configdb onlinetutor-mongodb-config
+  onlinetutor-mongodb-node:
+    build:
+      context: .
+      dockerfile: mongodb/MongoDB.Dockerfile
+    command: mongod --replSet rs1 --noprealloc --smallfiles
+  onlinetutor-mongodb-config:
+    image: mongo:4.0.10
+    container_name: onlinetutor-mongodb-config
+    command: mongod --noprealloc --smallfiles --configsvr --dbpath /data/db

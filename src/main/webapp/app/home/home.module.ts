@@ -9,15 +9,15 @@ import { EMAIL_ROUTE } from 'app/home/email/email.route';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-    imports: [
-        OnlineTutorSharedModule,
-        RouterModule.forChild([HOME_ROUTE, ...EMAIL_ROUTE]),
-        MatSnackBarModule,
-        MatButtonModule,
-        MatInputModule,
-        ReactiveFormsModule
-    ],
-    declarations: [HomeComponent, EmailComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [
+    OnlineTutorSharedModule,
+    RouterModule.forChild([HOME_ROUTE, ...EMAIL_ROUTE]),
+    MatSnackBarModule,
+    MatButtonModule,
+    MatInputModule,
+    ReactiveFormsModule
+  ],
+  declarations: [HomeComponent, EmailComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OnlineTutorHomeModule {}
