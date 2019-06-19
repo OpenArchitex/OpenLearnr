@@ -55,13 +55,13 @@ describe('Video e2e test', () => {
     const selectedIsSample = videoUpdatePage.getIsSampleInput();
     if (await selectedIsSample.isSelected()) {
       await videoUpdatePage.getIsSampleInput().click();
-      expect(await videoUpdatePage.getIsSampleInput().isSelected(), 'Expected isSample not to be selected').to.be.false;
+      expect(await videoUpdatePage.getIsSampleInput().isSelected(), 'Expected isSample not to be selected').to.equal(true);
     } else {
       await videoUpdatePage.getIsSampleInput().click();
-      expect(await videoUpdatePage.getIsSampleInput().isSelected(), 'Expected isSample to be selected').to.be.true;
+      expect(await videoUpdatePage.getIsSampleInput().isSelected(), 'Expected isSample to be selected').to.equal(true);
     }
     await videoUpdatePage.save();
-    expect(await videoUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
+    expect(await videoUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.equal(true);
 
     expect(await videoComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1, 'Expected one more entry in the table');
   });
