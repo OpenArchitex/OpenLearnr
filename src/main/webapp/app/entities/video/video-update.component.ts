@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -16,8 +16,6 @@ import { ChapterService } from 'app/entities/chapter';
   templateUrl: './video-update.component.html'
 })
 export class VideoUpdateComponent implements OnInit {
-  private _video: IVideo;
-
   courses: ICourse[];
   chapters: IChapter[];
   isSaving: boolean;
@@ -61,8 +59,9 @@ export class VideoUpdateComponent implements OnInit {
       isSample: video.isSample
     });
     this.loadAllCourses();
-    if (this.video.courseID != null) {
-      this.loadAllChaptersForCourse(this.video.courseID);
+    const videoCourseID = this.editForm.get('courseID').value;
+    if (videoCourseID != null) {
+      this.loadAllChaptersForCourse(videoCourseID);
     }
   }
 
@@ -91,8 +90,8 @@ export class VideoUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const video = this.createFromForm();
-    if (this.video.isSample == null) {
-      this.video.isSample = false;
+    if (video.isSample == null) {
+      video.isSample = false;
     }
     if (video.id !== undefined) {
       this.subscribeToSaveResponse(this.videoService.update(video));
@@ -102,7 +101,7 @@ export class VideoUpdateComponent implements OnInit {
   }
 
   private createFromForm(): IVideo {
-    const entity = {
+    return {
       ...new Video(),
       id: this.editForm.get(['id']).value,
       name: this.editForm.get(['name']).value,
@@ -113,7 +112,6 @@ export class VideoUpdateComponent implements OnInit {
       chapterID: this.editForm.get(['chapterID']).value,
       isSample: this.editForm.get(['isSample']).value
     };
-    return entity;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IVideo>>) {
@@ -127,13 +125,6 @@ export class VideoUpdateComponent implements OnInit {
 
   private onSaveError() {
     this.isSaving = false;
-  }
-  get video() {
-    return this._video;
-  }
-
-  set video(video: IVideo) {
-    this._video = video;
   }
 
   private onError(errorMessage: string) {

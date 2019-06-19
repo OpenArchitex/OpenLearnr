@@ -3,7 +3,7 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IComment, Comment } from 'app/shared/model/comment.model';
+import { Comment, IComment } from 'app/shared/model/comment.model';
 import { CommentService } from './comment.service';
 
 @Component({
@@ -11,7 +11,6 @@ import { CommentService } from './comment.service';
   templateUrl: './comment-update.component.html'
 })
 export class CommentUpdateComponent implements OnInit {
-  private _comment: IComment;
   isSaving: boolean;
 
   editForm = this.fb.group({
@@ -50,8 +49,8 @@ export class CommentUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const comment = this.createFromForm();
-    if (this.comment.isApproved == null) {
-      this.comment.isApproved = false;
+    if (comment.isApproved == null) {
+      comment.isApproved = false;
     }
     if (comment.id !== undefined) {
       this.subscribeToSaveResponse(this.commentService.update(comment));
@@ -61,7 +60,7 @@ export class CommentUpdateComponent implements OnInit {
   }
 
   private createFromForm(): IComment {
-    const entity = {
+    return {
       ...new Comment(),
       id: this.editForm.get(['id']).value,
       videoID: this.editForm.get(['videoID']).value,
@@ -70,7 +69,6 @@ export class CommentUpdateComponent implements OnInit {
       dislikesCount: this.editForm.get(['dislikesCount']).value,
       isApproved: this.editForm.get(['isApproved']).value
     };
-    return entity;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IComment>>) {
@@ -84,12 +82,5 @@ export class CommentUpdateComponent implements OnInit {
 
   private onSaveError() {
     this.isSaving = false;
-  }
-  get comment() {
-    return this._comment;
-  }
-
-  set comment(comment: IComment) {
-    this._comment = comment;
   }
 }
