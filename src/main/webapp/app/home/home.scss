@@ -3,52 +3,52 @@ Main page styles
 ========================================================================== */
 
 .hipster {
-    background: url('../../content/images/jumbotron.jpg') no-repeat center top;
-    background-size: cover;
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: auto;
+  background: url('../../content/images/jumbotron.jpg') no-repeat center top;
+  background-size: cover;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: auto;
 }
 
 /* wait autoprefixer update to allow simple generation of high pixel density media query */
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (min--moz-device-pixel-ratio: 2),
-    only screen and (-o-min-device-pixel-ratio: 2/1),
-    only screen and (min-device-pixel-ratio: 2),
-    only screen and (min-resolution: 192dpi),
-    only screen and (min-resolution: 2dppx) {
-    .hipster {
-        background: url('../../content/images/jumbotron.jpg') no-repeat center top;
-        background-size: cover;
-    }
+  only screen and (min--moz-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+  .hipster {
+    background: url('../../content/images/jumbotron.jpg') no-repeat center top;
+    background-size: cover;
+  }
 }
 
 .login-snack-bar {
-    background-color: #ffffff;
-    color: #000000;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .register {
-    margin-top: 15%;
+  margin-top: 15%;
 }
 
 #mission {
-    background-color: white;
-    padding: 1rem 0 1rem 0;
+  background-color: white;
+  padding: 1rem 0 1rem 0;
 }
 
 #ourTeam {
-    background-color: white;
-    padding: 1rem 0 1rem 0;
+  background-color: white;
+  padding: 1rem 0 1rem 0;
 }
 
 #commitment {
-    padding: 1rem 0 1rem 0;
+  padding: 1rem 0 1rem 0;
 }
 
 .kenburns-bottom {
-    -webkit-animation: kenburns-bottom 5s ease-out infinite alternate-reverse both;
-    animation: kenburns-bottom 5s ease-out infinite alternate-reverse both;
+  -webkit-animation: kenburns-bottom 5s ease-out infinite alternate-reverse both;
+  animation: kenburns-bottom 5s ease-out infinite alternate-reverse both;
 }
 
 /* ----------------------------------------------
@@ -62,48 +62,53 @@ Main page styles
  * ----------------------------------------
  */
 @-webkit-keyframes kenburns-bottom {
-    0% {
-        -webkit-transform: scale(1) translateY(0);
-        transform: scale(1) translateY(0);
-        -webkit-transform-origin: 50% 84%;
-        transform-origin: 50% 84%;
-    }
-    100% {
-        -webkit-transform: scale(1.25) translateY(15px);
-        transform: scale(1.25) translateY(15px);
-        -webkit-transform-origin: bottom;
-        transform-origin: bottom;
-    }
+  0% {
+    -webkit-transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0);
+    -webkit-transform-origin: 50% 84%;
+    transform-origin: 50% 84%;
+  }
+  100% {
+    -webkit-transform: scale(1.25) translateY(15px);
+    transform: scale(1.25) translateY(15px);
+    -webkit-transform-origin: bottom;
+    transform-origin: bottom;
+  }
 }
 @keyframes kenburns-bottom {
-    0% {
-        -webkit-transform: scale(1) translateY(0);
-        transform: scale(1) translateY(0);
-        -webkit-transform-origin: 50% 84%;
-        transform-origin: 50% 84%;
-    }
-    100% {
-        -webkit-transform: scale(1.25) translateY(15px);
-        transform: scale(1.25) translateY(15px);
-        -webkit-transform-origin: bottom;
-        transform-origin: bottom;
-    }
+  0% {
+    -webkit-transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0);
+    -webkit-transform-origin: 50% 84%;
+    transform-origin: 50% 84%;
+  }
+  100% {
+    -webkit-transform: scale(1.25) translateY(15px);
+    transform: scale(1.25) translateY(15px);
+    -webkit-transform-origin: bottom;
+    transform-origin: bottom;
+  }
 }
 
 .background_ani {
-    pointer-events: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 .background_outer_div {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 #mission .container ul {
-    display: inline;
+  display: inline;
+}
+
+.asanka-img {
+  max-width: 100%;
+  height: auto;
 }
