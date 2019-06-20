@@ -657,7 +657,7 @@
                         <deploy.version>rc-1-alpha5</deploy.version>
                         <environment>
                             <name>spring.profiles.active</name>
-                            <value>prod${profile.swagger}${profile.no-liquibase}</value>
+                            <value>prod${profile.swagger}</value>
                         </environment>
                     </configuration>
                 </plugin>
