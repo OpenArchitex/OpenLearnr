@@ -19,9 +19,6 @@ Navbar
   .dropdown-item.active:hover {
     background-color: #353d47;
   }
-  .dropdown-toggle::after {
-    margin-left: 0.15em;
-  }
   ul.navbar-nav {
     padding: 0.5em;
     .nav-item {
@@ -31,17 +28,6 @@ Navbar
   a.nav-link {
     font-weight: 400;
   }
-  .jh-navbar-toggler {
-    color: #ccc;
-    font-size: 1.5em;
-    &:hover {
-      color: #fff;
-    }
-  }
-}
-
-.toggle_icon {
-  vertical-align: middle;
 }
 
 /* ==========================================================================
