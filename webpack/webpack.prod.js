@@ -136,7 +136,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         }),
         new Visualizer({
             // Webpack statistics in target folder
-            filename: '../stats.html'
+            filename: '../../webpack-visualizer/stats.html'
         }),
         new AngularCompilerPlugin({
             mainPath: utils.root('src/main/webapp/app/app.main.ts'),
