@@ -8,6 +8,7 @@ import { ICourse } from 'app/shared/model/course.model';
 import { CourseService } from 'app/entities/course';
 import { JhiAlertService } from 'ng-jhipster';
 import { SubscribeService } from 'app/account/subscribe/subscribe.service';
+import { STRIPE_ERROR } from 'app/shared';
 
 @Component({
   selector: 'jhi-subscribe',
@@ -104,7 +105,11 @@ export class SubscribeComponent implements OnInit {
         this.executingPayment = false;
       },
       (err: HttpErrorResponse) => {
-        this.stripeError = err.error.detail;
+        if (err.status === 500 && err.error.type === STRIPE_ERROR) {
+          this.stripeError = err.error.title.split(';')[0];
+        } else {
+          this.stripeError = err.error.detail;
+        }
         this.stripeSuccess = null;
         this.executingPayment = false;
       }
@@ -132,6 +137,6 @@ export class SubscribeComponent implements OnInit {
   }
 
   updateTotalCost(value: string[]) {
-    this.totalCost = 10 * value.length;
+    this.totalCost = 6.5 * value.length;
   }
 }

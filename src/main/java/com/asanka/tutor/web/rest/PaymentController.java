@@ -4,6 +4,8 @@ import com.asanka.tutor.domain.User;
 import com.asanka.tutor.security.StripeClient;
 import com.asanka.tutor.security.UserNotLoggedInException;
 import com.asanka.tutor.service.UserService;
+import com.asanka.tutor.web.rest.errors.StripeCardError;
+import com.stripe.exception.CardException;
 import com.stripe.model.Charge;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -48,7 +50,12 @@ public class PaymentController {
             log.error("User is not logged in!");
             throw new UserNotLoggedInException("User not logged in!");
         }
-        Charge charge = this.stripeClient.chargeCreditCard(token, stripeClient.getStripeUnitPrice() * length);
+        Charge charge;
+        try {
+            charge = this.stripeClient.chargeCreditCard(token, stripeClient.getStripeUnitPrice() * length);
+        } catch (CardException e) {
+            throw new StripeCardError(e.getMessage());
+        }
         for (int i = 0; i < length; i++){
             chapters.add(chapterIDs.get(i).toString());
         }
