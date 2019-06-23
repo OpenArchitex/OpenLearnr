@@ -1,6 +1,7 @@
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
     <threadsafe>true</threadsafe>
     <runtime>java8</runtime>
+    <ssl-enabled>true</ssl-enabled>
     <automatic-scaling>
         <min-instances>1</min-instances>
         <max-instances>2</max-instances>
