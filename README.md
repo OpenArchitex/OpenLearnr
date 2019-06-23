@@ -4,4 +4,4 @@ This application is created as a open source content management system where stu
 
 It's our hope to improve the codebase inorder to create a full fledged web application that could be leveraged to host a content management website for all purposes such as a [MOOC](https://en.wikipedia.org/wiki/Massive_open_online_course). 
 
-For instructions on how to build and run the project please refer to our [Development Documentation]().
+For instructions on how to build and run the project please refer to our [Development Documentation](https://github.com/python-sinhala-education-society/OnlineTutor/blob/master/DEVELOPER_DOCUMENTATION.md).
