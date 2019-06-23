@@ -64,11 +64,12 @@
                         </stripe-card>
                     </div>
                     <div class="form-row d-block">
-                        <button [hidden]="executingPayment" class="submitButton" mat-raised-button color="primary"
+                        <button [disabled]="executingPayment" class="submitButton" mat-raised-button color="primary"
                                 (click)=stripeCard.createToken(extraData)>
-                            Pay <ng-container
-                            *ngIf="totalCost != 0 && courseSelect.value != null && selectedChapters.value != null">{{totalCost}}
-                            USD</ng-container>
+                            <span *ngIf="executingPayment" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Pay <ng-container
+                                *ngIf="totalCost != 0 && courseSelect.value != null && selectedChapters.value != null">{{totalCost}}
+                                USD</ng-container>
                         </button>
                         <div *ngIf="stripeError != null" class="alert alert-danger" role="alert">
                             {{stripeError}}
