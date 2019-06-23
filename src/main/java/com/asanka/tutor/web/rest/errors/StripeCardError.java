@@ -8,6 +8,6 @@ public class StripeCardError extends AbstractThrowableProblem {
     private static final long serialVersionUID = 1L;
 
     public StripeCardError(String stripeError) {
-        super(ErrorConstants.STRIPE_ERROR, stripeError, Status.INTERNAL_SERVER_ERROR);
+        super(ErrorConstants.STRIPE_ERROR, stripeError, Status.EXPECTATION_FAILED);
     }
 }

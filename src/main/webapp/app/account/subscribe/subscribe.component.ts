@@ -105,7 +105,7 @@ export class SubscribeComponent implements OnInit {
         this.executingPayment = false;
       },
       (err: HttpErrorResponse) => {
-        if (err.status === 500 && err.error.type === STRIPE_ERROR) {
+        if (err.status === 417) {
           this.stripeError = err.error.title.split(';')[0];
         } else {
           this.stripeError = err.error.detail;
