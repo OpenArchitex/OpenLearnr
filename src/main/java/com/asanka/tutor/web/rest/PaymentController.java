@@ -1,9 +1,11 @@
 package com.asanka.tutor.web.rest;
 
+import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.security.StripeClient;
 import com.asanka.tutor.security.UserNotLoggedInException;
+import com.asanka.tutor.service.ChapterService;
 import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.web.rest.errors.StripeCardError;
 import com.stripe.exception.CardException;
@@ -30,15 +32,18 @@ public class PaymentController {
     private StripeClient stripeClient;
 
     private final UserService userService;
-    
+
+    private final ChapterService chapterService;
+
     private CustomAuditEventRepository customAuditEventRepository;
 
     private final Logger log = LoggerFactory.getLogger(PaymentController.class);
 
     @Autowired
-    PaymentController(StripeClient stripeClient, UserService userService, CustomAuditEventRepository customAuditEventRepository) {
+    PaymentController(StripeClient stripeClient, UserService userService, ChapterService chapterService, CustomAuditEventRepository customAuditEventRepository) {
         this.stripeClient = stripeClient;
         this.userService = userService;
+        this.chapterService = chapterService;
         this.customAuditEventRepository = customAuditEventRepository;
     }
 
@@ -56,13 +61,19 @@ public class PaymentController {
         Charge charge;
         AuditEvent event = null;
         Map<String, Object> data = new HashMap<>();
-        data.put("message", chapterIDs.toString());
+        List<String> chapterNames = new ArrayList<>();
+        for (int i = 0; i < length; i++){
+            String chapterID = chapterIDs.get(i).toString();
+            chapters.add(chapterID);
+            Optional<Chapter> chapter = chapterService.findOne(chapterID);
+            if (chapter.isPresent())
+                chapterNames.add(chapterService.findOne(chapterID).get().getName());
+        }
+        data.put("message", chapterNames.toString());
         try {
-            // TODO: Change user friendliness
             charge = this.stripeClient.chargeCreditCard(token, stripeClient.getStripeUnitPrice() * length);
             event = new AuditEvent(user.get().getLogin(), "PAYMENT_SUCCESSFUL", data);
         } catch (CardException e) {
-            // TODO: Change user friendliness
             event = new AuditEvent(user.get().getLogin(), "PAYMENT_FAILURE", data);
             throw new StripeCardError(e.getMessage());
         } finally {
