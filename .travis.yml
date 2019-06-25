@@ -40,7 +40,7 @@ script:
 notifications:
   webhooks:
     urls:
-      - $BUILD_CHANNEL_URL
+      - https://webhooks.gitter.im/e/260eb3b570873affaad2
     on_success: always # options: [always|never|change] default: always
     on_failure: always # options: [always|never|change] default: always
     on_start: false # default: false
