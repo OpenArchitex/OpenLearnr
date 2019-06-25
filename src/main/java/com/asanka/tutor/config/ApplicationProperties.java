@@ -19,7 +19,7 @@ public class ApplicationProperties {
     public static class Stripe {
         private String public_key;
         private String private_key;
-        private int unitPrice;
+        private double unitPrice;
 
         public String getPublic_key() {
             return public_key;
@@ -37,8 +37,8 @@ public class ApplicationProperties {
             this.private_key = private_key;
         }
 
-        public int getUnitPrice() { return unitPrice; }
+        public double getUnitPrice() { return unitPrice; }
 
-        public void setUnitPrice(int unitPrice) { this.unitPrice = unitPrice; }
+        public void setUnitPrice(double unitPrice) { this.unitPrice = unitPrice; }
     }
 }

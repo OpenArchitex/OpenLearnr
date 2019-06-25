@@ -32,7 +32,7 @@ public class StripeClient {
         return stripe.getPublic_key();
     }
 
-    public int getStripeUnitPrice() {
+    public double getStripeUnitPrice() {
         return stripe.getUnitPrice();
     }
 }

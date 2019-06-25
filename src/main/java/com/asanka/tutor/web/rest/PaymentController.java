@@ -67,7 +67,7 @@ public class PaymentController {
             chapters.add(chapterID);
             Optional<Chapter> chapter = chapterService.findOne(chapterID);
             if (chapter.isPresent())
-                chapterNames.add(chapterService.findOne(chapterID).get().getName());
+                chapterNames.add(chapter.get().getName());
         }
         data.put("message", chapterNames.toString());
         try {
