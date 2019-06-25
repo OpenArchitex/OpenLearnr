@@ -39,6 +39,8 @@ script:
   - ./mvnw verify -Pprod -DskipTests
 notifications:
   webhooks:
-    on_success: change # options: [always|never|change] default: always
+    urls:
+      - $BUILD_CHANNEL_URL
+    on_success: always # options: [always|never|change] default: always
     on_failure: always # options: [always|never|change] default: always
     on_start: false # default: false
