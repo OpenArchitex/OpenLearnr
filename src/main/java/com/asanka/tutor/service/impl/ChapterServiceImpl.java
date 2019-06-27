@@ -1,16 +1,19 @@
 package com.asanka.tutor.service.impl;
 
-import com.asanka.tutor.domain.Video;
 import com.asanka.tutor.service.ChapterService;
 import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.repository.ChapterRepository;
+import com.asanka.tutor.service.dto.ChapterDTO;
+import com.asanka.tutor.service.mapper.ChapterMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link Chapter}.
@@ -22,20 +25,25 @@ public class ChapterServiceImpl implements ChapterService {
 
     private final ChapterRepository chapterRepository;
 
-    public ChapterServiceImpl(ChapterRepository chapterRepository) {
+    private final ChapterMapper chapterMapper;
+
+    public ChapterServiceImpl(ChapterRepository chapterRepository, ChapterMapper chapterMapper) {
         this.chapterRepository = chapterRepository;
+        this.chapterMapper = chapterMapper;
     }
 
     /**
      * Save a chapter.
      *
-     * @param chapter the entity to save.
+     * @param chapterDTO the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public Chapter save(Chapter chapter) {
-        log.debug("Request to save Chapter : {}", chapter);
-        return chapterRepository.save(chapter);
+    public ChapterDTO save(ChapterDTO chapterDTO) {
+        log.debug("Request to save Chapter : {}", chapterDTO);
+        Chapter chapter = chapterMapper.toEntity(chapterDTO);
+        chapter = chapterRepository.save(chapter);
+        return chapterMapper.toDto(chapter);
     }
 
     /**
@@ -44,9 +52,11 @@ public class ChapterServiceImpl implements ChapterService {
      * @return the list of entities.
      */
     @Override
-    public List<Chapter> findAllChaptersForCourse() {
+    public List<ChapterDTO> findAll() {
         log.debug("Request to get all Chapters");
-        return chapterRepository.findAll();
+        return chapterRepository.findAll().stream()
+            .map(chapterMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -55,9 +65,10 @@ public class ChapterServiceImpl implements ChapterService {
      * @return the list of entities
      */
     @Override
-    public List<Chapter> findAllChaptersForCourse(String courseID) {
+    public List<ChapterDTO> findAllChaptersForCourse(String courseID) {
         log.debug("Request to get all Chapters for the courseID" + courseID);
-        return chapterRepository.findChaptersByCourseID(courseID);
+        return chapterRepository.findChaptersByCourseID(courseID).stream()
+            .map(chapterMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -67,9 +78,10 @@ public class ChapterServiceImpl implements ChapterService {
      * @return the entity.
      */
     @Override
-    public Optional<Chapter> findOne(String id) {
+    public Optional<ChapterDTO> findOne(String id) {
         log.debug("Request to get Chapter : {}", id);
-        return chapterRepository.findById(id);
+        return chapterRepository.findById(id)
+            .map(chapterMapper::toDto);
     }
 
     /**

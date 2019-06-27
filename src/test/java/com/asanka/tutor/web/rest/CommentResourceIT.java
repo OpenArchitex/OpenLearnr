@@ -94,12 +94,13 @@ public class CommentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Comment createEntity() {
-        return new Comment()
+        Comment comment = new Comment()
             .videoID(DEFAULT_VIDEO_ID)
             .commentBody(DEFAULT_COMMENT_BODY)
             .likesCount(DEFAULT_LIKES_COUNT)
             .dislikesCount(DEFAULT_DISLIKES_COUNT)
             .isApproved(DEFAULT_IS_APPROVED);
+        return comment;
     }
     /**
      * Create an updated entity for this test.

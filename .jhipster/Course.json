@@ -10,9 +10,9 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20190517215054",
+    "changelogDate": "20190627060618",
     "entityTableName": "course",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

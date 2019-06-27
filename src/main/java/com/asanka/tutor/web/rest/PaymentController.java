@@ -7,6 +7,7 @@ import com.asanka.tutor.security.StripeClient;
 import com.asanka.tutor.security.UserNotLoggedInException;
 import com.asanka.tutor.service.ChapterService;
 import com.asanka.tutor.service.UserService;
+import com.asanka.tutor.service.dto.ChapterDTO;
 import com.asanka.tutor.web.rest.errors.StripeCardError;
 import com.stripe.exception.CardException;
 import com.stripe.model.Charge;
@@ -65,9 +66,8 @@ public class PaymentController {
         for (int i = 0; i < length; i++){
             String chapterID = chapterIDs.get(i).toString();
             chapters.add(chapterID);
-            Optional<Chapter> chapter = chapterService.findOne(chapterID);
-            if (chapter.isPresent())
-                chapterNames.add(chapter.get().getName());
+            Optional<ChapterDTO> chapter = chapterService.findOne(chapterID);
+            chapter.ifPresent(chapterDTO -> chapterNames.add(chapterDTO.getName()));
         }
         data.put("message", chapterNames.toString());
         try {

@@ -1,6 +1,5 @@
 package com.asanka.tutor.service;
 
-import com.asanka.tutor.domain.Comment;
 import com.asanka.tutor.service.dto.CommentDTO;
 
 import java.util.List;

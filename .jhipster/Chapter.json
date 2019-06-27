@@ -31,9 +31,9 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20190528154124",
+    "changelogDate": "20190627060619",
     "entityTableName": "chapter",
-    "dto": "no",
+    "dto": "mapstruct",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

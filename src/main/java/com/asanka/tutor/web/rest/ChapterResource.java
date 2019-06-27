@@ -1,9 +1,9 @@
 package com.asanka.tutor.web.rest;
 
 import com.asanka.tutor.security.AuthoritiesConstants;
-import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.service.ChapterService;
 import com.asanka.tutor.web.rest.errors.BadRequestAlertException;
+import com.asanka.tutor.service.dto.ChapterDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -44,18 +44,18 @@ public class ChapterResource {
     /**
      * {@code POST  /chapters} : Create a new chapter.
      *
-     * @param chapter the chapter to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new chapter, or with status {@code 400 (Bad Request)} if the chapter has already an ID.
+     * @param chapterDTO the chapterDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new chapterDTO, or with status {@code 400 (Bad Request)} if the chapter has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/chapters")
     @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<Chapter> createChapter(@Valid @RequestBody Chapter chapter) throws URISyntaxException {
-        log.debug("REST request to save Chapter : {}", chapter);
-        if (chapter.getId() != null) {
+    public ResponseEntity<ChapterDTO> createChapter(@Valid @RequestBody ChapterDTO chapterDTO) throws URISyntaxException {
+        log.debug("REST request to save Chapter : {}", chapterDTO);
+        if (chapterDTO.getId() != null) {
             throw new BadRequestAlertException("A new chapter cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Chapter result = chapterService.save(chapter);
+        ChapterDTO result = chapterService.save(chapterDTO);
         return ResponseEntity.created(new URI("/api/chapters/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId()))
             .body(result);
@@ -69,7 +69,7 @@ public class ChapterResource {
      * @throws BadRequestAlertException if the courseID parameter is null
      */
     @PostMapping("/chapters/chaptersForCourse")
-    public List<Chapter> getChaptersForCourse(@Valid @RequestBody String courseID) {
+    public List<ChapterDTO> getChaptersForCourse(@Valid @RequestBody String courseID) {
         log.debug("REST request to get all Chapters for a Course");
         if (courseID == null) {
             throw new BadRequestAlertException("The courseID parameter cannot be null", ENTITY_NAME, "courseIDNull");
@@ -80,21 +80,20 @@ public class ChapterResource {
     /**
      * {@code PUT  /chapters} : Updates an existing chapter.
      *
-     * @param chapter the chapter to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated chapter,
-     * or with status {@code 400 (Bad Request)} if the chapter is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the chapter couldn't be updated.
+     * @param chapterDTO the chapterDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated chapterDTO,
+     * or with status {@code 400 (Bad Request)} if the chapterDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the chapterDTO couldn't be updated.
      */
     @PutMapping("/chapters")
-    @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<Chapter> updateChapter(@Valid @RequestBody Chapter chapter) {
-        log.debug("REST request to update Chapter : {}", chapter);
-        if (chapter.getId() == null) {
+    public ResponseEntity<ChapterDTO> updateChapter(@Valid @RequestBody ChapterDTO chapterDTO) {
+        log.debug("REST request to update Chapter : {}", chapterDTO);
+        if (chapterDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Chapter result = chapterService.save(chapter);
+        ChapterDTO result = chapterService.save(chapterDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, chapter.getId()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, chapterDTO.getId()))
             .body(result);
     }
 
@@ -104,32 +103,31 @@ public class ChapterResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of chapters in body.
      */
     @GetMapping("/chapters")
-    public List<Chapter> getAllChapters() {
+    public List<ChapterDTO> getAllChapters() {
         log.debug("REST request to get all Chapters");
-        return chapterService.findAllChaptersForCourse();
+        return chapterService.findAll();
     }
 
     /**
      * {@code GET  /chapters/:id} : get the "id" chapter.
      *
-     * @param id the id of the chapter to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the chapter, or with status {@code 404 (Not Found)}.
+     * @param id the id of the chapterDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the chapterDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/chapters/{id}")
-    public ResponseEntity<Chapter> getChapter(@PathVariable String id) {
+    public ResponseEntity<ChapterDTO> getChapter(@PathVariable String id) {
         log.debug("REST request to get Chapter : {}", id);
-        Optional<Chapter> chapter = chapterService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(chapter);
+        Optional<ChapterDTO> chapterDTO = chapterService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(chapterDTO);
     }
 
     /**
      * {@code DELETE  /chapters/:id} : delete the "id" chapter.
      *
-     * @param id the id of the chapter to delete.
+     * @param id the id of the chapterDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/chapters/{id}")
-    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteChapter(@PathVariable String id) {
         log.debug("REST request to delete Chapter : {}", id);
         chapterService.delete(id);

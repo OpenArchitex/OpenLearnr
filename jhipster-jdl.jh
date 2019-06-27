@@ -31,7 +31,7 @@ entity Comment {
 }
 
 // Generate DTOs
-dto * with mapstruct except Course, Chapter, Video
+dto * with mapstruct
 // Set service options to all except few
 service all with serviceImpl
 

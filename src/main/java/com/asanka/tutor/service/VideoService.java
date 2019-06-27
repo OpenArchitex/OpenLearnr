@@ -1,36 +1,36 @@
 package com.asanka.tutor.service;
 
-import com.asanka.tutor.domain.Video;
+import com.asanka.tutor.service.dto.VideoDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link Video}.
+ * Service Interface for managing {@link com.asanka.tutor.domain.Video}.
  */
 public interface VideoService {
 
     /**
      * Save a video.
      *
-     * @param video the entity to save.
+     * @param videoDTO the entity to save.
      * @return the persisted entity.
      */
-    Video save(Video video);
+    VideoDTO save(VideoDTO videoDTO);
 
     /**
      * Get all the videos.
      *
      * @return the list of entities.
      */
-    List<Video> findAll();
+    List<VideoDTO> findAll();
 
     /**
      * Get all the videos for a collection of chapters.
      *
      * @return the list of entities
      */
-    List<Video> findAllVideosForChapters(String[] chapterIDs);
+    List<VideoDTO> findAllVideosForChapters(String[] chapterIDs);
 
     /**
      * Get the "id" video.
@@ -38,7 +38,7 @@ public interface VideoService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<Video> findOne(String id);
+    Optional<VideoDTO> findOne(String id);
 
     /**
      * Delete the "id" video.

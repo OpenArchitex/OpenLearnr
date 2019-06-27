@@ -4,6 +4,8 @@ import com.asanka.tutor.OnlineTutorApp;
 import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.repository.ChapterRepository;
 import com.asanka.tutor.service.ChapterService;
+import com.asanka.tutor.service.dto.ChapterDTO;
+import com.asanka.tutor.service.mapper.ChapterMapper;
 import com.asanka.tutor.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -47,6 +49,9 @@ public class ChapterResourceIT {
 
     @Autowired
     private ChapterRepository chapterRepository;
+
+    @Autowired
+    private ChapterMapper chapterMapper;
 
     @Autowired
     private ChapterService chapterService;
@@ -118,9 +123,10 @@ public class ChapterResourceIT {
         int databaseSizeBeforeCreate = chapterRepository.findAll().size();
 
         // Create the Chapter
+        ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
         restChapterMockMvc.perform(post("/api/chapters")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(chapter)))
+            .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Chapter in the database
@@ -139,11 +145,12 @@ public class ChapterResourceIT {
 
         // Create the Chapter with an existing ID
         chapter.setId("existing_id");
+        ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restChapterMockMvc.perform(post("/api/chapters")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(chapter)))
+            .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Chapter in the database
@@ -159,10 +166,11 @@ public class ChapterResourceIT {
         chapter.setName(null);
 
         // Create the Chapter, which fails.
+        ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         restChapterMockMvc.perform(post("/api/chapters")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(chapter)))
+            .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
         List<Chapter> chapterList = chapterRepository.findAll();
@@ -176,10 +184,11 @@ public class ChapterResourceIT {
         chapter.setChapterNumber(null);
 
         // Create the Chapter, which fails.
+        ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         restChapterMockMvc.perform(post("/api/chapters")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(chapter)))
+            .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
         List<Chapter> chapterList = chapterRepository.findAll();
@@ -193,10 +202,11 @@ public class ChapterResourceIT {
         chapter.setDescription(null);
 
         // Create the Chapter, which fails.
+        ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         restChapterMockMvc.perform(post("/api/chapters")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(chapter)))
+            .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
         List<Chapter> chapterList = chapterRepository.findAll();
@@ -210,10 +220,11 @@ public class ChapterResourceIT {
         chapter.setCourseID(null);
 
         // Create the Chapter, which fails.
+        ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         restChapterMockMvc.perform(post("/api/chapters")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(chapter)))
+            .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
         List<Chapter> chapterList = chapterRepository.findAll();
@@ -262,7 +273,7 @@ public class ChapterResourceIT {
     @Test
     public void updateChapter() throws Exception {
         // Initialize the database
-        chapterService.save(chapter);
+        chapterRepository.save(chapter);
 
         int databaseSizeBeforeUpdate = chapterRepository.findAll().size();
 
@@ -273,10 +284,11 @@ public class ChapterResourceIT {
             .chapterNumber(UPDATED_CHAPTER_NUMBER)
             .description(UPDATED_DESCRIPTION)
             .courseID(UPDATED_COURSE_ID);
+        ChapterDTO chapterDTO = chapterMapper.toDto(updatedChapter);
 
         restChapterMockMvc.perform(put("/api/chapters")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedChapter)))
+            .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isOk());
 
         // Validate the Chapter in the database
@@ -294,11 +306,12 @@ public class ChapterResourceIT {
         int databaseSizeBeforeUpdate = chapterRepository.findAll().size();
 
         // Create the Chapter
+        ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restChapterMockMvc.perform(put("/api/chapters")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(chapter)))
+            .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Chapter in the database
@@ -309,7 +322,7 @@ public class ChapterResourceIT {
     @Test
     public void deleteChapter() throws Exception {
         // Initialize the database
-        chapterService.save(chapter);
+        chapterRepository.save(chapter);
 
         int databaseSizeBeforeDelete = chapterRepository.findAll().size();
 
@@ -335,5 +348,20 @@ public class ChapterResourceIT {
         assertThat(chapter1).isNotEqualTo(chapter2);
         chapter1.setId(null);
         assertThat(chapter1).isNotEqualTo(chapter2);
+    }
+
+    @Test
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(ChapterDTO.class);
+        ChapterDTO chapterDTO1 = new ChapterDTO();
+        chapterDTO1.setId("id1");
+        ChapterDTO chapterDTO2 = new ChapterDTO();
+        assertThat(chapterDTO1).isNotEqualTo(chapterDTO2);
+        chapterDTO2.setId(chapterDTO1.getId());
+        assertThat(chapterDTO1).isEqualTo(chapterDTO2);
+        chapterDTO2.setId("id2");
+        assertThat(chapterDTO1).isNotEqualTo(chapterDTO2);
+        chapterDTO1.setId(null);
+        assertThat(chapterDTO1).isNotEqualTo(chapterDTO2);
     }
 }

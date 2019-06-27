@@ -1,29 +1,29 @@
 package com.asanka.tutor.service;
 
-import com.asanka.tutor.domain.Course;
+import com.asanka.tutor.service.dto.CourseDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link Course}.
+ * Service Interface for managing {@link com.asanka.tutor.domain.Course}.
  */
 public interface CourseService {
 
     /**
      * Save a course.
      *
-     * @param course the entity to save.
+     * @param courseDTO the entity to save.
      * @return the persisted entity.
      */
-    Course save(Course course);
+    CourseDTO save(CourseDTO courseDTO);
 
     /**
      * Get all the courses.
      *
      * @return the list of entities.
      */
-    List<Course> findAll();
+    List<CourseDTO> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface CourseService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<Course> findOne(String id);
+    Optional<CourseDTO> findOne(String id);
 
     /**
      * Delete the "id" course.

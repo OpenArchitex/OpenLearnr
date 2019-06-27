@@ -32,7 +32,7 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20190603195354",
+    "changelogDate": "20190627060621",
     "entityTableName": "comment",
     "dto": "mapstruct",
     "pagination": "no",

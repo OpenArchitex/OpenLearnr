@@ -1,9 +1,10 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.domain.Video;
 import com.asanka.tutor.security.AuthoritiesConstants;
 import com.asanka.tutor.service.VideoService;
 import com.asanka.tutor.web.rest.errors.BadRequestAlertException;
+import com.asanka.tutor.service.dto.VideoDTO;
+
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -42,18 +44,18 @@ public class VideoResource {
     /**
      * {@code POST  /videos} : Create a new video.
      *
-     * @param video the video to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new video, or with status {@code 400 (Bad Request)} if the video has already an ID.
+     * @param videoDTO the videoDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new videoDTO, or with status {@code 400 (Bad Request)} if the video has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/videos")
     @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<Video> createVideo(@Valid @RequestBody Video video) throws URISyntaxException {
-        log.debug("REST request to save Video : {}", video);
-        if (video.getId() != null) {
+    public ResponseEntity<VideoDTO> createVideo(@Valid @RequestBody VideoDTO videoDTO) throws URISyntaxException {
+        log.debug("REST request to save Video : {}", videoDTO);
+        if (videoDTO.getId() != null) {
             throw new BadRequestAlertException("A new video cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Video result = videoService.save(video);
+        VideoDTO result = videoService.save(videoDTO);
         return ResponseEntity.created(new URI("/api/videos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId()))
             .body(result);
@@ -67,7 +69,7 @@ public class VideoResource {
      * @throws BadRequestAlertException if the chapterID parameter is null
      */
     @PostMapping("/chapters/videosForChapters")
-    public List<Video> getVideosForChapters(@Valid @RequestBody String[] chapterIDs) {
+    public List<VideoDTO> getVideosForChapters(@Valid @RequestBody String[] chapterIDs) {
         log.debug("REST request to get all Videos for a collection of Chapters");
         if (chapterIDs == null) {
             throw new BadRequestAlertException("The chapterIDs parameter cannot be null", ENTITY_NAME, "chapterIDsNull");
@@ -78,21 +80,21 @@ public class VideoResource {
     /**
      * {@code PUT  /videos} : Updates an existing video.
      *
-     * @param video the video to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated video,
-     * or with status {@code 400 (Bad Request)} if the video is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the video couldn't be updated.
+     * @param videoDTO the videoDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated videoDTO,
+     * or with status {@code 400 (Bad Request)} if the videoDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the videoDTO couldn't be updated.
      */
     @PutMapping("/videos")
     @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<Video> updateVideo(@Valid @RequestBody Video video) {
-        log.debug("REST request to update Video : {}", video);
-        if (video.getId() == null) {
+    public ResponseEntity<VideoDTO> updateVideo(@Valid @RequestBody VideoDTO videoDTO) {
+        log.debug("REST request to update Video : {}", videoDTO);
+        if (videoDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Video result = videoService.save(video);
+        VideoDTO result = videoService.save(videoDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, video.getId()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, videoDTO.getId()))
             .body(result);
     }
 
@@ -103,7 +105,7 @@ public class VideoResource {
      */
     @GetMapping("/videos")
     @Secured(AuthoritiesConstants.ADMIN)
-    public List<Video> getAllVideos() {
+    public List<VideoDTO> getAllVideos() {
         log.debug("REST request to get all Videos");
         return videoService.findAll();
     }
@@ -111,21 +113,21 @@ public class VideoResource {
     /**
      * {@code GET  /videos/:id} : get the "id" video.
      *
-     * @param id the id of the video to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the video, or with status {@code 404 (Not Found)}.
+     * @param id the id of the videoDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the videoDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/videos/{id}")
     @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<Video> getVideo(@PathVariable String id) {
+    public ResponseEntity<VideoDTO> getVideo(@PathVariable String id) {
         log.debug("REST request to get Video : {}", id);
-        Optional<Video> video = videoService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(video);
+        Optional<VideoDTO> videoDTO = videoService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(videoDTO);
     }
 
     /**
      * {@code DELETE  /videos/:id} : delete the "id" video.
      *
-     * @param id the id of the video to delete.
+     * @param id the id of the videoDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/videos/{id}")

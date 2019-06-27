@@ -4,6 +4,8 @@ import com.asanka.tutor.OnlineTutorApp;
 import com.asanka.tutor.domain.Video;
 import com.asanka.tutor.repository.VideoRepository;
 import com.asanka.tutor.service.VideoService;
+import com.asanka.tutor.service.dto.VideoDTO;
+import com.asanka.tutor.service.mapper.VideoMapper;
 import com.asanka.tutor.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -58,6 +60,9 @@ public class VideoResourceIT {
     private VideoRepository videoRepository;
 
     @Autowired
+    private VideoMapper videoMapper;
+
+    @Autowired
     private VideoService videoService;
 
     @Autowired
@@ -95,7 +100,7 @@ public class VideoResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Video createEntity() {
-        return new Video()
+        Video video = new Video()
             .name(DEFAULT_NAME)
             .episode(DEFAULT_EPISODE)
             .description(DEFAULT_DESCRIPTION)
@@ -103,6 +108,7 @@ public class VideoResourceIT {
             .courseID(DEFAULT_COURSE_ID)
             .chapterID(DEFAULT_CHAPTER_ID)
             .isSample(DEFAULT_IS_SAMPLE);
+        return video;
     }
     /**
      * Create an updated entity for this test.
@@ -133,9 +139,10 @@ public class VideoResourceIT {
         int databaseSizeBeforeCreate = videoRepository.findAll().size();
 
         // Create the Video
+        VideoDTO videoDTO = videoMapper.toDto(video);
         restVideoMockMvc.perform(post("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Video in the database
@@ -157,11 +164,12 @@ public class VideoResourceIT {
 
         // Create the Video with an existing ID
         video.setId("existing_id");
+        VideoDTO videoDTO = videoMapper.toDto(video);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restVideoMockMvc.perform(post("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Video in the database
@@ -177,10 +185,11 @@ public class VideoResourceIT {
         video.setName(null);
 
         // Create the Video, which fails.
+        VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
         List<Video> videoList = videoRepository.findAll();
@@ -194,10 +203,11 @@ public class VideoResourceIT {
         video.setEpisode(null);
 
         // Create the Video, which fails.
+        VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
         List<Video> videoList = videoRepository.findAll();
@@ -211,10 +221,11 @@ public class VideoResourceIT {
         video.setDescription(null);
 
         // Create the Video, which fails.
+        VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
         List<Video> videoList = videoRepository.findAll();
@@ -228,10 +239,11 @@ public class VideoResourceIT {
         video.setUrl(null);
 
         // Create the Video, which fails.
+        VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
         List<Video> videoList = videoRepository.findAll();
@@ -245,10 +257,11 @@ public class VideoResourceIT {
         video.setCourseID(null);
 
         // Create the Video, which fails.
+        VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
         List<Video> videoList = videoRepository.findAll();
@@ -262,10 +275,11 @@ public class VideoResourceIT {
         video.setChapterID(null);
 
         // Create the Video, which fails.
+        VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
         List<Video> videoList = videoRepository.findAll();
@@ -279,10 +293,11 @@ public class VideoResourceIT {
         video.setIsSample(null);
 
         // Create the Video, which fails.
+        VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
         List<Video> videoList = videoRepository.findAll();
@@ -337,7 +352,7 @@ public class VideoResourceIT {
     @Test
     public void updateVideo() throws Exception {
         // Initialize the database
-        videoService.save(video);
+        videoRepository.save(video);
 
         int databaseSizeBeforeUpdate = videoRepository.findAll().size();
 
@@ -351,10 +366,11 @@ public class VideoResourceIT {
             .courseID(UPDATED_COURSE_ID)
             .chapterID(UPDATED_CHAPTER_ID)
             .isSample(UPDATED_IS_SAMPLE);
+        VideoDTO videoDTO = videoMapper.toDto(updatedVideo);
 
         restVideoMockMvc.perform(put("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedVideo)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isOk());
 
         // Validate the Video in the database
@@ -375,11 +391,12 @@ public class VideoResourceIT {
         int databaseSizeBeforeUpdate = videoRepository.findAll().size();
 
         // Create the Video
+        VideoDTO videoDTO = videoMapper.toDto(video);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restVideoMockMvc.perform(put("/api/videos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(video)))
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Video in the database
@@ -390,7 +407,7 @@ public class VideoResourceIT {
     @Test
     public void deleteVideo() throws Exception {
         // Initialize the database
-        videoService.save(video);
+        videoRepository.save(video);
 
         int databaseSizeBeforeDelete = videoRepository.findAll().size();
 
@@ -416,5 +433,20 @@ public class VideoResourceIT {
         assertThat(video1).isNotEqualTo(video2);
         video1.setId(null);
         assertThat(video1).isNotEqualTo(video2);
+    }
+
+    @Test
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(VideoDTO.class);
+        VideoDTO videoDTO1 = new VideoDTO();
+        videoDTO1.setId("id1");
+        VideoDTO videoDTO2 = new VideoDTO();
+        assertThat(videoDTO1).isNotEqualTo(videoDTO2);
+        videoDTO2.setId(videoDTO1.getId());
+        assertThat(videoDTO1).isEqualTo(videoDTO2);
+        videoDTO2.setId("id2");
+        assertThat(videoDTO1).isNotEqualTo(videoDTO2);
+        videoDTO1.setId(null);
+        assertThat(videoDTO1).isNotEqualTo(videoDTO2);
     }
 }

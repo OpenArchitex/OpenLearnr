@@ -1,9 +1,9 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.domain.Course;
 import com.asanka.tutor.security.AuthoritiesConstants;
 import com.asanka.tutor.service.CourseService;
 import com.asanka.tutor.web.rest.errors.BadRequestAlertException;
+import com.asanka.tutor.service.dto.CourseDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -44,18 +44,18 @@ public class CourseResource {
     /**
      * {@code POST  /courses} : Create a new course.
      *
-     * @param course the course to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new course, or with status {@code 400 (Bad Request)} if the course has already an ID.
+     * @param courseDTO the courseDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new courseDTO, or with status {@code 400 (Bad Request)} if the course has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/courses")
     @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<Course> createCourse(@Valid @RequestBody Course course) throws URISyntaxException {
-        log.debug("REST request to save Course : {}", course);
-        if (course.getId() != null) {
+    public ResponseEntity<CourseDTO> createCourse(@Valid @RequestBody CourseDTO courseDTO) throws URISyntaxException {
+        log.debug("REST request to save Course : {}", courseDTO);
+        if (courseDTO.getId() != null) {
             throw new BadRequestAlertException("A new course cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Course result = courseService.save(course);
+        CourseDTO result = courseService.save(courseDTO);
         return ResponseEntity.created(new URI("/api/courses/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId()))
             .body(result);
@@ -64,21 +64,21 @@ public class CourseResource {
     /**
      * {@code PUT  /courses} : Updates an existing course.
      *
-     * @param course the course to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated course,
-     * or with status {@code 400 (Bad Request)} if the course is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the course couldn't be updated.
+     * @param courseDTO the courseDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated courseDTO,
+     * or with status {@code 400 (Bad Request)} if the courseDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the courseDTO couldn't be updated.
      */
     @PutMapping("/courses")
     @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<Course> updateCourse(@Valid @RequestBody Course course) {
-        log.debug("REST request to update Course : {}", course);
-        if (course.getId() == null) {
+    public ResponseEntity<CourseDTO> updateCourse(@Valid @RequestBody CourseDTO courseDTO) {
+        log.debug("REST request to update Course : {}", courseDTO);
+        if (courseDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Course result = courseService.save(course);
+        CourseDTO result = courseService.save(courseDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, course.getId()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, courseDTO.getId()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class CourseResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of courses in body.
      */
     @GetMapping("/courses")
-    public List<Course> getAllCourses() {
+    public List<CourseDTO> getAllCourses() {
         log.debug("REST request to get all Courses");
         return courseService.findAll();
     }
@@ -96,20 +96,20 @@ public class CourseResource {
     /**
      * {@code GET  /courses/:id} : get the "id" course.
      *
-     * @param id the id of the course to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the course, or with status {@code 404 (Not Found)}.
+     * @param id the id of the courseDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the courseDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/courses/{id}")
-    public ResponseEntity<Course> getCourse(@PathVariable String id) {
+    public ResponseEntity<CourseDTO> getCourse(@PathVariable String id) {
         log.debug("REST request to get Course : {}", id);
-        Optional<Course> course = courseService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(course);
+        Optional<CourseDTO> courseDTO = courseService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(courseDTO);
     }
 
     /**
      * {@code DELETE  /courses/:id} : delete the "id" course.
      *
-     * @param id the id of the course to delete.
+     * @param id the id of the courseDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/courses/{id}")

@@ -3,13 +3,17 @@ package com.asanka.tutor.service.impl;
 import com.asanka.tutor.service.CourseService;
 import com.asanka.tutor.domain.Course;
 import com.asanka.tutor.repository.CourseRepository;
+import com.asanka.tutor.service.dto.CourseDTO;
+import com.asanka.tutor.service.mapper.CourseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link Course}.
@@ -21,20 +25,25 @@ public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
 
-    public CourseServiceImpl(CourseRepository courseRepository) {
+    private final CourseMapper courseMapper;
+
+    public CourseServiceImpl(CourseRepository courseRepository, CourseMapper courseMapper) {
         this.courseRepository = courseRepository;
+        this.courseMapper = courseMapper;
     }
 
     /**
      * Save a course.
      *
-     * @param course the entity to save.
+     * @param courseDTO the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public Course save(Course course) {
-        log.debug("Request to save Course : {}", course);
-        return courseRepository.save(course);
+    public CourseDTO save(CourseDTO courseDTO) {
+        log.debug("Request to save Course : {}", courseDTO);
+        Course course = courseMapper.toEntity(courseDTO);
+        course = courseRepository.save(course);
+        return courseMapper.toDto(course);
     }
 
     /**
@@ -43,9 +52,11 @@ public class CourseServiceImpl implements CourseService {
      * @return the list of entities.
      */
     @Override
-    public List<Course> findAll() {
+    public List<CourseDTO> findAll() {
         log.debug("Request to get all Courses");
-        return courseRepository.findAll();
+        return courseRepository.findAll().stream()
+            .map(courseMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
 
@@ -56,9 +67,10 @@ public class CourseServiceImpl implements CourseService {
      * @return the entity.
      */
     @Override
-    public Optional<Course> findOne(String id) {
+    public Optional<CourseDTO> findOne(String id) {
         log.debug("Request to get Course : {}", id);
-        return courseRepository.findById(id);
+        return courseRepository.findById(id)
+            .map(courseMapper::toDto);
     }
 
     /**
