@@ -1,15 +1,15 @@
 package com.asanka.tutor.security;
 
 import com.asanka.tutor.config.ApplicationProperties;
+import com.google.gson.JsonSyntaxException;
 import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.stripe.net.ApiResource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Component
 public class StripeClient {
@@ -17,10 +17,10 @@ public class StripeClient {
 
     public StripeClient(ApplicationProperties applicationProperties){
         stripe = applicationProperties.getStripe();
-        Stripe.apiKey = stripe.getPrivate_key();
+        Stripe.apiKey = stripe.getPrivateKey();
     }
 
-    public Charge chargeCreditCard(String token, double amount) throws Exception {
+    public Charge chargeCreditCard(String token, double amount) throws StripeException {
         Map<String, Object> chargeParams = new HashMap<>();
         chargeParams.put("amount", (int)(amount * 100));
         chargeParams.put("currency", "USD");
@@ -29,7 +29,7 @@ public class StripeClient {
     }
 
     public String getStripePublicKey() {
-        return stripe.getPublic_key();
+        return stripe.getPublicKey();
     }
 
     public double getStripeUnitPrice() {

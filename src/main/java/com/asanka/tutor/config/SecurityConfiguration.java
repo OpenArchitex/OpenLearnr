@@ -1,10 +1,8 @@
 package com.asanka.tutor.config;
 
-import com.asanka.tutor.security.*;
-import com.asanka.tutor.security.jwt.*;
-
-import org.springframework.beans.factory.BeanInitializationException;
-import org.springframework.beans.factory.InitializingBean;
+import com.asanka.tutor.security.AuthoritiesConstants;
+import com.asanka.tutor.security.jwt.JWTConfigurer;
+import com.asanka.tutor.security.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;

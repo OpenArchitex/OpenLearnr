@@ -31,15 +31,12 @@ public class VideoServiceImpl implements VideoService {
 
     private final VideoRepository videoRepository;
 
-    private final UserRepository userRepository;
-
     private final UserService userService;
 
     private final VideoMapper videoMapper;
 
     public VideoServiceImpl(VideoRepository videoRepository, VideoMapper videoMapper, UserRepository userRepository, UserService userService) {
         this.videoRepository = videoRepository;
-        this.userRepository = userRepository;
         this.videoMapper = videoMapper;
         this.userService = userService;
     }

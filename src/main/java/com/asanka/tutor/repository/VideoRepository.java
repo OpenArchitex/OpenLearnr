@@ -1,7 +1,6 @@
 package com.asanka.tutor.repository;
 
 import com.asanka.tutor.domain.Video;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

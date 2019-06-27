@@ -17,24 +17,24 @@ public class ApplicationProperties {
     }
 
     public static class Stripe {
-        private String public_key;
-        private String private_key;
+        private String publicKey;
+        private String privateKey;
         private double unitPrice;
 
-        public String getPublic_key() {
-            return public_key;
+        public String getPublicKey() {
+            return publicKey;
         }
 
-        public void setPublic_key(String public_key) {
-            this.public_key = public_key;
+        public void setPublicKey(String publicKey) {
+            this.publicKey = publicKey;
         }
 
-        public String getPrivate_key() {
-            return private_key;
+        public String getPrivateKey() {
+            return privateKey;
         }
 
-        public void setPrivate_key(String private_key) {
-            this.private_key = private_key;
+        public void setPrivateKey(String privateKey) {
+            this.privateKey = privateKey;
         }
 
         public double getUnitPrice() { return unitPrice; }

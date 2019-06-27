@@ -1,17 +1,14 @@
 package com.asanka.tutor.service.dto;
 
 import com.asanka.tutor.config.Constants;
-
 import com.asanka.tutor.domain.Authority;
-import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.domain.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.Instant;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 

@@ -66,7 +66,7 @@ public class ChapterServiceImpl implements ChapterService {
      */
     @Override
     public List<ChapterDTO> findAllChaptersForCourse(String courseID) {
-        log.debug("Request to get all Chapters for the courseID" + courseID);
+        log.debug("Request to get all Chapters for the courseID {}", courseID);
         return chapterRepository.findChaptersByCourseID(courseID).stream()
             .map(chapterMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
