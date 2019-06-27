@@ -115,6 +115,7 @@ public class CommentDTO implements Serializable {
         this.isApproved = isApproved;
     }
 
+    // This constructor is only used for Jackson and should not be used for anything else.
     public CommentDTO () {
         // Empty constructor needed for Jackson.
     }
