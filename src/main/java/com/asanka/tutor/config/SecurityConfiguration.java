@@ -63,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .accessDeniedHandler(problemSupport)
         .and()
             .headers()
-            .contentSecurityPolicy("default-src 'self' https://usebasin.com/; frame-src 'self' https://www.youtube.com/ https://js.stripe.com/; img-src 'self' https://avatars.dicebear.com https://www.google-analytics.com/; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com/v3/ https://www.google-analytics.com/; style-src 'self' 'unsafe-inline'")
+            .contentSecurityPolicy("default-src 'self' https://usebasin.com/ https://www.google-analytics.com/; frame-src 'self' https://www.youtube.com/ https://js.stripe.com/; img-src 'self' https://avatars.dicebear.com https://www.google-analytics.com/; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com/v3/ https://www.google-analytics.com/; style-src 'self' 'unsafe-inline'")
         .and()
             .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
         .and()
