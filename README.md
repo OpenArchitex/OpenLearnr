@@ -10,6 +10,6 @@ Please refer to our [Code of Conduct](https://github.com/python-sinhala-educatio
 
 ---
 
-``We are grateful for JetBrains for generously providing Open Source licenses for our project.``
+``We are grateful for JetBrains for generously providing Open Source licenses to help us with our development effort.``
 
 [![JetBrains Logo](https://github.com/python-sinhala-education-society/OnlineTutor/blob/master/docs/images/jetbrains-logo.svg)](https://www.jetbrains.com/?from=OnlineTutor)
