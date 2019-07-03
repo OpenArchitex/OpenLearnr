@@ -18,7 +18,6 @@ import * as moment from 'moment';
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgJhipsterModule } from 'ng-jhipster';
-import { PythonpadComponent } from './layouts/pythonpad/pythonpad.component';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 
 @NgModule({
@@ -39,7 +38,7 @@ import { PythonpadComponent } from './layouts/pythonpad/pythonpad.component';
     BrowserAnimationsModule
     // jhipster-needle-angular-add-module JHipster will add new module here
   ],
-  declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, PythonpadComponent],
+  declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
