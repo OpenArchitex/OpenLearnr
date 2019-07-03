@@ -43,6 +43,14 @@
                             have any questions or problems subscribing please <a routerLink="email">let us know</a>.
                         </p>
                     </div>
+                    <section *ngIf="clickedVideo != null && clickedVideo.resources != null" class="content-item" id="resources">
+                        <div class="container">
+                            <h3>Additional Resources</h3>
+                            <ul class="list-group">
+                                <li class="list-group-item" *ngFor="let resource of clickedVideo.resources"><a class="resource_link" target="_blank" rel="noopener" href="{{resource.url}}">{{resource.name}}</a></li>
+                            </ul>
+                        </div>
+                    </section>
                     <section class="content-item" id="disclaimer">
                         <div class="container">
                             <p>

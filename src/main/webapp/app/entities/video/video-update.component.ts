@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IVideo, Video } from 'app/shared/model/video.model';
@@ -28,6 +28,7 @@ export class VideoUpdateComponent implements OnInit {
     url: [null, [Validators.required]],
     courseID: [null, [Validators.required]],
     chapterID: [null, [Validators.required]],
+    resources: this.fb.array([this.createItem('', '')]),
     isSample: [null, [Validators.required]]
   });
 
@@ -56,6 +57,7 @@ export class VideoUpdateComponent implements OnInit {
       url: video.url,
       courseID: video.courseID,
       chapterID: video.chapterID,
+      resources: this.createFormGroupArray(video.resources).getRawValue(),
       isSample: video.isSample
     });
     this.loadAllCourses();
@@ -110,6 +112,7 @@ export class VideoUpdateComponent implements OnInit {
       url: this.editForm.get(['url']).value,
       courseID: this.editForm.get(['courseID']).value,
       chapterID: this.editForm.get(['chapterID']).value,
+      resources: this.editForm.get(['resources']).value,
       isSample: this.editForm.get(['isSample']).value
     };
   }
@@ -129,5 +132,31 @@ export class VideoUpdateComponent implements OnInit {
 
   private onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  get resources() {
+    return this.editForm.get('resources') as FormArray;
+  }
+
+  private addResources(name: string, url: string) {
+    this.resources.push(this.createItem(name, url));
+  }
+
+  private removeResources() {
+    this.resources.removeAt(this.resources.length - 1);
+  }
+
+  private createItem(name: string, url: string): FormGroup {
+    return this.fb.group({ name, url });
+  }
+
+  private createFormGroupArray(resources: { name: string; url: string }[]): FormArray {
+    if (resources === null || resources === undefined) {
+      return this.fb.array([this.createItem('', '')]);
+    }
+    for (const resource of resources) {
+      this.addResources(resource.name, resource.url);
+    }
+    return this.resources;
   }
 }

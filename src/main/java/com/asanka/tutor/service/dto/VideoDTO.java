@@ -1,6 +1,9 @@
 package com.asanka.tutor.service.dto;
+import com.asanka.tutor.domain.Resource;
+
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -27,6 +30,8 @@ public class VideoDTO implements Serializable {
 
     @NotNull
     private String chapterID;
+
+    private List<Resource> resources;
 
     @NotNull
     private Boolean isSample;
@@ -94,6 +99,14 @@ public class VideoDTO implements Serializable {
 
     public void setIsSample(Boolean isSample) {
         this.isSample = isSample;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 
     @Override

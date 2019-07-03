@@ -47,6 +47,9 @@ public class Video implements Serializable {
     @Field("is_sample")
     private Boolean isSample;
 
+    @Field("resources")
+    private List<Resource> resources;
+
     @Field("comments")
     private List<Comment> commentList;
 
@@ -148,6 +151,14 @@ public class Video implements Serializable {
 
     public void setIsSample(Boolean isSample) {
         this.isSample = isSample;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 
     public List<Comment> getCommentList() {

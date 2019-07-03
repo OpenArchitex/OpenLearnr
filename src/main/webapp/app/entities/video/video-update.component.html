@@ -75,6 +75,27 @@
                         </option>
                     </select>
                 </div>
+                <div class="form-group" formArrayName="resources">
+                    <label class="form-control-label">Resources</label>
+                    <a role="button" id="resource_add" class="btn btn-light" (click)="addResources('', '')">
+                        <fa-icon [icon]="'plus'">Add</fa-icon>
+                    </a>
+                    <a role="button" id="resource_remove" class="btn btn-light" (click)="removeResources()">
+                        <fa-icon [icon]="'minus'">Remove</fa-icon>
+                    </a>
+                    <div *ngFor="let resource of resources.controls; let i=index">
+                        <div class="form-row mt-3">
+                            <div class="col-6">
+                                <input type="text" class="form-control" placeholder="Resource Name"
+                                       formControlName="name"/>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control" placeholder="Resource URL"
+                                        formControlName="url"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-check">
                      <input type="checkbox" class="form-check-input" name="isSample" id="field_isSample"
                             formControlName="isSample" />
@@ -82,7 +103,7 @@
                 </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
                 <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">

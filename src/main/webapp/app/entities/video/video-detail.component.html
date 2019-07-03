@@ -31,6 +31,12 @@
                 <dd>
                     <span>{{video.chapterID}}</span>
                 </dd>
+                <dt><span>Resources</span></dt>
+                <dd>
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let resource of video.resources">{{resource.name}}: {{resource.url}}</li>
+                    </ul>
+                </dd>
                 <dt><span>Is Sample</span></dt>
                 <dd>
                     <span>{{video.isSample}}</span>

@@ -21,7 +21,7 @@ describe('Service Tests', () => {
       service = injector.get(VideoService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Video('ID', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', false);
+      elemDefault = new Video('ID', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', [{ name: 'AA', url: 'AAA' }], false);
     });
 
     describe('Service methods', () => {
@@ -63,6 +63,7 @@ describe('Service Tests', () => {
             url: 'BBBBBB',
             courseID: 'BBBBBB',
             chapterID: 'BBBBBB',
+            resource: [{ name: 'BB', url: 'BBB' }],
             isSample: true
           },
           elemDefault
@@ -87,6 +88,7 @@ describe('Service Tests', () => {
             url: 'BBBBBB',
             courseID: 'BBBBBB',
             chapterID: 'BBBBBB',
+            resource: [{ name: 'BB', url: 'BBB' }],
             isSample: true
           },
           elemDefault

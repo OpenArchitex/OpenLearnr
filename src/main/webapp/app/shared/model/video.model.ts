@@ -6,6 +6,7 @@ export interface IVideo {
   url?: string;
   courseID?: string;
   chapterID?: string;
+  resources?: { name: string; url: string }[];
   isSample?: boolean;
 }
 
@@ -18,6 +19,7 @@ export class Video implements IVideo {
     public url?: string,
     public courseID?: string,
     public chapterID?: string,
+    public resources?: { name: string; url: string }[],
     public isSample?: boolean
   ) {
     this.isSample = this.isSample || false;

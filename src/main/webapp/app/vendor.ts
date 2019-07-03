@@ -17,6 +17,7 @@ import {
   faArrowLeft,
   faSave,
   faPlus,
+  faMinus,
   faPencilAlt,
   faBars,
   faThList,
@@ -57,6 +58,7 @@ library.add(faTimes);
 library.add(faArrowLeft);
 library.add(faSave);
 library.add(faPlus);
+library.add(faMinus);
 library.add(faPencilAlt);
 library.add(faBars);
 library.add(faHome);
