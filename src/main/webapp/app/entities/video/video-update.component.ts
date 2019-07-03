@@ -151,11 +151,10 @@ export class VideoUpdateComponent implements OnInit {
   }
 
   private createFormGroupArray(resources: { name: string; url: string }[]): FormArray {
-    if (resources === null || resources === undefined) {
-      return this.fb.array([this.createItem('', '')]);
-    }
-    for (const resource of resources) {
-      this.addResources(resource.name, resource.url);
+    if (resources != null) {
+      for (const resource of resources) {
+        this.addResources(resource.name, resource.url);
+      }
     }
     return this.resources;
   }

@@ -84,7 +84,7 @@
                         <fa-icon [icon]="'minus'">Remove</fa-icon>
                     </a>
                     <div *ngFor="let resource of resources.controls; let i=index">
-                        <div class="form-row mt-3">
+                        <div class="form-row mt-3" [formGroupName]="i.toString()">
                             <div class="col-6">
                                 <input type="text" class="form-control" placeholder="Resource Name"
                                        formControlName="name"/>

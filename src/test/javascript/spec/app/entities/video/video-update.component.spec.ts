@@ -38,6 +38,7 @@ describe('Component Tests', () => {
         // WHEN
         comp.save();
         tick(); // simulate async
+        entity.resources = [{ name: '', url: '' }];
 
         // THEN
         expect(service.update).toHaveBeenCalledWith(entity);
@@ -52,6 +53,7 @@ describe('Component Tests', () => {
         // WHEN
         comp.save();
         tick(); // simulate async
+        entity.resources = [{ name: '', url: '' }];
 
         // THEN
         expect(service.create).toHaveBeenCalledWith(entity);
