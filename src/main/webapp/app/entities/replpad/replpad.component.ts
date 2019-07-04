@@ -7,7 +7,7 @@ import { ReplpadService } from 'app/entities/replpad/replpad.service';
   styles: []
 })
 export class REPLComponent implements OnInit {
-  private replURL: string;
+  replURL: string;
 
   constructor(protected replService: ReplpadService) {}
 

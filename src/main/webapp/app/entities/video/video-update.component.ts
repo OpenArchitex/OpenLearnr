@@ -138,11 +138,11 @@ export class VideoUpdateComponent implements OnInit {
     return this.editForm.get('resources') as FormArray;
   }
 
-  private addResources(name: string, url: string) {
+  addResources(name: string, url: string) {
     this.resources.push(this.createItem(name, url));
   }
 
-  private removeResources() {
+  removeResources() {
     this.resources.removeAt(this.resources.length - 1);
   }
 
