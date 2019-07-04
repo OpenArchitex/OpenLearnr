@@ -9,7 +9,6 @@ import {
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
-import { SafePipe } from 'app/entities/course/SafePipe';
 import { OnlineTutorSharedModule } from 'app/shared';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
@@ -37,14 +36,7 @@ const ENTITY_STATES = [...courseRoute, ...coursePopupRoute];
     MatChipsModule,
     FlexLayoutModule
   ],
-  declarations: [
-    CourseComponent,
-    CourseDetailComponent,
-    CourseUpdateComponent,
-    CourseDeleteDialogComponent,
-    CourseDeletePopupComponent,
-    SafePipe
-  ],
+  declarations: [CourseComponent, CourseDetailComponent, CourseUpdateComponent, CourseDeleteDialogComponent, CourseDeletePopupComponent],
   entryComponents: [CourseComponent, CourseUpdateComponent, CourseDeleteDialogComponent, CourseDeletePopupComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

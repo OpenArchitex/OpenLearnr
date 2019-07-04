@@ -11,9 +11,24 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
     public final Stripe stripe = new Stripe();
+    public final REPL repl= new REPL();
 
     public Stripe getStripe() {
         return stripe;
+    }
+
+    public REPL getRepl() { return repl; }
+
+    public static class REPL {
+        private String url;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
     }
 
     public static class Stripe {

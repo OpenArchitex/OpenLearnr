@@ -1,6 +1,5 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.security.StripeClient;
