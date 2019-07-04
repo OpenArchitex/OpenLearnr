@@ -64,7 +64,11 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         () => {
           this.success = true;
         },
-        response => this.processError(response),
+        response => {
+          this.processError(response);
+          this.registerComplete = true;
+          this.clickedRegister = false;
+        },
         () => {
           this.registerComplete = true;
           this.clickedRegister = false;
