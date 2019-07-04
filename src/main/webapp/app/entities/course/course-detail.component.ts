@@ -152,4 +152,8 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
   public isAuthenticated() {
     return this.accountService.isAuthenticated();
   }
+
+  public getResources() {
+    return this.clickedVideo.resources.filter(value => value.name.length > 0);
+  }
 }
