@@ -3,7 +3,9 @@ package com.asanka.tutor.web.rest;
 import com.asanka.tutor.OnlineTutorApp;
 import com.asanka.tutor.domain.Comment;
 import com.asanka.tutor.repository.CommentRepository;
+import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.service.CommentService;
+import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.dto.CommentDTO;
 import com.asanka.tutor.service.mapper.CommentMapper;
 import com.asanka.tutor.web.rest.errors.ExceptionTranslator;
@@ -60,6 +62,12 @@ public class CommentResourceIT {
     private CommentService commentService;
 
     @Autowired
+    private CustomAuditEventRepository customAuditEventRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -78,7 +86,7 @@ public class CommentResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final CommentResource commentResource = new CommentResource(commentService);
+        final CommentResource commentResource = new CommentResource(commentService, userService, customAuditEventRepository);
         this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
