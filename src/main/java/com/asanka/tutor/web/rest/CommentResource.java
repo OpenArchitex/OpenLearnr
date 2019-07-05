@@ -1,7 +1,9 @@
 package com.asanka.tutor.web.rest;
 
+import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.security.AuthoritiesConstants;
 import com.asanka.tutor.service.CommentService;
+import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.dto.CommentDTO;
 import com.asanka.tutor.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
@@ -9,6 +11,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +39,14 @@ public class CommentResource {
 
     private final CommentService commentService;
 
-    public CommentResource(CommentService commentService) {
+    private final UserService userService;
+
+    private CustomAuditEventRepository customAuditEventRepository;
+
+    public CommentResource(CommentService commentService, UserService userService, CustomAuditEventRepository customAuditEventRepository) {
         this.commentService = commentService;
+        this.userService = userService;
+        this.customAuditEventRepository = customAuditEventRepository;
     }
 
     /**
@@ -75,7 +84,10 @@ public class CommentResource {
         if (commentDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Optional<CommentDTO> oldComment = commentService.findOne(commentDTO.getId());
         CommentDTO result = commentService.save(commentDTO);
+        AuditEvent event = new AuditEvent(userService.getUserWithAuthorities().get().getLogin(), "COMMENT UPDATED", "message=Comment (before update): " + oldComment.get().toString());
+        customAuditEventRepository.add(event);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, commentDTO.getId()))
             .body(result);
@@ -128,6 +140,9 @@ public class CommentResource {
     public ResponseEntity<Void> deleteComment(@PathVariable String id) {
         log.debug("REST request to delete Comment : {}", id);
         commentService.delete(id);
+        Optional<CommentDTO> oldComment = commentService.findOne(id);
+        AuditEvent event = new AuditEvent(userService.getUserWithAuthorities().get().getLogin(), "COMMENT DELETED", "message=Comment: " + oldComment.get().toString());
+        customAuditEventRepository.add(event);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 }

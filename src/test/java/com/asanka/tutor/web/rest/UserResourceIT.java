@@ -3,6 +3,7 @@ package com.asanka.tutor.web.rest;
 import com.asanka.tutor.OnlineTutorApp;
 import com.asanka.tutor.domain.Authority;
 import com.asanka.tutor.domain.User;
+import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.repository.UserRepository;
 import com.asanka.tutor.security.AuthoritiesConstants;
 import com.asanka.tutor.service.MailService;
@@ -71,6 +72,9 @@ public class UserResourceIT {
     private UserService userService;
 
     @Autowired
+    private CustomAuditEventRepository customAuditEventRepository;
+
+    @Autowired
     private UserMapper userMapper;
 
     @Autowired
@@ -93,7 +97,7 @@ public class UserResourceIT {
     public void setup() {
         cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).clear();
         cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).clear();
-        UserResource userResource = new UserResource(userService, userRepository, mailService);
+        UserResource userResource = new UserResource(userService, userRepository, mailService, customAuditEventRepository);
 
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)

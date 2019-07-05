@@ -2,6 +2,7 @@ package com.asanka.tutor.web.rest;
 
 import com.asanka.tutor.config.Constants;
 import com.asanka.tutor.domain.User;
+import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.repository.UserRepository;
 import com.asanka.tutor.security.AuthoritiesConstants;
 import com.asanka.tutor.service.MailService;
@@ -18,6 +19,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -72,11 +74,14 @@ public class UserResource {
 
     private final MailService mailService;
 
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
+    private CustomAuditEventRepository customAuditEventRepository;
+
+    public UserResource(UserService userService, UserRepository userRepository, MailService mailService, CustomAuditEventRepository customAuditEventRepository) {
 
         this.userService = userService;
         this.userRepository = userRepository;
         this.mailService = mailService;
+        this.customAuditEventRepository = customAuditEventRepository;
     }
 
     /**
@@ -106,6 +111,8 @@ public class UserResource {
         } else {
             User newUser = userService.createUser(userDTO);
             mailService.sendCreationEmail(newUser);
+            AuditEvent event = new AuditEvent(userService.getUserWithAuthorities().get().getLogin(), "USER CREATED", "message=New User: " + newUser.toString());
+            customAuditEventRepository.add(event);
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
                 .headers(HeaderUtil.createAlert(applicationName,  "A user is created with identifier " + newUser.getLogin(), newUser.getLogin()))
                 .body(newUser);
@@ -133,7 +140,8 @@ public class UserResource {
             throw new LoginAlreadyUsedException();
         }
         Optional<UserDTO> updatedUser = userService.updateUser(userDTO);
-
+        AuditEvent event = new AuditEvent(userService.getUserWithAuthorities().get().getLogin(), "USER UPDATED", "message=User (before update): " + existingUser.get().toString());
+        customAuditEventRepository.add(event);
         return ResponseUtil.wrapOrNotFound(updatedUser,
             HeaderUtil.createAlert(applicationName, "A user is updated with identifier " + userDTO.getLogin(), userDTO.getLogin()));
     }
@@ -185,7 +193,10 @@ public class UserResource {
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);
+        Optional<User> existingUser = userRepository.findOneByLogin(login);
         userService.deleteUser(login);
+        AuditEvent event = new AuditEvent(userService.getUserWithAuthorities().get().getLogin(), "USER DELETED", "message=User: " + existingUser.get().toString());
+        customAuditEventRepository.add(event);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "A user is deleted with identifier " + login, login)).build();
     }
 }
