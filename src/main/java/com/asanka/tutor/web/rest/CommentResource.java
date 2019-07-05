@@ -139,8 +139,8 @@ public class CommentResource {
     @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteComment(@PathVariable String id) {
         log.debug("REST request to delete Comment : {}", id);
-        commentService.delete(id);
         Optional<CommentDTO> oldComment = commentService.findOne(id);
+        commentService.delete(id);
         AuditEvent event = new AuditEvent(userService.getUserWithAuthorities().get().getLogin(), "COMMENT DELETED", "message=Comment: " + oldComment.get().toString());
         customAuditEventRepository.add(event);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
