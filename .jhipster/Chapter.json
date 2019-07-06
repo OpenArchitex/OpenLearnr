@@ -28,10 +28,17 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "isPaidChapter",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "relationships": [],
-    "changelogDate": "20190627060619",
+    "changelogDate": "20190706164700",
     "entityTableName": "chapter",
     "dto": "mapstruct",
     "pagination": "no",

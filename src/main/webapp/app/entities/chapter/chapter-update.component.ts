@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IChapter, Chapter } from 'app/shared/model/chapter.model';
+import { Chapter, IChapter } from 'app/shared/model/chapter.model';
 import { ChapterService } from './chapter.service';
 import { ICourse } from 'app/shared/model/course.model';
 import { CourseService } from 'app/entities/course';
@@ -23,7 +23,8 @@ export class ChapterUpdateComponent implements OnInit {
     name: [null, [Validators.required]],
     chapterNumber: [null, [Validators.required]],
     description: [null, [Validators.required]],
-    courseID: [null, [Validators.required]]
+    courseID: [null, [Validators.required]],
+    isPaidChapter: [null, [Validators.required]]
   });
 
   constructor(
@@ -57,7 +58,8 @@ export class ChapterUpdateComponent implements OnInit {
       name: chapter.name,
       chapterNumber: chapter.chapterNumber,
       description: chapter.description,
-      courseID: chapter.courseID
+      courseID: chapter.courseID,
+      isPaidChapter: chapter.isPaidChapter
     });
   }
 
@@ -68,6 +70,9 @@ export class ChapterUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const chapter = this.createFromForm();
+    if (chapter.isPaidChapter == null) {
+      chapter.isPaidChapter = false;
+    }
     if (chapter.id !== undefined) {
       this.subscribeToSaveResponse(this.chapterService.update(chapter));
     } else {
@@ -76,15 +81,15 @@ export class ChapterUpdateComponent implements OnInit {
   }
 
   private createFromForm(): IChapter {
-    const entity = {
+    return {
       ...new Chapter(),
       id: this.editForm.get(['id']).value,
       name: this.editForm.get(['name']).value,
       chapterNumber: this.editForm.get(['chapterNumber']).value,
       description: this.editForm.get(['description']).value,
-      courseID: this.editForm.get(['courseID']).value
+      courseID: this.editForm.get(['courseID']).value,
+      isPaidChapter: this.editForm.get(['isPaidChapter']).value
     };
-    return entity;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IChapter>>) {

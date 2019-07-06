@@ -4,6 +4,7 @@ export interface IChapter {
   chapterNumber?: number;
   description?: string;
   courseID?: string;
+  isPaidChapter?: boolean;
 }
 
 export class Chapter implements IChapter {
@@ -12,6 +13,9 @@ export class Chapter implements IChapter {
     public name?: string,
     public chapterNumber?: number,
     public description?: string,
-    public courseID?: string
-  ) {}
+    public courseID?: string,
+    public isPaidChapter?: boolean
+  ) {
+    this.isPaidChapter = this.isPaidChapter || false;
+  }
 }

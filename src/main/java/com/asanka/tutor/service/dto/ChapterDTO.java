@@ -22,6 +22,9 @@ public class ChapterDTO implements Serializable {
     @NotNull
     private String courseID;
 
+    @NotNull
+    private Boolean isPaidChapter;
+
 
     public String getId() {
         return id;
@@ -63,6 +66,14 @@ public class ChapterDTO implements Serializable {
         this.courseID = courseID;
     }
 
+    public Boolean isIsPaidChapter() {
+        return isPaidChapter;
+    }
+
+    public void setIsPaidChapter(Boolean isPaidChapter) {
+        this.isPaidChapter = isPaidChapter;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -92,6 +103,7 @@ public class ChapterDTO implements Serializable {
             ", chapterNumber=" + getChapterNumber() +
             ", description='" + getDescription() + "'" +
             ", courseID='" + getCourseID() + "'" +
+            ", isPaidChapter='" + isIsPaidChapter() + "'" +
             "}";
     }
 }

@@ -14,7 +14,7 @@
                         cover our costs we have to charge some subscription fee.
                         Each course video takes hours of time to plan and produce in addition to server costs,
                         bandwidth, maintenance and development. Therefore we have a simple subscription
-                        modal; each chapter costs <b>6.5 USD</b>. After you have payed the subscription fee we will provide you access to the videos within <b>10 hours</b>.</p>
+                        modal; each chapter costs <b>6.5 USD</b>. After you have paid the subscription fee we will provide you access to the videos within <b>10 hours</b>.</p>
                     <p>If you need financial assistance please feel free to <a href="#" routerLink="email">contact
                         us</a>. Given sufficient proof of your financial situation we might be able
                         to waive the subscription fees.</p>
@@ -24,7 +24,7 @@
                         <mat-form-field class="col-md-4">
                             <mat-label>Course to Purchase</mat-label>
                             <mat-select #courseSelect [(ngModel)]="courseID"
-                                        (selectionChange)="loadAllChaptersForCourse(courseSelect.value); selectedChapters.value = undefined">
+                                        (selectionChange)="loadAllPaidChaptersForCourse(courseSelect.value); selectedChapters.value = undefined">
                                 <mat-option *ngFor="let course of courses"
                                             [value]="course.id">{{course.name}}</mat-option>
                             </mat-select>

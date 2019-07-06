@@ -72,6 +72,18 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     /**
+     * Get all the paid chapters for the course.
+     *
+     * @return the list of entities
+     */
+    @Override
+    public List<ChapterDTO> findAllPaidChaptersForCourse(String courseID) {
+        log.debug("Request to get all Paid Chapters for the courseID {}", courseID);
+        return chapterRepository.findChaptersByCourseIDAndIsPaidChapter(courseID, true).stream()
+            .map(chapterMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
      * Get one chapter by id.
      *
      * @param id the id of the entity.

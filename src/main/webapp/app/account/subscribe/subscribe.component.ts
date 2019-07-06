@@ -8,7 +8,6 @@ import { ICourse } from 'app/shared/model/course.model';
 import { CourseService } from 'app/entities/course';
 import { JhiAlertService } from 'ng-jhipster';
 import { SubscribeService } from 'app/account/subscribe/subscribe.service';
-import { STRIPE_ERROR } from 'app/shared';
 
 @Component({
   selector: 'jhi-subscribe',
@@ -73,8 +72,8 @@ export class SubscribeComponent implements OnInit {
     );
   }
 
-  loadAllChaptersForCourse(courseID: string) {
-    this.chapterService.getChaptersForCourse(courseID).subscribe(
+  loadAllPaidChaptersForCourse(courseID: string) {
+    this.chapterService.getPaidChaptersForCourse(courseID).subscribe(
       (res: HttpResponse<IChapter[]>) => {
         this.chapters = res.body;
       },

@@ -33,6 +33,10 @@ public class Chapter implements Serializable {
     @Field("course_id")
     private String courseID;
 
+    @NotNull
+    @Field("is_paid_chapter")
+    private Boolean isPaidChapter;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -93,6 +97,19 @@ public class Chapter implements Serializable {
     public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
+
+    public Boolean isIsPaidChapter() {
+        return isPaidChapter;
+    }
+
+    public Chapter isPaidChapter(Boolean isPaidChapter) {
+        this.isPaidChapter = isPaidChapter;
+        return this;
+    }
+
+    public void setIsPaidChapter(Boolean isPaidChapter) {
+        this.isPaidChapter = isPaidChapter;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -119,6 +136,7 @@ public class Chapter implements Serializable {
             ", chapterNumber=" + getChapterNumber() +
             ", description='" + getDescription() + "'" +
             ", courseID='" + getCourseID() + "'" +
+            ", isPaidChapter='" + isIsPaidChapter() + "'" +
             "}";
     }
 }

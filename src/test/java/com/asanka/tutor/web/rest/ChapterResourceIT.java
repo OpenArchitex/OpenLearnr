@@ -47,6 +47,9 @@ public class ChapterResourceIT {
     private static final String DEFAULT_COURSE_ID = "AAAAAAAAAA";
     private static final String UPDATED_COURSE_ID = "BBBBBBBBBB";
 
+    private static final Boolean DEFAULT_IS_PAID_CHAPTER = false;
+    private static final Boolean UPDATED_IS_PAID_CHAPTER = true;
+
     @Autowired
     private ChapterRepository chapterRepository;
 
@@ -95,7 +98,8 @@ public class ChapterResourceIT {
             .name(DEFAULT_NAME)
             .chapterNumber(DEFAULT_CHAPTER_NUMBER)
             .description(DEFAULT_DESCRIPTION)
-            .courseID(DEFAULT_COURSE_ID);
+            .courseID(DEFAULT_COURSE_ID)
+            .isPaidChapter(DEFAULT_IS_PAID_CHAPTER);
     }
     /**
      * Create an updated entity for this test.
@@ -104,12 +108,12 @@ public class ChapterResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Chapter createUpdatedEntity() {
-        Chapter chapter = new Chapter()
+        return new Chapter()
             .name(UPDATED_NAME)
             .chapterNumber(UPDATED_CHAPTER_NUMBER)
             .description(UPDATED_DESCRIPTION)
-            .courseID(UPDATED_COURSE_ID);
-        return chapter;
+            .courseID(UPDATED_COURSE_ID)
+            .isPaidChapter(UPDATED_IS_PAID_CHAPTER);
     }
 
     @BeforeEach
@@ -137,6 +141,7 @@ public class ChapterResourceIT {
         assertThat(testChapter.getChapterNumber()).isEqualTo(DEFAULT_CHAPTER_NUMBER);
         assertThat(testChapter.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testChapter.getCourseID()).isEqualTo(DEFAULT_COURSE_ID);
+        assertThat(testChapter.isIsPaidChapter()).isEqualTo(DEFAULT_IS_PAID_CHAPTER);
     }
 
     @Test
@@ -232,6 +237,24 @@ public class ChapterResourceIT {
     }
 
     @Test
+    public void checkIsPaidChapterIsRequired() throws Exception {
+        int databaseSizeBeforeTest = chapterRepository.findAll().size();
+        // set the field null
+        chapter.setIsPaidChapter(null);
+
+        // Create the Chapter, which fails.
+        ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
+
+        restChapterMockMvc.perform(post("/api/chapters")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Chapter> chapterList = chapterRepository.findAll();
+        assertThat(chapterList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void getAllChapters() throws Exception {
         // Initialize the database
         chapterRepository.save(chapter);
@@ -244,7 +267,8 @@ public class ChapterResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].chapterNumber").value(hasItem(DEFAULT_CHAPTER_NUMBER)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].courseID").value(hasItem(DEFAULT_COURSE_ID)));
+            .andExpect(jsonPath("$.[*].courseID").value(hasItem(DEFAULT_COURSE_ID)))
+            .andExpect(jsonPath("$.[*].isPaidChapter").value(hasItem(DEFAULT_IS_PAID_CHAPTER)));
     }
     
     @Test
@@ -260,7 +284,8 @@ public class ChapterResourceIT {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.chapterNumber").value(DEFAULT_CHAPTER_NUMBER))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
-            .andExpect(jsonPath("$.courseID").value(DEFAULT_COURSE_ID));
+            .andExpect(jsonPath("$.courseID").value(DEFAULT_COURSE_ID))
+            .andExpect(jsonPath("$.isPaidChapter").value(DEFAULT_IS_PAID_CHAPTER));
     }
 
     @Test
@@ -283,7 +308,8 @@ public class ChapterResourceIT {
             .name(UPDATED_NAME)
             .chapterNumber(UPDATED_CHAPTER_NUMBER)
             .description(UPDATED_DESCRIPTION)
-            .courseID(UPDATED_COURSE_ID);
+            .courseID(UPDATED_COURSE_ID)
+            .isPaidChapter(UPDATED_IS_PAID_CHAPTER);
         ChapterDTO chapterDTO = chapterMapper.toDto(updatedChapter);
 
         restChapterMockMvc.perform(put("/api/chapters")
@@ -299,6 +325,7 @@ public class ChapterResourceIT {
         assertThat(testChapter.getChapterNumber()).isEqualTo(UPDATED_CHAPTER_NUMBER);
         assertThat(testChapter.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testChapter.getCourseID()).isEqualTo(UPDATED_COURSE_ID);
+        assertThat(testChapter.isIsPaidChapter()).isEqualTo(UPDATED_IS_PAID_CHAPTER);
     }
 
     @Test

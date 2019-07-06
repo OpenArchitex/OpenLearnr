@@ -9,6 +9,7 @@ entity Chapter {
     chapterNumber Integer required
     description String required
     courseID String required
+    isPaidChapter Boolean required
 }
 
 entity Video {

@@ -78,6 +78,22 @@ public class ChapterResource {
     }
 
     /**
+     * POST  /chaptersForCourse : Return all Chapters which needs to be paid for a Course.
+     *
+     * @param courseID the courseID of the course
+     * @return the ResponseEntity with status 200 (OK) and the list of chapters for the course in body
+     * @throws BadRequestAlertException if the courseID parameter is null
+     */
+    @PostMapping("/chapters/paidChaptersForCourse")
+    public List<ChapterDTO> getPaidChaptersForCourse(@Valid @RequestBody String courseID) {
+        log.debug("REST request to get all Paid Chapters for a Course");
+        if (courseID == null) {
+            throw new BadRequestAlertException("The courseID parameter cannot be null", ENTITY_NAME, "courseIDNull");
+        }
+        return chapterService.findAllPaidChaptersForCourse(courseID);
+    }
+
+    /**
      * {@code PUT  /chapters} : Updates an existing chapter.
      *
      * @param chapterDTO the chapterDTO to update.

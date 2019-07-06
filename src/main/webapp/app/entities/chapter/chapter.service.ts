@@ -41,6 +41,10 @@ export class ChapterService {
     return this.http.post<IChapter[]>(this.resourceUrl + '/chaptersForCourse', courseID, { observe: 'response' });
   }
 
+  getPaidChaptersForCourse(courseID: string): Observable<EntityArrayResponseType> {
+    return this.http.post<IChapter[]>(this.resourceUrl + '/paidChaptersForCourse', courseID, { observe: 'response' });
+  }
+
   getVideosForChapters(chapterIDs: string[]): Observable<EntityArrayResponseType> {
     return this.http.post<IVideo[]>(this.resourceUrl + '/videosForChapters', chapterIDs, { observe: 'response' });
   }

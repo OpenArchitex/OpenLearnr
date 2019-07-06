@@ -13,4 +13,5 @@ import java.util.List;
 @Repository
 public interface ChapterRepository extends MongoRepository<Chapter, String> {
     List<Chapter> findChaptersByCourseID(String courseID);
+    List<Chapter> findChaptersByCourseIDAndIsPaidChapter(String courseID, boolean isPaidChapter);
 }

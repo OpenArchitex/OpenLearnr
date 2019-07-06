@@ -33,6 +33,13 @@ public interface ChapterService {
     List<ChapterDTO> findAllChaptersForCourse(String courseID);
 
     /**
+     * Get all the paid chapters for the course.
+     *
+     * @return the list of entities
+     */
+    List<ChapterDTO> findAllPaidChaptersForCourse(String courseID);
+
+    /**
      * Get the "id" chapter.
      *
      * @param id the id of the entity.

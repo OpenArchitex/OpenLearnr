@@ -1,15 +1,15 @@
-import { element, by, ElementFinder } from 'protractor';
+import { browser, ExpectedConditions, element, by, ElementFinder } from 'protractor';
 
 export class ChapterComponentsPage {
   createButton = element(by.id('jh-create-entity'));
   deleteButtons = element.all(by.css('jhi-chapter div table .btn-danger'));
   title = element.all(by.css('jhi-chapter div h2#page-heading span')).first();
 
-  async clickOnCreateButton(timeout?: number) {
+  async clickOnCreateButton() {
     await this.createButton.click();
   }
 
-  async clickOnLastDeleteButton(timeout?: number) {
+  async clickOnLastDeleteButton() {
     await this.deleteButtons.last().click();
   }
 
@@ -30,6 +30,7 @@ export class ChapterUpdatePage {
   chapterNumberInput = element(by.id('field_chapterNumber'));
   descriptionInput = element(by.id('field_description'));
   courseIDInput = element(by.id('field_courseID'));
+  isPaidChapterInput = element(by.id('field_isPaidChapter'));
 
   async getPageTitle() {
     return this.pageTitle.getText();
@@ -67,11 +68,14 @@ export class ChapterUpdatePage {
     return await this.courseIDInput.getAttribute('value');
   }
 
-  async save(timeout?: number) {
+  getIsPaidChapterInput() {
+    return this.isPaidChapterInput;
+  }
+  async save() {
     await this.saveButton.click();
   }
 
-  async cancel(timeout?: number) {
+  async cancel() {
     await this.cancelButton.click();
   }
 
@@ -88,7 +92,7 @@ export class ChapterDeleteDialog {
     return this.dialogTitle.getText();
   }
 
-  async clickOnConfirmButton(timeout?: number) {
+  async clickOnConfirmButton() {
     await this.confirmButton.click();
   }
 }

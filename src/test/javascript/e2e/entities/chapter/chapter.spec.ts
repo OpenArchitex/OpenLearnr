@@ -49,6 +49,14 @@ describe('Chapter e2e test', () => {
     expect(await chapterUpdatePage.getChapterNumberInput()).to.eq('5', 'Expected chapterNumber value to be equals to 5');
     expect(await chapterUpdatePage.getDescriptionInput()).to.eq('description', 'Expected Description value to be equals to description');
     expect(await chapterUpdatePage.getCourseIDInput()).to.eq('courseID', 'Expected CourseID value to be equals to courseID');
+    const selectedIsPaidChapter = chapterUpdatePage.getIsPaidChapterInput();
+    if (await selectedIsPaidChapter.isSelected()) {
+      await chapterUpdatePage.getIsPaidChapterInput().click();
+      expect(await chapterUpdatePage.getIsPaidChapterInput().isSelected(), 'Expected isPaidChapter not to be selected').to.be.false;
+    } else {
+      await chapterUpdatePage.getIsPaidChapterInput().click();
+      expect(await chapterUpdatePage.getIsPaidChapterInput().isSelected(), 'Expected isPaidChapter to be selected').to.be.true;
+    }
     await chapterUpdatePage.save();
     expect(await chapterUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

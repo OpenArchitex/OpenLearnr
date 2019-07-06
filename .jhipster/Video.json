@@ -52,7 +52,7 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20190627060620",
+    "changelogDate": "20190706164701",
     "entityTableName": "video",
     "dto": "mapstruct",
     "pagination": "no",
