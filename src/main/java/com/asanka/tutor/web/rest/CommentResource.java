@@ -1,5 +1,6 @@
 package com.asanka.tutor.web.rest;
 
+import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.security.AuthoritiesConstants;
 import com.asanka.tutor.service.CommentService;
@@ -86,8 +87,11 @@ public class CommentResource {
         }
         Optional<CommentDTO> oldComment = commentService.findOne(commentDTO.getId());
         CommentDTO result = commentService.save(commentDTO);
-        AuditEvent event = new AuditEvent(userService.getUserWithAuthorities().get().getLogin(), "COMMENT UPDATED", "message=Comment (before update): " + oldComment.get().toString());
-        customAuditEventRepository.add(event);
+        Optional<User> currentUser = userService.getUserWithAuthorities();
+        if(currentUser.isPresent()) {
+            AuditEvent event = new AuditEvent(currentUser.get().getLogin(), "COMMENT UPDATED", "message=Comment (before update): " + oldComment.get().toString());
+            customAuditEventRepository.add(event);
+        }
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, commentDTO.getId()))
             .body(result);
@@ -141,8 +145,11 @@ public class CommentResource {
         log.debug("REST request to delete Comment : {}", id);
         Optional<CommentDTO> oldComment = commentService.findOne(id);
         commentService.delete(id);
-        AuditEvent event = new AuditEvent(userService.getUserWithAuthorities().get().getLogin(), "COMMENT DELETED", "message=Comment: " + oldComment.get().toString());
-        customAuditEventRepository.add(event);
+        Optional<User> currentUser = userService.getUserWithAuthorities();
+        if (currentUser.isPresent()) {
+            AuditEvent event = new AuditEvent(currentUser.get().getLogin(), "COMMENT DELETED", "message=Comment: " + oldComment.get().toString());
+            customAuditEventRepository.add(event);
+        }
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 }
