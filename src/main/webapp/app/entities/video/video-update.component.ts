@@ -28,7 +28,7 @@ export class VideoUpdateComponent implements OnInit {
     url: [null, [Validators.required]],
     courseID: [null, [Validators.required]],
     chapterID: [null, [Validators.required]],
-    resources: this.fb.array([this.createItem('', '')]),
+    resources: this.fb.array([]),
     isSample: [null, [Validators.required]]
   });
 
@@ -142,8 +142,8 @@ export class VideoUpdateComponent implements OnInit {
     this.resources.push(this.createItem(name, url));
   }
 
-  removeResources() {
-    this.resources.removeAt(this.resources.length - 1);
+  removeResources(resourceIndex: number) {
+    this.resources.removeAt(resourceIndex);
   }
 
   private createItem(name: string, url: string): FormGroup {
