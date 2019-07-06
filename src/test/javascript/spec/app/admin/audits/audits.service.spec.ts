@@ -35,7 +35,12 @@ describe('Service Tests', () => {
       });
 
       it('should return Audits', () => {
-        const audit = new Audit({ remoteAddress: '127.0.0.1', sessionId: '123' }, 'user', '20140101', 'AUTHENTICATION_SUCCESS');
+        const audit = new Audit(
+          { remoteAddress: '127.0.0.1', sessionId: '123', message: 'test' },
+          'user',
+          '20140101',
+          'AUTHENTICATION_SUCCESS'
+        );
 
         service.query({}).subscribe(received => {
           expectedResult = received;
