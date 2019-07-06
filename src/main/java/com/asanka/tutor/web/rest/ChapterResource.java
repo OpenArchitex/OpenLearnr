@@ -86,6 +86,7 @@ public class ChapterResource {
      * or with status {@code 500 (Internal Server Error)} if the chapterDTO couldn't be updated.
      */
     @PutMapping("/chapters")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<ChapterDTO> updateChapter(@Valid @RequestBody ChapterDTO chapterDTO) {
         log.debug("REST request to update Chapter : {}", chapterDTO);
         if (chapterDTO.getId() == null) {
@@ -128,6 +129,7 @@ public class ChapterResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/chapters/{id}")
+    @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteChapter(@PathVariable String id) {
         log.debug("REST request to delete Chapter : {}", id);
         chapterService.delete(id);
