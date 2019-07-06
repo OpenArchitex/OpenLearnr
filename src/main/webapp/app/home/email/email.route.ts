@@ -13,6 +13,15 @@ export const EMAIL_ROUTE: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
+    path: 'register/email',
+    component: EmailComponent,
+    data: {
+      authorities: [],
+      pageTitle: 'ContactForm'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
     path: 'course/:id/view/email',
     component: EmailComponent,
     data: {

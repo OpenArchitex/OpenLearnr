@@ -1,16 +1,20 @@
 .stripe-row {
-    max-width: 560px;
+  max-width: 560px;
 }
 
 .submitButton {
-    margin-top: 20px;
-    margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 mat-card-content {
-    margin-left: 13px;
+  margin-left: 13px;
 }
 
 .manual_payment {
-    text-decoration: none;
+  text-decoration: none;
+}
+
+.payment_info {
+  margin-top: 10em;
 }
