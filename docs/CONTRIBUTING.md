@@ -21,7 +21,7 @@ should pass the standard unit and integration tests (automatically run by Travis
 - Also please make sure your tests pass the [Sonar](https://sonarcloud.io/dashboard?id=com.asanka.tutor%3Aonline-tutor) quality
 analysis. We strive to maintain A grade for all sections. 
 
-- All code should ideally be accompaniew with unit tests. JUnit and Jest is used for backend and front-end unit testing. Please refer to the 
+- All code should ideally be accompanied with unit tests. JUnit and Jest is used for backend and front-end unit testing. Please refer to the 
 standard [JHipster documentation](https://www.jhipster.tech/running-tests/) on testing. 
 
 :snowman: This is all for now. Hope to update this document as we go along. If you have any suggessions please feel free to direct them
