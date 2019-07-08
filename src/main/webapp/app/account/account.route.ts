@@ -15,7 +15,7 @@ const ACCOUNT_ROUTES = [
   passwordRoute,
   passwordResetFinishRoute,
   passwordResetInitRoute,
-  registerRoute,
+  ...registerRoute,
   settingsRoute,
   ...subscribeRoute
 ];
