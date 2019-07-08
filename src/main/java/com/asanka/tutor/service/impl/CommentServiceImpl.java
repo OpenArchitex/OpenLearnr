@@ -5,6 +5,7 @@ import com.asanka.tutor.domain.Comment;
 import com.asanka.tutor.repository.CommentRepository;
 import com.asanka.tutor.service.dto.CommentDTO;
 import com.asanka.tutor.service.mapper.CommentMapper;
+import com.asanka.tutor.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +44,29 @@ public class CommentServiceImpl implements CommentService {
         log.debug("Request to save Comment : {}", commentDTO);
         Comment comment = commentMapper.toEntity(commentDTO);
         comment = commentRepository.save(comment);
+        return commentMapper.toDto(comment);
+    }
+
+    /**
+     * Update a comment.
+     *
+     * @param commentDTO the entity to save.
+     * @return the persisted entity.
+     */
+    @Override
+    public CommentDTO update(CommentDTO commentDTO) {
+        log.debug("Request to update Comment : {}", commentDTO);
+        Optional<Comment> oldComment = commentRepository.findById(commentDTO.getId());
+        if (!oldComment.isPresent()) {
+            throw new BadRequestAlertException("Invalid id", "comment", "does not exist");
+        }
+        Comment commentModified = oldComment.get();
+        commentModified.setVideoID(commentDTO.getVideoID());
+        commentModified.setCommentBody(commentDTO.getCommentBody());
+        commentModified.setIsApproved(commentDTO.isIsApproved());
+        commentModified.setLikesCount(commentDTO.getLikesCount());
+        commentModified.setDislikesCount(commentDTO.getDislikesCount());
+        Comment comment = commentRepository.save(commentModified);
         return commentMapper.toDto(comment);
     }
 

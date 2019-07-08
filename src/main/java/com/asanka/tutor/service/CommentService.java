@@ -19,6 +19,14 @@ public interface CommentService {
     CommentDTO save(CommentDTO commentDTO);
 
     /**
+     * Update a comment.
+     *
+     * @param commentDTO the entity to save.
+     * @return the persisted entity.
+     */
+    CommentDTO update(CommentDTO commentDTO);
+
+    /**
      * Get all the comments.
      *
      * @return the list of entities.

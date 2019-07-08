@@ -83,12 +83,12 @@ public class CommentResource {
     public ResponseEntity<CommentDTO> updateComment(@Valid @RequestBody CommentDTO commentDTO) {
         log.debug("REST request to update Comment : {}", commentDTO);
         if (commentDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "is null");
         }
         Optional<CommentDTO> oldComment = commentService.findOne(commentDTO.getId());
-        CommentDTO result = commentService.save(commentDTO);
+        CommentDTO result = commentService.update(commentDTO);
         Optional<User> currentUser = userService.getUserWithAuthorities();
-        if(currentUser.isPresent()) {
+        if(currentUser.isPresent() && oldComment.isPresent()) {
             AuditEvent event = new AuditEvent(currentUser.get().getLogin(), "COMMENT UPDATED", "message=Comment (before update): " + oldComment.get().toString());
             customAuditEventRepository.add(event);
         }
@@ -146,7 +146,7 @@ public class CommentResource {
         Optional<CommentDTO> oldComment = commentService.findOne(id);
         commentService.delete(id);
         Optional<User> currentUser = userService.getUserWithAuthorities();
-        if (currentUser.isPresent()) {
+        if (currentUser.isPresent() && oldComment.isPresent()) {
             AuditEvent event = new AuditEvent(currentUser.get().getLogin(), "COMMENT DELETED", "message=Comment: " + oldComment.get().toString());
             customAuditEventRepository.add(event);
         }
