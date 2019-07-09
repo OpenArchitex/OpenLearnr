@@ -7,7 +7,6 @@ node_js:
   - '10.16.0'
 jdk:
   - oraclejdk8
-sudo: false
 cache:
   directories:
     - node
@@ -33,10 +32,10 @@ install:
   - yarn install
 script:
   - chmod +x mvnw
-  - sudo ./mvnw clean verify
-  - sudo ./mvnw com.github.eirslett:frontend-maven-plugin:yarn -Dfrontend.yarn.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
-  - sudo ./mvnw org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.organization=python-sinhala-education-society -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
-  - sudo ./mvnw verify -Pprod -DskipTests
+  - ./mvnw clean verify
+  - ./mvnw com.github.eirslett:frontend-maven-plugin:yarn -Dfrontend.yarn.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
+  - ./mvnw org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.organization=python-sinhala-education-society -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+  - ./mvnw verify -Pprod -DskipTests
 notifications:
   webhooks:
     urls:
