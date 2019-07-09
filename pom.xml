@@ -5,7 +5,7 @@
 
     <groupId>com.asanka.tutor</groupId>
     <artifactId>online-tutor</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Online Tutor</name>
 
@@ -652,7 +652,6 @@
                     <version>2.0.0</version>
                     <configuration>
                         <deploy.projectId>GCLOUD_CONFIG</deploy.projectId>
-                        <deploy.version>rc-1-alpha5</deploy.version>
                         <environment>
                             <name>spring.profiles.active</name>
                             <value>prod${profile.swagger}</value>

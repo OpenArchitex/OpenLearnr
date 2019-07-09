@@ -10,9 +10,10 @@
             </div>
 
             <div class="alert alert-danger" *ngIf="error">
-                <strong>Your user could not be activated.</strong> Please use the registration form to sign up.
+                <strong>Your user could not be activated.</strong> This is probably because you have already activated your account.
+                Please try to <a routerLink="/" (click)="login()">log in</a>.
+                If you have not registered, please use the registration form to <a routerLink="register">sign up</a>.
             </div>
-
         </div>
     </div>
     </div>
