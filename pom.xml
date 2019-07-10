@@ -653,6 +653,7 @@
                     <configuration>
                         <deploy.projectId>GCLOUD_CONFIG</deploy.projectId>
                         <deploy.version>GCLOUD_CONFIG</deploy.version>
+                        <serviceAccountKeyFile>gcloudkey.json</serviceAccountKeyFile>
                         <environment>
                             <name>spring.profiles.active</name>
                             <value>prod${profile.swagger}</value>
