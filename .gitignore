@@ -143,3 +143,9 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+
+######################
+# Deployment Specific
+######################
+gcloudkey.json
+secrets.tar
