@@ -30,6 +30,7 @@ before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH=$HOME/.yarn/bin:$PATH
   - echo $super_secret_password | gpg --passphrase-fd 0 secrets.tar.gpg
+  - tar xvf secrets.tar
 install:
   - yarn install
 script:
