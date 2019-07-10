@@ -1,4 +1,4 @@
-if [[ v1.0.0 =~ ^v(.+) ]]; then
+if [[ $TRAVIS_TAG =~ ^v(.+) ]]; then
     # Decrypt the secrets file
     echo $super_secret_password | gpg --passphrase-fd 0 secrets.tar.gpg
     tar xvf secrets.tar
