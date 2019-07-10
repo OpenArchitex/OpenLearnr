@@ -46,5 +46,5 @@ notifications:
     on_start: false # default: false
 after_success:
   - if [$TRAVIS_BRANCH == "master" && $TRAVIS_TAG =~ "^v(.+)"]; then
-    - bash ./deploy.sh
+    - bash ./deploy.sh;
     fi
