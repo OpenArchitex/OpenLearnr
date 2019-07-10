@@ -656,6 +656,7 @@
                             <name>spring.profiles.active</name>
                             <value>prod${profile.swagger}</value>
                         </environment>
+                        <additionalArguments>--service_account_json_key_file=gcloudkey.json</additionalArguments>
                     </configuration>
                 </plugin>
             </plugins>
