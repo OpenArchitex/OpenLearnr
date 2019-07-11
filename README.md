@@ -6,6 +6,8 @@ It's our hope to improve the codebase inorder to create a full fledged web appli
 
 For instructions on how to build and run the project please refer to our [Development Documentation](https://github.com/python-sinhala-education-society/OnlineTutor/blob/master/docs/DEVELOPER_DOCUMENTATION.md). If you are interested in contibuting please refer to [Contributor Documentation](https://github.com/python-sinhala-education-society/OnlineTutor/blob/master/docs/CONTRIBUTING.md).
 
+If you find any security related issue or vulnerability please refer to our [Security Policy](https://github.com/python-sinhala-education-society/OnlineTutor/blob/develop/SECURITY.md) on how to report them. 
+
 Please refer to our [Code of Conduct](https://github.com/python-sinhala-education-society/OnlineTutor/blob/master/docs/CODE_OF_CONDUCT.md) before posting or engaging in any form of discussion within the project.
 
 ---
