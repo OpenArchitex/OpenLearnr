@@ -52,7 +52,7 @@ public class DatabaseConfiguration {
     }
 
     /* As per issue https://github.com/jhipster/generator-jhipster/issues/8665, Mongo Atlas has problems with Mongobee; so we
-    * replace this file at deployment time.
+    * replace this file at deployment time with the following annotation commented out.
     */
     @Bean
     public Mongobee mongobee(MongoClient mongoClient, MongoTemplate mongoTemplate, MongoProperties mongoProperties) {
