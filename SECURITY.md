@@ -1,7 +1,5 @@
 # Security Policy
 
-## Supported Versions
-
 We take security very seriously and try to patch each discovered security vulnerability as soon as possible. Also we use 
 [automated tools](https://dependabot.com/) to continually monitor vulnerable dependencies. 
 
