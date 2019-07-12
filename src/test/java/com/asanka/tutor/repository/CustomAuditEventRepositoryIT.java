@@ -1,6 +1,6 @@
 package com.asanka.tutor.repository;
 
-import com.asanka.tutor.OnlineTutorApp;
+import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.config.Constants;
 import com.asanka.tutor.config.audit.AuditEventConverter;
 import com.asanka.tutor.domain.PersistentAuditEvent;
@@ -26,7 +26,7 @@ import static com.asanka.tutor.repository.CustomAuditEventRepository.EVENT_DATA_
 /**
  * Integration tests for {@link CustomAuditEventRepository}.
  */
-@SpringBootTest(classes = OnlineTutorApp.class)
+@SpringBootTest(classes = OpenLearnrApp.class)
 public class CustomAuditEventRepositoryIT {
 
     @Autowired

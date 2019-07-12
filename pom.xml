@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.asanka.tutor</groupId>
-    <artifactId>online-tutor</artifactId>
+    <artifactId>open-learnr</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>Online Tutor</name>
+    <name>Open Learnr</name>
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
@@ -477,7 +477,7 @@
                             <image>adoptopenjdk:11-jre-hotspot</image>
                         </from>
                         <to>
-                            <image>onlinetutor:latest</image>
+                            <image>openlearnr:latest</image>
                         </to>
                         <container>
                             <entrypoint>

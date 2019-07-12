@@ -8,12 +8,12 @@ import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
 import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
-import { OnlineTutorSharedModule } from 'app/shared';
-import { OnlineTutorCoreModule } from 'app/core';
-import { OnlineTutorAppRoutingModule } from './app-routing.module';
-import { OnlineTutorHomeModule } from './home/home.module';
-import { OnlineTutorAccountModule } from './account/account.module';
-import { OnlineTutorEntityModule } from './entities/entity.module';
+import { OpenLearnrSharedModule } from 'app/shared';
+import { OpenLearnrCoreModule } from 'app/core';
+import { OpenLearnrAppRoutingModule } from './app-routing.module';
+import { OpenLearnrHomeModule } from './home/home.module';
+import { OpenLearnrAccountModule } from './account/account.module';
+import { OpenLearnrEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,12 +29,12 @@ import { NgJhipsterModule } from 'ng-jhipster';
       alertAsToast: false,
       alertTimeout: 5000
     }),
-    OnlineTutorSharedModule.forRoot(),
-    OnlineTutorCoreModule,
-    OnlineTutorHomeModule,
-    OnlineTutorAccountModule,
-    OnlineTutorEntityModule,
-    OnlineTutorAppRoutingModule,
+    OpenLearnrSharedModule.forRoot(),
+    OpenLearnrCoreModule,
+    OpenLearnrHomeModule,
+    OpenLearnrAccountModule,
+    OpenLearnrEntityModule,
+    OpenLearnrAppRoutingModule,
     BrowserAnimationsModule
     // jhipster-needle-angular-add-module JHipster will add new module here
   ],
@@ -63,7 +63,7 @@ import { NgJhipsterModule } from 'ng-jhipster';
   ],
   bootstrap: [JhiMainComponent]
 })
-export class OnlineTutorAppModule {
+export class OpenLearnrAppModule {
   constructor(private dpConfig: NgbDatepickerConfig) {
     this.dpConfig.minDate = { year: moment().year() - 100, month: 1, day: 1 };
   }

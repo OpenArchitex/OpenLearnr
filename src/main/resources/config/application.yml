@@ -57,7 +57,7 @@ management:
 
 spring:
   application:
-    name: OnlineTutor
+    name: OpenLearnr
   profiles:
     # The commented value for `active` can be replaced with valid Spring profiles to load.
     # Otherwise, it will be filled in by maven when building the JAR file
@@ -74,13 +74,13 @@ spring:
       enabled: false
   task:
     execution:
-      thread-name-prefix: online-tutor-task-
+      thread-name-prefix: open-learnr-task-
       pool:
         core-size: 2
         max-size: 50
         queue-capacity: 10000
     scheduling:
-      thread-name-prefix: online-tutor-scheduling-
+      thread-name-prefix: open-learnr-scheduling-
       pool:
         size: 2
   thymeleaf:
@@ -105,7 +105,7 @@ info:
 
 jhipster:
   clientApp:
-    name: 'onlineTutorApp'
+    name: 'openLearnrApp'
   # By default CORS is disabled. Uncomment to enable.
   # cors:
   #     allowed-origins: "*"
@@ -115,11 +115,11 @@ jhipster:
   #     allow-credentials: true
   #     max-age: 1800
   mail:
-    from: OnlineTutor@localhost
+    from: OpenLearnr@localhost
   swagger:
     default-include-pattern: /api/.*
-    title: OnlineTutor API
-    description: OnlineTutor API documentation
+    title: OpenLearnr API
+    description: OpenLearnr API documentation
     version: 0.0.1
     terms-of-service-url:
     contact-name:

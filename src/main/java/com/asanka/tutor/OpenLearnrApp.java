@@ -2,9 +2,7 @@ package com.asanka.tutor;
 
 import com.asanka.tutor.config.ApplicationProperties;
 import com.asanka.tutor.config.DefaultProfileUtil;
-
 import io.github.jhipster.config.JHipsterConstants;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,18 +19,18 @@ import java.util.Collection;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ApplicationProperties.class})
-public class OnlineTutorApp implements InitializingBean {
+public class OpenLearnrApp implements InitializingBean {
 
-    private static final Logger log = LoggerFactory.getLogger(OnlineTutorApp.class);
+    private static final Logger log = LoggerFactory.getLogger(OpenLearnrApp.class);
 
     private final Environment env;
 
-    public OnlineTutorApp(Environment env) {
+    public OpenLearnrApp(Environment env) {
         this.env = env;
     }
 
     /**
-     * Initializes OnlineTutor.
+     * Initializes OpenLearnr.
      * <p>
      * Spring profiles can be configured with a program argument --spring.profiles.active=your-active-profile
      * <p>
@@ -57,7 +55,7 @@ public class OnlineTutorApp implements InitializingBean {
      * @param args the command line arguments.
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(OnlineTutorApp.class);
+        SpringApplication app = new SpringApplication(OpenLearnrApp.class);
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);

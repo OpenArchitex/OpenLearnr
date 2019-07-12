@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { OnlineTutorSharedModule } from 'app/shared';
+import { OpenLearnrSharedModule } from 'app/shared';
 import { HOME_ROUTE, HomeComponent } from './';
 import { MatButtonModule, MatInputModule, MatSnackBarModule } from '@angular/material';
 import { EmailComponent } from './email/email.component';
@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
-    OnlineTutorSharedModule,
+    OpenLearnrSharedModule,
     RouterModule.forChild([HOME_ROUTE, ...EMAIL_ROUTE]),
     MatSnackBarModule,
     MatButtonModule,
@@ -20,4 +20,4 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [HomeComponent, EmailComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class OnlineTutorHomeModule {}
+export class OpenLearnrHomeModule {}

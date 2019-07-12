@@ -1,6 +1,6 @@
 package com.asanka.tutor.service;
 
-import com.asanka.tutor.OnlineTutorApp;
+import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.config.Constants;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.UserRepository;
@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Integration tests for {@link UserService}.
  */
-@SpringBootTest(classes = OnlineTutorApp.class)
+@SpringBootTest(classes = OpenLearnrApp.class)
 public class UserServiceIT {
 
     private static final String DEFAULT_LOGIN = "johndoe";

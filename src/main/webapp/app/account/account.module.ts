@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { OnlineTutorSharedModule } from 'app/shared';
+import { OpenLearnrSharedModule } from 'app/shared';
 import { SubscribeComponent } from './subscribe/subscribe.component';
 import { MatButtonModule, MatCardModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ import {
 
 @NgModule({
   imports: [
-    OnlineTutorSharedModule,
+    OpenLearnrSharedModule,
     RouterModule.forChild(accountState),
     MatButtonModule,
     MatInputModule,
@@ -40,4 +40,4 @@ import {
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class OnlineTutorAccountModule {}
+export class OpenLearnrAccountModule {}

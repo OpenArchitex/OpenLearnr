@@ -4,7 +4,7 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { of } from 'rxjs';
 
-import { OnlineTutorTestModule } from '../../../test.module';
+import { OpenLearnrTestModule } from '../../../test.module';
 import { CommentUpdateComponent } from 'app/entities/comment/comment-update.component';
 import { CommentService } from 'app/entities/comment/comment.service';
 import { Comment } from 'app/shared/model/comment.model';
@@ -17,7 +17,7 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [OnlineTutorTestModule],
+        imports: [OpenLearnrTestModule],
         declarations: [CommentUpdateComponent],
         providers: [FormBuilder]
       })

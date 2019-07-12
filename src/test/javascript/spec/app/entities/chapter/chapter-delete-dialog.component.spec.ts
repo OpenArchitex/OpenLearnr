@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { OnlineTutorTestModule } from '../../../test.module';
+import { OpenLearnrTestModule } from '../../../test.module';
 import { ChapterDeleteDialogComponent } from 'app/entities/chapter/chapter-delete-dialog.component';
 import { ChapterService } from 'app/entities/chapter/chapter.service';
 
@@ -18,7 +18,7 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [OnlineTutorTestModule],
+        imports: [OpenLearnrTestModule],
         declarations: [ChapterDeleteDialogComponent]
       })
         .overrideTemplate(ChapterDeleteDialogComponent, '')

@@ -11,7 +11,7 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
       [
         {
           path: 'admin',
-          loadChildren: './admin/admin.module#OnlineTutorAdminModule'
+          loadChildren: './admin/admin.module#OpenLearnrAdminModule'
         },
         ...LAYOUT_ROUTES
       ],
@@ -20,4 +20,4 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
   ],
   exports: [RouterModule]
 })
-export class OnlineTutorAppRoutingModule {}
+export class OpenLearnrAppRoutingModule {}

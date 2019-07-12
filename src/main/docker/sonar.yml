@@ -1,6 +1,6 @@
 version: '2'
 services:
-  onlinetutor-sonar:
+  openlearnr-sonar:
     image: sonarqube:7.7-community
     ports:
       - 9001:9000
