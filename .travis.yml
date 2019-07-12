@@ -8,7 +8,7 @@ node_js:
 jdk:
   - oraclejdk8
 git:
-  depth: false
+  - depth: false
 cache:
   directories:
     - node
