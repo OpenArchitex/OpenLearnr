@@ -7,11 +7,35 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg8"
    version="1.1"
    viewBox="0 0 84.415481 10.913572"
    height="10.913572mm"
-   width="84.415482mm">
+   width="84.415482mm"
+   sodipodi:docname="OpenLearnr.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1600"
+     inkscape:window-height="837"
+     id="namedview55"
+     showgrid="false"
+     inkscape:zoom="3.5605633"
+     inkscape:cx="144.34901"
+     inkscape:cy="17.022057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
   <defs
      id="defs2">
     <linearGradient
@@ -152,7 +176,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -175,14 +199,14 @@
        id="g2777">
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.99293709px;line-height:1.25;font-family:'IBM Plex Mono';-inkscape-font-specification:'IBM Plex Mono';letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.29982343"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.99293709px;line-height:1.25;font-family:'IBM Plex Mono Medium';-inkscape-font-specification:'IBM Plex Mono Medium, ';letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.29982343;"
          x="40.680012"
          y="82.783562"
          id="text817"><tspan
            id="tspan815"
            x="40.680012"
            y="82.783562"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'IBM Plex Mono';-inkscape-font-specification:'IBM Plex Mono';fill:#4d4d4d;fill-opacity:1;stroke-width:0.29982343">OpenLearnr</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'IBM Plex Mono Medium';-inkscape-font-specification:'IBM Plex Mono Medium, ';fill:#4d4d4d;fill-opacity:1;stroke-width:0.29982343;">OpenLearnr</tspan></text>
       <g
          id="g2682"
          style="stroke:#00d5ff;stroke-opacity:0.52486189"
