@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class REPLResource {
     private REPLClient replClient;
-    private final Logger log = LoggerFactory.getLogger(PaymentController.class);
+    private final Logger log = LoggerFactory.getLogger(REPLResource.class);
 
     @Autowired
     public REPLResource(REPLClient replClient) {

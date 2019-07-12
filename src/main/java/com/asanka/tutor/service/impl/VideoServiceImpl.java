@@ -2,17 +2,15 @@ package com.asanka.tutor.service.impl;
 
 import com.asanka.tutor.domain.Authority;
 import com.asanka.tutor.domain.User;
-import com.asanka.tutor.repository.UserRepository;
+import com.asanka.tutor.domain.Video;
+import com.asanka.tutor.repository.VideoRepository;
 import com.asanka.tutor.security.AuthoritiesConstants;
 import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.VideoService;
-import com.asanka.tutor.domain.Video;
-import com.asanka.tutor.repository.VideoRepository;
 import com.asanka.tutor.service.dto.VideoDTO;
 import com.asanka.tutor.service.mapper.VideoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -35,7 +33,7 @@ public class VideoServiceImpl implements VideoService {
 
     private final VideoMapper videoMapper;
 
-    public VideoServiceImpl(VideoRepository videoRepository, VideoMapper videoMapper, UserRepository userRepository, UserService userService) {
+    public VideoServiceImpl(VideoRepository videoRepository, VideoMapper videoMapper, UserService userService) {
         this.videoRepository = videoRepository;
         this.videoMapper = videoMapper;
         this.userService = userService;
