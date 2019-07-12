@@ -5,7 +5,7 @@ we would like to highlight in terms of contributing to this repository.
 
 ## Bug Reports and New Features
 
-- If you have any issue please report that using [Github Issues](https://github.com/python-sinhala-education-society/OnlineTutor/issues). 
+- If you have any issue please report that using [Github Issues](https://github.com/python-sinhala-education-society/OpenLearnr/issues). 
 Currently there's two kinds; Bug Reports and New Features. 
 
 - When writing a Bug Report or asking for a New Feature, please follow the template provided. Fill in the sections as much as you could so 
