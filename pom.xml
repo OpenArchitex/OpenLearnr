@@ -654,6 +654,7 @@
                         <deploy.projectId>pythonsinhala-243503</deploy.projectId>
                         <deploy.version>GCLOUD_CONFIG</deploy.version>
                         <serviceAccountKeyFile>gcloudkey.json</serviceAccountKeyFile>
+                        <stopPreviousVersion>true</stopPreviousVersion>
                         <environment>
                             <name>spring.profiles.active</name>
                             <value>prod${profile.swagger}</value>
