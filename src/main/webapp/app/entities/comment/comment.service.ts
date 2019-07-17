@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IComment } from 'app/shared/model/comment.model';
+import { ICommentReply } from 'app/shared/model/comment-reply.model';
 
 type EntityResponseType = HttpResponse<IComment>;
 type EntityArrayResponseType = HttpResponse<IComment[]>;
@@ -21,6 +22,14 @@ export class CommentService {
 
   update(comment: IComment): Observable<EntityResponseType> {
     return this.http.put<IComment>(this.resourceUrl, comment, { observe: 'response' });
+  }
+
+  addReply(reply: ICommentReply): Observable<EntityResponseType> {
+    return this.http.post<ICommentReply>(this.resourceUrl + '/addReply', reply, { observe: 'response' });
+  }
+
+  updateReply(reply: ICommentReply): Observable<EntityResponseType> {
+    return this.http.put<ICommentReply>(this.resourceUrl + '/updateReply', reply, { observe: 'response' });
   }
 
   find(id: string): Observable<EntityResponseType> {

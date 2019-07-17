@@ -93,22 +93,63 @@
                                     <div *ngIf="comments.length != 0">
                                         <h3>{{comments.length}} Comments</h3>
                                         <!-- COMMENT - START -->
-                                        <div *ngFor="let comment of comments" class="media">
-                                            <img class="img-fluid" [src]="profilePicURL(comment.createdBy)"
-                                                 alt="Profile Picture">
-                                            <div class="media-body">
-                                                <h4 class="media-heading">{{comment.createdBy}}</h4>
-                                                <p>{{comment.commentBody}}</p>
-                                                <ul class="list-unstyled list-inline media-detail float-md-left">
-                                                    <li class="list-inline-item">
-                                                        <fa-icon [icon]="'calendar'"></fa-icon>
-                                                        {{comment.createdDate | date:'dd/MM/yy HH:mm'}}</li>
-                                                    <!--<li class="list-inline-item"><fa-icon [icon]="'thumbs-up'" ></fa-icon> {{comment.likesCount}}</li>-->
-                                                </ul>
-                                                <ul class="list-unstyled list-inline media-detail float-md-right">
-                                                    <!--<li class="list-inline-item"><a (click)=incrementLikesCount(comment)>Like</a></li>-->
-                                                    <!--<li class="list-inline-item"><a >Reply</a></li>-->
-                                                </ul>
+                                        <div *ngFor="let commentEle of comments">
+                                            <div class="media">
+                                                <img class="img-fluid" [src]="profilePicURL(commentEle.createdBy)"
+                                                     alt="Profile Picture">
+                                                <div class="media-body">
+                                                    <h4 class="media-heading">{{commentEle.createdBy}}</h4>
+                                                    <p>{{commentEle.commentBody}}</p>
+                                                    <ul class="list-unstyled list-inline media-detail float-md-left">
+                                                        <li class="list-inline-item">
+                                                            <fa-icon [icon]="'calendar'"></fa-icon>
+                                                            {{commentEle.createdDate | date:'dd/MM/yy HH:mm'}}</li>
+                                                        <!--<li class="list-inline-item"><fa-icon [icon]="'thumbs-up'" ></fa-icon> {{comment.likesCount}}</li>-->
+                                                    </ul>
+                                                    <ul class="list-unstyled list-inline media-detail float-md-right">
+                                                        <!--<li class="list-inline-item"><a (click)=incrementLikesCount(comment)>Like</a></li>-->
+                                                        <li class="list-inline-item" *ngIf="isAuthenticated()"><a (click)="showReplyFormID=commentEle.id">Reply</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-sm-10">
+                                                    <form (ngSubmit)="saveReply(replyForm, commentEle.id)" #replyForm="ngForm"
+                                                          *ngIf="isAuthenticated() && showReplyFormID==commentEle.id">
+                                                        <h3 class="float-md-left">New Reply</h3>
+                                                        <button type="submit" class="btn btn-primary float-md-right"
+                                                                [disabled]="replyForm.form.invalid || isSaving">Submit
+                                                        </button>
+                                                        <fieldset>
+                                                            <div class="row">
+                                                                <div class="col-sm-3 col-lg-2 d-none d-sm-block">
+                                                                    <img class="img-fluid" [src]="profilePicURL()"
+                                                                         alt="Profile Picture">
+                                                                </div>
+                                                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                                                    <textarea name="comment_body" [(ngModel)]="reply.replyBody" class="form-control" id="reply" placeholder="Your message" required></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </form>
+                                                    <div *ngIf="commentEle.replies != undefined && commentEle.replies.length != 0">
+                                                        <div *ngFor="let commentReply of commentEle.replies">
+                                                            <div class="media" *ngIf="commentReply.approved">
+                                                                <img class="img-fluid" [src]="profilePicURL(commentReply.createdBy)"
+                                                                     alt="Profile Picture">
+                                                                <div class="media-body">
+                                                                    <h4 class="media-heading">{{commentReply.createdBy}}</h4>
+                                                                    <p>{{commentReply.replyBody}}</p>
+                                                                    <ul class="list-unstyled list-inline media-detail float-md-left">
+                                                                        <li class="list-inline-item">
+                                                                            <fa-icon [icon]="'calendar'"></fa-icon>
+                                                                            {{commentReply.createdDate | date:'dd/MM/yy HH:mm'}}</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -1,8 +1,10 @@
 package com.asanka.tutor.web.rest;
 
+import com.asanka.tutor.domain.CommentReply;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.security.AuthoritiesConstants;
+import com.asanka.tutor.security.UserNotLoggedInException;
 import com.asanka.tutor.service.CommentService;
 import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.dto.CommentDTO;
@@ -94,6 +96,40 @@ public class CommentResource {
         }
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, commentDTO.getId()))
+            .body(result);
+    }
+
+    /**
+     * {@code PUT  /comments/addReply} : Add a reply to a comment.
+     *
+     * @param commentReply the reply for a comment.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated commentDTO,
+     * or with status {@code 400 (Bad Request)} if the commentDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the commentDTO couldn't be updated.
+     */
+    @PostMapping("/comments/addReply")
+    @Secured(AuthoritiesConstants.USER)
+    public ResponseEntity<CommentDTO> addReplyToComment(@Valid @RequestBody CommentReply commentReply) {
+        log.debug("REST request to add reply to Comment : {}", commentReply);
+        if (commentReply.getCommentID() == null) {
+            throw new BadRequestAlertException("Invalid comment id " + commentReply.getCommentID(), ENTITY_NAME, "is null");
+        }
+        Optional<CommentDTO> oldComment = commentService.findOne(commentReply.getCommentID());
+        if (!oldComment.isPresent()) {
+            throw new BadRequestAlertException("Invalid comment id " + commentReply.getCommentID(), ENTITY_NAME, "is null");
+        }
+        Optional<User> currentUser = userService.getUserWithAuthorities();
+        if (!currentUser.isPresent()) {
+            throw new UserNotLoggedInException("The user seems not to be logged in.");
+        }
+        commentReply.setCreatedBy(currentUser.get().getLogin());
+        oldComment.get().getReplies().add(commentReply);
+        CommentDTO result = commentService.update(oldComment.get());
+        AuditEvent event = new AuditEvent(currentUser.get().getLogin(), "COMMENT ADD REPLY", "message=Comment: " + oldComment.get().toString());
+        customAuditEventRepository.add(event);
+
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, oldComment.get().getId()))
             .body(result);
     }
 

@@ -66,6 +66,7 @@ public class CommentServiceImpl implements CommentService {
         commentModified.setIsApproved(commentDTO.isIsApproved());
         commentModified.setLikesCount(commentDTO.getLikesCount());
         commentModified.setDislikesCount(commentDTO.getDislikesCount());
+        commentModified.setReplies(commentDTO.getReplies());
         Comment comment = commentRepository.save(commentModified);
         return commentMapper.toDto(comment);
     }
