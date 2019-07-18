@@ -28,10 +28,6 @@ export class CommentService {
     return this.http.post<ICommentReply>(this.resourceUrl + '/addReply', reply, { observe: 'response' });
   }
 
-  updateReply(reply: ICommentReply): Observable<EntityResponseType> {
-    return this.http.put<ICommentReply>(this.resourceUrl + '/updateReply', reply, { observe: 'response' });
-  }
-
   find(id: string): Observable<EntityResponseType> {
     return this.http.get<IComment>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
