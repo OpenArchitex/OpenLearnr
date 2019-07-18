@@ -138,7 +138,7 @@
                                                                 <img class="img-fluid" [src]="profilePicURL(commentReply.createdBy)"
                                                                      alt="Profile Picture">
                                                                 <div class="media-body">
-                                                                    <h4 class="media-heading">{{commentReply.createdBy}}</h4>
+                                                                    <h4 class="media-heading">{{commentReply.createdBy}}<span *jhiHasAnyAuthority="'ROLE_ADMIN'" class="badge badge-pill badge-primary admin_badge">Admin</span></h4>
                                                                     <p>{{commentReply.replyBody}}</p>
                                                                     <ul class="list-unstyled list-inline media-detail float-md-left">
                                                                         <li class="list-inline-item">
