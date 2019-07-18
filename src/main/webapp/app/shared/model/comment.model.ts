@@ -1,7 +1,10 @@
+import { ICommentReply } from 'app/shared/model/comment-reply.model';
+
 export interface IComment {
   id?: string;
   videoID?: string;
   commentBody?: string;
+  replies?: ICommentReply[];
   likesCount?: number;
   dislikesCount?: number;
   isApproved?: boolean;
@@ -16,6 +19,7 @@ export class Comment implements IComment {
     public id?: string,
     public videoID?: string,
     public commentBody?: string,
+    public replies?: ICommentReply[],
     public likesCount?: number,
     public dislikesCount?: number,
     public isApproved?: boolean,

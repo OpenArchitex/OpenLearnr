@@ -21,24 +21,42 @@
             <th><span>ID</span></th>
             <th><span>Video ID</span></th>
             <th><span>Comment Body</span></th>
-            <th><span>Likes Count</span></th>
-            <th><span>Dislikes Count</span></th>
-            <th><span>Is Approved</span></th>
+            <th><span>Non Approved Comment/Replies</span></th>
+<!--            <th><span>Likes Count</span></th>-->
+<!--            <th><span>Dislikes Count</span></th>-->
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let comment of comments ;trackBy: trackId">
-                <td><a [routerLink]="['/comment', comment.id, 'view' ]">{{comment.id}}</a></td>
+                <td><a [routerLink]="['/comment', comment.id, 'view']">{{comment.id}}</a></td>
                 <td>{{comment.videoID}}</td>
                 <td>{{comment.commentBody}}</td>
-                <td>{{comment.likesCount}}</td>
-                <td>{{comment.dislikesCount}}</td>
-                <td>{{comment.isApproved}}</td>
+                <td>
+                    <ul class="list-unstyled">
+                        <li *ngFor="let commentAndReplies of commentAndAllReplies(comment)">
+                            <button class="btn" type="submit" (click)="changeToApprove(comment, commentAndReplies)"><fa-icon [icon]="commentAndReplies.approved ? 'check': 'question'"></fa-icon> {{commentAndReplies.commentBody}}</button>
+                        </li>
+                        <li>
+                            <div class="btn-group">
+                                <button type="submit" (click)="approveComment(comment)" class="btn btn-warning btn-sm">
+                                    <fa-icon [icon]="'check'"></fa-icon>
+                                    <span class="d-none d-md-inline">Confirm</span>
+                                </button>
+                                <button type="submit" (click)="resetComment()" class="btn btn-primary btn-sm">
+                                    <fa-icon [icon]="'sync'"></fa-icon>
+                                    <span class="d-none d-md-inline">Reset</span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </td>
+<!--                <td>{{comment.likesCount}}</td>-->
+<!--                <td>{{comment.dislikesCount}}</td>-->
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"
-                                [routerLink]="['/comment', comment.id, 'view' ]"
+                                [routerLink]="['/comment', comment.id, 'view']"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline">View</span>

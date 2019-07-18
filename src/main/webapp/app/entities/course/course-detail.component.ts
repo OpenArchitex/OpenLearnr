@@ -14,6 +14,7 @@ import { CommentService } from 'app/entities/comment';
 import { MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { AccountService } from 'app/core';
+import { ICommentReply } from 'app/shared/model/comment-reply.model';
 
 interface NavItem {
   chapterName: string;
@@ -35,7 +36,9 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   _mobileQueryListener: () => void;
   comment: IComment;
+  reply: ICommentReply;
   isSaving: boolean;
+  showReplyFormID: string;
 
   static previousState() {
     window.history.back();
@@ -63,6 +66,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
       this.navItems = [];
       this.comments = [];
       this.comment = { isApproved: false };
+      this.reply = { commentID: '', replyBody: '', createdBy: '', createdDate: new Date(), approved: false };
       this.clickedVideo = null;
       this.isSaving = false;
       this.loadAllChaptersForCourse(course);
@@ -155,5 +159,24 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
 
   public getResources() {
     return this.clickedVideo.resources.filter(value => value.name.length > 0);
+  }
+
+  public saveReply(form: NgForm, commentID: string) {
+    this.isSaving = true;
+    this.reply.commentID = commentID;
+    this.commentsService.addReply(this.reply).subscribe(
+      () => {
+        this.isSaving = false;
+        this._snackBar.open('Thanks for your comment. We will review and publish it soon!', null, {
+          duration: 5000,
+          panelClass: ['login-snack-bar']
+        });
+        form.reset();
+      },
+      (res: HttpErrorResponse) => {
+        this.onError(res.message);
+        this.isSaving = false;
+      }
+    );
   }
 }
