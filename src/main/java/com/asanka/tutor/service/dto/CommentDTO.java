@@ -1,10 +1,13 @@
 package com.asanka.tutor.service.dto;
 
 import com.asanka.tutor.domain.Comment;
+import com.asanka.tutor.domain.CommentReply;
+import com.asanka.tutor.service.mapper.CommentMapper;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,6 +25,8 @@ public class CommentDTO implements Serializable {
 
     @NotNull
     private Boolean isApproved;
+
+    private List<CommentReply> replies;
 
     private Integer likesCount;
 
@@ -115,22 +120,17 @@ public class CommentDTO implements Serializable {
         this.isApproved = isApproved;
     }
 
+    public List<CommentReply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<CommentReply> replies) {
+        this.replies = replies;
+    }
+
     // This constructor is only used for Jackson and should not be used for anything else.
     public CommentDTO () {
         // Empty constructor needed for Jackson.
-    }
-
-    public CommentDTO(Comment comment) {
-        this.id = comment.getId();
-        this.videoID = comment.getVideoID();
-        this.commentBody = comment.getCommentBody();
-        this.likesCount = comment.getLikesCount();
-        this.dislikesCount = comment.getDislikesCount();
-        this.isApproved = comment.isIsApproved();
-        this.createdBy = comment.getCreatedBy();
-        this.createdDate = comment.getCreatedDate();
-        this.lastModifiedBy = comment.getLastModifiedBy();
-        this.lastModifiedDate = comment.getLastModifiedDate();
     }
 
     @Override

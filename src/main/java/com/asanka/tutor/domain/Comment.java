@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * A Comment.
@@ -34,6 +35,9 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
     @NotNull
     @Field("is_approved")
     private Boolean isApproved;
+
+    @Field("replies")
+    private List<CommentReply> replies;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -108,6 +112,15 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
     public void setIsApproved(Boolean isApproved) {
         this.isApproved = isApproved;
     }
+
+    public List<CommentReply> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<CommentReply> replies) {
+        this.replies = replies;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
