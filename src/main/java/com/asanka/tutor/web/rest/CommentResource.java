@@ -1,6 +1,5 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.domain.Authority;
 import com.asanka.tutor.domain.CommentReply;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.CustomAuditEventRepository;
@@ -65,18 +64,7 @@ public class CommentResource {
     public ResponseEntity<CommentDTO> createComment(@Valid @RequestBody CommentDTO commentDTO) throws URISyntaxException {
         log.debug("REST request to save Comment : {}", commentDTO);
         if (commentDTO.getId() != null) {
-            throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "id exists");
-        }
-        Optional<User> currentUser = userService.getUserWithAuthorities();
-        Authority authority = new Authority();
-        authority.setName(AuthoritiesConstants.ADMIN);
-        if (!currentUser.isPresent()){
-            throw new UserNotLoggedInException("The user seems not to be logged in.");
-        }
-        if (currentUser.get().getAuthorities().contains(authority)){
-            commentDTO.setIsApproved(true);
-        } else {
-            commentDTO.setIsApproved(false);
+            throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "idexists");
         }
         CommentDTO result = commentService.save(commentDTO);
         return ResponseEntity.created(new URI("/api/comments/" + result.getId()))
@@ -131,15 +119,8 @@ public class CommentResource {
             throw new BadRequestAlertException("Invalid comment id " + commentReply.getCommentID(), ENTITY_NAME, "is null");
         }
         Optional<User> currentUser = userService.getUserWithAuthorities();
-        Authority authority = new Authority();
-        authority.setName(AuthoritiesConstants.ADMIN);
         if (!currentUser.isPresent()) {
             throw new UserNotLoggedInException("The user seems not to be logged in.");
-        }
-        if (currentUser.get().getAuthorities().contains(authority)){
-            commentReply.setApproved(true);
-        } else {
-            commentReply.setApproved(false);
         }
         commentReply.setCreatedBy(currentUser.get().getLogin());
         oldComment.get().getReplies().add(commentReply);
