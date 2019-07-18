@@ -68,9 +68,11 @@ export class CommentComponent implements OnInit, OnDestroy {
   commentAndAllReplies(comment: IComment): { commentBody: string; index: number; approved: boolean }[] {
     const commentAndReplies: { commentBody: string; index: number; approved: boolean }[] = [];
     commentAndReplies.push({ commentBody: comment.commentBody, index: -1, approved: comment.isApproved });
-    for (const index of Object.keys(comment.replies)) {
-      const reply: ICommentReply = comment.replies[index];
-      commentAndReplies.push({ commentBody: reply.replyBody, index: +index, approved: reply.approved });
+    if (comment.replies !== undefined && comment.replies !== null) {
+      for (const index of Object.keys(comment.replies)) {
+        const reply: ICommentReply = comment.replies[index];
+        commentAndReplies.push({ commentBody: reply.replyBody, index: +index, approved: reply.approved });
+      }
     }
     return commentAndReplies;
   }

@@ -165,7 +165,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     this.isSaving = true;
     this.reply.commentID = commentID;
     this.commentsService.addReply(this.reply).subscribe(
-      () => {
+      res => {
         this.isSaving = false;
         this._snackBar.open('Thanks for your comment. We will review and publish it soon!', null, {
           duration: 5000,
