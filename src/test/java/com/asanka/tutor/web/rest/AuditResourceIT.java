@@ -1,6 +1,6 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.OnlineTutorApp;
+import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.config.audit.AuditEventConverter;
 import com.asanka.tutor.domain.PersistentAuditEvent;
 import com.asanka.tutor.repository.PersistenceAuditEventRepository;
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Integration tests for the {@link AuditResource} REST controller.
  */
-@SpringBootTest(classes = OnlineTutorApp.class)
+@SpringBootTest(classes = OpenLearnrApp.class)
 public class AuditResourceIT {
 
     private static final String SAMPLE_PRINCIPAL = "SAMPLE_PRINCIPAL";

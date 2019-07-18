@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { OnlineTutorTestModule } from '../../../test.module';
+import { OpenLearnrTestModule } from '../../../test.module';
 import { ChapterDetailComponent } from 'app/entities/chapter/chapter-detail.component';
 import { Chapter } from 'app/shared/model/chapter.model';
 
@@ -15,7 +15,7 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [OnlineTutorTestModule],
+        imports: [OpenLearnrTestModule],
         declarations: [ChapterDetailComponent],
         providers: [{ provide: ActivatedRoute, useValue: route }]
       })

@@ -1,7 +1,6 @@
 package com.asanka.tutor.security;
 
 import com.asanka.tutor.config.ApplicationProperties;
-import com.google.gson.JsonSyntaxException;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;

@@ -1,6 +1,6 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.OnlineTutorApp;
+import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.domain.Comment;
 import com.asanka.tutor.repository.CommentRepository;
 import com.asanka.tutor.repository.CustomAuditEventRepository;
@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Integration tests for the {@Link CommentResource} REST controller.
  */
-@SpringBootTest(classes = OnlineTutorApp.class)
+@SpringBootTest(classes = OpenLearnrApp.class)
 public class CommentResourceIT {
 
     private static final String DEFAULT_VIDEO_ID = "AAAAAAAAAA";

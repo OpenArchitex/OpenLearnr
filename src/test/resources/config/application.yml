@@ -15,12 +15,12 @@
 
 spring:
   application:
-    name: OnlineTutor
+    name: OpenLearnr
   data:
     mongodb:
       host: localhost
       port: 0
-      database: OnlineTutor
+      database: OpenLearnr
   mail:
     host: localhost
   main:
@@ -32,13 +32,13 @@ spring:
       enabled: false
   task:
     execution:
-      thread-name-prefix: online-tutor-task-
+      thread-name-prefix: open-learnr-task-
       pool:
         core-size: 1
         max-size: 50
         queue-capacity: 10000
     scheduling:
-      thread-name-prefix: online-tutor-scheduling-
+      thread-name-prefix: open-learnr-scheduling-
       pool:
         size: 1
   thymeleaf:
@@ -56,7 +56,7 @@ server:
 
 jhipster:
   clientApp:
-    name: 'onlineTutorApp'
+    name: 'openLearnrApp'
   logging:
     # To test json console appender
     use-json-format: true # By default, logs are in Json format

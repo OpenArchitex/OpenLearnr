@@ -1,6 +1,10 @@
 package com.asanka.tutor.domain;
 
-public class Resource {
+import java.io.Serializable;
+
+public class Resource implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String name;
     private String url;
 

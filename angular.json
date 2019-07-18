@@ -3,14 +3,14 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "online-tutor": {
+    "open-learnr": {
       "root": "",
       "sourceRoot": "src/main/webapp",
       "projectType": "application",
       "architect": {}
     }
   },
-  "defaultProject": "online-tutor",
+  "defaultProject": "open-learnr",
   "cli": {
     "packageManager": "yarn"
   },

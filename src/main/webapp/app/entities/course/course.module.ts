@@ -9,7 +9,7 @@ import {
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
-import { OnlineTutorSharedModule } from 'app/shared';
+import { OpenLearnrSharedModule } from 'app/shared';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   CourseComponent,
@@ -25,7 +25,7 @@ const ENTITY_STATES = [...courseRoute, ...coursePopupRoute];
 
 @NgModule({
   imports: [
-    OnlineTutorSharedModule,
+    OpenLearnrSharedModule,
     RouterModule.forChild(ENTITY_STATES),
     MatSidenavModule,
     MatListModule,
@@ -40,4 +40,4 @@ const ENTITY_STATES = [...courseRoute, ...coursePopupRoute];
   entryComponents: [CourseComponent, CourseUpdateComponent, CourseDeleteDialogComponent, CourseDeletePopupComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class OnlineTutorCourseModule {}
+export class OpenLearnrCourseModule {}

@@ -1,6 +1,6 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.OnlineTutorApp;
+import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.domain.Video;
 import com.asanka.tutor.repository.VideoRepository;
 import com.asanka.tutor.service.VideoService;
@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Integration tests for the {@Link VideoResource} REST controller.
  */
-@SpringBootTest(classes = OnlineTutorApp.class)
+@SpringBootTest(classes = OpenLearnrApp.class)
 public class VideoResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

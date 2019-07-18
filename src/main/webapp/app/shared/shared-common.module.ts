@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { OnlineTutorSharedLibsModule, JhiAlertComponent, JhiAlertErrorComponent } from './';
+import { OpenLearnrSharedLibsModule, JhiAlertComponent, JhiAlertErrorComponent } from './';
 
 @NgModule({
-  imports: [OnlineTutorSharedLibsModule],
+  imports: [OpenLearnrSharedLibsModule],
   declarations: [JhiAlertComponent, JhiAlertErrorComponent],
-  exports: [OnlineTutorSharedLibsModule, JhiAlertComponent, JhiAlertErrorComponent]
+  exports: [OpenLearnrSharedLibsModule, JhiAlertComponent, JhiAlertErrorComponent]
 })
-export class OnlineTutorSharedCommonModule {}
+export class OpenLearnrSharedCommonModule {}

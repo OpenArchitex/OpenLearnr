@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { OnlineTutorTestModule } from '../../../test.module';
+import { OpenLearnrTestModule } from '../../../test.module';
 import { JhiMetricsMonitoringComponent } from 'app/admin/metrics/metrics.component';
 import { JhiMetricsService } from 'app/admin/metrics/metrics.service';
 
@@ -13,7 +13,7 @@ describe('Component Tests', () => {
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        imports: [OnlineTutorTestModule],
+        imports: [OpenLearnrTestModule],
         declarations: [JhiMetricsMonitoringComponent]
       })
         .overrideTemplate(JhiMetricsMonitoringComponent, '')

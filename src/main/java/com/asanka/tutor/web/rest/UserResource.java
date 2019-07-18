@@ -144,7 +144,7 @@ public class UserResource {
         }
         Optional<UserDTO> updatedUser = userService.updateUser(userDTO);
         Optional<User> currentUser = userService.getUserWithAuthorities();
-        if (currentUser.isPresent()) {
+        if (currentUser.isPresent() && existingUser.isPresent()) {
             AuditEvent event = new AuditEvent(currentUser.get().getLogin(), "USER UPDATED", "message=User (before update): " + existingUser.get().toString());
             customAuditEventRepository.add(event);
         }
@@ -202,7 +202,7 @@ public class UserResource {
         Optional<User> existingUser = userRepository.findOneByLogin(login);
         userService.deleteUser(login);
         Optional<User> currentUser = userService.getUserWithAuthorities();
-        if (currentUser.isPresent()) {
+        if (currentUser.isPresent() && existingUser.isPresent()) {
             AuditEvent event = new AuditEvent(currentUser.get().getLogin(), "USER DELETED", "message=User: " + existingUser.get().toString());
             customAuditEventRepository.add(event);
         }

@@ -1,6 +1,6 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.OnlineTutorApp;
+import com.asanka.tutor.OpenLearnrApp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Integration tests for the {@link ClientForwardController} REST controller.
  */
-@SpringBootTest(classes = OnlineTutorApp.class)
+@SpringBootTest(classes = OpenLearnrApp.class)
 public class ClientForwardControllerIT {
 
     private MockMvc restMockMvc;

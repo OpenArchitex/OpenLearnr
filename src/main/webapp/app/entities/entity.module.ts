@@ -6,23 +6,23 @@ import { RouterModule } from '@angular/router';
     RouterModule.forChild([
       {
         path: 'course',
-        loadChildren: './course/course.module#OnlineTutorCourseModule'
+        loadChildren: './course/course.module#OpenLearnrCourseModule'
       },
       {
         path: 'video',
-        loadChildren: './video/video.module#OnlineTutorVideoModule'
+        loadChildren: './video/video.module#OpenLearnrVideoModule'
       },
       {
         path: 'chapter',
-        loadChildren: './chapter/chapter.module#OnlineTutorChapterModule'
+        loadChildren: './chapter/chapter.module#OpenLearnrChapterModule'
       },
       {
         path: 'comment',
-        loadChildren: './comment/comment.module#OnlineTutorCommentModule'
+        loadChildren: './comment/comment.module#OpenLearnrCommentModule'
       },
       {
         path: 'replPad',
-        loadChildren: './replpad/replpad.module#OnlineTutorReplpadModule'
+        loadChildren: './replpad/replpad.module#OpenLearnrReplpadModule'
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])
@@ -32,4 +32,4 @@ import { RouterModule } from '@angular/router';
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class OnlineTutorEntityModule {}
+export class OpenLearnrEntityModule {}

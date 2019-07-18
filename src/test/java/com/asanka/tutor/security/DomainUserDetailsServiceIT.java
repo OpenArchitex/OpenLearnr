@@ -1,6 +1,6 @@
 package com.asanka.tutor.security;
 
-import com.asanka.tutor.OnlineTutorApp;
+import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.UserRepository;
 
@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * Integrations tests for {@link DomainUserDetailsService}.
  */
-@SpringBootTest(classes = OnlineTutorApp.class)
+@SpringBootTest(classes = OpenLearnrApp.class)
 public class DomainUserDetailsServiceIT {
 
     private static final String USER_ONE_LOGIN = "test-user-one";

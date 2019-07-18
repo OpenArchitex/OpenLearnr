@@ -4,7 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { OnlineTutorTestModule } from '../../../test.module';
+import { OpenLearnrTestModule } from '../../../test.module';
 import { UserMgmtUpdateComponent } from 'app/admin/user-management/user-management-update.component';
 import { UserService, User } from 'app/core';
 
@@ -19,7 +19,7 @@ describe('Component Tests', () => {
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        imports: [OnlineTutorTestModule],
+        imports: [OpenLearnrTestModule],
         declarations: [UserMgmtUpdateComponent],
         providers: [
           FormBuilder,

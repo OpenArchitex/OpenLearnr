@@ -4,7 +4,7 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { of } from 'rxjs';
 
-import { OnlineTutorTestModule } from '../../../test.module';
+import { OpenLearnrTestModule } from '../../../test.module';
 import { VideoUpdateComponent } from 'app/entities/video/video-update.component';
 import { VideoService } from 'app/entities/video/video.service';
 import { Video } from 'app/shared/model/video.model';
@@ -17,7 +17,7 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [OnlineTutorTestModule],
+        imports: [OpenLearnrTestModule],
         declarations: [VideoUpdateComponent],
         providers: [FormBuilder]
       })

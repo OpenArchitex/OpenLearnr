@@ -1,6 +1,6 @@
 package com.asanka.tutor.web.rest;
 
-import com.asanka.tutor.OnlineTutorApp;
+import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.domain.Chapter;
 import com.asanka.tutor.repository.ChapterRepository;
 import com.asanka.tutor.service.ChapterService;
@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Integration tests for the {@Link ChapterResource} REST controller.
  */
-@SpringBootTest(classes = OnlineTutorApp.class)
+@SpringBootTest(classes = OpenLearnrApp.class)
 public class ChapterResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

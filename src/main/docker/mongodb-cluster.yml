@@ -1,16 +1,16 @@
 version: '2'
 services:
-  onlinetutor-mongodb:
+  openlearnr-mongodb:
     image: mongo:4.0.10
     ports:
       - '27017:27017'
-    command: mongos --configdb onlinetutor-mongodb-config
-  onlinetutor-mongodb-node:
+    command: mongos --configdb openlearnr-mongodb-config
+  openlearnr-mongodb-node:
     build:
       context: .
       dockerfile: mongodb/MongoDB.Dockerfile
     command: mongod --replSet rs1 --noprealloc --smallfiles
-  onlinetutor-mongodb-config:
+  openlearnr-mongodb-config:
     image: mongo:4.0.10
-    container_name: onlinetutor-mongodb-config
+    container_name: openlearnr-mongodb-config
     command: mongod --noprealloc --smallfiles --configsvr --dbpath /data/db

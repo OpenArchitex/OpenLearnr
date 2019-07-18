@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { OnlineTutorSharedModule } from 'app/shared';
+import { OpenLearnrSharedModule } from 'app/shared';
 import {
   ChapterComponent,
   ChapterDetailComponent,
@@ -15,7 +15,7 @@ import {
 const ENTITY_STATES = [...chapterRoute, ...chapterPopupRoute];
 
 @NgModule({
-  imports: [OnlineTutorSharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [OpenLearnrSharedModule, RouterModule.forChild(ENTITY_STATES)],
   declarations: [
     ChapterComponent,
     ChapterDetailComponent,
@@ -26,4 +26,4 @@ const ENTITY_STATES = [...chapterRoute, ...chapterPopupRoute];
   entryComponents: [ChapterComponent, ChapterUpdateComponent, ChapterDeleteDialogComponent, ChapterDeletePopupComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class OnlineTutorChapterModule {}
+export class OpenLearnrChapterModule {}
