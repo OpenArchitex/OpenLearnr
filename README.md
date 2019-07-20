@@ -17,3 +17,7 @@ Please refer to our [Code of Conduct](https://github.com/python-sinhala-educatio
 `We are grateful for JetBrains for generously providing Open Source licenses to help us with our development effort.`
 
 [![JetBrains Logo](docs/images/jetbrains-logo.svg)](https://www.jetbrains.com/?from=OpenLearnr)
+
+---
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Q5Q2Z2P1) <a href="https://liberapay.com/OpenLearnr/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>

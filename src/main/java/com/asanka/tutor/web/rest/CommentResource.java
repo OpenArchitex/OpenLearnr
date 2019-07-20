@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -123,13 +124,20 @@ public class CommentResource {
             throw new UserNotLoggedInException("The user seems not to be logged in.");
         }
         commentReply.setCreatedBy(currentUser.get().getLogin());
-        oldComment.get().getReplies().add(commentReply);
-        CommentDTO result = commentService.update(oldComment.get());
-        AuditEvent event = new AuditEvent(currentUser.get().getLogin(), "COMMENT ADD REPLY", "message=Comment: " + oldComment.get().toString());
+        CommentDTO comment = oldComment.get();
+        if (comment.getReplies() != null) {
+            comment.getReplies().add(commentReply);
+        } else {
+            List<CommentReply> commentReplies = new ArrayList<>();
+            commentReplies.add(commentReply);
+            comment.setReplies(commentReplies);
+        }
+        CommentDTO result = commentService.update(comment);
+        AuditEvent event = new AuditEvent(currentUser.get().getLogin(), "COMMENT ADD REPLY", "message=Comment: " + comment.toString());
         customAuditEventRepository.add(event);
 
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, oldComment.get().getId()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, comment.getId()))
             .body(result);
     }
 
