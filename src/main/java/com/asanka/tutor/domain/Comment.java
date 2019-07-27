@@ -39,6 +39,9 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
     @Field("replies")
     private List<CommentReply> replies;
 
+    @Field("is_admin_comment")
+    private Boolean isAdminComment;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -121,7 +124,14 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
         this.replies = replies;
     }
 
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    public Boolean getIsAdminComment() {
+        return isAdminComment;
+    }
+
+    public void setIsAdminComment(Boolean adminComment) {
+        isAdminComment = adminComment;
+    }
+// jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

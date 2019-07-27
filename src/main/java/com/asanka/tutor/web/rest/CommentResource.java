@@ -1,5 +1,6 @@
 package com.asanka.tutor.web.rest;
 
+import com.asanka.tutor.domain.Authority;
 import com.asanka.tutor.domain.CommentReply;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.CustomAuditEventRepository;
@@ -67,6 +68,17 @@ public class CommentResource {
         if (commentDTO.getId() != null) {
             throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<User> currentUser = userService.getUserWithAuthorities();
+        if (!currentUser.isPresent()) {
+            throw new UserNotLoggedInException("The user seems not to be logged in.");
+        }
+        Authority adminAuthority = new Authority();
+        adminAuthority.setName(AuthoritiesConstants.ADMIN);
+        if (currentUser.get().getAuthorities().contains(adminAuthority)) {
+            commentDTO.setIsAdminComment(true);
+        } else {
+            commentDTO.setIsAdminComment(false);
+        }
         CommentDTO result = commentService.save(commentDTO);
         return ResponseEntity.created(new URI("/api/comments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId()))
@@ -124,6 +136,13 @@ public class CommentResource {
             throw new UserNotLoggedInException("The user seems not to be logged in.");
         }
         commentReply.setCreatedBy(currentUser.get().getLogin());
+        Authority adminAuthority = new Authority();
+        adminAuthority.setName(AuthoritiesConstants.ADMIN);
+        if (currentUser.get().getAuthorities().contains(adminAuthority)) {
+            commentReply.setIsAdminReply(true);
+        } else {
+            commentReply.setIsAdminReply(false);
+        }
         CommentDTO comment = oldComment.get();
         if (comment.getReplies() != null) {
             comment.getReplies().add(commentReply);

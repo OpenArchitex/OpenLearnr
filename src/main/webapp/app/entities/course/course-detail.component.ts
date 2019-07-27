@@ -179,4 +179,18 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  public sanitizedHtml(htmlText: string): string {
+    const urlRegex = new RegExp(
+      '(?:(?:https?|ftp|file):\\/\\/|www\\.|ftp\\.)(?:\\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\\)|[-A-Z0-9+&@#\\/%=~_|$?!:,.])*(?:\\([-A-Z0-9+&@#\\/%=~_|$?!:,.]*\\)|[A-Z0-9+&@#\\/%=~_|$])',
+      'igm'
+    );
+    const matches: RegExpMatchArray = htmlText.match(urlRegex);
+    if (matches != null) {
+      for (const match of matches) {
+        htmlText = htmlText.replace(match, `<a href=${match} rel="noopener noreferrer" target="_blank">${match}</a>`);
+      }
+    }
+    return htmlText;
+  }
 }

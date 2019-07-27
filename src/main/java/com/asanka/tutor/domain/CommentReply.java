@@ -14,6 +14,7 @@ public class CommentReply implements Serializable {
     private String id;
     private String commentID;
     private String replyBody;
+    private boolean isAdminReply;
     private String createdBy;
     private boolean isApproved;
     private Instant createdDate = Instant.now();
@@ -64,6 +65,14 @@ public class CommentReply implements Serializable {
 
     public void setApproved(boolean approved) {
         isApproved = approved;
+    }
+
+    public boolean getIsAdminReply() {
+        return isAdminReply;
+    }
+
+    public void setIsAdminReply(boolean isAdminReply) {
+        this.isAdminReply = isAdminReply;
     }
 
     @Override
