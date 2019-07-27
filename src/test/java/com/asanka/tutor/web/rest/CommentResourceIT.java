@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Validator;
@@ -51,6 +52,9 @@ public class CommentResourceIT {
 
     private static final Boolean DEFAULT_IS_APPROVED = false;
     private static final Boolean UPDATED_IS_APPROVED = true;
+
+    private static final Boolean DEFAULT_IS_ADMINCOMMENT = false;
+    private static final Boolean UPDATED_IS_ADMINCOMMENT = true;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -107,7 +111,8 @@ public class CommentResourceIT {
             .commentBody(DEFAULT_COMMENT_BODY)
             .likesCount(DEFAULT_LIKES_COUNT)
             .dislikesCount(DEFAULT_DISLIKES_COUNT)
-            .isApproved(DEFAULT_IS_APPROVED);
+            .isApproved(DEFAULT_IS_APPROVED)
+            .isAdminComment(DEFAULT_IS_ADMINCOMMENT);
         return comment;
     }
     /**
@@ -122,7 +127,8 @@ public class CommentResourceIT {
             .commentBody(UPDATED_COMMENT_BODY)
             .likesCount(UPDATED_LIKES_COUNT)
             .dislikesCount(UPDATED_DISLIKES_COUNT)
-            .isApproved(UPDATED_IS_APPROVED);
+            .isApproved(UPDATED_IS_APPROVED)
+            .isAdminComment(UPDATED_IS_ADMINCOMMENT);
         return comment;
     }
 
@@ -133,6 +139,7 @@ public class CommentResourceIT {
     }
 
     @Test
+    @WithMockUser
     public void createComment() throws Exception {
         int databaseSizeBeforeCreate = commentRepository.findAll().size();
 
@@ -152,6 +159,7 @@ public class CommentResourceIT {
         assertThat(testComment.getLikesCount()).isEqualTo(DEFAULT_LIKES_COUNT);
         assertThat(testComment.getDislikesCount()).isEqualTo(DEFAULT_DISLIKES_COUNT);
         assertThat(testComment.isIsApproved()).isEqualTo(DEFAULT_IS_APPROVED);
+        assertThat(testComment.getIsAdminComment()).isEqualTo(DEFAULT_IS_ADMINCOMMENT);
     }
 
     @Test
@@ -242,7 +250,8 @@ public class CommentResourceIT {
             .andExpect(jsonPath("$.[*].commentBody").value(hasItem(DEFAULT_COMMENT_BODY)))
             .andExpect(jsonPath("$.[*].likesCount").value(hasItem(DEFAULT_LIKES_COUNT)))
             .andExpect(jsonPath("$.[*].dislikesCount").value(hasItem(DEFAULT_DISLIKES_COUNT)))
-            .andExpect(jsonPath("$.[*].isApproved").value(hasItem(DEFAULT_IS_APPROVED)));
+            .andExpect(jsonPath("$.[*].isApproved").value(hasItem(DEFAULT_IS_APPROVED)))
+            .andExpect(jsonPath("$.[*].isAdminComment").value(hasItem(DEFAULT_IS_ADMINCOMMENT)));
     }
     
     @Test
@@ -259,7 +268,8 @@ public class CommentResourceIT {
             .andExpect(jsonPath("$.commentBody").value(DEFAULT_COMMENT_BODY))
             .andExpect(jsonPath("$.likesCount").value(DEFAULT_LIKES_COUNT))
             .andExpect(jsonPath("$.dislikesCount").value(DEFAULT_DISLIKES_COUNT))
-            .andExpect(jsonPath("$.isApproved").value(DEFAULT_IS_APPROVED));
+            .andExpect(jsonPath("$.isApproved").value(DEFAULT_IS_APPROVED))
+            .andExpect(jsonPath("$.isAdminComment").value(DEFAULT_IS_ADMINCOMMENT));
     }
 
     @Test
@@ -283,7 +293,8 @@ public class CommentResourceIT {
             .commentBody(UPDATED_COMMENT_BODY)
             .likesCount(UPDATED_LIKES_COUNT)
             .dislikesCount(UPDATED_DISLIKES_COUNT)
-            .isApproved(UPDATED_IS_APPROVED);
+            .isApproved(UPDATED_IS_APPROVED)
+            .isAdminComment(UPDATED_IS_ADMINCOMMENT);
         CommentDTO commentDTO = commentMapper.toDto(updatedComment);
 
         restCommentMockMvc.perform(put("/api/comments")
@@ -300,6 +311,7 @@ public class CommentResourceIT {
         assertThat(testComment.getLikesCount()).isEqualTo(UPDATED_LIKES_COUNT);
         assertThat(testComment.getDislikesCount()).isEqualTo(UPDATED_DISLIKES_COUNT);
         assertThat(testComment.isIsApproved()).isEqualTo(UPDATED_IS_APPROVED);
+        assertThat(testComment.getIsAdminComment()).isEqualTo(UPDATED_IS_ADMINCOMMENT);
     }
 
     @Test

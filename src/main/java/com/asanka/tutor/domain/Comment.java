@@ -128,6 +128,11 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
         return isAdminComment;
     }
 
+    public Comment isAdminComment(Boolean isAdminComment) {
+        this.isAdminComment = isAdminComment;
+        return this;
+    }
+
     public void setIsAdminComment(Boolean adminComment) {
         isAdminComment = adminComment;
     }
