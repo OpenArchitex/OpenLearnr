@@ -26,6 +26,8 @@ public class CommentDTO implements Serializable {
     @NotNull
     private Boolean isApproved;
 
+    private Boolean isAdminComment;
+
     private List<CommentReply> replies;
 
     private Integer likesCount;
@@ -126,6 +128,14 @@ public class CommentDTO implements Serializable {
 
     public void setReplies(List<CommentReply> replies) {
         this.replies = replies;
+    }
+
+    public Boolean getIsAdminComment() {
+        return isAdminComment;
+    }
+
+    public void setIsAdminComment(Boolean adminComment) {
+        isAdminComment = adminComment;
     }
 
     // This constructor is only used for Jackson and should not be used for anything else.

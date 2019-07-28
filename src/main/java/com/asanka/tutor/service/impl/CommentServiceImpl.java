@@ -64,6 +64,7 @@ public class CommentServiceImpl implements CommentService {
         commentModified.setVideoID(commentDTO.getVideoID());
         commentModified.setCommentBody(commentDTO.getCommentBody());
         commentModified.setIsApproved(commentDTO.isIsApproved());
+        commentModified.setIsAdminComment(commentDTO.getIsAdminComment());
         commentModified.setLikesCount(commentDTO.getLikesCount());
         commentModified.setDislikesCount(commentDTO.getDislikesCount());
         commentModified.setReplies(commentDTO.getReplies());
