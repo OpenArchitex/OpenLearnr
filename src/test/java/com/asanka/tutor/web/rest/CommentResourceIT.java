@@ -2,14 +2,17 @@ package com.asanka.tutor.web.rest;
 
 import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.domain.Comment;
+import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.CommentRepository;
 import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.service.CommentService;
 import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.dto.CommentDTO;
+import com.asanka.tutor.service.dto.UserDTO;
 import com.asanka.tutor.service.mapper.CommentMapper;
 import com.asanka.tutor.web.rest.errors.ExceptionTranslator;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -139,9 +142,14 @@ public class CommentResourceIT {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser("create-comment")
     public void createComment() throws Exception {
         int databaseSizeBeforeCreate = commentRepository.findAll().size();
+        UserDTO user = new UserDTO();
+        user.setLogin("create-comment");
+        user.setEmail("create-comment@example.com");
+
+        userService.createUser(user);
 
         // Create the Comment
         CommentDTO commentDTO = commentMapper.toDto(comment);
