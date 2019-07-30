@@ -40,6 +40,8 @@ public class UserServiceIT {
 
     private static final String DEFAULT_LANGKEY = "dummy";
 
+    private static final String DEFAULT_ACTIVATION_KEY = "AAAA";
+
     @Autowired
     private UserRepository userRepository;
 
@@ -60,6 +62,15 @@ public class UserServiceIT {
         user.setLastName(DEFAULT_LASTNAME);
         user.setImageUrl(DEFAULT_IMAGEURL);
         user.setLangKey(DEFAULT_LANGKEY);
+        user.setActivationKey("");
+    }
+
+    @Test
+    public void testActivateRegistration() {
+        user.setActivated(false);
+        Optional<User> maybeUser = userService.activateRegistration(DEFAULT_ACTIVATION_KEY);
+        assertThat(maybeUser).isPresent();
+        assertThat(maybeUser.orElse(null).getActivated()).isTrue();
     }
 
     @Test
