@@ -62,15 +62,17 @@ public class UserServiceIT {
         user.setLastName(DEFAULT_LASTNAME);
         user.setImageUrl(DEFAULT_IMAGEURL);
         user.setLangKey(DEFAULT_LANGKEY);
-        user.setActivationKey(DEFAULT_ACTIVATION_KEY);
     }
 
     @Test
     public void testActivateRegistration() {
+        user.setActivationKey(DEFAULT_ACTIVATION_KEY);
         user.setActivated(false);
+        userRepository.save(user);
         Optional<User> maybeUser = userService.activateRegistration(DEFAULT_ACTIVATION_KEY);
         assertThat(maybeUser).isPresent();
         assertThat(maybeUser.orElse(null).getActivated()).isTrue();
+        userRepository.delete(user);
     }
 
     @Test
