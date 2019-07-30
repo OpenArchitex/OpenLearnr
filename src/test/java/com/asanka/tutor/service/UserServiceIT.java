@@ -62,7 +62,7 @@ public class UserServiceIT {
         user.setLastName(DEFAULT_LASTNAME);
         user.setImageUrl(DEFAULT_IMAGEURL);
         user.setLangKey(DEFAULT_LANGKEY);
-        user.setActivationKey("");
+        user.setActivationKey(DEFAULT_ACTIVATION_KEY);
     }
 
     @Test
