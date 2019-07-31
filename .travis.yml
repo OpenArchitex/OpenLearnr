@@ -33,12 +33,13 @@ before_install:
   - export PATH=$HOME/.yarn/bin:$PATH
 install:
   - yarn install
+addons:
+  sonarcloud:
+    organization: python-sinhala-education-society
 script:
   - chmod +x mvnw
-  - ./mvnw clean verify
   - ./mvnw com.github.eirslett:frontend-maven-plugin:yarn -Dfrontend.yarn.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
-  - ./mvnw org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.organization=python-sinhala-education-society -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
-  - ./mvnw verify -Pprod -DskipTests
+  - ./mvnw -Pprod clean verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io
 notifications:
   webhooks:
     urls:
