@@ -38,10 +38,8 @@ addons:
     organization: python-sinhala-education-society
 script:
   - chmod +x mvnw
-  - ./mvnw clean verify
   - ./mvnw com.github.eirslett:frontend-maven-plugin:yarn -Dfrontend.yarn.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
   - ./mvnw -Pprod clean verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io
-  - ./mvnw verify -Pprod -DskipTests
 notifications:
   webhooks:
     urls:
