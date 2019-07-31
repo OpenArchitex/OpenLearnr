@@ -9,6 +9,7 @@ import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.dto.ChapterDTO;
 import com.asanka.tutor.web.rest.errors.StripeCardError;
 import com.stripe.exception.CardException;
+import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,7 +50,7 @@ public class PaymentController {
     }
 
     @PostMapping("/payment")
-    public Charge chargeCard(HttpServletRequest request) throws Exception {
+    public Charge chargeCard(HttpServletRequest request) throws JSONException {
         String token = request.getHeader("token");
         JSONArray chapterIDs = new JSONArray(request.getHeader("chapters"));
         List<String> chapters = new ArrayList<>();
@@ -72,7 +74,7 @@ public class PaymentController {
         try {
             charge = this.stripeClient.chargeCreditCard(token, stripeClient.getStripeUnitPrice() * length);
             event = new AuditEvent(user.get().getLogin(), "PAYMENT_SUCCESSFUL", data);
-        } catch (CardException e) {
+        } catch (StripeException e) {
             event = new AuditEvent(user.get().getLogin(), "PAYMENT_FAILURE", data);
             throw new StripeCardError(e.getMessage());
         } finally {
