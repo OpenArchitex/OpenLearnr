@@ -1,12 +1,11 @@
 os:
   - linux
+dist: bionic
 services:
   - docker
 language: node_js
 node_js:
   - '10.16.0'
-jdk:
-  - openjdk11
 git:
   depth: false
 cache:
