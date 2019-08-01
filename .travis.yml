@@ -24,7 +24,6 @@ env:
     - NG_CLI_ANALYTICS="false"
     - secure: rH9D7ZKmOG/M65FyxJDSLN8D3CZ+aoesyQwqW/5ofCcSa8CBN/gsnMsb5h3B8up1/PDjyPaFAWXwgbSa+Ci66aelbvZo7c0qUH8F5nVvoiuUvOTchl6Tm1JLL9twzf3dbmj8zXJSueaLGeF1BsoqdVtTAl1YXkeS5OyZY8r8pU+xOyfSXOVtoIBMOrIOk0dyZs9wHoNlVHYSbeETyyJ/dTBXQftXqhk2mVdUoeAGW592hsz3qGp7o1vy2tVLwo7PMcUnHqaCjEd7BvEW8EIonEhxyvvPaVr4wAVetFrXHanZCpWe+Oi/5s5X0ZQJCOEXKh0vwEecTwdsMMTIHS7OidcVfebDtBRIciTcb56CLmoGMINJgcPaP5j0hUd1CpQdet5CwSOPg+OKUlIYTxaPvo+tUgcKWIBXSmL1s0lwy3jMQAkvDsedD44J15nEY7y0oJhvBuQ0wSlePPfcyB+pkMwxg0RpvnLJsHmB2+xfP0JSNqKV3c3MDtT382dnr6/RlWtnUJXWug9ncSVQptCmUS68/ZkbrbEenloSMrVDkTa/f/+QYVK1kOUOL8Dvo0g8v5YndFkKwjPR+IrFmP0m7etAFOtyj/PF5+kRzw1b1mnf/UtPU8SYeFgYKneKi7jaNDsi/g1GKU5eDDUczNEhR01vLil2NTF1YvMoIHYnsWs=
 before_install:
-  - jdk_switcher use openjdk11
   - java -version
   - sudo /etc/init.d/mysql stop
   - sudo /etc/init.d/postgresql stop
