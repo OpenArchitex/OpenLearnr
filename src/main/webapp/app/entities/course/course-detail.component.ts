@@ -139,18 +139,22 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     this.comment.videoID = this.clickedVideo.id;
     this.commentsService.create(this.comment).subscribe(
       () => {
-        this.isSaving = false;
-        this._snackBar.open('Thanks for your comment. We will review and publish it soon!', null, {
-          duration: 5000,
-          panelClass: ['login-snack-bar']
-        });
-        form.reset();
+        this.giveUserCommentFeedback(form);
       },
       (res: HttpErrorResponse) => {
         this.onError(res.message);
         this.isSaving = false;
       }
     );
+  }
+
+  private giveUserCommentFeedback(form: NgForm) {
+    this.isSaving = false;
+    this._snackBar.open('Thanks for your comment. We will review and publish it soon!', null, {
+      duration: 5000,
+      panelClass: ['login-snack-bar']
+    });
+    form.reset();
   }
 
   public isAuthenticated() {
@@ -166,12 +170,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     this.reply.commentID = commentID;
     this.commentsService.addReply(this.reply).subscribe(
       () => {
-        this.isSaving = false;
-        this._snackBar.open('Thanks for your comment. We will review and publish it soon!', null, {
-          duration: 5000,
-          panelClass: ['login-snack-bar']
-        });
-        form.reset();
+        this.giveUserCommentFeedback(form);
       },
       (res: HttpErrorResponse) => {
         this.onError(res.message);
