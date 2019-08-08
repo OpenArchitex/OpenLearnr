@@ -1,6 +1,5 @@
 os:
   - linux
-dist: bionic
 services:
   - docker
 language: node_js
@@ -23,6 +22,8 @@ env:
     - NG_CLI_ANALYTICS="false"
     - secure: CoqKqFCAT6oo/XUhakx6agBVUZiY2ytC/4lvwF6aMeylC+pQklc9VyrxMtqDCG1/tJu+hIB12C5+oDvJXsGOJ2KjU2BonN1k/fSsH7kv6QcvzqpYTvFb69bWwIDCg71LWBB1r4+tXnMHnQ5ddg5Y5RIvINXZAGE0TtJ9+lSKk0VN4mVMxWws72VnUINwxNUdDjaG5sM0QysiZub+8M8mIl7KMej+2C9PXSePruxxEwa6dYzM4yYAJZxi+4MzxvYDQQpOuiE9614Vj4A7oabQ5aRNOViXSs/ESSbiF0P4p6upiw0R4+AULhMm0KVOMqz85eF30gB1+VhW6f3FDaOQIJTiZyPkl8g60lBDM4PyFiHA/KTlMB1vzuYXHfvtAU0SB1DESc4lsGMKZ1wVuZavvarQH+RbbBMX61b72dICxYhaCYay7lVFVpOfYur/zc9RsELEEIVRtQGYPEpdu83Y2P7GWGQyrqIxNqBBl/80XV5Kx7z/NmOd9eUMwcaZbI4XA2UJ6Kccy29o6P4hP27zmfgpojgUbCRh1wtHy6SgaBWqobiD5J6VwvFvd29sxeUd+p1DVntbKXW3228W/acQak2rCKp74yEbyfy/6kXJeTu2l0vG7STveZD5rWVnNs3NJGdbHsMBjN6/IulneOaJEjMOnh236Jfqij4FtL98020=
 before_install:
+  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
+  - source install-jdk.sh --feature 11
   - java -version
   - sudo /etc/init.d/mysql stop
   - sudo /etc/init.d/postgresql stop
@@ -46,9 +47,4 @@ notifications:
     on_failure: always # options: [always|never|change] default: always
     on_start: false # default: false
 after_success:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf; fi
-  - killall -9 gpg-agent
-  - export GPG_TTY=`tty`
-  - gpg-agent
-  - export PINENTRY_MODE="--pinentry-mode=loopback"
   - bash ./deploy.sh;
