@@ -1,6 +1,5 @@
 os:
   - linux
-dist: bionic
 services:
   - docker
 language: node_js
@@ -34,7 +33,11 @@ install:
 addons:
   sonarcloud:
     organization: python-sinhala-education-society
+  apt:
+    packages:
+      - openjdk-11-jdk
 script:
+  - jdk_switcher use openjdk11
   - chmod +x mvnw
   - ./mvnw com.github.eirslett:frontend-maven-plugin:yarn -Dfrontend.yarn.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
   - ./mvnw -Pprod clean verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io
@@ -46,9 +49,4 @@ notifications:
     on_failure: always # options: [always|never|change] default: always
     on_start: false # default: false
 after_success:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf; fi
-  - killall -9 gpg-agent
-  - export GPG_TTY=`tty`
-  - gpg-agent
-  - export PINENTRY_MODE="--pinentry-mode=loopback"
   - bash ./deploy.sh;
