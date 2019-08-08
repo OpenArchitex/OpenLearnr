@@ -7,5 +7,5 @@ if [[ $TRAVIS_TAG =~ $SEMVAR ]]; then
     tar xvf secrets.tar
 
     # Deploy on AppEngine
-    ./mvnw package appengine:deploy -Pprod,war -DskipTests
+    ./mvnw package appengine:deploy -Pprod -DskipTests
 fi
