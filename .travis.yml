@@ -36,7 +36,6 @@ addons:
   sonarcloud:
     organization: python-sinhala-education-society
 script:
-  - jdk_switcher use openjdk11
   - chmod +x mvnw
   - ./mvnw com.github.eirslett:frontend-maven-plugin:yarn -Dfrontend.yarn.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
   - ./mvnw -Pprod clean verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io
