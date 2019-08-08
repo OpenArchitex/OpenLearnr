@@ -46,4 +46,9 @@ notifications:
     on_failure: always # options: [always|never|change] default: always
     on_start: false # default: false
 after_success:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf; fi
+  - killall -9 gpg-agent
+  - export GPG_TTY=`tty`
+  - gpg-agent
+  - export PINENTRY_MODE="--pinentry-mode=loopback"
   - bash ./deploy.sh;
