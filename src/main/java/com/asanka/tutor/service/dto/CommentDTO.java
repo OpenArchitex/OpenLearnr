@@ -1,8 +1,6 @@
 package com.asanka.tutor.service.dto;
 
-import com.asanka.tutor.domain.Comment;
 import com.asanka.tutor.domain.CommentReply;
-import com.asanka.tutor.service.mapper.CommentMapper;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

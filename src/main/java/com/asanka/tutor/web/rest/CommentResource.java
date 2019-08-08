@@ -39,6 +39,8 @@ public class CommentResource {
 
     private static final String ENTITY_NAME = "comment";
 
+    private static final String NULL_ERROR = "IS NULL";
+
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
@@ -66,7 +68,7 @@ public class CommentResource {
     public ResponseEntity<CommentDTO> createComment(@Valid @RequestBody CommentDTO commentDTO) throws URISyntaxException {
         log.debug("REST request to save Comment : {}", commentDTO);
         if (commentDTO.getId() != null) {
-            throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException("A new comment cannot already have an ID", ENTITY_NAME, "id exists");
         }
         Optional<User> currentUser = userService.getUserWithAuthorities();
         if (!currentUser.isPresent()) {
@@ -74,11 +76,7 @@ public class CommentResource {
         }
         Authority adminAuthority = new Authority();
         adminAuthority.setName(AuthoritiesConstants.ADMIN);
-        if (currentUser.get().getAuthorities().contains(adminAuthority)) {
-            commentDTO.setIsAdminComment(true);
-        } else {
-            commentDTO.setIsAdminComment(false);
-        }
+        commentDTO.setIsAdminComment(currentUser.get().getAuthorities().contains(adminAuthority));
         CommentDTO result = commentService.save(commentDTO);
         return ResponseEntity.created(new URI("/api/comments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId()))
@@ -98,7 +96,7 @@ public class CommentResource {
     public ResponseEntity<CommentDTO> updateComment(@Valid @RequestBody CommentDTO commentDTO) {
         log.debug("REST request to update Comment : {}", commentDTO);
         if (commentDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "is null");
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, NULL_ERROR);
         }
         Optional<CommentDTO> oldComment = commentService.findOne(commentDTO.getId());
         CommentDTO result = commentService.update(commentDTO);
@@ -125,11 +123,11 @@ public class CommentResource {
     public ResponseEntity<CommentDTO> addReplyToComment(@Valid @RequestBody CommentReply commentReply) {
         log.debug("REST request to add reply to Comment : {}", commentReply);
         if (commentReply.getCommentID() == null) {
-            throw new BadRequestAlertException("Invalid comment id " + commentReply.getCommentID(), ENTITY_NAME, "is null");
+            throw new BadRequestAlertException("Invalid comment id " + commentReply.getCommentID(), ENTITY_NAME, NULL_ERROR);
         }
         Optional<CommentDTO> oldComment = commentService.findOne(commentReply.getCommentID());
         if (!oldComment.isPresent()) {
-            throw new BadRequestAlertException("Invalid comment id " + commentReply.getCommentID(), ENTITY_NAME, "is null");
+            throw new BadRequestAlertException("Invalid comment id " + commentReply.getCommentID(), ENTITY_NAME, NULL_ERROR);
         }
         Optional<User> currentUser = userService.getUserWithAuthorities();
         if (!currentUser.isPresent()) {
@@ -138,11 +136,7 @@ public class CommentResource {
         commentReply.setCreatedBy(currentUser.get().getLogin());
         Authority adminAuthority = new Authority();
         adminAuthority.setName(AuthoritiesConstants.ADMIN);
-        if (currentUser.get().getAuthorities().contains(adminAuthority)) {
-            commentReply.setIsAdminReply(true);
-        } else {
-            commentReply.setIsAdminReply(false);
-        }
+        commentReply.setIsAdminReply(currentUser.get().getAuthorities().contains(adminAuthority));
         CommentDTO comment = oldComment.get();
         if (comment.getReplies() != null) {
             comment.getReplies().add(commentReply);

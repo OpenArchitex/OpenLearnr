@@ -7,7 +7,7 @@
     <artifactId>open-learnr</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>Open Learnr</name>
+    <name>OpenLearnr</name>
 
     <repositories>
         <!-- jhipster-needle-maven-repository -->
@@ -22,7 +22,7 @@
     <properties>
         <!-- Build properties -->
         <maven.version>3.0.0</maven.version>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <node.version>v10.16.0</node.version>
         <yarn.version>v1.16.0</yarn.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
