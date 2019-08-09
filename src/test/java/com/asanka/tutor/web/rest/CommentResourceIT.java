@@ -361,6 +361,24 @@ public class CommentResourceIT {
     }
 
     @Test
+    public void getCommentsForVideo() throws Exception {
+        // Initialize the database
+        commentRepository.save(comment);
+
+        // Get comments for video
+        restCommentMockMvc.perform(get("/api/comments/commentsForVideo/{videoID}", comment.getVideoID()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(comment.getId()))
+            .andExpect(jsonPath("$.[*].videoID").value(DEFAULT_VIDEO_ID))
+            .andExpect(jsonPath("$.[*].commentBody").value(DEFAULT_COMMENT_BODY))
+            .andExpect(jsonPath("$.[*].likesCount").value(DEFAULT_LIKES_COUNT))
+            .andExpect(jsonPath("$.[*].dislikesCount").value(DEFAULT_DISLIKES_COUNT))
+            .andExpect(jsonPath("$.[*].isApproved").value(DEFAULT_IS_APPROVED))
+            .andExpect(jsonPath("$.[*].isAdminComment").value(DEFAULT_IS_ADMINCOMMENT));
+    }
+
+    @Test
     public void getNonExistingComment() throws Exception {
         // Get the comment
         restCommentMockMvc.perform(get("/api/comments/{id}", Long.MAX_VALUE))

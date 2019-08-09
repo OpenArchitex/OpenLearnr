@@ -179,13 +179,13 @@ public class CommentResource {
     }
 
     /**
-     * GET  /comments/commentsOfVideo/{videoID} : get comments for the video.
+     * GET  /comments/commentsForVideo/{videoID} : get comments for the video.
      *
      * @param videoID the id of the video where the comments to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the comments, or with status 404 (Not Found)
      */
     @GetMapping("/comments/commentsForVideo/{videoID}")
-    public List<CommentDTO> getComments(@PathVariable String videoID) {
+    public List<CommentDTO> getCommentsForVideo(@PathVariable String videoID) {
         log.debug("REST request to get Comments for Video : {}", videoID);
         return commentService.findComments(videoID);
     }
