@@ -61,17 +61,11 @@ public class CommentResourceIT {
     private static final Boolean DEFAULT_IS_ADMINCOMMENT = false;
     private static final Boolean UPDATED_IS_ADMINCOMMENT = true;
 
-    private static final String DEFAULT_COMMENT_ID = "AAAAAAAAAA";
-    private static final String UPDATED_COMMENT_ID = "DDDDDDDDDD";
-
     private static final String DEFAULT_REPLY_BODY = "CCCCCCCCCC";
     private static final String UPDATED_REPLY_BODY = "DDDDDDDDDD";
 
     private static final boolean DEFAULT_IS_ADMIN_REPLY = false;
     private static final boolean UPDATED_IS_ADMIN_REPLY = true;
-
-    private static final String DEFAULT_CREATED_BY = "CCCCCCCCCC";
-    private static final String UPDATED_CREATED_BY = "DDDDDDDDDD";
 
     @Autowired
     private CommentRepository commentRepository;
@@ -158,10 +152,8 @@ public class CommentResourceIT {
      */
     public static CommentReply createCommentReplyEntity() {
         return new CommentReply()
-            .commentID(DEFAULT_COMMENT_ID)
             .replyBody(DEFAULT_REPLY_BODY)
             .isAdminReply(DEFAULT_IS_ADMIN_REPLY)
-            .createdBy(DEFAULT_CREATED_BY)
             .isApproved(DEFAULT_IS_APPROVED);
     }
 
@@ -173,10 +165,8 @@ public class CommentResourceIT {
      */
     public static CommentReply createCommentUpdatedEntity() {
         return new CommentReply()
-            .commentID(UPDATED_COMMENT_ID)
             .replyBody(UPDATED_REPLY_BODY)
             .isAdminReply(UPDATED_IS_ADMIN_REPLY)
-            .createdBy(UPDATED_CREATED_BY)
             .isApproved(UPDATED_IS_APPROVED);
     }
 
@@ -232,21 +222,23 @@ public class CommentResourceIT {
             .content(TestUtil.convertObjectToJsonBytes(commentDTO)))
             .andExpect(status().isCreated());
 
+        List<Comment> commentList = commentRepository.findAll();
+        Comment testComment = commentList.get(0);
+        commentReply.commentID(testComment.getId());
+
         // Add a reply to Comment
         restCommentMockMvc.perform(post("/api/comments/addReply")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(commentReply)))
-            .andExpect(status().isCreated());
+            .andExpect(status().isOk());
 
         // Validate the Comment in the database
-        List<Comment> commentList = commentRepository.findAll();
-        Comment testComment = commentList.get(0);
-        List<CommentReply> testReplies = testComment.getReplies();
-        CommentReply testReply = testReplies.get(0);
-        assertThat(testReply.getCommentID()).isEqualTo(DEFAULT_COMMENT_ID);
+        List<Comment> updatedCommentList = commentRepository.findAll();
+        Comment updatedTestComment = updatedCommentList.get(0);
+        CommentReply testReply = updatedTestComment.getReplies().get(0);
         assertThat(testReply.getReplyBody()).isEqualTo(DEFAULT_REPLY_BODY);
         assertThat(testReply.getIsAdminReply()).isEqualTo(DEFAULT_IS_ADMIN_REPLY);
-        assertThat(testReply.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
+        assertThat(testReply.getCreatedBy()).isEqualTo("add-reply-to-comment");
         assertThat(testReply.isApproved()).isEqualTo(DEFAULT_IS_APPROVED);
     }
 
@@ -363,19 +355,18 @@ public class CommentResourceIT {
     @Test
     public void getCommentsForVideo() throws Exception {
         // Initialize the database
-        commentRepository.save(comment);
+        commentRepository.save(comment.isApproved(UPDATED_IS_APPROVED));
 
         // Get comments for video
         restCommentMockMvc.perform(get("/api/comments/commentsForVideo/{videoID}", comment.getVideoID()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(comment.getId()))
-            .andExpect(jsonPath("$.[*].videoID").value(DEFAULT_VIDEO_ID))
-            .andExpect(jsonPath("$.[*].commentBody").value(DEFAULT_COMMENT_BODY))
-            .andExpect(jsonPath("$.[*].likesCount").value(DEFAULT_LIKES_COUNT))
-            .andExpect(jsonPath("$.[*].dislikesCount").value(DEFAULT_DISLIKES_COUNT))
-            .andExpect(jsonPath("$.[*].isApproved").value(DEFAULT_IS_APPROVED))
-            .andExpect(jsonPath("$.[*].isAdminComment").value(DEFAULT_IS_ADMINCOMMENT));
+            .andExpect(jsonPath("$.[*].videoID").value(hasItem(DEFAULT_VIDEO_ID)))
+            .andExpect(jsonPath("$.[*].commentBody").value(hasItem(DEFAULT_COMMENT_BODY)))
+            .andExpect(jsonPath("$.[*].likesCount").value(hasItem(DEFAULT_LIKES_COUNT)))
+            .andExpect(jsonPath("$.[*].dislikesCount").value(hasItem(DEFAULT_DISLIKES_COUNT)))
+            .andExpect(jsonPath("$.[*].isApproved").value(hasItem(UPDATED_IS_APPROVED)))
+            .andExpect(jsonPath("$.[*].isAdminComment").value(hasItem(DEFAULT_IS_ADMINCOMMENT)));
     }
 
     @Test
