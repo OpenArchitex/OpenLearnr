@@ -7,7 +7,6 @@ import { OpenLearnrTestModule } from '../../../test.module';
 import { CommentComponent } from 'app/entities/comment/comment.component';
 import { CommentService } from 'app/entities/comment/comment.service';
 import { Comment, IComment } from 'app/shared/model/comment.model';
-import { take } from 'rxjs/operators';
 
 describe('Component Tests', () => {
   describe('Comment Management Component', () => {
@@ -76,6 +75,7 @@ describe('Component Tests', () => {
     it('Should call changeToApprove', () => {
       // GIVEN
       const commentNotApproved: IComment = {
+        id: '123',
         commentBody: 'Test Comment Not Approved',
         replies: [
           {
@@ -94,6 +94,7 @@ describe('Component Tests', () => {
       };
 
       const commentApproved: IComment = {
+        id: '456',
         commentBody: 'Test Comment Approved',
         replies: [
           {
@@ -115,20 +116,29 @@ describe('Component Tests', () => {
         lastModifiedDate: new Date()
       };
 
+      const headers = new HttpHeaders().append('link', 'link;link');
+      spyOn(service, 'query').and.returnValue(
+        of(
+          new HttpResponse({
+            body: [commentNotApproved, commentApproved],
+            headers
+          })
+        )
+      );
+
       // WHEN
       comp.ngOnInit();
-      service.create(commentNotApproved);
-      service.create(commentApproved);
-      comp.approveComment(commentNotApproved);
+      comp.changeToApprove(commentNotApproved, { commentBody: 'Test Comment Not Approved', index: -1, approved: false });
       comp.changeToApprove(commentNotApproved, { commentBody: 'Test Reply Not Approved', index: 0, approved: false });
       comp.changeToApprove(commentApproved, { commentBody: 'Test Comment Approved', index: -1, approved: true });
       comp.changeToApprove(commentApproved, { commentBody: 'Test Reply Approved', index: 0, approved: true });
 
       // THEN
+      expect(service.query).toHaveBeenCalled();
       expect(comp.comments[0].isApproved).toEqual(true);
       expect(comp.comments[0].replies[0].approved).toEqual(true);
       expect(comp.comments[1].isApproved).toEqual(false);
-      expect(comp.comments[1].replies[1].approved).toEqual(false);
+      expect(comp.comments[1].replies[0].approved).toEqual(false);
     });
   });
 });
