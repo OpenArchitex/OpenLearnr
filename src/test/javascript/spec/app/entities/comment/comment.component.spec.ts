@@ -6,7 +6,8 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { OpenLearnrTestModule } from '../../../test.module';
 import { CommentComponent } from 'app/entities/comment/comment.component';
 import { CommentService } from 'app/entities/comment/comment.service';
-import { Comment } from 'app/shared/model/comment.model';
+import { Comment, IComment } from 'app/shared/model/comment.model';
+import { take } from 'rxjs/operators';
 
 describe('Component Tests', () => {
   describe('Comment Management Component', () => {
@@ -46,6 +47,88 @@ describe('Component Tests', () => {
       // THEN
       expect(service.query).toHaveBeenCalled();
       expect(comp.comments[0]).toEqual(jasmine.objectContaining({ id: '123' }));
+    });
+
+    it('Should call commentAndAllReplies', () => {
+      // GIVEN
+      const comment: IComment = {
+        commentBody: 'Test Comment',
+        replies: [
+          { replyBody: 'Test Reply', isAdminReply: true, createdBy: 'Sudharaka', createdDate: new Date(), dislikesCount: 0, approved: true }
+        ],
+        likesCount: 0,
+        dislikesCount: 0,
+        isApproved: true,
+        isAdminComment: false,
+        createdBy: 'Sudharaka',
+        createdDate: new Date(),
+        lastModifiedBy: 'Asanka',
+        lastModifiedDate: new Date()
+      };
+
+      // THEN
+      expect(comp.commentAndAllReplies(comment)).toEqual([
+        { commentBody: 'Test Comment', index: -1, approved: true },
+        { commentBody: 'Test Reply', index: 0, approved: true }
+      ]);
+    });
+
+    it('Should call changeToApprove', () => {
+      // GIVEN
+      const commentNotApproved: IComment = {
+        commentBody: 'Test Comment Not Approved',
+        replies: [
+          {
+            replyBody: 'Test Reply Not Approved',
+            isAdminReply: true,
+            createdBy: 'Sudharaka',
+            createdDate: new Date(),
+            dislikesCount: 0,
+            approved: false
+          }
+        ],
+        likesCount: 0,
+        dislikesCount: 0,
+        isApproved: false,
+        isAdminComment: false
+      };
+
+      const commentApproved: IComment = {
+        commentBody: 'Test Comment Approved',
+        replies: [
+          {
+            replyBody: 'Test Reply Approved',
+            isAdminReply: true,
+            createdBy: 'Sudharaka',
+            createdDate: new Date(),
+            dislikesCount: 0,
+            approved: true
+          }
+        ],
+        likesCount: 0,
+        dislikesCount: 0,
+        isApproved: true,
+        isAdminComment: false,
+        createdBy: 'Sudharaka',
+        createdDate: new Date(),
+        lastModifiedBy: 'Asanka',
+        lastModifiedDate: new Date()
+      };
+
+      // WHEN
+      comp.ngOnInit();
+      service.create(commentNotApproved);
+      service.create(commentApproved);
+      comp.approveComment(commentNotApproved);
+      comp.changeToApprove(commentNotApproved, { commentBody: 'Test Reply Not Approved', index: 0, approved: false });
+      comp.changeToApprove(commentApproved, { commentBody: 'Test Comment Approved', index: -1, approved: true });
+      comp.changeToApprove(commentApproved, { commentBody: 'Test Reply Approved', index: 0, approved: true });
+
+      // THEN
+      expect(comp.comments[0].isApproved).toEqual(true);
+      expect(comp.comments[0].replies[0].approved).toEqual(true);
+      expect(comp.comments[1].isApproved).toEqual(false);
+      expect(comp.comments[1].replies[1].approved).toEqual(false);
     });
   });
 });
