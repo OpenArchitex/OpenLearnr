@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { OpenLearnrTestModule } from '../../../test.module';
 import { CourseDetailComponent } from 'app/entities/course/course-detail.component';
 import { Course } from 'app/shared/model/course.model';
+import { MatSnackBarModule } from '@angular/material';
 
 describe('Component Tests', () => {
   describe('Course Management Detail Component', () => {
@@ -15,7 +16,7 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [OpenLearnrTestModule],
+        imports: [OpenLearnrTestModule, MatSnackBarModule],
         declarations: [CourseDetailComponent],
         providers: [{ provide: ActivatedRoute, useValue: route }]
       })
@@ -26,8 +27,7 @@ describe('Component Tests', () => {
     });
 
     describe('OnInit', () => {
-      // TODO: Skip test for now since the ngOnInit method makes several api calls
-      it.skip('Should call load all on init', () => {
+      it('Should call load all on init', () => {
         // GIVEN
 
         // WHEN

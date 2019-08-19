@@ -20,16 +20,15 @@ describe('Component Tests', () => {
       comp = fixture.componentInstance;
     });
 
-    // TODO: Skip some tests to get the prod build running. Should revisit later.
     describe('PasswordStrengthBarComponents', () => {
-      it.skip('should initialize with default values', () => {
+      it('should initialize with default values', () => {
         expect(comp.measureStrength('')).toBe(0);
         expect(comp.colors).toEqual(['#F00', '#F90', '#FF0', '#9F0', '#0F0']);
         expect(comp.getColor(0).idx).toBe(1);
         expect(comp.getColor(0).col).toBe(comp.colors[0]);
       });
 
-      it.skip('should increase strength upon password value change', () => {
+      it('should increase strength upon password value change', () => {
         expect(comp.measureStrength('')).toBe(0);
         expect(comp.measureStrength('aa')).toBeGreaterThanOrEqual(comp.measureStrength(''));
         expect(comp.measureStrength('aa^6')).toBeGreaterThanOrEqual(comp.measureStrength('aa'));
@@ -37,7 +36,7 @@ describe('Component Tests', () => {
         expect(comp.measureStrength('Aa090(**)+-07365')).toBeGreaterThanOrEqual(comp.measureStrength('Aa090(**)'));
       });
 
-      it.skip('should change the color based on strength', () => {
+      it('should change the color based on strength', () => {
         expect(comp.getColor(0).col).toBe(comp.colors[0]);
         expect(comp.getColor(11).col).toBe(comp.colors[1]);
         expect(comp.getColor(22).col).toBe(comp.colors[2]);
