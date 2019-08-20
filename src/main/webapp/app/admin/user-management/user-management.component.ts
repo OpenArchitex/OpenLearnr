@@ -136,9 +136,11 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     this.totalItems = headers.get('X-Total-Count');
     this.users = data;
 
-    this.users = this.users.filter(user => {
-      return user.login.includes(this.filter);
-    });
+    if (this.users.length > 0) {
+      this.users = this.users.filter(user => {
+        return user.login.includes(this.filter);
+      });
+    }
   }
 
   private onError(error) {
