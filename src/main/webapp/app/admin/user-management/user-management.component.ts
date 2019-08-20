@@ -44,6 +44,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
       this.previousPage = data['pagingParams'].page;
       this.reverse = data['pagingParams'].ascending;
       this.predicate = data['pagingParams'].predicate;
+      this.filter = '';
     });
     this.filter = '';
   }
@@ -139,7 +140,6 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
       this.users = this.users.filter(user => {
         return user.login.includes(this.filter);
       });
-    }
   }
 
   private onError(error) {
