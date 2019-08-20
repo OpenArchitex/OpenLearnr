@@ -44,8 +44,8 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
       this.previousPage = data['pagingParams'].page;
       this.reverse = data['pagingParams'].ascending;
       this.predicate = data['pagingParams'].predicate;
-      this.filter = '';
     });
+    this.filter = '';
   }
 
   ngOnInit() {
@@ -135,7 +135,6 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = headers.get('X-Total-Count');
     this.users = data;
-
     if (this.users.length > 0) {
       this.users = this.users.filter(user => {
         return user.login.includes(this.filter);
