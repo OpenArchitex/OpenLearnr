@@ -38,7 +38,6 @@ addons:
 script:
   - chmod +x mvnw
   - ./mvnw com.github.eirslett:frontend-maven-plugin:yarn -Dfrontend.yarn.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
-  - ./mvnw -Pprod clean verify
   - bash ./runSonarQubeAnalysis.sh
 notifications:
   webhooks:
