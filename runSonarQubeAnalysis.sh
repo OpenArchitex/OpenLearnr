@@ -30,4 +30,3 @@ else
     echo "Starting analysis by SonarQube..."
     ./mvnw -Pprod clean verify sonar:sonar -e -V -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 fi
-# When neither on develop branch nor on a non-external pull request => nothing to do
