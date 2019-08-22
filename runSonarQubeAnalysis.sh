@@ -17,7 +17,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "true" ] && [ -n "${GITHUB_TOKEN-}" ]; then
 	# That's why the analysis does not need to be executed if the variable GITHUB_TOKEN is not defined.
 	echo "Starting Pull Request analysis by SonarQube..."
 	./mvnw -Pprod clean verify sonar:sonar -e -V \
-		-Dsonar.host.url=$SONAR_HOST_URL \
+		-Dsonar.host.url=https://sonarcloud.io \
 		-Dsonar.login=$SONAR_TOKEN \
 		-Dsonar.analysis.mode=preview \
 		-Dsonar.github.oauth=$GITHUB_TOKEN \
@@ -28,6 +28,6 @@ else
     #
     # Analysis is done only on develop so that build of branches don't push analyses to the same project and therefore "pollute" the results
     echo "Starting analysis by SonarQube..."
-    ./mvnw -Pprod clean verify sonar:sonar -e -V -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+    ./mvnw -Pprod clean verify sonar:sonar -e -V -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
 fi
 # When neither on develop branch nor on a non-external pull request => nothing to do
