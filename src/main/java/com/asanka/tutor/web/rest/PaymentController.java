@@ -8,7 +8,6 @@ import com.asanka.tutor.service.ChapterService;
 import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.dto.ChapterDTO;
 import com.asanka.tutor.web.rest.errors.StripeCardError;
-import com.stripe.exception.CardException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import io.github.jhipster.web.util.ResponseUtil;

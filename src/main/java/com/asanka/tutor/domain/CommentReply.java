@@ -73,6 +73,31 @@ public class CommentReply implements Serializable {
         this.isAdminReply = isAdminReply;
     }
 
+    public CommentReply commentID(String commentID) {
+        this.commentID = commentID;
+        return this;
+    }
+
+    public CommentReply replyBody(String replyBody) {
+        this.replyBody = replyBody;
+        return this;
+    }
+
+    public CommentReply isAdminReply(boolean isAdminReply) {
+        this.isAdminReply = isAdminReply;
+        return this;
+    }
+
+    public CommentReply createdBy(String createdBy) {
+        this.createdBy = createdBy;
+        return this;
+    }
+
+    public CommentReply isApproved(boolean isApproved) {
+        this.isApproved = isApproved;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "CommentReply{" +

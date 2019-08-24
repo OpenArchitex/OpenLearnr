@@ -2,6 +2,7 @@ package com.asanka.tutor.web.rest;
 
 import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.domain.Comment;
+import com.asanka.tutor.domain.CommentReply;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.CommentRepository;
 import com.asanka.tutor.repository.CustomAuditEventRepository;
@@ -23,6 +24,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Validator;
 
@@ -59,6 +61,12 @@ public class CommentResourceIT {
     private static final Boolean DEFAULT_IS_ADMINCOMMENT = false;
     private static final Boolean UPDATED_IS_ADMINCOMMENT = true;
 
+    private static final String DEFAULT_REPLY_BODY = "CCCCCCCCCC";
+    private static final String UPDATED_REPLY_BODY = "DDDDDDDDDD";
+
+    private static final boolean DEFAULT_IS_ADMIN_REPLY = false;
+    private static final boolean UPDATED_IS_ADMIN_REPLY = true;
+
     @Autowired
     private CommentRepository commentRepository;
 
@@ -90,6 +98,8 @@ public class CommentResourceIT {
 
     private Comment comment;
 
+    private CommentReply commentReply;
+
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -109,15 +119,15 @@ public class CommentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Comment createEntity() {
-        Comment comment = new Comment()
+        return new Comment()
             .videoID(DEFAULT_VIDEO_ID)
             .commentBody(DEFAULT_COMMENT_BODY)
             .likesCount(DEFAULT_LIKES_COUNT)
             .dislikesCount(DEFAULT_DISLIKES_COUNT)
             .isApproved(DEFAULT_IS_APPROVED)
             .isAdminComment(DEFAULT_IS_ADMINCOMMENT);
-        return comment;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -125,20 +135,46 @@ public class CommentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Comment createUpdatedEntity() {
-        Comment comment = new Comment()
+        return new Comment()
             .videoID(UPDATED_VIDEO_ID)
             .commentBody(UPDATED_COMMENT_BODY)
             .likesCount(UPDATED_LIKES_COUNT)
             .dislikesCount(UPDATED_DISLIKES_COUNT)
             .isApproved(UPDATED_IS_APPROVED)
             .isAdminComment(UPDATED_IS_ADMINCOMMENT);
-        return comment;
+    }
+
+    /**
+     * Create a CommentReply object for this test.
+     *
+     * This is a static method, as tests for other entities might also need it,
+     * if they test an entity which requires the current entity.
+     */
+    public static CommentReply createCommentReplyEntity() {
+        return new CommentReply()
+            .replyBody(DEFAULT_REPLY_BODY)
+            .isAdminReply(DEFAULT_IS_ADMIN_REPLY)
+            .isApproved(DEFAULT_IS_APPROVED);
+    }
+
+    /**
+     * Create an updated CommentReply object for this test.
+     *
+     * This is a static method, as tests for other entities might also need it,
+     * if they test an entity which requires the current entity.
+     */
+    public static CommentReply createCommentUpdatedEntity() {
+        return new CommentReply()
+            .replyBody(UPDATED_REPLY_BODY)
+            .isAdminReply(UPDATED_IS_ADMIN_REPLY)
+            .isApproved(UPDATED_IS_APPROVED);
     }
 
     @BeforeEach
     public void initTest() {
         commentRepository.deleteAll();
         comment = createEntity();
+        commentReply = createCommentReplyEntity();
     }
 
     @Test
@@ -168,6 +204,42 @@ public class CommentResourceIT {
         assertThat(testComment.getDislikesCount()).isEqualTo(DEFAULT_DISLIKES_COUNT);
         assertThat(testComment.isIsApproved()).isEqualTo(DEFAULT_IS_APPROVED);
         assertThat(testComment.getIsAdminComment()).isEqualTo(DEFAULT_IS_ADMINCOMMENT);
+    }
+
+    @Test
+    @WithMockUser("add-reply-to-comment")
+    public void addReplyToComment() throws Exception {
+        UserDTO user = new UserDTO();
+        user.setLogin("add-reply-to-comment");
+        user.setEmail("add-reply-to-comment@example.com");
+
+        userService.createUser(user);
+
+        // Add a comment
+        CommentDTO commentDTO = commentMapper.toDto(comment);
+        restCommentMockMvc.perform(post("/api/comments")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(commentDTO)))
+            .andExpect(status().isCreated());
+
+        List<Comment> commentList = commentRepository.findAll();
+        Comment testComment = commentList.get(0);
+        commentReply.commentID(testComment.getId());
+
+        // Add a reply to Comment
+        restCommentMockMvc.perform(post("/api/comments/addReply")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(commentReply)))
+            .andExpect(status().isOk());
+
+        // Validate the Comment in the database
+        List<Comment> updatedCommentList = commentRepository.findAll();
+        Comment updatedTestComment = updatedCommentList.get(0);
+        CommentReply testReply = updatedTestComment.getReplies().get(0);
+        assertThat(testReply.getReplyBody()).isEqualTo(DEFAULT_REPLY_BODY);
+        assertThat(testReply.getIsAdminReply()).isEqualTo(DEFAULT_IS_ADMIN_REPLY);
+        assertThat(testReply.getCreatedBy()).isEqualTo("add-reply-to-comment");
+        assertThat(testReply.isApproved()).isEqualTo(DEFAULT_IS_APPROVED);
     }
 
     @Test
@@ -278,6 +350,23 @@ public class CommentResourceIT {
             .andExpect(jsonPath("$.dislikesCount").value(DEFAULT_DISLIKES_COUNT))
             .andExpect(jsonPath("$.isApproved").value(DEFAULT_IS_APPROVED))
             .andExpect(jsonPath("$.isAdminComment").value(DEFAULT_IS_ADMINCOMMENT));
+    }
+
+    @Test
+    public void getCommentsForVideo() throws Exception {
+        // Initialize the database
+        commentRepository.save(comment.isApproved(UPDATED_IS_APPROVED));
+
+        // Get comments for video
+        restCommentMockMvc.perform(get("/api/comments/commentsForVideo/{videoID}", comment.getVideoID()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].videoID").value(hasItem(DEFAULT_VIDEO_ID)))
+            .andExpect(jsonPath("$.[*].commentBody").value(hasItem(DEFAULT_COMMENT_BODY)))
+            .andExpect(jsonPath("$.[*].likesCount").value(hasItem(DEFAULT_LIKES_COUNT)))
+            .andExpect(jsonPath("$.[*].dislikesCount").value(hasItem(DEFAULT_DISLIKES_COUNT)))
+            .andExpect(jsonPath("$.[*].isApproved").value(hasItem(UPDATED_IS_APPROVED)))
+            .andExpect(jsonPath("$.[*].isAdminComment").value(hasItem(DEFAULT_IS_ADMINCOMMENT)));
     }
 
     @Test
