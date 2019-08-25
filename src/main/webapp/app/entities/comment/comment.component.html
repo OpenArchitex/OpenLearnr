@@ -15,16 +15,16 @@
         <span>No comments found</span>
     </div>
     <div class="table-responsive" *ngIf="comments?.length > 0">
-        <table class="table table-striped">
+        <table class="table table-striped" summary="Comments From Users">
             <thead>
             <tr>
-            <th><span>ID</span></th>
-            <th><span>Video ID</span></th>
-            <th><span>Comment Body</span></th>
-            <th><span>Non Approved Comment/Replies</span></th>
+            <th scope="col"><span>ID</span></th>
+            <th scope="col"><span>Video ID</span></th>
+            <th scope="col"><span>Comment Body</span></th>
+            <th scope="col"><span>Non Approved Comment/Replies</span></th>
 <!--            <th><span>Likes Count</span></th>-->
 <!--            <th><span>Dislikes Count</span></th>-->
-            <th></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
