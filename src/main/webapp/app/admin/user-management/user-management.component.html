@@ -9,7 +9,8 @@
     <jhi-alert></jhi-alert>
     <span>Filter (by login)</span> <input type="text" [(ngModel)]="filter" class="form-control" (keyup)="loadAll()">
     <div class="table-responsive" *ngIf="users">
-        <table class="table table-striped" summary="User Management Table">
+        <table class="table table-striped">
+            <caption [hidden]="true">User Management Table</caption>
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>

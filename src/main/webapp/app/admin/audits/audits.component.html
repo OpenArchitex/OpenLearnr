@@ -24,7 +24,8 @@
         <span>No audit found</span>
     </div>
     <div class="table-responsive" *ngIf="audits?.length > 0">
-        <table class="table table-sm table-striped" summary="Table about Audit Events">
+        <table class="table table-sm table-striped">
+            <caption [hidden]="true">Table about Audit Events</caption>
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                 <th scope="col" jhiSortBy="auditEventDate"><span>Date</span><fa-icon [icon]="'sort'"></fa-icon></th>

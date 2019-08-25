@@ -15,7 +15,8 @@
         <span>No courses found</span>
     </div>
     <div class="table-responsive" *ngIf="courses?.length > 0">
-        <table class="table table-striped" summary="Courses Table">
+        <table class="table table-striped">
+            <caption [hidden]="true">Courses Table</caption>
             <thead>
             <tr>
             <th scope="col"><span>ID</span></th>

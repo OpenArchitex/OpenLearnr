@@ -15,7 +15,8 @@
         <span>No comments found</span>
     </div>
     <div class="table-responsive" *ngIf="comments?.length > 0">
-        <table class="table table-striped" summary="Comments From Users">
+        <table class="table table-striped">
+            <caption [hidden]="true">Comments From Users</caption>
             <thead>
             <tr>
             <th scope="col"><span>ID</span></th>
