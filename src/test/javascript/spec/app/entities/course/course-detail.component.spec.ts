@@ -1,5 +1,5 @@
 /* tslint:disable max-line-length */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -7,11 +7,16 @@ import { OpenLearnrTestModule } from '../../../test.module';
 import { CourseDetailComponent } from 'app/entities/course/course-detail.component';
 import { Course } from 'app/shared/model/course.model';
 import { MatSnackBarModule } from '@angular/material';
+import { HttpResponse } from '@angular/common/http';
+import { ChapterService } from 'app/entities/chapter';
+import { Chapter } from 'app/shared/model/chapter.model';
+import { CourseService } from 'app/entities/course';
 
 describe('Component Tests', () => {
   describe('Course Management Detail Component', () => {
     let comp: CourseDetailComponent;
     let fixture: ComponentFixture<CourseDetailComponent>;
+    let service: ChapterService;
     const route = ({ data: of({ course: new Course('123') }) } as any) as ActivatedRoute;
 
     beforeEach(() => {
@@ -24,6 +29,7 @@ describe('Component Tests', () => {
         .compileComponents();
       fixture = TestBed.createComponent(CourseDetailComponent);
       comp = fixture.componentInstance;
+      service = fixture.debugElement.injector.get(ChapterService);
     });
 
     describe('OnInit', () => {
@@ -36,6 +42,22 @@ describe('Component Tests', () => {
         // THEN
         expect(comp.course).toEqual(jasmine.objectContaining({ id: '123' }));
       });
+    });
+
+    describe('loadAllChaptersForCourse', () => {
+      it('Should call getChaptersForCourse method of chapterService', fakeAsync(() => {
+        // GIVEN
+        const course = new Course('myCourse');
+        const chapters = [new Chapter('abc'), new Chapter('def'), new Chapter('ghi')];
+        spyOn(service, 'getChaptersForCourse').and.returnValue(of(new HttpResponse({ body: chapters })));
+
+        // WHEN
+        comp.loadAllChaptersForCourse(course);
+        tick(); // simulate async
+
+        // THEN
+        expect(service.getChaptersForCourse).toHaveBeenCalledWith(course.id);
+      }));
     });
   });
 });
