@@ -11,6 +11,7 @@ import { HttpResponse } from '@angular/common/http';
 import { ChapterService } from 'app/entities/chapter';
 import { Chapter } from 'app/shared/model/chapter.model';
 import { CourseService } from 'app/entities/course';
+import { Video } from 'app/shared/model/video.model';
 
 describe('Component Tests', () => {
   describe('Course Management Detail Component', () => {
@@ -49,7 +50,9 @@ describe('Component Tests', () => {
         // GIVEN
         const course = new Course('myCourse');
         const chapters = [new Chapter('abc'), new Chapter('def'), new Chapter('ghi')];
+        const videos = [new Video('abc'), new Video('def'), new Video('ghi')];
         spyOn(service, 'getChaptersForCourse').and.returnValue(of(new HttpResponse({ body: chapters })));
+        spyOn(service, 'getVideosForChapters').and.returnValue(of(new HttpResponse({ body: videos })));
 
         // WHEN
         comp.loadAllChaptersForCourse(course);
@@ -57,6 +60,7 @@ describe('Component Tests', () => {
 
         // THEN
         expect(service.getChaptersForCourse).toHaveBeenCalledWith(course.id);
+        expect(service.getVideosForChapters).toHaveBeenCalledWith(['abc', 'def', 'ghi']);
       }));
     });
   });
