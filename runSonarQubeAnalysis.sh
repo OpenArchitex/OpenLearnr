@@ -8,7 +8,7 @@ set -e
 
 # And run the analysis
 # It assumes that the project uses Maven and has a POM at the root of the repo
-if [ "$TRAVIS_PULL_REQUEST" == "true" ] && [ -n "${GITHUB_TOKEN-}" ]; then
+if [ "$TRAVIS_PULL_REQUEST" == "true" ]; then
 	# => This will analyse the PR and display found issues as comments in the PR, but it won't push results to the SonarQube server
 	#
 	# For security reasons environment variables are not available on the pull requests
