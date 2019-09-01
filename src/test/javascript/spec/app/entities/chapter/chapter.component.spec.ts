@@ -34,7 +34,7 @@ describe('Component Tests', () => {
       spyOn(service, 'query').and.returnValue(
         of(
           new HttpResponse({
-            body: [new Chapter('123')],
+            body: [new Chapter('123', 'chapter 1')],
             headers
           })
         )
@@ -45,7 +45,7 @@ describe('Component Tests', () => {
 
       // THEN
       expect(service.query).toHaveBeenCalled();
-      expect(comp.chapters[0]).toEqual(jasmine.objectContaining({ id: '123' }));
+      expect(comp.chapters[0]).toEqual(jasmine.objectContaining({ id: '123', name: 'chapter 1' }));
     });
   });
 });
