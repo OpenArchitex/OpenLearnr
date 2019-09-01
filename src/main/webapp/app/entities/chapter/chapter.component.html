@@ -17,15 +17,16 @@
     </div>
     <div class="table-responsive" *ngIf="chapters?.length > 0">
         <table class="table table-striped">
+            <caption [hidden]="true">Chapters Table</caption>
             <thead>
             <tr>
-            <th><span>ID</span></th>
-            <th><span>Name</span></th>
-            <th><span>Chapter Number</span></th>
-            <th><span>Description</span></th>
-            <th><span>Course ID</span></th>
-            <th><span>Paid Chapter</span></th>
-            <th></th>
+            <th scope="col"><span>ID</span></th>
+            <th scope="col"><span>Name</span></th>
+            <th scope="col"><span>Chapter Number</span></th>
+            <th scope="col"><span>Description</span></th>
+            <th scope="col"><span>Course ID</span></th>
+            <th scope="col"><span>Paid Chapter</span></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>

@@ -17,17 +17,18 @@
     </div>
     <div class="table-responsive" *ngIf="videos?.length > 0">
         <table class="table table-striped">
+            <caption [hidden]="true">Videos Table</caption>
             <thead>
             <tr>
-            <th><span>ID</span></th>
-            <th><span>Name</span></th>
-            <th><span>Episode</span></th>
-            <th><span>Description</span></th>
-            <th><span>Url</span></th>
-            <th><span>Course ID</span></th>
-            <th><span>Chapter ID</span></th>
-            <th><span>Is Sample</span></th>
-            <th></th>
+            <th scope="col"><span>ID</span></th>
+            <th scope="col"><span>Name</span></th>
+            <th scope="col"><span>Episode</span></th>
+            <th scope="col"><span>Description</span></th>
+            <th scope="col"><span>Url</span></th>
+            <th scope="col"><span>Course ID</span></th>
+            <th scope="col"><span>Chapter ID</span></th>
+            <th scope="col"><span>Is Sample</span></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
