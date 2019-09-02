@@ -34,8 +34,8 @@ install:
   - yarn install
 script:
   - chmod +x mvnw
+  - ./mvnw clean verify
   - ./mvnw com.github.eirslett:frontend-maven-plugin:yarn -Dfrontend.yarn.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
-  - ./mvnw -ntp verify -Pprod -DskipTests
   - if [ $TRAVIS_PULL_REQUEST == "false" ]; then ./mvnw -ntp org.jacoco:jacoco-maven-plugin:prepare-agent initialize sonar:sonar -Dsonar.organization=python-sinhala-education-society -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN; fi
 notifications:
   webhooks:
