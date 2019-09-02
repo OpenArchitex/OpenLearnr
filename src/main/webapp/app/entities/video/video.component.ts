@@ -24,7 +24,7 @@ export class VideoComponent implements OnInit, OnDestroy {
     protected eventManager: JhiEventManager,
     protected accountService: AccountService
   ) {
-    this.filter = ''
+    this.filter = '';
   }
 
   loadAll() {
