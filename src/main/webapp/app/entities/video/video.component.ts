@@ -16,13 +16,16 @@ export class VideoComponent implements OnInit, OnDestroy {
   videos: IVideo[];
   currentAccount: any;
   eventSubscriber: Subscription;
+  filter: string;
 
   constructor(
     protected videoService: VideoService,
     protected jhiAlertService: JhiAlertService,
     protected eventManager: JhiEventManager,
     protected accountService: AccountService
-  ) {}
+  ) {
+    this.filter = ''
+  }
 
   loadAll() {
     this.videoService
@@ -34,6 +37,11 @@ export class VideoComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IVideo[]) => {
           this.videos = res;
+          if (this.videos.length > 0) {
+            this.videos = this.videos.filter(video => {
+              return video.name.includes(this.filter);
+            });
+          }
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
