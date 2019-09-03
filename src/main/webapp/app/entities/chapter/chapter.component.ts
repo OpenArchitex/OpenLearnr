@@ -16,13 +16,16 @@ export class ChapterComponent implements OnInit, OnDestroy {
   chapters: IChapter[];
   currentAccount: any;
   eventSubscriber: Subscription;
+  filter: string;
 
   constructor(
     protected chapterService: ChapterService,
     protected jhiAlertService: JhiAlertService,
     protected eventManager: JhiEventManager,
     protected accountService: AccountService
-  ) {}
+  ) {
+    this.filter = '';
+  }
 
   loadAll() {
     this.chapterService
@@ -34,6 +37,11 @@ export class ChapterComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: IChapter[]) => {
           this.chapters = res;
+          if (this.chapters.length > 0) {
+            this.chapters = this.chapters.filter(chapter => {
+              return chapter.name.includes(this.filter);
+            });
+          }
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
