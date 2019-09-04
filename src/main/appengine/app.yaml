@@ -1,6 +1,7 @@
 runtime: java11
 instance_class: F2
-secure: always
+handlers:
+  secure: always
 automatic_scaling:
   min_instances: 0
   max_instances: 1
