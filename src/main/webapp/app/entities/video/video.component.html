@@ -10,6 +10,7 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
+    <span>Filter (by name)</span> <input type="text" [(ngModel)]="filter" class="form-control" (keyup)="loadAll()">
     <br/>
     <div class="alert alert-warning" *ngIf="videos?.length === 0">
         <span>No videos found</span>
