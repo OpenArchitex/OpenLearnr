@@ -1,7 +1,7 @@
 runtime: java11
 instance_class: F2
 handlers:
-  url: /(.*)
+- url: /(.*)
   secure: always
 automatic_scaling:
   min_instances: 0
