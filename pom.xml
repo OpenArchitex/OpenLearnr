@@ -277,12 +277,6 @@
             <version>${thin-launcher.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot.experimental</groupId>
-            <artifactId>spring-boot-thin-launcher</artifactId>
-            <classifier>exec</classifier>
-            <version>${thin-launcher.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-dependencies</artifactId>
             <version>Greenwich.RELEASE</version>
@@ -908,12 +902,6 @@
                             <dependency>
                                 <groupId>org.springframework.boot.experimental</groupId>
                                 <artifactId>spring-boot-thin-layout</artifactId>
-                                <version>${thin-launcher.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>org.springframework.boot.experimental</groupId>
-                                <artifactId>spring-boot-thin-launcher</artifactId>
-                                <classifier>exec</classifier>
                                 <version>${thin-launcher.version}</version>
                             </dependency>
                         </dependencies>
