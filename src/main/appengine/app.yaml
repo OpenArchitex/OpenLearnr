@@ -7,4 +7,4 @@ handlers:
 automatic_scaling:
   min_instances: 0
   max_instances: 1
-entrypoint: java -Xmx4096 -jar open-learnr-1.0.0.jar
+entrypoint: java -Xmx4096M -jar open-learnr-1.0.0.jar
