@@ -270,6 +270,12 @@
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-core</artifactId>
         </dependency>
+        <!-- Spring-Boot Thin Launcher -->
+        <dependency>
+            <groupId>org.springframework.boot.experimental</groupId>
+            <artifactId>spring-boot-thin-layout</artifactId>
+            <version>${thin-launcher.version}</version>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
         <dependency>
             <groupId>com.stripe</groupId>
