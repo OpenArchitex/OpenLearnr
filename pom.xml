@@ -282,6 +282,12 @@
             <classifier>exec</classifier>
             <version>${thin-launcher.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>Greenwich.RELEASE</version>
+            <type>pom</type>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
         <dependency>
             <groupId>com.stripe</groupId>
