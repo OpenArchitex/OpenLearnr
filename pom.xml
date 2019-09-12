@@ -277,10 +277,10 @@
             <version>${thin-launcher.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-dependencies</artifactId>
-            <version>Greenwich.RELEASE</version>
-            <type>pom</type>
+            <groupId>org.springframework.boot.experimental</groupId>
+            <artifactId>spring-boot-thin-launcher</artifactId>
+            <classifier>exec</classifier>
+            <version>${thin-launcher.version}</version>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
         <dependency>
