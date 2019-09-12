@@ -7,7 +7,10 @@ if [[ $TRAVIS_TAG =~ $SEMVAR ]]; then
     tar xvf secrets.tar
 
     # Deploy on AppEngine
-    ./mvnw package appengine:stage -Pgae -DskipTests
+    ./mvnw package -Pgae -DskipTests
+    rm -f target/open-learnr-1.0.0.jar
+    mv target/open-learnr-1.0.0.jar.original target/open-learnr-1.0.0.jar
+    ./mvnw appengine:stage
     jar xf target/appengine-staging/open-learnr-1.0.0.jar
     rm -f target/appengine-staging/open-learnr-1.0.0.jar
     ./mvnw appengine:deploy
