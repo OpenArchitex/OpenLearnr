@@ -8,13 +8,9 @@ if [[ $TRAVIS_TAG =~ $SEMVAR ]]; then
 
     # Deploy on AppEngine
     ./mvnw package appengine:stage -Pprod -DskipTests
-    echo "package done"
     cd target/appengine-staging
     jar xf open-learnr-1.0.0.jar
-    echo "jar extracted"
-    rm -f open-learner-1.0.0.jar
-    echo "removed open learner"
+    rm -f open-learnr-1.0.0.jar
     cd ../..
     ./mvnw appengine:deploy
-    echo "deployed"
 fi
