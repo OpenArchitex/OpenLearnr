@@ -954,6 +954,7 @@
                                         <artifactItem>
                                             <groupId>org.springframework.boot</groupId>
                                             <artifactId>spring-boot-maven-plugin</artifactId>
+                                            <version>${spring-boot.version}</version>
                                             <type>jar</type>
                                             <overWrite>false</overWrite>
                                             <outputDirectory>target/appengine-staging</outputDirectory>
