@@ -14,6 +14,7 @@ if [[ $TRAVIS_TAG =~ $SEMVAR ]]; then
     echo "jar extracted"
     rm -f open-learner-1.0.0.jar
     echo "removed open learner"
+    cd ../..
     ./mvnw appengine:deploy
     echo "deployed"
 fi
