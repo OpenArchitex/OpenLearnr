@@ -656,7 +656,6 @@
                         <deploy.version>GCLOUD_CONFIG</deploy.version>
                         <serviceAccountKeyFile>gcloudkey.json</serviceAccountKeyFile>
                         <stopPreviousVersion>true</stopPreviousVersion>
-                        <stage.artifact></stage.artifact>
                         <environment>
                             <name>spring.profiles.active</name>
                             <value>prod${profile.swagger}</value>
@@ -878,7 +877,7 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
                             <mainClass>${start-class}</mainClass>
-                            <executable>true</executable>
+                            <executable>false</executable>
                         </configuration>
                         <executions>
                             <execution>
@@ -957,7 +956,7 @@
                                             <artifactId>open-learnr</artifactId>
                                             <version>1.0.0</version>
                                             <type>jar</type>
-                                            <overWrite>false</overWrite>
+                                            <overWrite>true</overWrite>
                                             <outputDirectory>target/appengine-staging</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
