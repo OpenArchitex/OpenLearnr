@@ -655,6 +655,8 @@
                         <deploy.projectId>pythonsinhala-243503</deploy.projectId>
                         <deploy.version>GCLOUD_CONFIG</deploy.version>
                         <serviceAccountKeyFile>gcloudkey.json</serviceAccountKeyFile>
+                        <stage.enableJarSplitting>true</stage.enableJarSplitting>
+                        <stage.jarSplittingExcludes>.jar</stage.jarSplittingExcludes>
                         <stopPreviousVersion>true</stopPreviousVersion>
                         <environment>
                             <name>spring.profiles.active</name>
@@ -960,29 +962,6 @@
                                             <outputDirectory>target/appengine-staging</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <executions>
-                            <execution>
-                                <id>copy-resources</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${basedir}/target</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>${basedir}</directory>
-                                            <filtering>true</filtering>
-                                            <includes>.gcloudignore</includes>
-                                        </resource>
-                                    </resources>
                                 </configuration>
                             </execution>
                         </executions>
