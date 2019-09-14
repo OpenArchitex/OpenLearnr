@@ -7,3 +7,4 @@ handlers:
 automatic_scaling:
   min_instances: 0
   max_instances: 1
+entrypoint: java -agentpath:/opt/cdbg/cdbg_java_agent.so=--log_dir=/var/log -noverify -XX:+AlwaysPreTouch -XX:TieredStopAtLevel=1 -Djava.security.egd=file:/dev/./urandom -cp BOOT-INF/resources/:BOOT-INF/classes/:BOOT-INF/lib/* com.asanka.tutor.OpenLearnrApp
