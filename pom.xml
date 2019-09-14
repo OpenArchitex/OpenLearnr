@@ -952,14 +952,34 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>com.asanka.tutor</groupId>
-                                            <artifactId>open-learnr</artifactId>
-                                            <version>1.0.0</version>
+                                            <groupId>${groupId}</groupId>
+                                            <artifactId>${artifactId}</artifactId>
+                                            <version>${version}</version>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>
-                                            <outputDirectory>target/appengine-staging</outputDirectory>
+                                            <outputDirectory>${project.build.directory}/appengine-staging</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <delete>
+                                            <fileset dir="${project.build.directory}" includes="*.jar" />
+                                        </delete>
+                                    </tasks>
                                 </configuration>
                             </execution>
                         </executions>
