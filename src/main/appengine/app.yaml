@@ -2,7 +2,8 @@ runtime: java11
 instance_class: F2
 handlers:
 - url: (/.)
-  static_files: BOOT-INF/classes/static\1
+  static_files: static/\1
+  upload: BOOT-INF/classes/static/\1
   secure: always
 - url: /(.*)
   script: auto
