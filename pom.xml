@@ -883,7 +883,7 @@
                         <executions>
                             <execution>
                                 <goals>
-                                    <goal>repackage</goal>
+                                    <goal>build-info</goal>
                                 </goals>
                             </execution>
                         </executions>
@@ -953,9 +953,9 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.springframework.boot</groupId>
-                                            <artifactId>spring-boot-maven-plugin</artifactId>
-                                            <version>${spring-boot.version}</version>
+                                            <groupId>com.asanka.tutor</groupId>
+                                            <artifactId>open-learnr</artifactId>
+                                            <version>1.0.0</version>
                                             <type>jar</type>
                                             <overWrite>false</overWrite>
                                             <outputDirectory>target/appengine-staging</outputDirectory>
