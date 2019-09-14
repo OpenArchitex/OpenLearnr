@@ -3,7 +3,7 @@ instance_class: F2
 handlers:
 - url: /(.*\.(html|css|js))$
   static_files: BOOT-INF/classes/static/\1
-  upload: static/.*\.(html|css|js)$
+  upload: BOOT-INF/classes/static/.*\.(html|css|js)$
   secure: always
 - url: /(.*)$
   script: auto
