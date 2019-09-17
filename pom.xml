@@ -656,6 +656,7 @@
                         <deploy.version>GCLOUD_CONFIG</deploy.version>
                         <serviceAccountKeyFile>gcloudkey.json</serviceAccountKeyFile>
                         <stopPreviousVersion>true</stopPreviousVersion>
+                        <artifact>${project.build.directory}</artifact>
                         <environment>
                             <name>spring.profiles.active</name>
                             <value>prod${profile.swagger}</value>
