@@ -4619,10 +4619,10 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
-generator-jhipster@6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-6.3.0.tgz#749478d410a16893795c99c5366917f9518759db"
-  integrity sha512-MOz4aly1bXyRQbN5wYJLqAf34qHIqU0yBHJr9Ad6jhf727qt716LJ2CZfW6AWtVjcY1fcSUEnrji53Agf0UeUg==
+generator-jhipster@6.3.1:
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-6.3.1.tgz#c48c7bf4921e7fdf2b622a7eb17776088aaf5b36"
+  integrity sha512-1v3vbk5/C+vrBvEGw2pl4TfgPe2YHhr1T3ROfEjCItgbo9hBWdhcwbAZOLCvaNAc8eYN4DYz+fOoTBnuNnjipw==
   dependencies:
     axios "0.19.0"
     chalk "2.4.2"
