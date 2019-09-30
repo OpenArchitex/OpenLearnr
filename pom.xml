@@ -878,12 +878,12 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
                             <mainClass>${start-class}</mainClass>
-                            <executable>true</executable>
+                            <executable>false</executable>
                         </configuration>
                         <executions>
                             <execution>
                                 <goals>
-                                    <goal>repackage</goal>
+                                    <goal>build-info</goal>
                                 </goals>
                             </execution>
                         </executions>
@@ -953,12 +953,12 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.springframework.boot</groupId>
-                                            <artifactId>spring-boot-maven-plugin</artifactId>
-                                            <version>${spring-boot.version}</version>
+                                            <groupId>${project.groupId}</groupId>
+                                            <artifactId>${project.artifactId}</artifactId>
+                                            <version>${project.version}</version>
                                             <type>jar</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>target/appengine-staging</outputDirectory>
+                                            <overWrite>true</overWrite>
+                                            <outputDirectory>${project.build.directory}/appengine-staging</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>
