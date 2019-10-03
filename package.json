@@ -42,7 +42,7 @@
     "@angular/cli": "8.0.0",
     "@angular/compiler-cli": "8.0.0",
     "@ngtools/webpack": "8.0.0",
-    "@types/chai": "4.1.7",
+    "@types/chai": "4.2.3",
     "@types/chai-string": "1.4.2",
     "@types/jest": "24.0.13",
     "@types/mocha": "5.2.6",
