@@ -73,7 +73,7 @@
     "jest-preset-angular": "7.1.1",
     "jest-sonar-reporter": "2.0.0",
     "lint-staged": "8.1.7",
-    "mini-css-extract-plugin": "0.7.0",
+    "mini-css-extract-plugin": "0.8.0",
     "mocha": "6.1.4",
     "moment-locales-webpack-plugin": "1.0.7",
     "optimize-css-assets-webpack-plugin": "5.0.1",
