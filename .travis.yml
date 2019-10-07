@@ -1,5 +1,5 @@
 os:
-  - linux
+  - bionic
 services:
   - docker
 language: node_js
@@ -22,8 +22,6 @@ env:
     - NG_CLI_ANALYTICS="false"
     - secure: zmmc/J8/HwIx6iCcK0+t5sZkJN0YMbHbjJawZ+AT3A+gtDtLOSx042pHOnXZmnXc7WRo2sieqB7SXtvMCv2vONW/DR7+x2QwxrS8Y/yG6On7FfTk5NjIe34wpqG8Httfmggc5LLOi8jkiGka8KEGHx32ngnerutt4FbTT5P0gWc6B8NsjJNMlL5ED1elL46xU7q2YebrZH4WfDEOANI6CsojtmU1O1Te3OX2divFpOHq2khZuZPwY1RbP3lyBrQjQbPnBxDaG2+/dtO4yEtbUH0MYu/mBZPKomvhj5mDyOvd1NXy9yCv1tChet4lYm/yzHVSh//gPwqSl4D7zM2F/F++hdF/PjaNl2CB0SnkPRpwFImlTxV/KVd1vPg1mlIvRlQ5/NhVtCHcRamXf2rmHEeNsjFOg9gyOyr2AvTkI3qz1N4r5MqOtFr+JcSk6NpeaRX2IKSMMM4QvoVRXvKToBG8yeDnqB8WPWITJDN70TeGExafp2BALXXYbry65nPPWFmG1gabyHSqz6tY7a/fzPUnzDBKwuzmN1IEf+rL9NWQ6M1PviADrHsRf5OdD58AFd6fVwz/Isa2rO+AWl4mjrtHumxlk4T/YMlK/+guUyuQWkMvS0Ul36NkmN9mq/lOBjbQ4vuW1M2QjQokw3pe9oUzrAd7s8JPsPaVumoAjfo=
 before_install:
-  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
-  - source install-jdk.sh --feature 11
   - java -version
   - sudo /etc/init.d/mysql stop
   - sudo /etc/init.d/postgresql stop
