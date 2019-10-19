@@ -6,7 +6,7 @@ Navbar
 ========================================================================== */
 
 .jh-navbar {
-  background-color: #353d47;
+  background-color: #222035;
   padding: 0.2em 1em;
   .profile-image {
     margin: -10px 0px;
@@ -46,4 +46,13 @@ Logo styles
     background: url('../../../content/images/logo-jhipster.svg') no-repeat center center;
     background-size: contain;
   }
+}
+
+/* ==========================================================================
+jumbotron
+========================================================================== */
+
+.hipster {
+  background-position: bottom !important;
+  filter: brightness(1.05);
 }

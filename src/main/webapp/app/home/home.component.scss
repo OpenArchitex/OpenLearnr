@@ -122,6 +122,9 @@ Main page styles
 
 section {
   padding: 3rem 0;
+  h1 {
+    text-align: center;
+  }
   p {
     padding: 3rem 0;
     font-size: 22px;
@@ -150,5 +153,58 @@ p {
   .card-title,
   .card-text {
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .jumbotron {
+    .container {
+      min-height: 100vh;
+      h1 {
+        font-size: 2em;
+        margin: 2rem 0;
+        text-align: center;
+      }
+    }
+  }
+
+  section {
+    padding: 1rem 0;
+    h1 {
+      font-size: 2em;
+    }
+    p {
+      padding: 0 0 1rem 0;
+      font-size: 16px;
+      margin: 0;
+    }
+  }
+
+  #mission {
+    ul > li {
+      padding: 2rem 0;
+    }
+    .img-fluid {
+      padding: 0 0 2rem 0;
+    }
+  }
+
+  .jh-card {
+    margin-top: 15px;
+  }
+
+  .asanka-img {
+    height: 150px;
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }
+
+  .contact-form {
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    padding-top: 3rem;
   }
 }
