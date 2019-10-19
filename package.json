@@ -45,7 +45,7 @@
     "@ngtools/webpack": "8.3.7",
     "@types/chai": "4.2.3",
     "@types/chai-string": "1.4.2",
-    "@types/jest": "24.0.13",
+    "@types/jest": "24.0.18",
     "@types/mocha": "5.2.6",
     "@types/node": "10.12.27",
     "@types/selenium-webdriver": "4.0.3",
