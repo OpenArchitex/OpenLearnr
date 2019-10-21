@@ -13,7 +13,7 @@ we have all teh information we need.
 
 ## Coding Contributions
 
-- All coding contributions should be done through [pull requests](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork). We do not respond to emails or coding posted via our Gitter channel. 
+- All coding contributions should be done through [pull requests](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork). We do not respond to emails or coding posted via our Gitter channel. If you have any suggessions or want to contribute please open a [issue](https://github.com/python-sinhala-education-society/OpenLearnr/issues) first. This way we could discuss about the change and once finalized you could do a pull request. 
 
 - We don't have a comprehensive style guide for now, but we expect you code with due deligence with standard practices. Your code 
 should pass the standard unit and integration tests (automatically run by Travis). 
