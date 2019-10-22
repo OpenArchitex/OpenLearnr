@@ -45,7 +45,9 @@ public class ChapterResourceIT {
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
     private static final String DEFAULT_COURSE_ID = "AAAAAAAAAA";
+    private static final String DEFAULT_COURSE_NAME = "COURSE_AAAAAAAAAA";
     private static final String UPDATED_COURSE_ID = "BBBBBBBBBB";
+    private static final String UPDATED_COURSE_NAME = "COURSE_BBBBBBBBBB";
 
     private static final Boolean DEFAULT_IS_PAID_CHAPTER = false;
     private static final Boolean UPDATED_IS_PAID_CHAPTER = true;
@@ -99,6 +101,7 @@ public class ChapterResourceIT {
             .chapterNumber(DEFAULT_CHAPTER_NUMBER)
             .description(DEFAULT_DESCRIPTION)
             .courseID(DEFAULT_COURSE_ID)
+            .courseName(DEFAULT_COURSE_NAME)
             .isPaidChapter(DEFAULT_IS_PAID_CHAPTER);
     }
     /**
@@ -113,6 +116,7 @@ public class ChapterResourceIT {
             .chapterNumber(UPDATED_CHAPTER_NUMBER)
             .description(UPDATED_DESCRIPTION)
             .courseID(UPDATED_COURSE_ID)
+            .courseName(UPDATED_COURSE_NAME)
             .isPaidChapter(UPDATED_IS_PAID_CHAPTER);
     }
 
@@ -237,6 +241,20 @@ public class ChapterResourceIT {
     }
 
     @Test
+    public void checkCourseNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = chapterRepository.findAll().size();
+		// set the field null
+        chapter.setCourseName(null);
+	    // Create the Chapter, which fails.
+        ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
+        restChapterMockMvc.perform(post("/api/chapters")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
+            .andExpect(status().isBadRequest());
+        List<Chapter> chapterList = chapterRepository.findAll();
+        assertThat(chapterList).hasSize(databaseSizeBeforeTest);
+    }
+    @Test
     public void checkIsPaidChapterIsRequired() throws Exception {
         int databaseSizeBeforeTest = chapterRepository.findAll().size();
         // set the field null
@@ -309,6 +327,7 @@ public class ChapterResourceIT {
             .chapterNumber(UPDATED_CHAPTER_NUMBER)
             .description(UPDATED_DESCRIPTION)
             .courseID(UPDATED_COURSE_ID)
+            .courseName(UPDATED_COURSE_NAME)
             .isPaidChapter(UPDATED_IS_PAID_CHAPTER);
         ChapterDTO chapterDTO = chapterMapper.toDto(updatedChapter);
 

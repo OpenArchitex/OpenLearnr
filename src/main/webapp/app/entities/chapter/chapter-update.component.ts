@@ -73,6 +73,9 @@ export class ChapterUpdateComponent implements OnInit {
     if (chapter.isPaidChapter == null) {
       chapter.isPaidChapter = false;
     }
+    chapter.courseName = this._courses.find(arrayItem => {
+      return arrayItem.id === chapter.courseID;
+    }).name;
     if (chapter.id !== undefined) {
       this.subscribeToSaveResponse(this.chapterService.update(chapter));
     } else {
