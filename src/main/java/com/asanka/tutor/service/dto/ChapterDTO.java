@@ -23,6 +23,8 @@ public class ChapterDTO implements Serializable {
     private String courseID;
 
     @NotNull
+    private String courseName;
+    @NotNull
     private Boolean isPaidChapter;
 
 
@@ -65,6 +67,12 @@ public class ChapterDTO implements Serializable {
     public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
+    public String getCourseName() {
+        return courseName;
+    }
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
     public Boolean isIsPaidChapter() {
         return isPaidChapter;
@@ -103,6 +111,7 @@ public class ChapterDTO implements Serializable {
             ", chapterNumber=" + getChapterNumber() +
             ", description='" + getDescription() + "'" +
             ", courseID='" + getCourseID() + "'" +
+            ", courseName='" + getCourseName() + "'" +
             ", isPaidChapter='" + isIsPaidChapter() + "'" +
             "}";
     }
