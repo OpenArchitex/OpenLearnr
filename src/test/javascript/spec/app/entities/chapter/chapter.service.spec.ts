@@ -21,7 +21,7 @@ describe('Service Tests', () => {
       service = injector.get(ChapterService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Chapter('ID', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', false);
+      elemDefault = new Chapter('ID', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', 'AABBCC', false);
     });
 
     describe('Service methods', () => {
