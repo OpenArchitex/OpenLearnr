@@ -65,6 +65,11 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
         return this;
     }
 
+    public Comment videoName(String videoName) {
+        this.videoName = videoName;
+        return this;
+    }
+
     public void setVideoID(String videoID) {
         this.videoID = videoID;
     }

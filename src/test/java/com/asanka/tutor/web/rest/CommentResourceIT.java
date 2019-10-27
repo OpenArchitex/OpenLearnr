@@ -125,6 +125,7 @@ public class CommentResourceIT {
     public static Comment createEntity() {
         return new Comment()
             .videoID(DEFAULT_VIDEO_ID)
+            .videoName(DEFAULT_VIDEO_NAME)
             .commentBody(DEFAULT_COMMENT_BODY)
             .likesCount(DEFAULT_LIKES_COUNT)
             .dislikesCount(DEFAULT_DISLIKES_COUNT)
@@ -141,6 +142,7 @@ public class CommentResourceIT {
     public static Comment createUpdatedEntity() {
         return new Comment()
             .videoID(UPDATED_VIDEO_ID)
+            .videoName(UPDATED_VIDEO_NAME)
             .commentBody(UPDATED_COMMENT_BODY)
             .likesCount(UPDATED_LIKES_COUNT)
             .dislikesCount(UPDATED_DISLIKES_COUNT)
@@ -409,6 +411,7 @@ public class CommentResourceIT {
         Comment updatedComment = commentRepository.findById(comment.getId()).get();
         updatedComment
             .videoID(UPDATED_VIDEO_ID)
+            .videoName(UPDATED_VIDEO_NAME)
             .commentBody(UPDATED_COMMENT_BODY)
             .likesCount(UPDATED_LIKES_COUNT)
             .dislikesCount(UPDATED_DISLIKES_COUNT)
