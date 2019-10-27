@@ -25,8 +25,8 @@
             <th scope="col"><span>Episode</span></th>
             <th scope="col"><span>Description</span></th>
             <th scope="col"><span>Url</span></th>
-            <th scope="col"><span>Course ID</span></th>
-            <th scope="col"><span>Chapter ID</span></th>
+            <th scope="col"><span>Course Name</span></th>
+            <th scope="col"><span>Chapter Name</span></th>
             <th scope="col"><span>Is Sample</span></th>
             <th scope="col"></th>
             </tr>
@@ -38,8 +38,8 @@
                 <td>{{video.episode}}</td>
                 <td>{{video.description}}</td>
                 <td>{{video.url}}</td>
-                <td>{{video.courseID}}</td>
-                <td>{{video.chapterID}}</td>
+                <td><a [routerLink]="['/course', video.courseID, 'view' ]">{{video.courseName}}</a></td>
+                <td><a [routerLink]="['/chapter', video.chapterID, 'view' ]">{{video.chapterName}}</a></td>
                 <td>{{video.isSample}}</td>
                 <td class="text-right">
                     <div class="btn-group">

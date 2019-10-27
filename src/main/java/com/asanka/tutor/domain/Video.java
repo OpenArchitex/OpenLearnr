@@ -40,8 +40,16 @@ public class Video implements Serializable {
     private String courseID;
 
     @NotNull
+    @Field("course_name")
+    private String courseName;
+
+    @NotNull
     @Field("chapter_id")
     private String chapterID;
+
+    @NotNull
+    @Field("chapter_name")
+    private String chapterName;
 
     @NotNull
     @Field("is_sample")
@@ -123,6 +131,16 @@ public class Video implements Serializable {
         return this;
     }
 
+    public Video courseName(String courseName) {
+        this.courseName = courseName;
+        return this;
+    }
+
+    public Video chapterName(String chapterName) {
+        this.chapterName = chapterName;
+        return this;
+    }
+
     public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
@@ -169,6 +187,23 @@ public class Video implements Serializable {
         this.commentList = commentList;
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getChapterName() {
+        return chapterName;
+    }
+
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName;
+    }
+
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -196,8 +231,11 @@ public class Video implements Serializable {
             ", description='" + getDescription() + "'" +
             ", url='" + getUrl() + "'" +
             ", courseID='" + getCourseID() + "'" +
+            ", courseName='" + getCourseName() + "'" +
             ", chapterID='" + getChapterID() + "'" +
+            ", chapterName='" + getChapterName() + "'" +
             ", isSample='" + isIsSample() + "'" +
             "}";
     }
+
 }

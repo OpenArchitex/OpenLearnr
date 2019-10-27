@@ -23,6 +23,11 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
     private String videoID;
 
     @NotNull
+    @Field("video_name")
+    private String videoName;
+
+
+    @NotNull
     @Field("comment_body")
     private String commentBody;
 
@@ -57,6 +62,11 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
 
     public Comment videoID(String videoID) {
         this.videoID = videoID;
+        return this;
+    }
+
+    public Comment videoName(String videoName) {
+        this.videoName = videoName;
         return this;
     }
 
@@ -136,6 +146,15 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
     public void setIsAdminComment(Boolean adminComment) {
         isAdminComment = adminComment;
     }
+
+    public String getVideoName() {
+        return videoName;
+    }
+
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
+    }
+
 // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -159,6 +178,7 @@ public class Comment extends AbstractAuditingEntity implements Serializable {
         return "Comment{" +
             "id=" + getId() +
             ", videoID='" + getVideoID() + "'" +
+            ", videoName='" + getVideoName() + "'" +
             ", commentBody='" + getCommentBody() + "'" +
             ", likesCount=" + getLikesCount() +
             ", dislikesCount=" + getDislikesCount() +

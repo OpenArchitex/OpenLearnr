@@ -20,7 +20,7 @@
             <thead>
             <tr>
             <th scope="col"><span>ID</span></th>
-            <th scope="col"><span>Video ID</span></th>
+            <th scope="col"><span>Video Name</span></th>
             <th scope="col"><span>Comment Body</span></th>
             <th scope="col"><span>Non Approved Comment/Replies</span></th>
 <!--            <th><span>Likes Count</span></th>-->
@@ -31,7 +31,7 @@
             <tbody>
             <tr *ngFor="let comment of comments ;trackBy: trackId">
                 <td><a [routerLink]="['/comment', comment.id, 'view']">{{comment.id}}</a></td>
-                <td>{{comment.videoID}}</td>
+                <td><a [routerLink]="['/video', comment.videoID, 'view' ]">{{comment.videoName}}</a></td>
                 <td>{{comment.commentBody}}</td>
                 <td>
                     <ul class="list-unstyled">

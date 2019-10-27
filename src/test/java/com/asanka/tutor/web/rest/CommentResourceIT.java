@@ -46,6 +46,10 @@ public class CommentResourceIT {
     private static final String DEFAULT_VIDEO_ID = "AAAAAAAAAA";
     private static final String UPDATED_VIDEO_ID = "BBBBBBBBBB";
 
+    private static final String DEFAULT_VIDEO_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_VIDEO_NAME = "BBBBBBBBBB";
+
+
     private static final String DEFAULT_COMMENT_BODY = "AAAAAAAAAA";
     private static final String UPDATED_COMMENT_BODY = "BBBBBBBBBB";
 
@@ -121,6 +125,7 @@ public class CommentResourceIT {
     public static Comment createEntity() {
         return new Comment()
             .videoID(DEFAULT_VIDEO_ID)
+            .videoName(DEFAULT_VIDEO_NAME)
             .commentBody(DEFAULT_COMMENT_BODY)
             .likesCount(DEFAULT_LIKES_COUNT)
             .dislikesCount(DEFAULT_DISLIKES_COUNT)
@@ -137,6 +142,7 @@ public class CommentResourceIT {
     public static Comment createUpdatedEntity() {
         return new Comment()
             .videoID(UPDATED_VIDEO_ID)
+            .videoName(UPDATED_VIDEO_NAME)
             .commentBody(UPDATED_COMMENT_BODY)
             .likesCount(UPDATED_LIKES_COUNT)
             .dislikesCount(UPDATED_DISLIKES_COUNT)
@@ -281,6 +287,24 @@ public class CommentResourceIT {
     }
 
     @Test
+    public void checkVideoNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = commentRepository.findAll().size();
+        // set the field null
+        comment.setVideoName(null);
+
+        // Create the Comment, which fails.
+        CommentDTO commentDTO = commentMapper.toDto(comment);
+
+        restCommentMockMvc.perform(post("/api/comments")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(commentDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Comment> commentList = commentRepository.findAll();
+        assertThat(commentList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void checkCommentBodyIsRequired() throws Exception {
         int databaseSizeBeforeTest = commentRepository.findAll().size();
         // set the field null
@@ -333,7 +357,7 @@ public class CommentResourceIT {
             .andExpect(jsonPath("$.[*].isApproved").value(hasItem(DEFAULT_IS_APPROVED)))
             .andExpect(jsonPath("$.[*].isAdminComment").value(hasItem(DEFAULT_IS_ADMINCOMMENT)));
     }
-    
+
     @Test
     public void getComment() throws Exception {
         // Initialize the database
@@ -387,6 +411,7 @@ public class CommentResourceIT {
         Comment updatedComment = commentRepository.findById(comment.getId()).get();
         updatedComment
             .videoID(UPDATED_VIDEO_ID)
+            .videoName(UPDATED_VIDEO_NAME)
             .commentBody(UPDATED_COMMENT_BODY)
             .likesCount(UPDATED_LIKES_COUNT)
             .dislikesCount(UPDATED_DISLIKES_COUNT)

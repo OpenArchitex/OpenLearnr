@@ -21,7 +21,19 @@ describe('Service Tests', () => {
       service = injector.get(VideoService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Video('ID', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', [{ name: 'AA', url: 'AAA' }], false);
+      elemDefault = new Video(
+        'ID',
+        'AAAAAAA',
+        0,
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAA_NAME',
+        'AAAAAAA',
+        'AAAA_NAME',
+        [{ name: 'AA', url: 'AAA' }],
+        false
+      );
     });
 
     describe('Service methods', () => {
