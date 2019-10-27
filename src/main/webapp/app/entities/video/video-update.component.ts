@@ -95,6 +95,22 @@ export class VideoUpdateComponent implements OnInit {
     if (video.isSample == null) {
       video.isSample = false;
     }
+    video.courseName = undefined;
+    const matchingCourse = this.courses.find(arrayItem => {
+      return arrayItem.id === video.courseID;
+    });
+    if (matchingCourse !== undefined) {
+      video.courseName = matchingCourse.name;
+    }
+
+    video.chapterName = undefined;
+    const matchingChapter = this.chapters.find(arrayItem => {
+      return arrayItem.id === video.chapterID;
+    });
+    if (matchingChapter !== undefined) {
+      video.chapterName = matchingChapter.name;
+    }
+
     if (video.id !== undefined) {
       this.subscribeToSaveResponse(this.videoService.update(video));
     } else {

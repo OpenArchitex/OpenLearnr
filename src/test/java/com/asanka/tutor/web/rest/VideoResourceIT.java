@@ -53,6 +53,12 @@ public class VideoResourceIT {
     private static final String DEFAULT_CHAPTER_ID = "AAAAAAAAAA";
     private static final String UPDATED_CHAPTER_ID = "BBBBBBBBBB";
 
+    private static final String DEFAULT_COURSE_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_COURSE_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CHAPTER_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_CHAPTER_NAME = "BBBBBBBBBB";
+
     private static final Boolean DEFAULT_IS_SAMPLE = false;
     private static final Boolean UPDATED_IS_SAMPLE = true;
 
@@ -106,6 +112,8 @@ public class VideoResourceIT {
             .description(DEFAULT_DESCRIPTION)
             .url(DEFAULT_URL)
             .courseID(DEFAULT_COURSE_ID)
+            .courseName(DEFAULT_COURSE_NAME)
+            .chapterName(DEFAULT_CHAPTER_NAME)
             .chapterID(DEFAULT_CHAPTER_ID)
             .isSample(DEFAULT_IS_SAMPLE);
         return video;
@@ -287,6 +295,42 @@ public class VideoResourceIT {
     }
 
     @Test
+    public void checkChapterNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = videoRepository.findAll().size();
+        // set the field null
+        video.setChapterName(null);
+
+        // Create the Video, which fails.
+        VideoDTO videoDTO = videoMapper.toDto(video);
+
+        restVideoMockMvc.perform(post("/api/videos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Video> videoList = videoRepository.findAll();
+        assertThat(videoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    public void checkCourseNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = videoRepository.findAll().size();
+        // set the field null
+        video.setCourseName(null);
+
+        // Create the Video, which fails.
+        VideoDTO videoDTO = videoMapper.toDto(video);
+
+        restVideoMockMvc.perform(post("/api/videos")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Video> videoList = videoRepository.findAll();
+        assertThat(videoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void checkIsSampleIsRequired() throws Exception {
         int databaseSizeBeforeTest = videoRepository.findAll().size();
         // set the field null
@@ -322,7 +366,7 @@ public class VideoResourceIT {
             .andExpect(jsonPath("$.[*].chapterID").value(hasItem(DEFAULT_CHAPTER_ID)))
             .andExpect(jsonPath("$.[*].isSample").value(hasItem(DEFAULT_IS_SAMPLE)));
     }
-    
+
     @Test
     public void getVideo() throws Exception {
         // Initialize the database
