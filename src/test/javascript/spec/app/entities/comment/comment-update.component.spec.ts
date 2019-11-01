@@ -8,6 +8,7 @@ import { OpenLearnrTestModule } from '../../../test.module';
 import { CommentUpdateComponent } from 'app/entities/comment/comment-update.component';
 import { CommentService } from 'app/entities/comment/comment.service';
 import { Comment } from 'app/shared/model/comment.model';
+import { Video } from 'app/shared/model/video.model';
 
 describe('Component Tests', () => {
   describe('Comment Management Update Component', () => {
@@ -26,6 +27,8 @@ describe('Component Tests', () => {
 
       fixture = TestBed.createComponent(CommentUpdateComponent);
       comp = fixture.componentInstance;
+      const videoEntity = new Video('1', 'name');
+      comp.videos = [videoEntity];
       service = fixture.debugElement.injector.get(CommentService);
     });
 

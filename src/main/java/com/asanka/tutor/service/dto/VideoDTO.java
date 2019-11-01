@@ -29,7 +29,13 @@ public class VideoDTO implements Serializable {
     private String courseID;
 
     @NotNull
+    private String courseName;
+
+    @NotNull
     private String chapterID;
+
+    @NotNull
+    private String chapterName;
 
     private List<Resource> resources;
 
@@ -109,6 +115,22 @@ public class VideoDTO implements Serializable {
         this.resources = resources;
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getChapterName() {
+        return chapterName;
+    }
+
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -139,7 +161,9 @@ public class VideoDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", url='" + getUrl() + "'" +
             ", courseID='" + getCourseID() + "'" +
+            ", courseName='" + getCourseName() + "'" +
             ", chapterID='" + getChapterID() + "'" +
+            ", chapterName='" + getChapterName() + "'" +
             ", isSample='" + isIsSample() + "'" +
             "}";
     }
