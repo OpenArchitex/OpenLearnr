@@ -137,6 +137,23 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
   public saveComment(form: NgForm) {
     this.isSaving = true;
     this.comment.videoID = this.clickedVideo.id;
+    for (const navItem of this.navItems) {
+      if (navItem.videos !== undefined) {
+        let foundVideoName: boolean;
+        foundVideoName = false;
+        for (const videoItem of navItem.videos) {
+          if (this.comment.videoID === videoItem.id) {
+            this.comment.videoName = videoItem.name;
+            foundVideoName = true;
+            break;
+          }
+        }
+        if (foundVideoName) {
+          break;
+        }
+      }
+    }
+
     this.commentsService.create(this.comment).subscribe(
       () => {
         this.giveUserCommentFeedback(form);

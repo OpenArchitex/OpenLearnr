@@ -19,6 +19,9 @@ public class CommentDTO implements Serializable {
     private String videoID;
 
     @NotNull
+    private String videoName;
+
+    @NotNull
     private String commentBody;
 
     @NotNull
@@ -136,6 +139,15 @@ public class CommentDTO implements Serializable {
         isAdminComment = adminComment;
     }
 
+    public String getVideoName() {
+        return videoName;
+    }
+
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
+    }
+
+
     // This constructor is only used for Jackson and should not be used for anything else.
     public CommentDTO () {
         // Empty constructor needed for Jackson.
@@ -167,6 +179,7 @@ public class CommentDTO implements Serializable {
         return "CommentDTO{" +
             "id=" + getId() +
             ", videoID='" + getVideoID() + "'" +
+            ", videoName='" + getVideoName() + "'" +
             ", commentBody='" + getCommentBody() + "'" +
             ", likesCount=" + getLikesCount() +
             ", dislikesCount=" + getDislikesCount() +
