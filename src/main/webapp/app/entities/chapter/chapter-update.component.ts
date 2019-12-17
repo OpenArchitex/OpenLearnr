@@ -59,6 +59,7 @@ export class ChapterUpdateComponent implements OnInit {
       chapterNumber: chapter.chapterNumber,
       description: chapter.description,
       courseID: chapter.courseID,
+      courseName: chapter.courseName,
       isPaidChapter: chapter.isPaidChapter
     });
   }
@@ -72,6 +73,13 @@ export class ChapterUpdateComponent implements OnInit {
     const chapter = this.createFromForm();
     if (chapter.isPaidChapter == null) {
       chapter.isPaidChapter = false;
+    }
+    chapter.courseName = undefined;
+    const matchingCourse = this._courses.find(arrayItem => {
+      return arrayItem.id === chapter.courseID;
+    });
+    if ( matchingCourse !== undefined ) {
+      chapter.courseName = matchingCourse.name;
     }
     if (chapter.id !== undefined) {
       this.subscribeToSaveResponse(this.chapterService.update(chapter));

@@ -6,7 +6,9 @@ This application is created as a open source content management system where stu
 
 It's our hope to improve the codebase inorder to create a full fledged web application that could be leveraged to host a content management website for all purposes such as a [MOOC](https://en.wikipedia.org/wiki/Massive_open_online_course).
 
-For instructions on how to build and run the project please refer to our [Development Documentation](https://github.com/python-sinhala-education-society/OpenLearnr/blob/master/docs/DEVELOPER_DOCUMENTATION.md). If you are interested in contibuting please refer to [Contributor Documentation](https://github.com/python-sinhala-education-society/OpenLearnr/blob/master/docs/CONTRIBUTING.md).
+For instructions on how to build and run the project please refer to our [Development Documentation](https://github.com/python-sinhala-education-society/OpenLearnr/blob/master/docs/DEVELOPER_DOCUMENTATION.md). 
+
+We welcome all contributions, so please feel free to get in touch through our [issues tracker](https://github.com/python-sinhala-education-society/OpenLearnr/issues) if you have any suggessions for improvement. Please open an issue first and once discussed and finalized you could open a pull request. If you are interested in contibuting please refer to [Contributor Documentation](https://github.com/python-sinhala-education-society/OpenLearnr/blob/master/docs/CONTRIBUTING.md) for more details.
 
 If you find any security related issue or vulnerability please refer to our [Security Policy](https://github.com/python-sinhala-education-society/OpenLearnr/blob/develop/SECURITY.md) on how to report them.
 

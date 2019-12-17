@@ -33,7 +33,7 @@
     "ngx-infinite-scroll": "7.1.0",
     "ngx-webstorage": "4.0.1",
     "rxjs": "6.5.3",
-    "stripe-angular": "0.5.0",
+    "stripe-angular": "0.6.1",
     "swagger-ui": "2.2.10",
     "tslib": "1.10.0",
     "zone.js": "0.9.1"
