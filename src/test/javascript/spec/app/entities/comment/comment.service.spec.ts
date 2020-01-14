@@ -21,7 +21,7 @@ describe('Service Tests', () => {
       service = injector.get(CommentService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Comment('ID', 'AAAAAAA', 'AAAAAAA', [], 0, 0, false);
+      elemDefault = new Comment('ID', 'AAAAAAA', 'AAAAA', 'AAAAAAA', [], 0, 0, false);
     });
 
     describe('Service methods', () => {

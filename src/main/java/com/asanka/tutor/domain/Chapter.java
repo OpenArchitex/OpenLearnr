@@ -34,6 +34,9 @@ public class Chapter implements Serializable {
     private String courseID;
 
     @NotNull
+    @Field("course_name")
+    private String courseName;
+    @NotNull
     @Field("is_paid_chapter")
     private Boolean isPaidChapter;
 
@@ -98,6 +101,16 @@ public class Chapter implements Serializable {
         this.courseID = courseID;
     }
 
+    public String getCourseName() {
+        return courseName;
+    }
+    public Chapter courseName(String courseName) {
+        this.courseName = courseName;
+        return this;
+    }
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
     public Boolean isIsPaidChapter() {
         return isPaidChapter;
     }
