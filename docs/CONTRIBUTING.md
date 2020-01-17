@@ -24,5 +24,5 @@ analysis. We strive to maintain A grade for all sections.
 - All code should ideally be accompanied with unit tests. JUnit and Jest is used for backend and front-end unit testing. Please refer to the 
 standard [JHipster documentation](https://www.jhipster.tech/running-tests/) on testing. 
 
-:snowman: This is all for now. Hope to update this document as we go along. If you have any suggessions please feel free to direct them
-through our [Gitter Channel](https://gitter.im/Python-Sinhala-Education-Society/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link). :snowman:
+:snowman: This is all for now. Hope to update this document as we go along. If you have any suggestions please feel free to open
+an issue in our [issue tracker](https://github.com/python-sinhala-education-society/OpenLearnr/issues). :snowman:
