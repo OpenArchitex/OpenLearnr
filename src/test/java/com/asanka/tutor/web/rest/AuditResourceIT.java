@@ -86,7 +86,7 @@ public class AuditResourceIT {
         // Get all the audits
         restAuditMockMvc.perform(get("/management/audits"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].principal").value(hasItem(SAMPLE_PRINCIPAL)));
     }
 
@@ -98,7 +98,7 @@ public class AuditResourceIT {
         // Get the audit
         restAuditMockMvc.perform(get("/management/audits/{id}", auditEvent.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.principal").value(SAMPLE_PRINCIPAL));
     }
 
@@ -114,7 +114,7 @@ public class AuditResourceIT {
         // Get the audit
         restAuditMockMvc.perform(get("/management/audits?fromDate="+fromDate+"&toDate="+toDate))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].principal").value(hasItem(SAMPLE_PRINCIPAL)));
     }
 
@@ -130,7 +130,7 @@ public class AuditResourceIT {
         // Query audits but expect no results
         restAuditMockMvc.perform(get("/management/audits?fromDate=" + fromDate + "&toDate=" + toDate))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(header().string("X-Total-Count", "0"));
     }
 
