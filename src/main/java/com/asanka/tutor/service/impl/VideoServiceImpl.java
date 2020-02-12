@@ -79,26 +79,31 @@ public class VideoServiceImpl implements VideoService {
         Authority adminAuthority = new Authority();
         adminAuthority.setName(AuthoritiesConstants.ADMIN);
         if (!user.isPresent()) {
-            for (Video video: videos) {
-                if (!video.isIsSample())
-                    video.setUrl(null);
-            }
+            setVideoUrlIfNotSample(videos);
         } else if (!user.get().getAuthorities().contains(adminAuthority)) {
             Set<String> chapters = user.get().getChapters();
             if (chapters == null) {
-                for (Video video: videos) {
-                    if (!video.isIsSample())
-                        video.setUrl(null);
-                }
+                setVideoUrlIfNotSample(videos);
             } else {
-                for (Video video : videos) {
-                    if (!chapters.contains(video.getChapterID()) && !video.isIsSample())
-                        video.setUrl(null);
-                }
+                setVideoUrlIfNotSampleAndChapterDoesNotContaint(videos, chapters);
             }
         }
         return videos.stream().map(videoMapper::toDto).collect(Collectors.toList());
     }
+
+	private void setVideoUrlIfNotSample(List<Video> videos) {
+		for (Video video: videos) {
+		    if (!video.isIsSample())
+		        video.setUrl(null);
+		}
+	}
+
+	private void setVideoUrlIfNotSampleAndChapterDoesNotContaint(List<Video> videos, Set<String> chapters) {
+		for (Video video : videos) {
+		    if (!chapters.contains(video.getChapterID()) && !video.isIsSample())
+		        video.setUrl(null);
+		}
+	}
 
     /**
      * Get one video by id.

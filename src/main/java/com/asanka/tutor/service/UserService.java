@@ -1,15 +1,13 @@
 package com.asanka.tutor.service;
 
-import com.asanka.tutor.config.Constants;
-import com.asanka.tutor.domain.Authority;
-import com.asanka.tutor.domain.User;
-import com.asanka.tutor.repository.AuthorityRepository;
-import com.asanka.tutor.repository.UserRepository;
-import com.asanka.tutor.security.AuthoritiesConstants;
-import com.asanka.tutor.security.SecurityUtils;
-import com.asanka.tutor.service.dto.UserDTO;
-import com.asanka.tutor.service.util.RandomUtil;
-import com.asanka.tutor.web.rest.errors.*;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +18,19 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.asanka.tutor.config.Constants;
+import com.asanka.tutor.domain.AppConstants;
+import com.asanka.tutor.domain.Authority;
+import com.asanka.tutor.domain.User;
+import com.asanka.tutor.repository.AuthorityRepository;
+import com.asanka.tutor.repository.UserRepository;
+import com.asanka.tutor.security.AuthoritiesConstants;
+import com.asanka.tutor.security.SecurityUtils;
+import com.asanka.tutor.service.dto.UserDTO;
+import com.asanka.tutor.service.util.RandomUtil;
+import com.asanka.tutor.web.rest.errors.EmailAlreadyUsedException;
+import com.asanka.tutor.web.rest.errors.InvalidPasswordException;
+import com.asanka.tutor.web.rest.errors.LoginAlreadyUsedException;
 
 /**
  * Service class for managing users.
@@ -311,7 +318,7 @@ public class UserService {
     }
 
     private void clearUserCaches(User user) {
-        Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
-        Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
+        Objects.requireNonNull(cacheManager.getCache(AppConstants.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
+        Objects.requireNonNull(cacheManager.getCache(AppConstants.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
     }
 }
