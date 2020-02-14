@@ -348,7 +348,7 @@ public class CommentResourceIT {
         // Get all the commentList
         restCommentMockMvc.perform(get("/api/comments?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(comment.getId())))
             .andExpect(jsonPath("$.[*].videoID").value(hasItem(DEFAULT_VIDEO_ID)))
             .andExpect(jsonPath("$.[*].commentBody").value(hasItem(DEFAULT_COMMENT_BODY)))
@@ -366,7 +366,7 @@ public class CommentResourceIT {
         // Get the comment
         restCommentMockMvc.perform(get("/api/comments/{id}", comment.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(comment.getId()))
             .andExpect(jsonPath("$.videoID").value(DEFAULT_VIDEO_ID))
             .andExpect(jsonPath("$.commentBody").value(DEFAULT_COMMENT_BODY))
@@ -384,7 +384,7 @@ public class CommentResourceIT {
         // Get comments for video
         restCommentMockMvc.perform(get("/api/comments/commentsForVideo/{videoID}", comment.getVideoID()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].videoID").value(hasItem(DEFAULT_VIDEO_ID)))
             .andExpect(jsonPath("$.[*].commentBody").value(hasItem(DEFAULT_COMMENT_BODY)))
             .andExpect(jsonPath("$.[*].likesCount").value(hasItem(DEFAULT_LIKES_COUNT)))
