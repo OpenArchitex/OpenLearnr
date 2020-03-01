@@ -8,6 +8,7 @@ import { OpenLearnrTestModule } from '../../../test.module';
 import { ChapterUpdateComponent } from 'app/entities/chapter/chapter-update.component';
 import { ChapterService } from 'app/entities/chapter/chapter.service';
 import { Chapter } from 'app/shared/model/chapter.model';
+import { Course } from 'app/shared/model/course.model';
 
 describe('Component Tests', () => {
   describe('Chapter Management Update Component', () => {
@@ -26,6 +27,8 @@ describe('Component Tests', () => {
 
       fixture = TestBed.createComponent(ChapterUpdateComponent);
       comp = fixture.componentInstance;
+      const entity = new Course('1234', 'name');
+      comp.courses = [entity];
       service = fixture.debugElement.injector.get(ChapterService);
     });
 

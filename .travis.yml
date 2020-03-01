@@ -1,5 +1,5 @@
 os:
-  - linux
+  - bionic
 services:
   - docker
 language: node_js
@@ -20,10 +20,8 @@ env:
     - SPRING_JPA_SHOW_SQL=false
     - JHI_DISABLE_WEBPACK_LOGS=true
     - NG_CLI_ANALYTICS="false"
-    - secure: zmmc/J8/HwIx6iCcK0+t5sZkJN0YMbHbjJawZ+AT3A+gtDtLOSx042pHOnXZmnXc7WRo2sieqB7SXtvMCv2vONW/DR7+x2QwxrS8Y/yG6On7FfTk5NjIe34wpqG8Httfmggc5LLOi8jkiGka8KEGHx32ngnerutt4FbTT5P0gWc6B8NsjJNMlL5ED1elL46xU7q2YebrZH4WfDEOANI6CsojtmU1O1Te3OX2divFpOHq2khZuZPwY1RbP3lyBrQjQbPnBxDaG2+/dtO4yEtbUH0MYu/mBZPKomvhj5mDyOvd1NXy9yCv1tChet4lYm/yzHVSh//gPwqSl4D7zM2F/F++hdF/PjaNl2CB0SnkPRpwFImlTxV/KVd1vPg1mlIvRlQ5/NhVtCHcRamXf2rmHEeNsjFOg9gyOyr2AvTkI3qz1N4r5MqOtFr+JcSk6NpeaRX2IKSMMM4QvoVRXvKToBG8yeDnqB8WPWITJDN70TeGExafp2BALXXYbry65nPPWFmG1gabyHSqz6tY7a/fzPUnzDBKwuzmN1IEf+rL9NWQ6M1PviADrHsRf5OdD58AFd6fVwz/Isa2rO+AWl4mjrtHumxlk4T/YMlK/+guUyuQWkMvS0Ul36NkmN9mq/lOBjbQ4vuW1M2QjQokw3pe9oUzrAd7s8JPsPaVumoAjfo=
+    - secure: wsK3fes8vaXLy5IPD31/2qF5clr0/Jz86VXGvF7yo1x3r18QAK+CmzofBqcp3BbW3NE4QJZax4bfKwd0nrsPA5LpnAgIxxyHP9q/sp9zNLI3pgbGaNaTNlvu3w/idqsAZaUV5JJzSikFIvrtmdFizkU+zlet2NKgOlx0Ed6sUzxa5TSy+Ln4EPrW9XSATiUlTeVGQb8mqGifhNpHvEuYvHOhcSaxXrC/hxWtLaw5/cQ477JrenIYXM+Vm0PLr1kcwApt4NB4vEkdSLK+/FRxsOEFRELeelLZQGN2wDUDLWrDKXYA8yxdbaB2BxzqGk3aQ+9So8oyNpiDWCbM/8kKuvrfNjERqHi/oREKK9c3Ghw9CmUndVPEs9a+SV9R4jbXw029CJnuJR1qT6VEHSwCVFJJT9lypgpPbgsZV1pCTMz8DGhYp6qDiP7YEy18FUmjcAC9bLFS5/WQON7iOBTqruJxeQYnH0NANy5wKUf0arLNRFzN8LpjlbK84zWNioAjwWSNM0V9UkGRUbh/mjObfOGtyKneg2ncevGOehDCXRelSmoKM3U67i6J/TsIHEmHIINKhQa/xpQQsFv+8mJuOWQS7ShuHBLeAV/us3QmWtN1KeGhlaaFlhM18MwmM5ZJWwTCMVhpUH6PdntThG3AYLM49fCVnSGnhPXSPbombJM=
 before_install:
-  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
-  - source install-jdk.sh --feature 11
   - java -version
   - sudo /etc/init.d/mysql stop
   - sudo /etc/init.d/postgresql stop
