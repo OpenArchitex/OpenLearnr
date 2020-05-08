@@ -82,7 +82,7 @@
     "protractor": "5.4.2",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.0",
-    "sass": "1.23.0",
+    "sass": "1.26.5",
     "sass-loader": "8.0.2",
     "simple-progress-webpack-plugin": "1.1.2",
     "style-loader": "0.23.1",
