@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
 
+import com.asanka.tutor.domain.AppConstants;
+
 @Configuration
 @EnableCaching
 public class CacheConfiguration {
@@ -32,8 +34,8 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            createCache(cm, com.asanka.tutor.repository.UserRepository.USERS_BY_LOGIN_CACHE);
-            createCache(cm, com.asanka.tutor.repository.UserRepository.USERS_BY_EMAIL_CACHE);
+            createCache(cm, AppConstants.USERS_BY_LOGIN_CACHE);
+            createCache(cm, AppConstants.USERS_BY_EMAIL_CACHE);
             // jhipster-needle-ehcache-add-entry
         };
     }

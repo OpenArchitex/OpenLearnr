@@ -292,7 +292,7 @@ public class ChapterResourceIT {
             .andExpect(jsonPath("$.[*].courseID").value(hasItem(DEFAULT_COURSE_ID)))
             .andExpect(jsonPath("$.[*].isPaidChapter").value(hasItem(DEFAULT_IS_PAID_CHAPTER)));
     }
-    
+
     @Test
     public void getChapter() throws Exception {
         // Initialize the database

@@ -172,7 +172,7 @@ public class CourseResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(course.getId())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
-    
+
     @Test
     public void getCourse() throws Exception {
         // Initialize the database
