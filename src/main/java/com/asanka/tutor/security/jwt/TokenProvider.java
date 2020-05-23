@@ -103,16 +103,16 @@ public class TokenProvider implements InitializingBean {
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("Invalid JWT signature.");
-            log.trace("Invalid JWT signature trace: {}", e);
+            log.trace("Invalid JWT signature trace: {0}", e);
         } catch (ExpiredJwtException e) {
             log.info("Expired JWT token.");
-            log.trace("Expired JWT token trace: {}", e);
+            log.trace("Expired JWT token trace: {0}", e);
         } catch (UnsupportedJwtException e) {
             log.info("Unsupported JWT token.");
-            log.trace("Unsupported JWT token trace: {}", e);
+            log.trace("Unsupported JWT token trace: {0}", e);
         } catch (IllegalArgumentException e) {
             log.info("JWT token compact of handler are invalid.");
-            log.trace("JWT token compact of handler are invalid trace: {}", e);
+            log.trace("JWT token compact of handler are invalid trace: {0}", e);
         }
         return false;
     }
