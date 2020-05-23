@@ -24,11 +24,12 @@ module.exports = (options) => ({
                 test: /\.html$/,
                 loader: 'html-loader',
                 options: {
-                    minimize: true,
-                    caseSensitive: true,
-                    removeAttributeQuotes:false,
-                    minifyJS:false,
-                    minifyCSS:false
+                    minimize: {
+                      caseSensitive: true,
+                      removeAttributeQuotes: false,
+                      minifyJS: false,
+                      minifyCSS: false
+                    }
                 },
                 exclude: /(src\/main\/webapp\/index.html)/
             },
