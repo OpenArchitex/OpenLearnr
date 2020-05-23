@@ -3,7 +3,7 @@ services:
   - docker
 language: node_js
 node_js:
-  - '10.16.0'
+  - '12.16.3'
 git:
   depth: false
 cache:
@@ -14,7 +14,7 @@ cache:
     - $HOME/.yarn-cache
 env:
   global:
-    - NODE_VERSION=10.16.0
+    - NODE_VERSION=12.16.3
     - SPRING_OUTPUT_ANSI_ENABLED=ALWAYS
     - SPRING_JPA_SHOW_SQL=false
     - JHI_DISABLE_WEBPACK_LOGS=true
