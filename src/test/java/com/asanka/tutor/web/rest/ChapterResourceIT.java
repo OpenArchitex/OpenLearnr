@@ -284,7 +284,7 @@ public class ChapterResourceIT {
         // Get all the chapterList
         restChapterMockMvc.perform(get("/api/chapters?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(chapter.getId())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].chapterNumber").value(hasItem(DEFAULT_CHAPTER_NUMBER)))
@@ -301,7 +301,7 @@ public class ChapterResourceIT {
         // Get the chapter
         restChapterMockMvc.perform(get("/api/chapters/{id}", chapter.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(chapter.getId()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.chapterNumber").value(DEFAULT_CHAPTER_NUMBER))

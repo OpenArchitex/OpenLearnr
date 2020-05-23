@@ -356,7 +356,7 @@ public class VideoResourceIT {
         // Get all the videoList
         restVideoMockMvc.perform(get("/api/videos?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(video.getId())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].episode").value(hasItem(DEFAULT_EPISODE)))
@@ -375,7 +375,7 @@ public class VideoResourceIT {
         // Get the video
         restVideoMockMvc.perform(get("/api/videos/{id}", video.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(video.getId()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.episode").value(DEFAULT_EPISODE))

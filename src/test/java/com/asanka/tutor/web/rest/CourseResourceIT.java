@@ -168,7 +168,7 @@ public class CourseResourceIT {
         // Get all the courseList
         restCourseMockMvc.perform(get("/api/courses?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(course.getId())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
@@ -181,7 +181,7 @@ public class CourseResourceIT {
         // Get the course
         restCourseMockMvc.perform(get("/api/courses/{id}", course.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(course.getId()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
