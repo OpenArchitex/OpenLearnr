@@ -1,5 +1,4 @@
-os:
-  - bionic
+dist: bionic
 services:
   - docker
 language: node_js
