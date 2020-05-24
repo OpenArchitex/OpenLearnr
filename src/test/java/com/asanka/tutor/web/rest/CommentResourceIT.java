@@ -3,7 +3,6 @@ package com.asanka.tutor.web.rest;
 import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.domain.Comment;
 import com.asanka.tutor.domain.CommentReply;
-import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.CommentRepository;
 import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.service.CommentService;
@@ -12,26 +11,20 @@ import com.asanka.tutor.service.dto.CommentDTO;
 import com.asanka.tutor.service.dto.UserDTO;
 import com.asanka.tutor.service.mapper.CommentMapper;
 import com.asanka.tutor.web.rest.errors.ExceptionTranslator;
-
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Validator;
-
 
 import java.util.List;
 
-import static com.asanka.tutor.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -40,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Integration tests for the {@Link CommentResource} REST controller.
  */
+@AutoConfigureMockMvc
 @SpringBootTest(classes = OpenLearnrApp.class)
 public class CommentResourceIT {
 
@@ -78,43 +72,14 @@ public class CommentResourceIT {
     private CommentMapper commentMapper;
 
     @Autowired
-    private CommentService commentService;
-
-    @Autowired
-    private CustomAuditEventRepository customAuditEventRepository;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
-    @Autowired
-    private Validator validator;
-
     private MockMvc restCommentMockMvc;
 
     private Comment comment;
 
     private CommentReply commentReply;
-
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final CommentResource commentResource = new CommentResource(commentService, userService, customAuditEventRepository);
-        this.restCommentMockMvc = MockMvcBuilders.standaloneSetup(commentResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
 
     /**
      * Create an entity for this test.

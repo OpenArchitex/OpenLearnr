@@ -4,39 +4,37 @@ import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.domain.AppConstants;
 import com.asanka.tutor.domain.Authority;
 import com.asanka.tutor.domain.User;
-import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.repository.UserRepository;
 import com.asanka.tutor.security.AuthoritiesConstants;
-import com.asanka.tutor.service.MailService;
-import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.dto.UserDTO;
 import com.asanka.tutor.service.mapper.UserMapper;
-import com.asanka.tutor.web.rest.errors.ExceptionTranslator;
 import com.asanka.tutor.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link UserResource} REST controller.
  */
+@AutoConfigureMockMvc
 @SpringBootTest(classes = OpenLearnrApp.class)
 public class UserResourceIT {
 
@@ -67,45 +65,15 @@ public class UserResourceIT {
     private UserRepository userRepository;
 
     @Autowired
-    private MailService mailService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private CustomAuditEventRepository customAuditEventRepository;
-
-    @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
 
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
     private MockMvc restUserMockMvc;
 
     private User user;
-
-    @BeforeEach
-    public void setup() {
-        cacheManager.getCache(AppConstants.USERS_BY_LOGIN_CACHE).clear();
-        cacheManager.getCache(AppConstants.USERS_BY_EMAIL_CACHE).clear();
-        UserResource userResource = new UserResource(userService, userRepository, mailService, customAuditEventRepository);
-
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setMessageConverters(jacksonMessageConverter)
-            .build();
-    }
 
     /**
      * Create a User.
