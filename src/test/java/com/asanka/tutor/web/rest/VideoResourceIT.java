@@ -149,7 +149,7 @@ public class VideoResourceIT {
         // Create the Video
         VideoDTO videoDTO = videoMapper.toDto(video);
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isCreated());
 
@@ -176,7 +176,7 @@ public class VideoResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -196,7 +196,7 @@ public class VideoResourceIT {
         VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -214,7 +214,7 @@ public class VideoResourceIT {
         VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -232,7 +232,7 @@ public class VideoResourceIT {
         VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -250,7 +250,7 @@ public class VideoResourceIT {
         VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -268,7 +268,7 @@ public class VideoResourceIT {
         VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -286,7 +286,7 @@ public class VideoResourceIT {
         VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -304,7 +304,7 @@ public class VideoResourceIT {
         VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -322,7 +322,7 @@ public class VideoResourceIT {
         VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -340,7 +340,7 @@ public class VideoResourceIT {
         VideoDTO videoDTO = videoMapper.toDto(video);
 
         restVideoMockMvc.perform(post("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -356,7 +356,7 @@ public class VideoResourceIT {
         // Get all the videoList
         restVideoMockMvc.perform(get("/api/videos?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(video.getId())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].episode").value(hasItem(DEFAULT_EPISODE)))
@@ -375,7 +375,7 @@ public class VideoResourceIT {
         // Get the video
         restVideoMockMvc.perform(get("/api/videos/{id}", video.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(video.getId()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.episode").value(DEFAULT_EPISODE))
@@ -413,7 +413,7 @@ public class VideoResourceIT {
         VideoDTO videoDTO = videoMapper.toDto(updatedVideo);
 
         restVideoMockMvc.perform(put("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isOk());
 
@@ -439,7 +439,7 @@ public class VideoResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restVideoMockMvc.perform(put("/api/videos")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(videoDTO)))
             .andExpect(status().isBadRequest());
 
@@ -457,7 +457,7 @@ public class VideoResourceIT {
 
         // Delete the video
         restVideoMockMvc.perform(delete("/api/videos/{id}", video.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database is empty

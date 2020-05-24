@@ -111,7 +111,7 @@ public class CourseResourceIT {
         // Create the Course
         CourseDTO courseDTO = courseMapper.toDto(course);
         restCourseMockMvc.perform(post("/api/courses")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(courseDTO)))
             .andExpect(status().isCreated());
 
@@ -132,7 +132,7 @@ public class CourseResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCourseMockMvc.perform(post("/api/courses")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(courseDTO)))
             .andExpect(status().isBadRequest());
 
@@ -152,7 +152,7 @@ public class CourseResourceIT {
         CourseDTO courseDTO = courseMapper.toDto(course);
 
         restCourseMockMvc.perform(post("/api/courses")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(courseDTO)))
             .andExpect(status().isBadRequest());
 
@@ -168,7 +168,7 @@ public class CourseResourceIT {
         // Get all the courseList
         restCourseMockMvc.perform(get("/api/courses?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(course.getId())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
@@ -181,7 +181,7 @@ public class CourseResourceIT {
         // Get the course
         restCourseMockMvc.perform(get("/api/courses/{id}", course.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(course.getId()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
@@ -207,7 +207,7 @@ public class CourseResourceIT {
         CourseDTO courseDTO = courseMapper.toDto(updatedCourse);
 
         restCourseMockMvc.perform(put("/api/courses")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(courseDTO)))
             .andExpect(status().isOk());
 
@@ -227,7 +227,7 @@ public class CourseResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCourseMockMvc.perform(put("/api/courses")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(courseDTO)))
             .andExpect(status().isBadRequest());
 
@@ -245,7 +245,7 @@ public class CourseResourceIT {
 
         // Delete the course
         restCourseMockMvc.perform(delete("/api/courses/{id}", course.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database is empty

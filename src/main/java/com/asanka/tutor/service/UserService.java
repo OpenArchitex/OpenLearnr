@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.asanka.tutor.config.Constants;
-import com.asanka.tutor.domain.AppConstants;
 import com.asanka.tutor.domain.Authority;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.AuthorityRepository;
@@ -318,7 +317,7 @@ public class UserService {
     }
 
     private void clearUserCaches(User user) {
-        Objects.requireNonNull(cacheManager.getCache(AppConstants.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
-        Objects.requireNonNull(cacheManager.getCache(AppConstants.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
+        Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
+        Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
     }
 }

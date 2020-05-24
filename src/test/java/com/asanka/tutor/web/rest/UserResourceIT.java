@@ -1,42 +1,41 @@
 package com.asanka.tutor.web.rest;
 
 import com.asanka.tutor.OpenLearnrApp;
-import com.asanka.tutor.domain.AppConstants;
 import com.asanka.tutor.domain.Authority;
 import com.asanka.tutor.domain.User;
-import com.asanka.tutor.repository.CustomAuditEventRepository;
 import com.asanka.tutor.repository.UserRepository;
 import com.asanka.tutor.security.AuthoritiesConstants;
-import com.asanka.tutor.service.MailService;
-import com.asanka.tutor.service.UserService;
 import com.asanka.tutor.service.dto.UserDTO;
 import com.asanka.tutor.service.mapper.UserMapper;
-import com.asanka.tutor.web.rest.errors.ExceptionTranslator;
 import com.asanka.tutor.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link UserResource} REST controller.
  */
+@AutoConfigureMockMvc
+@WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 @SpringBootTest(classes = OpenLearnrApp.class)
 public class UserResourceIT {
 
@@ -67,44 +66,20 @@ public class UserResourceIT {
     private UserRepository userRepository;
 
     @Autowired
-    private MailService mailService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private CustomAuditEventRepository customAuditEventRepository;
-
-    @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-
-    @Autowired
-    private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Autowired
-    private ExceptionTranslator exceptionTranslator;
 
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
     private MockMvc restUserMockMvc;
 
     private User user;
 
     @BeforeEach
     public void setup() {
-        cacheManager.getCache(AppConstants.USERS_BY_LOGIN_CACHE).clear();
-        cacheManager.getCache(AppConstants.USERS_BY_EMAIL_CACHE).clear();
-        UserResource userResource = new UserResource(userService, userRepository, mailService, customAuditEventRepository);
-
-        this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setMessageConverters(jacksonMessageConverter)
-            .build();
+        cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).clear();
+        cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).clear();
     }
 
     /**
@@ -149,7 +124,7 @@ public class UserResourceIT {
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
 
         restUserMockMvc.perform(post("/api/users")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(managedUserVM)))
             .andExpect(status().isCreated());
 
@@ -183,7 +158,7 @@ public class UserResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserMockMvc.perform(post("/api/users")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(managedUserVM)))
             .andExpect(status().isBadRequest());
 
@@ -211,7 +186,7 @@ public class UserResourceIT {
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(managedUserVM)))
             .andExpect(status().isBadRequest());
 
@@ -239,7 +214,7 @@ public class UserResourceIT {
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(managedUserVM)))
             .andExpect(status().isBadRequest());
 
@@ -257,7 +232,7 @@ public class UserResourceIT {
         restUserMockMvc.perform(get("/api/users")
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].login").value(hasItem(DEFAULT_LOGIN)))
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRSTNAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LASTNAME)))
@@ -271,12 +246,12 @@ public class UserResourceIT {
         // Initialize the database
         userRepository.save(user);
 
-        assertThat(cacheManager.getCache(AppConstants.USERS_BY_LOGIN_CACHE).get(user.getLogin())).isNull();
+        assertThat(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).get(user.getLogin())).isNull();
 
         // Get the user
         restUserMockMvc.perform(get("/api/users/{login}", user.getLogin()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.login").value(user.getLogin()))
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRSTNAME))
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LASTNAME))
@@ -284,7 +259,7 @@ public class UserResourceIT {
             .andExpect(jsonPath("$.imageUrl").value(DEFAULT_IMAGEURL))
             .andExpect(jsonPath("$.langKey").value(DEFAULT_LANGKEY));
 
-        assertThat(cacheManager.getCache(AppConstants.USERS_BY_LOGIN_CACHE).get(user.getLogin())).isNotNull();
+        assertThat(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).get(user.getLogin())).isNotNull();
     }
 
     @Test
@@ -319,7 +294,7 @@ public class UserResourceIT {
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
 
         restUserMockMvc.perform(put("/api/users")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(managedUserVM)))
             .andExpect(status().isOk());
 
@@ -360,7 +335,7 @@ public class UserResourceIT {
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
 
         restUserMockMvc.perform(put("/api/users")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(managedUserVM)))
             .andExpect(status().isOk());
 
@@ -412,7 +387,7 @@ public class UserResourceIT {
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
 
         restUserMockMvc.perform(put("/api/users")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(managedUserVM)))
             .andExpect(status().isBadRequest());
     }
@@ -453,7 +428,7 @@ public class UserResourceIT {
         managedUserVM.setAuthorities(Collections.singleton(AuthoritiesConstants.USER));
 
         restUserMockMvc.perform(put("/api/users")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(managedUserVM)))
             .andExpect(status().isBadRequest());
     }
@@ -466,10 +441,10 @@ public class UserResourceIT {
 
         // Delete the user
         restUserMockMvc.perform(delete("/api/users/{login}", user.getLogin())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
-        assertThat(cacheManager.getCache(AppConstants.USERS_BY_LOGIN_CACHE).get(user.getLogin())).isNull();
+        assertThat(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).get(user.getLogin())).isNull();
 
         // Validate the database is empty
         List<User> userList = userRepository.findAll();
@@ -479,10 +454,10 @@ public class UserResourceIT {
     @Test
     public void getAllAuthorities() throws Exception {
         restUserMockMvc.perform(get("/api/users/authorities")
-            .accept(TestUtil.APPLICATION_JSON_UTF8)
-            .contentType(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").value(hasItems(AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN)));
     }
