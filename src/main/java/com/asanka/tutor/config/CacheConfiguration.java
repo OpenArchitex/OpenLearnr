@@ -2,6 +2,7 @@ package com.asanka.tutor.config;
 
 import java.time.Duration;
 
+import com.asanka.tutor.repository.UserRepository;
 import org.ehcache.config.builders.*;
 import org.ehcache.jsr107.Eh107Configuration;
 
@@ -10,8 +11,6 @@ import io.github.jhipster.config.JHipsterProperties;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
-
-import com.asanka.tutor.domain.AppConstants;
 
 @Configuration
 @EnableCaching
@@ -34,17 +33,16 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            createCache(cm, AppConstants.USERS_BY_LOGIN_CACHE);
-            createCache(cm, AppConstants.USERS_BY_EMAIL_CACHE);
+            createCache(cm, UserRepository.USERS_BY_LOGIN_CACHE);
+            createCache(cm, UserRepository.USERS_BY_EMAIL_CACHE);
             // jhipster-needle-ehcache-add-entry
         };
     }
 
     private void createCache(javax.cache.CacheManager cm, String cacheName) {
         javax.cache.Cache<Object, Object> cache = cm.getCache(cacheName);
-        if (cache != null) {
-            cm.destroyCache(cacheName);
+        if (cache == null) {
+            cm.createCache(cacheName, jcacheConfiguration);
         }
-        cm.createCache(cacheName, jcacheConfiguration);
     }
 }

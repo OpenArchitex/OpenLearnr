@@ -133,7 +133,7 @@ public class ChapterResourceIT {
         // Create the Chapter
         ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
         restChapterMockMvc.perform(post("/api/chapters")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isCreated());
 
@@ -158,7 +158,7 @@ public class ChapterResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restChapterMockMvc.perform(post("/api/chapters")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
@@ -178,7 +178,7 @@ public class ChapterResourceIT {
         ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         restChapterMockMvc.perform(post("/api/chapters")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
@@ -196,7 +196,7 @@ public class ChapterResourceIT {
         ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         restChapterMockMvc.perform(post("/api/chapters")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
@@ -214,7 +214,7 @@ public class ChapterResourceIT {
         ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         restChapterMockMvc.perform(post("/api/chapters")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
@@ -232,7 +232,7 @@ public class ChapterResourceIT {
         ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         restChapterMockMvc.perform(post("/api/chapters")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
@@ -250,7 +250,7 @@ public class ChapterResourceIT {
         ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         restChapterMockMvc.perform(post("/api/chapters")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
@@ -268,7 +268,7 @@ public class ChapterResourceIT {
         ChapterDTO chapterDTO = chapterMapper.toDto(chapter);
 
         restChapterMockMvc.perform(post("/api/chapters")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
@@ -336,7 +336,7 @@ public class ChapterResourceIT {
         ChapterDTO chapterDTO = chapterMapper.toDto(updatedChapter);
 
         restChapterMockMvc.perform(put("/api/chapters")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isOk());
 
@@ -360,7 +360,7 @@ public class ChapterResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restChapterMockMvc.perform(put("/api/chapters")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chapterDTO)))
             .andExpect(status().isBadRequest());
 
@@ -378,7 +378,7 @@ public class ChapterResourceIT {
 
         // Delete the chapter
         restChapterMockMvc.perform(delete("/api/chapters/{id}", chapter.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database is empty

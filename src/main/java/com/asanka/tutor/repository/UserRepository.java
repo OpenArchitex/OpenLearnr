@@ -9,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-
-import com.asanka.tutor.domain.AppConstants;
 import com.asanka.tutor.domain.User;
 
 /**
@@ -18,21 +16,20 @@ import com.asanka.tutor.domain.User;
  */
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
+    String USERS_BY_LOGIN_CACHE = "usersByLogin";
 
-    
+    String USERS_BY_EMAIL_CACHE = "usersByEmail";
 
     Optional<User> findOneByActivationKey(String activationKey);
 
-
     List<User> findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant dateTime);
-
 
     Optional<User> findOneByResetKey(String resetKey);
 
-    @Cacheable(cacheNames = AppConstants.USERS_BY_EMAIL_CACHE)
+    @Cacheable(cacheNames = USERS_BY_EMAIL_CACHE)
     Optional<User> findOneByEmailIgnoreCase(String email);
 
-    @Cacheable(cacheNames = AppConstants.USERS_BY_LOGIN_CACHE)
+    @Cacheable(cacheNames = USERS_BY_LOGIN_CACHE)
     Optional<User> findOneByLogin(String login);
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);

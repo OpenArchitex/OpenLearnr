@@ -11,8 +11,6 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface CommentMapper extends EntityMapper<CommentDTO, Comment> {
 
-
-
     default Comment fromId(String id) {
         if (id == null) {
             return null;
