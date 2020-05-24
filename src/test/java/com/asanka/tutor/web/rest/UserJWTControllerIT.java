@@ -3,37 +3,24 @@ package com.asanka.tutor.web.rest;
 import com.asanka.tutor.OpenLearnrApp;
 import com.asanka.tutor.domain.User;
 import com.asanka.tutor.repository.UserRepository;
-import com.asanka.tutor.security.jwt.TokenProvider;
-import com.asanka.tutor.web.rest.errors.ExceptionTranslator;
 import com.asanka.tutor.web.rest.vm.LoginVM;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.not;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Integration tests for the {@link UserJWTController} REST controller.
  */
+@AutoConfigureMockMvc
 @SpringBootTest(classes = OpenLearnrApp.class)
 public class UserJWTControllerIT {
-
-    @Autowired
-    private TokenProvider tokenProvider;
-
-    @Autowired
-    private AuthenticationManagerBuilder authenticationManager;
 
     @Autowired
     private UserRepository userRepository;
@@ -42,17 +29,7 @@ public class UserJWTControllerIT {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private ExceptionTranslator exceptionTranslator;
-
     private MockMvc mockMvc;
-
-    @BeforeEach
-    public void setup() {
-        UserJWTController userJWTController = new UserJWTController(tokenProvider, authenticationManager);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(userJWTController)
-            .setControllerAdvice(exceptionTranslator)
-            .build();
-    }
 
     @Test
     public void testAuthorize() throws Exception {
