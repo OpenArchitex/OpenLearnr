@@ -10,10 +10,10 @@
     "@angular-devkit/core" "8.3.8"
     rxjs "6.4.0"
 
-"@angular-devkit/core@8.3.7":
-  version "8.3.7"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-8.3.7.tgz#b1de380922a301bc2b5960a2ce470c0938bac775"
-  integrity sha512-DByn3rUOg21rDZQXdIFbN7Dt0JgUc11kyP3TZb8kzXRKdpPZA4AwvtQ6tZveR4+n1dTDX38P1ZGDsO6bdMQivg==
+"@angular-devkit/core@8.3.26":
+  version "8.3.26"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-8.3.26.tgz#a331f02603a64fe53b9527b07e04ee18c798b9a6"
+  integrity sha512-b1ng9091o33s55/cwQYh1kboiJtj8y8z8xQWATDI9kRmNIQkWYVwVa/MzgPRJ4bzbEGG3zIUHCsp52A6vuGr2A==
   dependencies:
     ajv "6.10.2"
     fast-json-stable-stringify "2.0.0"
@@ -1277,15 +1277,15 @@
   dependencies:
     tslib "^1.9.0"
 
-"@ngtools/webpack@8.3.7":
-  version "8.3.7"
-  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-8.3.7.tgz#73ca8767937932c7ab7db9c18ed6bc9f622aa0e3"
-  integrity sha512-JPUzw08myovtT/x2dzzWVUNjFq8OHD81bvcBXdqPAQwQvHDSIdo6bKcu2qhakgagtXLJZnglKtefTJFrMG8ciw==
+"@ngtools/webpack@8.3.26":
+  version "8.3.26"
+  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-8.3.26.tgz#b534838425948fb16679d2320ca588feb08fa64a"
+  integrity sha512-w28u3Akvn37hE0HYwy/l6YrDBWxzh7TceYJz+5hRLmJu+BevSY/rNjZ22AlpVD8ZWqhFfvzJS9cuvAqDgH9rtw==
   dependencies:
-    "@angular-devkit/core" "8.3.7"
+    "@angular-devkit/core" "8.3.26"
     enhanced-resolve "4.1.0"
     rxjs "6.4.0"
-    tree-kill "1.2.1"
+    tree-kill "1.2.2"
     webpack-sources "1.4.3"
 
 "@ngx-translate/core@11.0.1":
@@ -13144,10 +13144,10 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
-tree-kill@1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.2.1.tgz#5398f374e2f292b9dcc7b2e71e30a5c3bb6c743a"
-  integrity sha512-4hjqbObwlh2dLyW4tcz0Ymw0ggoaVDMveUB9w8kFSQScdRLo0gxO9J7WFcUBo+W3C1TLdFIEwNOWebgZZ0RH9Q==
+tree-kill@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
+  integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
 
 trim-newlines@^1.0.0:
   version "1.0.0"
