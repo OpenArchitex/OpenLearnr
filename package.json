@@ -32,7 +32,7 @@
     "ngx-cookie": "4.0.2",
     "ngx-infinite-scroll": "7.1.0",
     "ngx-webstorage": "4.0.1",
-    "rxjs": "6.5.3",
+    "rxjs": "6.5.5",
     "stripe-angular": "0.6.1",
     "swagger-ui": "2.2.10",
     "tslib": "1.10.0",
