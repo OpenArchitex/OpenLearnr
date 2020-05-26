@@ -9141,10 +9141,10 @@ ngx-infinite-scroll@7.1.0:
   dependencies:
     opencollective-postinstall "^2.0.2"
 
-ngx-webstorage@4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/ngx-webstorage/-/ngx-webstorage-4.0.1.tgz#6fbca852f2a4505e6e482474197884b3f38c6873"
-  integrity sha512-itRqoT0tEoD2HX0Sq+gsBCN4I7aPh5Ew+Ctcu287f/vSnRA4vfgs4K4jPdzjo6drlnZhqjyaUObR93b6xurGww==
+ngx-webstorage@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-webstorage/-/ngx-webstorage-4.0.2.tgz#6c039c96e580d474150401085a0ff94365058732"
+  integrity sha512-OsYy/5KSC6PdWbYAjDfgT3wP1OxsNscZnapAzC1zeeYcxEhwOPfWg6AxEAbH+8IPCXXI4xeJ3fsDD07C8z/cQA==
   dependencies:
     tslib "^1.9.0"
 
