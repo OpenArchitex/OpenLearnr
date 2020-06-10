@@ -15,7 +15,7 @@
     "@angular/core": "8.0.0",
     "@angular/flex-layout": "^8.0.0-beta.27",
     "@angular/forms": "8.0.0",
-    "@angular/material": "8.0.1",
+    "@angular/material": "9.2.4",
     "@angular/platform-browser": "8.0.0",
     "@angular/platform-browser-dynamic": "8.0.0",
     "@angular/router": "8.0.0",
