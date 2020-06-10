@@ -6,6 +6,6 @@ if [[ $TRAVIS_TAG =~ $SEMVAR ]]; then
     echo $super_secret_password | gpg --passphrase-fd 0 secrets.tar.gpg
     tar xvf secrets.tar
 
-    # Deploy on AppEngine
-    ./mvnw package appengine:deploy -Pgae -DskipTests
+    # Deploy on Render
+    curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET "$RENDER_HOOK"
 fi
