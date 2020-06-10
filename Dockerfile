@@ -1,4 +1,4 @@
-FROM adoptopenjdk:11.0.7_10.1-jdk-hotspot as builder
+FROM adoptopenjdk:11-jdk-hotspot as builder
 ADD . /code/
 RUN \
     apt-get update && \
@@ -13,7 +13,7 @@ RUN \
     rm -Rf /code/ /root/.m2 /root/.cache /tmp/* /var/lib/apt/lists/* /var/tmp/*  && \
     mkdir /tmp/jhispter && mkdir /tmp/jhispter/applications
 
-FROM adoptopenjdk:11.0.7_10.1-jre-hotspot
+FROM adoptopenjdk:11-jre-hotspot
 ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
     JHIPSTER_SLEEP=0 \
     JAVA_OPTS=""
