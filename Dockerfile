@@ -21,6 +21,6 @@ RUN apt-get update && \
     apt-get install nodejs
 CMD echo "The application will start in ${JHIPSTER_SLEEP}s..." && \
     sleep ${JHIPSTER_SLEEP} && \
-    java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /openlearnr*.jar
+    java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /open-learnr*.jar
 EXPOSE 8080
 COPY --from=builder /*.jar .
