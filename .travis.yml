@@ -19,7 +19,6 @@ env:
     - SPRING_JPA_SHOW_SQL=false
     - JHI_DISABLE_WEBPACK_LOGS=true
     - NG_CLI_ANALYTICS="false"
-    - secure: wsK3fes8vaXLy5IPD31/2qF5clr0/Jz86VXGvF7yo1x3r18QAK+CmzofBqcp3BbW3NE4QJZax4bfKwd0nrsPA5LpnAgIxxyHP9q/sp9zNLI3pgbGaNaTNlvu3w/idqsAZaUV5JJzSikFIvrtmdFizkU+zlet2NKgOlx0Ed6sUzxa5TSy+Ln4EPrW9XSATiUlTeVGQb8mqGifhNpHvEuYvHOhcSaxXrC/hxWtLaw5/cQ477JrenIYXM+Vm0PLr1kcwApt4NB4vEkdSLK+/FRxsOEFRELeelLZQGN2wDUDLWrDKXYA8yxdbaB2BxzqGk3aQ+9So8oyNpiDWCbM/8kKuvrfNjERqHi/oREKK9c3Ghw9CmUndVPEs9a+SV9R4jbXw029CJnuJR1qT6VEHSwCVFJJT9lypgpPbgsZV1pCTMz8DGhYp6qDiP7YEy18FUmjcAC9bLFS5/WQON7iOBTqruJxeQYnH0NANy5wKUf0arLNRFzN8LpjlbK84zWNioAjwWSNM0V9UkGRUbh/mjObfOGtyKneg2ncevGOehDCXRelSmoKM3U67i6J/TsIHEmHIINKhQa/xpQQsFv+8mJuOWQS7ShuHBLeAV/us3QmWtN1KeGhlaaFlhM18MwmM5ZJWwTCMVhpUH6PdntThG3AYLM49fCVnSGnhPXSPbombJM=
 before_install:
   - java -version
   - sudo /etc/init.d/mysql stop
@@ -35,5 +34,3 @@ script:
   - ./mvnw com.github.eirslett:frontend-maven-plugin:yarn -Dfrontend.yarn.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
   - if [ $TRAVIS_PULL_REQUEST == "false" ]; then ./mvnw -ntp org.jacoco:jacoco-maven-plugin:prepare-agent initialize sonar:sonar -Dsonar.organization=python-sinhala-education-society -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN; fi
   - ./mvnw verify -Pprod -DskipTests
-after_success:
-  - bash ./deploy.sh;
