@@ -9084,6 +9084,13 @@ ng-jhipster@0.10.1:
   dependencies:
     tslib "^1.9.0"
 
+ng2-adsense@6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/ng2-adsense/-/ng2-adsense-6.0.3.tgz#664b33ce7af67d9fae231098693731389716a5b0"
+  integrity sha512-+QPjmrgLjNtLun7Ms7JpexGAm0wiveCumQwPElkiGRTQTLiXG5Gay5QN3mmSfYo9azfSILMpZEouO9oDI4PwhA==
+  dependencies:
+    tslib "^1.9.0"
+
 ngx-cookie@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/ngx-cookie/-/ngx-cookie-4.0.2.tgz#dc0044826cc3482b723fa70ecc6cd12af057d862"
