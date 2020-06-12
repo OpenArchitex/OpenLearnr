@@ -63,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .accessDeniedHandler(problemSupport)
         .and()
             .headers()
-            .contentSecurityPolicy("default-src 'self' https://usebasin.com/ https://www.google-analytics.com/ https://pagead2.googlesyndication.com/ https://adservice.google.ca https://adservice.google.com https://www.googletagservices.com https://tpc.googlesyndication.com; frame-src 'self' https://www.youtube.com/ https://js.stripe.com/ https://repl.it/@SudharakaP/; img-src 'self' https://avatars.dicebear.com https://www.google-analytics.com/; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com/v3/ https://www.google-analytics.com/ https://drive.google.com/ https://pagead2.googlesyndication.com/ https://adservice.google.ca https://adservice.google.com https://www.googletagservices.com https://tpc.googlesyndication.com; style-src 'self' 'unsafe-inline'")
+            .contentSecurityPolicy("default-src 'self' https://usebasin.com/ https://www.google-analytics.com/; frame-src 'self' https://www.youtube.com/ https://js.stripe.com/ https://repl.it/@SudharakaP/; img-src 'self' https://avatars.dicebear.com https://www.google-analytics.com/; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com/v3/ https://www.google-analytics.com/ https://drive.google.com/; style-src 'self' 'unsafe-inline'")
         .and()
             .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
         .and()
