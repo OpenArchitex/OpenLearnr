@@ -147,5 +147,4 @@ Desktop.ini
 ######################
 # Deployment Specific
 ######################
-gcloudkey.json
 secrets.tar
