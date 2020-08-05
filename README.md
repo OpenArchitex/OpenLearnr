@@ -18,4 +18,4 @@ Please refer to our [Code of Conduct](https://github.com/OpenArchitex/OpenLearnr
 
 `We are grateful for JetBrains for generously providing Open Source licenses to help us with our development effort.`
 
-[![JetBrains Logo](docs/images/jetbrains-logo.svg)](https://www.jetbrains.com/?from=OpenLearnr)
+[![JetBrains Logo](https://raw.githubusercontent.com/OpenArchitex/CommonAssets/master/images/jetbrains-logo.svg)](https://www.jetbrains.com/?from=CherishCakes)
