@@ -13192,10 +13192,10 @@ ts-jest@^25.0.0:
     semver "6.x"
     yargs-parser "18.x"
 
-ts-loader@6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-6.2.0.tgz#52d3993ecbc5474c1513242388e1049da0fce880"
-  integrity sha512-Da8h3fD+HiZ9GvZJydqzk3mTC9nuOKYlJcpuk+Zv6Y1DPaMvBL+56GRzZFypx2cWrZFMsQr869+Ua2slGoLxvQ==
+ts-loader@8.0.6:
+  version "8.0.6"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-8.0.6.tgz#8f47d203ef8fc95826a292a09f97a02bf1f57565"
+  integrity sha512-c8XkRbhKxFLbiIwZR7FBGWDq0MIz/QSpx3CGpj0abJxD5YVX8oDhQkJLeGbXUPRIlaX4Ajmr77fOiFVZ3gSU7g==
   dependencies:
     chalk "^2.3.0"
     enhanced-resolve "^4.0.0"
