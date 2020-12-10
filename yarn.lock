@@ -1342,6 +1342,11 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@scarf/scarf@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-1.1.0.tgz#b84b4a91cd938a688d36245b7a7db6fbc476a499"
+  integrity sha512-b2iE8kjjzzUo2WZ0xuE2N77kfnTds7ClrDxcz3Atz7h2XrNVoAPUoT75i7CY0st5x++70V91Y+c6RpBX9MX7Jg==
+
 "@schematics/angular@8.3.8":
   version "8.3.8"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-8.3.8.tgz#9b815c505517d5b23da0ebec3e7c0a8b4ed11b95"
@@ -9122,11 +9127,12 @@ ngx-cookie@4.0.2:
   dependencies:
     tslib "^1.9.0"
 
-ngx-infinite-scroll@7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-7.1.0.tgz#87dd5e0c596cd4795d2a487f7e30a0eabbb5e442"
-  integrity sha512-uytsKxUgGcPQjYMcf7FObcducQHkEsilPHZGJ3AMhOM4mtxP+YramnXXdyp2thEcuMgfNr9fBJjYnP0YcJciEQ==
+ngx-infinite-scroll@10.0.1:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-10.0.1.tgz#6f51f2f8775a7c50d1dd8bad125d4e748abbe880"
+  integrity sha512-7is0eJZ9kJPsaHohRmMhJ/QFHAW9jp9twO5HcHRvFM/Yl/R8QCiokgjwmH0/CR3MuxUanxfHZMfO3PbYTwlBEg==
   dependencies:
+    "@scarf/scarf" "^1.1.0"
     opencollective-postinstall "^2.0.2"
 
 ngx-webstorage@4.0.2:

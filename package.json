@@ -30,7 +30,7 @@
     "moment": "2.26.0",
     "ng-jhipster": "0.10.1",
     "ngx-cookie": "4.0.2",
-    "ngx-infinite-scroll": "7.1.0",
+    "ngx-infinite-scroll": "10.0.1",
     "ngx-webstorage": "4.0.2",
     "rxjs": "6.5.5",
     "stripe-angular": "0.6.1",
