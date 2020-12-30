@@ -128,9 +128,9 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
 
   public profilePicURL(name?: string): string {
     if (name) {
-      return `https://avatars.dicebear.com/v2/avataaars/${name}.svg?options[style][]=circle&options[mouth][]=smile`;
+      return `https://avatars.dicebear.com/api/avataaars/${name}.svg?style=circle&mouth[]=smile`;
     } else {
-      return `https://avatars.dicebear.com/v2/avataaars/PythonSinhala.svg?options[style][]=circle&options[mouth][]=smile`;
+      return `https://avatars.dicebear.com/api/avataaars/PythonSinhala.svg?style=circle&mouth[]=smile`;
     }
   }
 
