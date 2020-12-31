@@ -50,25 +50,33 @@ describe('Component Tests', () => {
 
     it('Should call commentAndAllReplies', () => {
       // GIVEN
+      const createdDate: Date = new Date();
       const comment: IComment = {
         commentBody: 'Test Comment',
         replies: [
-          { replyBody: 'Test Reply', isAdminReply: true, createdBy: 'Sudharaka', createdDate: new Date(), dislikesCount: 0, approved: true }
+          {
+            replyBody: 'Test Reply',
+            isAdminReply: true,
+            createdBy: 'Sudharaka',
+            createdDate,
+            dislikesCount: 0,
+            approved: true
+          }
         ],
         likesCount: 0,
         dislikesCount: 0,
         isApproved: true,
         isAdminComment: false,
         createdBy: 'Sudharaka',
-        createdDate: new Date(),
+        createdDate,
         lastModifiedBy: 'Asanka',
         lastModifiedDate: new Date()
       };
 
       // THEN
       expect(comp.commentAndAllReplies(comment)).toEqual([
-        { commentBody: 'Test Comment', index: -1, approved: true },
-        { commentBody: 'Test Reply', index: 0, approved: true }
+        { commentBody: 'Test Comment', index: -1, approved: true, createdDate },
+        { commentBody: 'Test Reply', index: 0, approved: true, createdDate }
       ]);
     });
 
