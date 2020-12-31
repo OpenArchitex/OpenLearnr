@@ -65,13 +65,13 @@ export class CommentComponent implements OnInit, OnDestroy {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  commentAndAllReplies(comment: IComment): { commentBody: string; index: number; approved: boolean }[] {
-    const commentAndReplies: { commentBody: string; index: number; approved: boolean }[] = [];
-    commentAndReplies.push({ commentBody: comment.commentBody, index: -1, approved: comment.isApproved });
+  commentAndAllReplies(comment: IComment): { commentBody: string; index: number; approved: boolean; createdDate: Date }[] {
+    const commentAndReplies: { commentBody: string; index: number; approved: boolean; createdDate: Date }[] = [];
+    commentAndReplies.push({ commentBody: comment.commentBody, index: -1, approved: comment.isApproved, createdDate: comment.createdDate });
     if (comment.replies !== undefined && comment.replies !== null) {
       for (const index of Object.keys(comment.replies)) {
         const reply: ICommentReply = comment.replies[index];
-        commentAndReplies.push({ commentBody: reply.replyBody, index: +index, approved: reply.approved });
+        commentAndReplies.push({ commentBody: reply.replyBody, index: +index, approved: reply.approved, createdDate: reply.createdDate });
       }
     }
     return commentAndReplies;

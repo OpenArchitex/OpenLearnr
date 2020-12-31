@@ -36,7 +36,7 @@
                 <td>
                     <ul class="list-unstyled">
                         <li *ngFor="let commentAndReplies of commentAndAllReplies(comment)">
-                            <button class="btn" type="submit" (click)="changeToApprove(comment, commentAndReplies)"><fa-icon [icon]="commentAndReplies.approved ? 'check': 'question'"></fa-icon> {{commentAndReplies.commentBody}}</button>
+                            <button class="btn" type="submit" (click)="changeToApprove(comment, commentAndReplies)"><fa-icon [icon]="commentAndReplies.approved ? 'check': 'question'"></fa-icon> {{commentAndReplies.commentBody}} ({{commentAndReplies.createdDate | date:'dd/MM/yy HH:mm'}})</button>
                         </li>
                         <li>
                             <div class="btn-group">
