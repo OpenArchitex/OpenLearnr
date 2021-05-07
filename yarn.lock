@@ -9115,10 +9115,10 @@ ng-jhipster@0.10.1:
   dependencies:
     tslib "^1.9.0"
 
-ngx-cookie@4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/ngx-cookie/-/ngx-cookie-4.0.2.tgz#dc0044826cc3482b723fa70ecc6cd12af057d862"
-  integrity sha512-YCak+Itql8EDkMfr9lzCNd2wEeV+uflbv2V1mi9LCzUyFcO+W53S/BbuZS5r9M8MZzUiBl4AmpEDEKYiXrb3Sw==
+ngx-cookie@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-cookie/-/ngx-cookie-4.1.1.tgz#c090e36fd25db234c83d4b603452f4efbba3fd43"
+  integrity sha512-F2pA6i2rZslQHVcLffckk7oRvMZJ0EF+h+54xrDuqu1oV43Ru2WENjyKYLgM8/ZdMvSJwsAPxYEzzJNaqcIL4g==
   dependencies:
     tslib "^1.9.0"
 

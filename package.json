@@ -29,7 +29,7 @@
     "core-js": "3.2.1",
     "moment": "2.26.0",
     "ng-jhipster": "0.10.1",
-    "ngx-cookie": "4.0.2",
+    "ngx-cookie": "4.1.1",
     "ngx-infinite-scroll": "7.1.0",
     "ngx-webstorage": "4.0.2",
     "rxjs": "6.5.5",
