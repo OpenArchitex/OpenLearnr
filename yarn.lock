@@ -1550,10 +1550,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/selenium-webdriver@4.0.9":
-  version "4.0.9"
-  resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-4.0.9.tgz#12621e55b2ef8f6c98bd17fe23fa720c6cba16bd"
-  integrity sha512-HopIwBE7GUXsscmt/J0DhnFXLSmO04AfxT6b8HAprknwka7pqEWquWDMXxCjd+NUHK9MkCe1SDKKsMiNmCItbQ==
+"@types/selenium-webdriver@4.0.14":
+  version "4.0.14"
+  resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-4.0.14.tgz#9c3353347c71ecf175def0f241560d5d1f32466a"
+  integrity sha512-jDe75y7dXpGH5teJI1cgJOhnC7/MsfqgLWbu2TuzJSv1DDn6FgaghEnRxEAbsqEsTzXMTCrottAHVJsQxL8gUw==
 
 "@types/selenium-webdriver@^3.0.0":
   version "3.0.16"
