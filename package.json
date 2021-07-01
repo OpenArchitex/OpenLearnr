@@ -34,7 +34,7 @@
     "ngx-webstorage": "4.0.2",
     "rxjs": "6.5.5",
     "stripe-angular": "0.6.1",
-    "swagger-ui": "2.2.10",
+    "swagger-ui": "3.51.1",
     "tslib": "2.0.0",
     "zone.js": "0.9.1"
   },
