@@ -279,7 +279,7 @@
         <dependency>
             <groupId>com.stripe</groupId>
             <artifactId>stripe-java</artifactId>
-            <version>12.1.0</version>
+            <version>20.64.0</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
