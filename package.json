@@ -27,7 +27,7 @@
     "@ngx-translate/http-loader": "4.0.0",
     "bootstrap": "4.5.0",
     "core-js": "3.2.1",
-    "moment": "2.26.0",
+    "moment": "2.29.2",
     "ng-jhipster": "0.10.1",
     "ngx-cookie": "4.0.2",
     "ngx-infinite-scroll": "7.1.0",
