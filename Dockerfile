@@ -1,3 +1,4 @@
+ENV JAVA_OPTS=-Xmx512m -Xms256m
 FROM adoptopenjdk:11-jdk-hotspot as builder
 ARG DECRYPTION_SECRET_ARG
 ADD . /code/
