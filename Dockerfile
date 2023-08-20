@@ -1,4 +1,3 @@
-ENV JAVA_OPTS="-Xmx512m -Xms256m"
 FROM adoptopenjdk:11-jdk-hotspot as builder
 ARG DECRYPTION_SECRET_ARG
 ADD . /code/
@@ -17,6 +16,7 @@ RUN \
     mv /code/target/*.jar /
 
 FROM adoptopenjdk:11-jre-hotspot
+ENV JAVA_OPTS="-Xmx512m -Xms256m"
 ENV SPRING_OUTPUT_ANSI_ENABLED=ALWAYS \
     JHIPSTER_SLEEP=0
 CMD echo "The application will start in ${JHIPSTER_SLEEP}s..." && \
