@@ -1,4 +1,4 @@
-package org.example.parsers
+package com.asanka.tutor.geography.parsers
 
 import kotlin.text.Regex
 

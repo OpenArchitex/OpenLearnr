@@ -1,4 +1,4 @@
-package org.example;
+package com.asanka.tutor.shopping;
 
 public class DataBaseConnectivitySettingsManager {
     private static String globalConnectionString = "jdbc:mysql://localhost:3306/default_db";
