@@ -157,13 +157,9 @@ public class AccountResource {
        );
     }
 
-    /**
-     * {@code POST   /account/reset-password/finish} : Finish to reset the password of the user.
-     *
-     * @param keyAndPassword the generated key and the new password.
-     * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
-     * @throws RuntimeException {@code 500 (Internal Server Error)} if the password could not be reset.
-     */
+    //   Finish to reset the password of the user. keyAndPassword is the generated key and the new password.
+    //   May throw a InvalidPasswordException if the password is incorrect.
+    //   May also throw RuntimeException if the password could not be reset.
     @PostMapping(path = "/account/reset-password/finish")
     public void finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
         if (!checkPasswordLength(keyAndPassword.getNewPassword())) {
